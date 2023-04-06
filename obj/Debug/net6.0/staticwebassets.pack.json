@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
     },
     {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\home-page.css",
+      "PackagePath": "staticwebassets\\css\\home-page.css"
+    },
+    {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\layout-login.css",
       "PackagePath": "staticwebassets\\css\\layout-login.css"
     },
@@ -27,6 +31,38 @@
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\3-Fried-Chicken.jpg",
+      "PackagePath": "staticwebassets\\img\\3-Fried-Chicken.jpg"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\4-eggtart.jpg",
+      "PackagePath": "staticwebassets\\img\\4-eggtart.jpg"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\Banner1.jpg",
+      "PackagePath": "staticwebassets\\img\\Banner1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\Bread.png",
+      "PackagePath": "staticwebassets\\img\\Bread.png"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\Burger-Flava.jpg",
+      "PackagePath": "staticwebassets\\img\\Burger-Flava.jpg"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\Bánh kẹp.png",
+      "PackagePath": "staticwebassets\\img\\Bánh kẹp.png"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\Lipton.jpg",
+      "PackagePath": "staticwebassets\\img\\Lipton.jpg"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\Trứng.png",
+      "PackagePath": "staticwebassets\\img\\Trứng.png"
     },
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\bg_login1.jpg",
