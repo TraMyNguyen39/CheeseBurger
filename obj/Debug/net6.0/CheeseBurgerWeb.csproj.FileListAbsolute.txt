@@ -30,3 +30,4 @@ C:\Users\DELL\OneDrive\Desktop\K21T_DT\Ki4\PBL3\CheeseBurgerWeb\obj\Debug\net6.0
 C:\Users\DELL\OneDrive\Desktop\K21T_DT\Ki4\PBL3\CheeseBurgerWeb\obj\Debug\net6.0\CheeseBurgerWeb.genruntimeconfig.cache
 C:\Users\DELL\OneDrive\Desktop\K21T_DT\Ki4\PBL3\CheeseBurgerWeb\obj\Debug\net6.0\ref\CheeseBurgerWeb.dll
 C:\Users\DELL\OneDrive\Desktop\K21T_DT\Ki4\PBL3\CheeseBurgerWeb\obj\Debug\net6.0\scopedcss\Pages\Shared\_LayoutUser.cshtml.rz.scp.css
+C:\Users\DELL\OneDrive\Desktop\K21T_DT\Ki4\PBL3\CheeseBurgerWeb\obj\Debug\net6.0\scopedcss\Pages\Shared\_LayoutLogin.cshtml.rz.scp.css

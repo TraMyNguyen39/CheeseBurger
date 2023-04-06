@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
     },
     {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\layout-login.css",
+      "PackagePath": "staticwebassets\\css\\layout-login.css"
+    },
+    {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\layout-user.css",
       "PackagePath": "staticwebassets\\css\\layout-user.css"
     },
@@ -43,6 +47,10 @@
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\logo_watch.png",
       "PackagePath": "staticwebassets\\img\\logo_watch.png"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\success4.svg",
+      "PackagePath": "staticwebassets\\img\\success4.svg"
     },
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\js\\bootstrap.min.js",

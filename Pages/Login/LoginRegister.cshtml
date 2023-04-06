@@ -1,0 +1,66 @@
+﻿@page
+@model LoginRegisterModel
+@{
+    ViewData["Title"] = "Login/Register";
+}
+
+<div class="login-wrapper">
+    <div class="form-box">
+        <div class="button-box">
+            <div id="switch-btn"></div>
+            <div class="toggle-btn">
+                <button type="button" class="button-box__toggle-btn" onclick="login()">Đăng nhập</button>
+                <button type="button" class="button-box__toggle-btn" onclick="register()">Đăng ký</button>
+            </div>
+        </div>
+        <!-- Đăng nhập -->
+        <a href="" class="logo-link">
+            <img src="~/img/logo.png" alt="" class="logo-brand">
+        </a>
+
+        <form action="" id="login" class="input-group">
+            <div class="input-item">
+                <i class="fa-solid fa-user"></i><input type="text" class="input-field" placeholder="Email/SĐT">
+            </div>
+            <div class="input-item">
+                <i class="fa-solid fa-key"></i><input type="text" class="input-field" placeholder="Mật khẩu">
+            </div>
+            <div class="checkbox-field">
+                <input type="checkbox" class="check-box"><span>Nhớ mật khẩu</span>
+            </div>
+            <button type="submit" class="submit-btn">Đăng nhập</button>
+            <a href="" class="input-group__forget">Quên mật khẩu</a>
+        </form>
+
+        <form action="" id="register" class="input-group">
+            <div class="input-item">
+                <i class="fa-solid fa-envelope"></i><input type="text" class="input-field" placeholder="Nhập Email">
+            </div>
+            <div class="input-item">
+                <i class="fa-solid fa-phone"></i><input type="text" class="input-field" placeholder="Nhập số điện thoại">
+            </div>
+            <div class="input-item">
+                <i class="fa-solid fa-key"></i><input type="text" class="input-field" placeholder="Nhập mật khẩu">
+            </div>
+            <button type="submit" class="submit-btn">Đăng ký</button>
+        </form>
+        <a href="" class="home-link"><i class="fa-solid fa-chevron-left"></i>Về trang chủ</a>
+    </div>
+
+    <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementById("switch-btn");
+
+        function register() {
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "50%"
+        }
+        function login() {
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0"
+        }
+    </script>
+</div>

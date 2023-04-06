@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CheeseBurgerWeb.Pages
 {
-    public class LoginModel : PageModel
+    public class LoginRegisterModel : PageModel
     {
-        private readonly ILogger<LoginModel> _logger;
+        private readonly ILogger<LoginRegisterModel> _logger;
 
-        public LoginModel(ILogger<LoginModel> logger)
+        public LoginRegisterModel(ILogger<LoginRegisterModel> logger)
         {
             _logger = logger;
         }
