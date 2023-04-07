@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "E8QfkUsGcw7v96EJM+CAFMlJ7OcOgulRqgt6fKeex7I=",
+  "Hash": "lFGcfj4dN/11XWrZEcIIg6//CGXjxY8UC9RuIvGOqwk=",
   "Source": "CheeseBurgerWeb",
   "BasePath": "_content/CheeseBurgerWeb",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\cart.css",
+      "SourceId": "CheeseBurgerWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\",
+      "BasePath": "_content/CheeseBurgerWeb",
+      "RelativePath": "css/cart.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\cart.css"
     },
     {
       "Identity": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\home-page.css",

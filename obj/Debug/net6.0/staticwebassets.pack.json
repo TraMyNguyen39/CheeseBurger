@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
     },
     {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\cart.css",
+      "PackagePath": "staticwebassets\\css\\cart.css"
+    },
+    {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\home-page.css",
       "PackagePath": "staticwebassets\\css\\home-page.css"
     },

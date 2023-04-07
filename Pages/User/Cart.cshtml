@@ -1,0 +1,57 @@
+﻿@page
+@model CartModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="breadcrumb-division">
+    <ol class="breadcrumb breadcrumb__edit">
+        <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+    </ol>
+</div>
+
+<div class="list-item">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col cart__table-col">STT</th>
+                    <th scope="col cart__table-col">Sản phẩm</th>
+                    <th scope="col cart__table-col">Giá</th>
+                    <th scope="col cart__table-col">Số lượng</th>
+                    <th scope="col cart__table-col">Tổng Giá</th>
+                    <th scope="col cart__table-col">Xoá</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i <= 4; i++)
+                    {
+                        <tr>
+                            <th scope="row">@(i+1)</th>
+                            <td class="d-flex align-items-center">
+                                <img src="~/img/Burger-Flava.jpg" alt="" class="cart__item-image">
+                                <p class="cart__name-item">Hamburger Gà Quay Flavar</p>
+                            </td>
+                            <td>100,000VND</td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <button type="button" class="btn btn-outline-secondary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+                                            <span class="fa fa-minus"></span>
+                                        </button>
+                                    </span>
+                                            <input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
+                                            <span class="input-group-append">
+                                                <button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="quant[1]">
+                                                    <span class="fa fa-plus"></span>
+                                                </button>
+                                            </span>
+                                </div>
+                            </td>
+                            <td>100,000VND</td>
+                            <td><i class="fa-solid fa-ban"></i></td>
+                        </tr>
+                    }
+                </tbody>
+              </table>
+        </div>
