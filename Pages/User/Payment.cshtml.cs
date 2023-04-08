@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CheeseBurgerWeb.Pages
 {
-    public class SuccesfulValideModel : PageModel
+    public class PaymenteModel : PageModel
     {
-        private readonly ILogger<SuccesfulValideModel> _logger;
+        private readonly ILogger<PaymenteModel> _logger;
 
-        public SuccesfulValideModel(ILogger<SuccesfulValideModel> logger)
+        public PaymenteModel(ILogger<PaymenteModel> logger)
         {
             _logger = logger;
         }

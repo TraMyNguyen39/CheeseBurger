@@ -4,10 +4,21 @@
     --main-color: #FA5230;
     --div-color: #FFF8EC;
     --black-color: #000;
+    --border-color: #dbdbdb;
 }
 
 * {
     box-sizing: inherit;
+}
+
+body {
+    /*    position: relative;
+    min-height: 100vh;*/
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 html {
