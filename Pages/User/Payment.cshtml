@@ -1,0 +1,127 @@
+﻿@page
+@model PaymenteModel
+@{
+	ViewData["Title"] = "Home page";
+}
+
+<div class="breadcrumb-division">
+	<ol class="breadcrumb breadcrumb__edit">
+		<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Thanh toán</li>
+	</ol>
+</div>
+
+<div class="row container payment jtf-center">
+	<form class="col-8">
+		<div class="receiver">
+			<p>Địa chỉ giao hàng</p>
+			<div class="list-receiver-item">
+				<div class="receiver-item">
+					<label>Tên người nhận</label><br>
+					<input class="receiver-item-input" type="text" name="name-receiver" id="" required>
+				</div>
+			</div>
+			<div class="list-receiver-item justify-content-between">
+				<div class="receiver-item">
+					<label>Số điện thoại</label><br>
+					<input class="receiver-item-input" type="text" name="phone-receiver" id="" required>
+				</div>
+			</div>
+			<div class="row list-receiver-item d-flex">
+				<div class="receiver-item col" style="padding-right: 5px">
+					<label>Tỉnh (Thành phố)</label><br>
+					<select class="receiver-item-input">
+						<option value="Select">Select...</option>
+						<option value="Đà Nẵng">Đà Nẵng</option>
+						<option value="Huế">Huế</option>
+						<option value="Quảng Nam">Quảng Nam</option>
+					</select>
+				</div>
+				<div class="receiver-item col" style="padding-left: 5px">
+					<label>Quận (Huyện)</label><br>
+					<select class="receiver-item-input">
+						<option value="Select">Select...</option>
+						<option value="Đà Nẵng">Hải Châu</option>
+						<option value="Đà Nẵng">Liên Chiểu</option>
+						<option value="Đà Nẵng">Ngũ Hành Sơn</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="row list-receiver-item d-flex">
+				<div class="receiver-item col" style="padding-right: 5px">
+					<label>Phường (Xã)</label><br>
+					<select class="receiver-item-input">
+						<option value="Select">Select...</option>
+						<option value="Đà Nẵng">Đà Nẵng</option>
+						<option value="Huế">Huế</option>
+						<option value="Quảng Nam">Quảng Nam</option>
+					</select>
+				</div>
+				<div class="receiver-item col" style="padding-left: 5px">
+					<label>Số nhà</label><br>
+					<input class="receiver-item-input" type="text" name="home-receiver" id="" required>
+				</div>
+			</div>
+			<div class="row-btn">
+				<button type="submit" class="submit-btn submit-btn__payment">Đặt Hàng</button>
+				<button class="home-link home-link__payment" onclick="window.location.href = 'https://localhost:44344/User/HomePage';">
+					<i class="fa-solid fa-chevron-left"></i>
+					Về trang chủ
+				</button>
+			</div>
+		</div>
+	</form>
+
+    <div class="col-4 d-flex align-items-center">
+        <div class="list-payment">
+            <div class="list-payment-item">
+                @for (var i = 0; i < 5; i++)
+				{
+					<div class="payment-item">
+						<div class="payment-item-infor">
+							<img src="~/img/Burger-Flava.jpg" alt="">
+							<div class="payment-item-detail">
+								<p>Hamburger Gà quay flavar</p>
+								<div>
+									<span>100,000<span>VND</span></span>
+									<span style="opacity: 0.6;">x1</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+            <div class="list-fee-detail">
+                <div class="fee-detail__item">
+                    <span>Tổng tiền hàng</span>
+                    <span>
+                        500,000
+                        <span>VND</span>
+                    </span>
+                </div>
+                <div class="fee-detail__item">
+                    <span>Phí vận chuyển</span>
+                    <span>
+                        13,000
+                        <span>VND</span>
+                    </span>
+                </div>
+                <div class="fee-detail__item">
+                    <span>Thuế</span>
+                    <span>
+                        0
+                        <span>%</span>
+                    </span>
+                </div>
+            </div>
+            <div class="fee-detail__item total-fee" style="font-weight: 500;">
+                <span>Tổng thanh toán</span>
+                <span>
+                    513,000
+                    <span>VND</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

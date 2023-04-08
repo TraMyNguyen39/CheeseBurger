@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "lFGcfj4dN/11XWrZEcIIg6//CGXjxY8UC9RuIvGOqwk=",
+  "Hash": "m5EAILZNRv51yPty1onjGa5xXXgNsZ5BPTv7pXequsY=",
   "Source": "CheeseBurgerWeb",
   "BasePath": "_content/CheeseBurgerWeb",
   "Mode": "Default",
@@ -151,6 +151,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\layout-user.css"
+    },
+    {
+      "Identity": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\payment.css",
+      "SourceId": "CheeseBurgerWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\",
+      "BasePath": "_content/CheeseBurgerWeb",
+      "RelativePath": "css/payment.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\payment.css"
     },
     {
       "Identity": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\site.css",

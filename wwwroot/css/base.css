@@ -12,8 +12,13 @@
 }
 
 body {
-    position: relative;
+    /*    position: relative;
+    min-height: 100vh;*/
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     min-height: 100vh;
+    flex-direction: column;
 }
 
 html {

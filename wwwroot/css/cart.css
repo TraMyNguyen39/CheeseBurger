@@ -1,1 +1,98 @@
-﻿
+﻿/* List item cart */
+.list-item {
+    margin: 40px 0 40px 0;
+    font-size: 1.6rem;
+    border-radius: 10px;
+    /* flex-grow: 1; */
+    color: var(--text-color);
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+    border: none;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.cart__name-item {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    text-transform: capitalize;
+    text-align: left;
+}
+
+    .cart__name-item:hover {
+        color: var(--text-color);
+        text-decoration: none;
+        opacity: 0.8;
+    }
+
+.cart__item-image {
+    margin: 6px 0;
+    border-radius: 6px;
+    width: 26%;
+    height: 26%;
+    margin-right: 10px;
+}
+
+.table i {
+    opacity: 0.8;
+}
+
+    .table i:hover {
+        opacity: 0.6;
+    }
+
+/* Total Fee */
+.fee-division {
+    width: 35%;
+    font-size: 1.6rem;
+    margin-bottom: 50px;
+    justify-self: right;
+}
+
+.total-fee-list {
+    margin: 16px 0;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+}
+
+.fee-detail {
+    border: 1px solid #dee2e6;
+}
+
+.fee-detail__item {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 20px;
+}
+
+/* button minus plus*/
+.table .input-group {
+    border: 1px solid #c6c6c6;
+    border-radius: 5px;
+}
+
+.input-group .minus-plus-button {
+    width: 2.2rem;
+    font-size: 1.6rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+    .input-group .minus-plus-button:active {
+        background-color: #CCC;
+    }
+
+.input-group .input-field {
+    width: 60%;
+    height: 2.6rem;
+    padding: 6px 10px;
+    border: none;
+    border-left: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
+    font-size: 1.4rem;
+    text-align: center;
+    opacity: 0.8;
+}

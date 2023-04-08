@@ -211,12 +211,20 @@ button.button-box__toggle-btn {
     width: 50%;
     height: 30px;
     left: 50%;
-    transform: translatex(-50%);
+    transform: translateX(-50%);
     margin-top: 20px;
     color: var(--white-color);
     background: linear-gradient(to right, #ee4d2d,#ff7337);
     border-radius: 20px;
     border: none;
+    outline: none;
+}
+
+.login-form .home-btn:hover {
+    opacity: 0.8;
+}
+
+.login-form .home-btn:focus {
     outline: none;
 }
 
