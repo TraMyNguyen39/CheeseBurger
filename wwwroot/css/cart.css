@@ -1,7 +1,7 @@
 ﻿/* List item cart */
 .list-item {
     margin: 40px 0 40px 0;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     border-radius: 10px;
     /* flex-grow: 1; */
     color: var(--text-color);
@@ -17,16 +17,48 @@
 .cart__name-item {
     color: var(--text-color);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 400;
     text-transform: capitalize;
     text-align: left;
 }
 
-    .cart__name-item:hover {
-        color: var(--text-color);
-        text-decoration: none;
-        opacity: 0.8;
-    }
+.cart__name-item:hover {
+     color: var(--main-color);
+     text-decoration: none;
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+    margin: 0 auto;
+    border: 1px solid #c6c6c6;
+    border-radius: 5px;
+}
+
+.minus-plus-button {
+    width: 2.2rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.minus-plus-button:active {
+    background-color: #CCC;
+    width: 2.3rem;
+}
+
+.input-field {
+    width: 60%;
+    height: 2.6rem;
+    padding: 6px 10px;
+    border: none;
+    border-left: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
+    font-size: 1.6rem;
+    text-align: center;
+    opacity: 0.8;
+    background: transparent;
+}
 
 .cart__item-image {
     margin: 6px 0;
@@ -47,7 +79,7 @@
 /* Total Fee */
 .fee-division {
     width: 35%;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     margin-bottom: 50px;
     justify-self: right;
 }
@@ -68,31 +100,20 @@
     margin: 10px 20px;
 }
 
-/* button minus plus*/
-.table .input-group {
-    border: 1px solid #c6c6c6;
-    border-radius: 5px;
+/* empty cart*/
+.empty-cart {
+    margin: 70px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.input-group .minus-plus-button {
-    width: 2.2rem;
+.empty-cart img{
+    margin: 0 auto;
+}
+
+.home-link__emptycart {
     font-size: 1.6rem;
-    color: var(--text-color);
-    cursor: pointer;
+    width: 30%;
 }
 
-    .input-group .minus-plus-button:active {
-        background-color: #CCC;
-    }
-
-.input-group .input-field {
-    width: 60%;
-    height: 2.6rem;
-    padding: 6px 10px;
-    border: none;
-    border-left: 1px solid #c6c6c6;
-    border-right: 1px solid #c6c6c6;
-    font-size: 1.4rem;
-    text-align: center;
-    opacity: 0.8;
-}

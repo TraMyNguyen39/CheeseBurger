@@ -48,10 +48,10 @@
 .header__navbar-item,
 .header__navbar--item-link {
     display: inline-block;
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: var(--white-color);
     text-decoration: none;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .header__navbar-item,
@@ -149,13 +149,13 @@
 
 .footer__heading {
     color: var(--white-color);
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: 500;
 }
 
 .footer__heading_content {
     color: var(--white-color);
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     margin-bottom: 20px;
 }
 
@@ -171,7 +171,7 @@
 }
 
 .footer_opening_text p {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     line-height: 1.2rem;
     margin-bottom: 10px;
     color: var(--white-color);
@@ -214,7 +214,7 @@
     line-height: 40px;
     background-color: var(--white-color);
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: 400;
     text-transform: uppercase;
 }
@@ -224,12 +224,12 @@
     text-decoration: none;
 }
 
-    .breadcrumb-item a:first-child {
+    .breadcrumb-item:first-child {
         margin-left: 20px;
     }
 
     .breadcrumb-item a:hover {
-        opacity: 0.8;
+        opacity: 0.6;
     }
 
 /* Submit button */

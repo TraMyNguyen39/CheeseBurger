@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\css\\cart.css"
     },
     {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\detail-food.css",
+      "PackagePath": "staticwebassets\\css\\detail-food.css"
+    },
+    {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\home-page.css",
       "PackagePath": "staticwebassets\\css\\home-page.css"
     },
@@ -27,6 +31,10 @@
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\layout-user.css",
       "PackagePath": "staticwebassets\\css\\layout-user.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\menu.css",
+      "PackagePath": "staticwebassets\\css\\menu.css"
     },
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\css\\payment.css",
@@ -45,6 +53,10 @@
       "PackagePath": "staticwebassets\\img\\3-Fried-Chicken.jpg"
     },
     {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\315935294_1667495190338863_6363304223474082833_n.jpg",
+      "PackagePath": "staticwebassets\\img\\315935294_1667495190338863_6363304223474082833_n.jpg"
+    },
+    {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\4-eggtart.jpg",
       "PackagePath": "staticwebassets\\img\\4-eggtart.jpg"
     },
@@ -57,8 +69,28 @@
       "PackagePath": "staticwebassets\\img\\Bread.png"
     },
     {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\Buger-Flavar-1.png",
+      "PackagePath": "staticwebassets\\img\\Buger-Flavar-1.png"
+    },
+    {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\Burger-Flava.jpg",
       "PackagePath": "staticwebassets\\img\\Burger-Flava.jpg"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\Burger-Flavar-2.jpg",
+      "PackagePath": "staticwebassets\\img\\Burger-Flavar-2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\Burger-Flavar-4.png",
+      "PackagePath": "staticwebassets\\img\\Burger-Flavar-4.png"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\Burger-flavar-3.jfif",
+      "PackagePath": "staticwebassets\\img\\Burger-flavar-3.jfif"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\Burger-flavar-4.jpg",
+      "PackagePath": "staticwebassets\\img\\Burger-flavar-4.jpg"
     },
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\img\\Bánh kẹp.png",
@@ -99,6 +131,10 @@
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\js\\detail-food.js",
+      "PackagePath": "staticwebassets\\js\\detail-food.js"
     },
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\K21T_DT\\Ki4\\PBL3\\CheeseBurgerWeb\\wwwroot\\js\\site.js",
