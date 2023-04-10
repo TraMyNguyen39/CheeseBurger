@@ -1,22 +1,20 @@
 ﻿@page
 @model EmptyCartModel
 @{
-	ViewData["Title"] = "Home page";
+	ViewData["Title"] = "EmptyCart";
 }
 
 <div class="breadcrumb-division">
 	<ol class="breadcrumb breadcrumb__edit">
-		<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+		<li class="breadcrumb-item"><a asp-page="/User/HomePage">Trang chủ</a></li>
 		<li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
 	</ol>
 </div>
 
-<div class="text-center" style="margin: 6.6% 0">
-	;
+<div class="empty-cart">
 	<img src="~/img/empty-cart.png" alt="Giỏ hàng trống">
-	<button class="home-link home-link__payment" onclick="window.location.href = 'https://localhost:44344/User/HomePage';"
-			style="font-size: 1.6rem">
-		<i class="fa-solid fa-cart-shopping"></i>
+	<button class="home-link home-link__emptycart" onclick="window.location.href = 'https://localhost:44344/User/Menu';">
+		<i class="fa-solid fa-chevron-left"></i>
 		Tiếp tục mua sắm
 	</button>
 </div>

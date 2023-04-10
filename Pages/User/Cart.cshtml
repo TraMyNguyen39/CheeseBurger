@@ -1,12 +1,12 @@
 ﻿@page
 @model CartModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Cart";
 }
 
 <div class="breadcrumb-division">
     <ol class="breadcrumb breadcrumb__edit">
-        <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a asp-page="/User/HomePage">Trang chủ</a></li>
         <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
     </ol>
 </div>
@@ -30,11 +30,11 @@
                     <th scope="row" style="font-weight: 500;">@(i + 1)</th>
                     <td class="d-flex align-items-center">
                         <img src="~/img/Burger-Flava.jpg" alt="" class="cart__item-image" />
-                        <a href="" class="cart__name-item">Hamburger Gà Quay Flavar</a>
+                        <a asp-page="/User/DetailFood" class="cart__name-item">Hamburger Gà Quay Flavar</a>
                     </td>
                     <td>100,000VND</td>
                     <td>
-                        <div class="input-group d-flex justify-content-center" style="width: 70%; margin: 0 auto;">
+                        <div class="input-group">
                             <div class="minus minus-plus-button">-</div>
                             <input type="text" name="qty" id="@i" value="1" class="input-field">
                             <div class="plus minus-plus-button">+</div>
@@ -83,7 +83,7 @@
                 </div>
             </div>
         </div>
-        <button class="submit-btn" onclick="window.location.href = 'https://localhost:44344/User/HomePage';">Mua Hàng</button>
+        <button class="submit-btn" onclick="window.location.href = 'https://localhost:44344/User/Payment';">Mua Hàng</button>
 
     </div>
 </div>

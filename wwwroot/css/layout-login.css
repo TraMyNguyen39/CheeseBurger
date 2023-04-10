@@ -12,7 +12,7 @@
 }
 
 .form-box {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     width: 380px;
     height: 500px;
     max-height: 70vh;
@@ -92,7 +92,7 @@ button.button-box__toggle-btn {
     .input-item i {
         color: rgba(0, 0, 0, 0.8);
         padding-top: 5px;
-        font-size: 14px;
+        font-size: 1.6rem;
         padding-right: 10px;
     }
 
@@ -128,6 +128,7 @@ button.button-box__toggle-btn {
     display: flex;
     align-items: center;
     margin-top: 20px;
+    font-size: 1.6rem;
 }
 
 .input-group .check-box {
@@ -136,7 +137,7 @@ button.button-box__toggle-btn {
 
 .input-group span {
     color: #777;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 }
 
 #login {
@@ -148,7 +149,7 @@ button.button-box__toggle-btn {
 }
 
 .input-group__forget {
-    margin-top: 26px;
+    margin-top: 20px;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -203,16 +204,16 @@ button.button-box__toggle-btn {
 
 .login-form .text {
     width: 80%;
-    margin: 25px auto;
+    margin: 20px auto;
 }
 
 .login-form .home-btn {
     position: absolute;
     width: 50%;
-    height: 30px;
+    height: 8%;
     left: 50%;
     transform: translateX(-50%);
-    margin-top: 20px;
+    margin-top: 5%;
     color: var(--white-color);
     background: linear-gradient(to right, #ee4d2d,#ff7337);
     border-radius: 20px;
