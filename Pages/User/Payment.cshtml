@@ -63,20 +63,17 @@
 					<input class="receiver-item-input" type="text" name="home-receiver" id="" required>
 				</div>
 			</div>
-			<div class="row-btn">
-				<button type="submit" class="submit-btn submit-btn__payment">Đặt Hàng</button>
-				<button class="home-link home-link__payment" onclick="window.location.href = 'https://localhost:44344/User/HomePage';">
-					<i class="fa-solid fa-chevron-left"></i>
-					Tiếp tục mua sắm
-				</button>
-			</div>
+			<button class="home-link home-link__payment" onclick="window.location.href = 'https://localhost:44344/User/HomePage';">
+				<i class="fa-solid fa-chevron-left"></i>
+				Trở về mua sắm
+			</button>
 		</div>
 	</form>
 
-    <div class="col-4 d-flex align-items-center">
-        <div class="list-payment">
-            <div class="list-payment-item">
-                @for (var i = 0; i < 5; i++)
+	<div class="col-4 d-flex align-items-center">
+		<div class="list-payment">
+			<div class="list-payment-item">
+				@for (var i = 0; i < 5; i++)
 				{
 					<div class="payment-item">
 						<div class="payment-item-infor">
@@ -92,36 +89,37 @@
 					</div>
 				}
 			</div>
-            <div class="list-fee-detail">
-                <div class="fee-detail__item">
-                    <span>Tổng tiền hàng</span>
-                    <span>
-                        500,000
-                        <span>VND</span>
-                    </span>
-                </div>
-                <div class="fee-detail__item">
-                    <span>Phí vận chuyển</span>
-                    <span>
-                        13,000
-                        <span>VND</span>
-                    </span>
-                </div>
-                <div class="fee-detail__item">
-                    <span>Thuế</span>
-                    <span>
-                        0
-                        <span>%</span>
-                    </span>
-                </div>
-            </div>
-            <div class="fee-detail__item total-fee" style="font-weight: 500;">
-                <span>Tổng thanh toán</span>
-                <span>
-                    513,000
-                    <span>VND</span>
-                </span>
-            </div>
-        </div>
-    </div>
+			<div class="list-fee-detail">
+				<div class="fee-detail__item fee-detail-item__payment">
+					<span>Tổng tiền hàng</span>
+					<span>
+						500,000
+						<span>VND</span>
+					</span>
+				</div>
+				<div class="fee-detail__item fee-detail-item__payment">
+					<span>Phí vận chuyển</span>
+					<span>
+						13,000
+						<span>VND</span>
+					</span>
+				</div>
+				<div class="fee-detail__item fee-detail-item__payment">
+					<span>Thuế</span>
+					<span>
+						0
+						<span>%</span>
+					</span>
+				</div>
+			</div>
+			<div class="fee-detail__item total-fee fee-detail-item__payment" style="font-weight: 500;">
+				<span>Tổng thanh toán</span>
+				<span>
+					513,000
+					<span>VND</span>
+				</span>
+			</div>
+			<button type="submit" class="submit-btn submit-btn__payment">Đặt Hàng</button>
+		</div>
+	</div>
 </div>

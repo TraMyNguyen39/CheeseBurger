@@ -26,11 +26,16 @@ form.col-8 {
 }
 
 .receiver-item-input {
+    font-size: 1.4rem;
     width: 100%;
     padding: 5px 0;
     border: 1px solid #c6c6c6;
     border-radius: 3px;
     outline: none;
+}
+
+.receiver-item label {
+    opacity: 0.8;
 }
 
 .receiver-item input {
@@ -42,19 +47,16 @@ form.col-8 {
 }
 
 .payment .col-4 {
-    border: 1px solid #c6c6c6;
+    box-shadow: -10px 5px 30px 1px rgba(0,0,0,.5);
     border-radius: 6px;
 }
 
 .list-payment {
-    margin: 20px auto;
+    margin: 30px auto;
     width: 90%;
+    display: flex;
+    flex-flow: column;
 }
-
-.list-payment {
-    margin-top: 30px;
-}
-
 .payment-item {
     margin-bottom: 20px;
 }
@@ -80,6 +82,10 @@ form.col-8 {
     justify-content: space-around;
 }
 
+.payment-item-detail span {
+    font-size: 1.6rem;
+}
+
 .list-fee-detail {
     border-top: 1px solid #c6c6c6;
     border-bottom: 1px solid #c6c6c6;
@@ -87,20 +93,21 @@ form.col-8 {
     margin: 20px 0;
 }
 
-.row-btn {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.fee-detail-item__payment {
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .submit-btn__payment {
-    margin-bottom: 30px;
+    margin-top: 20px;
+    width: 90%;
+    align-self: center;
 }
 
 .home-link__payment {
-    width: 50%;
-    height: 36px;
+    width: calc(50% - 10px);
+    height: 34px;
+    margin-top: 40px;
 }
 
 

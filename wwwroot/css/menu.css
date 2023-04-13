@@ -23,11 +23,15 @@
         padding-bottom: 15px;
 }
 
-button.category-filter-name {
+a.category-filter-name {
     border: none;
-    background: var(--white-color);
+    color: var(--text-color);
     margin: 5px 0;
-    outline: none;
+    text-decoration: none;
+}
+
+a.category-filter-name:hover {
+    opacity: 0.8;
 }
 
 .cost-filter-name {

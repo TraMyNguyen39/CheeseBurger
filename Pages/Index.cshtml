@@ -4,7 +4,47 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="">
+    <div class="banner">
+        <img src="~/img/Banner1.jpg" alt="Ảnh banner" class="bnner-style">
+    </div>
+    <div class="categoryView">
+        <div class="category-text">
+            <span class="sp sp-spc">Chọn </span><span class="sp">Danh mục</span>
+        </div>
+        <img src="~/img/Burger-Flava.jpg" alt="Ảnh Burger" class="img-size">
+        <img src="~/img/3-Fried-Chicken.jpg" alt="Ảnh Fried Chicken" class="img-size">
+        <img src="~/img/4-eggtart.jpg" alt="Ảnh Eggtart" class="img-size">
+        <img src="~/img/Lipton.jpg" alt="Ảnh Lipton" class="img-size">
+        <a asp-page="" class="button">HAMBUGER</a>
+        <a asp-page="" class="button">GÀ RÁN - GÀ QUAY</a>
+        <a asp-page="" class="button">TRÁNG MIỆNG</a>
+        <a asp-page="" class="button">THỨC UỐNG</a>
+    </div>
+    <div class="introduce">
+        <div class="introduce-text">
+            <span class="sp sp-spc">Về </span><span class="sp">Chúng tôi</span>
+        </div>
+        
+        <div class="row">
+            <div class="introduce-list-item col-5">
+                <h3 class="introduce-content-line1">Chúng tôi</h3>
+                <h3 class="introduce-content-line2">tạo ra những món ăn ngon nhất</h3>
+                <p class="introduce-decription">Tất cả những gì mà chúng tôi phải làm là mang đến những hương vị tuyệt vời trong từng món ăn, mang lại niềm vui ẩm thực cho tất cả mọi người. Hãy cùng “Cheese” khi ăn “Burger”!</p>
+                <div class="introduce-list">
+                    <span><i class="fa-solid fa-check"></i> Thức ăn ngon</span><br>
+                    <span><i class="fa-solid fa-check"></i> Đạt chất lượng và vệ sinh</span><br>
+                    <span><i class="fa-solid fa-check"></i> Phục vụ tận tình</span>
+                </div>
+            </div>
+            <div class="introduce-list-item col-7">
+                <img src="~/img/Trứng.png" alt="Ảnh EggBread" class="eggbread-img">
+                <div class="row introduce-img-row">
+                    <img src="~/img/Bread.png" alt="Ảnh Bread" class="bread col-6">
+                    <img src="~/img/Bánh kẹp.png" alt="Ảnh BurgerBread" class="burger-bread-img col-6">
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
