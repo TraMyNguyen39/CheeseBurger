@@ -1,7 +1,17 @@
+using CheeseBurgerWeb.Model;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+var service = builder.Services;
+service.AddDbContext<CheeseBurgerContext>(option =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("Default");
+    option.UseSqlServer(connectionString);
+    //option.UseSqlServer(connectionString);
+});
 
 var app = builder.Build();
 
