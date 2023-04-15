@@ -32,8 +32,8 @@ namespace CheeseBurgerWeb.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -43,53 +43,71 @@ namespace CheeseBurgerWeb.Migrations
                     b.Property<bool>("isDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("isStaff")
+                        .HasColumnType("bit");
+
                     b.HasKey("AccountID");
 
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Admin", b =>
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Address", b =>
                 {
-                    b.Property<int>("AdminID")
+                    b.Property<int>("AddressID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressID"));
 
-                    b.Property<int>("AccountID")
+                    b.Property<int>("NumberHouse")
                         .HasColumnType("int");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                    b.Property<int>("StreetID")
+                        .HasColumnType("int");
 
-                    b.Property<string>("AdminName")
+                    b.HasKey("AddressID");
+
+                    b.HasIndex("StreetID");
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Cart", b =>
+                {
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.Property<int>("FoodID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(2);
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("CustomerID", "FoodID");
+
+                    b.HasIndex("FoodID");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Category", b =>
+                {
+                    b.Property<int>("CategoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryID"));
+
+                    b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("Birth")
-                        .HasColumnType("datetime2");
+                    b.HasKey("CategoryID");
 
-                    b.Property<bool>("Gender")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<int>("RoleID")
-                        .HasColumnType("int");
-
-                    b.HasKey("AdminID");
-
-                    b.HasIndex("AccountID");
-
-                    b.HasIndex("RoleID");
-
-                    b.ToTable("Admins");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Customer", b =>
@@ -103,10 +121,8 @@ namespace CheeseBurgerWeb.Migrations
                     b.Property<int>("AccountID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                    b.Property<int>("AddressID")
+                        .HasColumnType("int");
 
                     b.Property<string>("CustomerName")
                         .IsRequired()
@@ -124,7 +140,298 @@ namespace CheeseBurgerWeb.Migrations
 
                     b.HasIndex("AccountID");
 
+                    b.HasIndex("AddressID");
+
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.District", b =>
+                {
+                    b.Property<int>("DistrictID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DistrictID"));
+
+                    b.Property<string>("DistrictName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("DistrictID");
+
+                    b.ToTable("District");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Food", b =>
+                {
+                    b.Property<int>("FoodID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FoodID"));
+
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FoodName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ImageFood")
+                        .IsRequired()
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("FoodID");
+
+                    b.HasIndex("CategoryID");
+
+                    b.ToTable("Foods");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Food_Ingredients", b =>
+                {
+                    b.Property<int>("FoodID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.Property<int>("IngredientsId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(2);
+
+                    b.Property<int>("QuantityIG")
+                        .HasColumnType("int");
+
+                    b.HasKey("FoodID", "IngredientsId");
+
+                    b.HasIndex("IngredientsId");
+
+                    b.ToTable("Food_Ingredients");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.ImportOrder", b =>
+                {
+                    b.Property<int>("ImportOrderID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImportOrderID"));
+
+                    b.Property<DateTime>("DateIO")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IOName")
+                        .IsRequired()
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("StaffID")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<float>("TMoneyIO")
+                        .HasColumnType("real");
+
+                    b.HasKey("ImportOrderID");
+
+                    b.HasIndex("StaffID");
+
+                    b.ToTable("ImportOrders");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.ImportOrders_Ingredients", b =>
+                {
+                    b.Property<int>("ImportOrderID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImportOrderID"));
+
+                    b.Property<int>("IngredientsID")
+                        .HasColumnType("int");
+
+                    b.Property<float>("PriceIO")
+                        .HasColumnType("real");
+
+                    b.Property<int>("QuantityIO")
+                        .HasColumnType("int");
+
+                    b.HasKey("ImportOrderID");
+
+                    b.HasIndex("IngredientsID");
+
+                    b.ToTable("ImportOrders_Ingredients");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Ingredients", b =>
+                {
+                    b.Property<int>("IngredientsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IngredientsId"));
+
+                    b.Property<string>("IngredientsName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<float>("IngredientsPrice")
+                        .HasColumnType("real");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MeasureID")
+                        .HasColumnType("int");
+
+                    b.HasKey("IngredientsId");
+
+                    b.HasIndex("MeasureID");
+
+                    b.ToTable("Ingredients");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Measure", b =>
+                {
+                    b.Property<int>("MeasureID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MeasureID"));
+
+                    b.Property<string>("MeasureName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("MeasureID");
+
+                    b.ToTable("Measures");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Order_Food", b =>
+                {
+                    b.Property<int>("OrderDetID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.Property<int>("FoodID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(2);
+
+                    b.Property<int>("OrdersOrderID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuantityOG")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderDetID", "FoodID");
+
+                    b.HasIndex("FoodID");
+
+                    b.HasIndex("OrdersOrderID");
+
+                    b.ToTable("Order_Foods");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Orders", b =>
+                {
+                    b.Property<int>("OrderID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
+
+                    b.Property<int>("AddressID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("SaleDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("StaffID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StatusOdr")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<float>("TotalMoney")
+                        .HasColumnType("real");
+
+                    b.HasKey("OrderID");
+
+                    b.HasIndex("AddressID");
+
+                    b.HasIndex("CustomerID");
+
+                    b.HasIndex("StaffID");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Review", b =>
+                {
+                    b.Property<int>("ReviewID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReviewID"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateReview")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FoodID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Img")
+                        .IsRequired()
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Star")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReviewID");
+
+                    b.HasIndex("CustomerID");
+
+                    b.HasIndex("FoodID");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Role", b =>
@@ -145,11 +452,286 @@ namespace CheeseBurgerWeb.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Admin", b =>
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Staff", b =>
+                {
+                    b.Property<int>("StaffID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffID"));
+
+                    b.Property<int?>("AccountID")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AddressID")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Gender")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PhoneST")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<int?>("RoleID")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("StaffName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("StaffID");
+
+                    b.HasIndex("AccountID");
+
+                    b.HasIndex("AddressID");
+
+                    b.HasIndex("RoleID");
+
+                    b.ToTable("Staffs");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Street", b =>
+                {
+                    b.Property<int>("StreetID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StreetID"));
+
+                    b.Property<string>("StreetName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("WardID")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("StreetID");
+
+                    b.HasIndex("WardID");
+
+                    b.ToTable("Streets");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Ward", b =>
+                {
+                    b.Property<int>("WardId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WardId"));
+
+                    b.Property<int?>("DistrictID")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("WardName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("WardId");
+
+                    b.HasIndex("DistrictID");
+
+                    b.ToTable("Wards");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Address", b =>
+                {
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Street", "Street")
+                        .WithMany()
+                        .HasForeignKey("StreetID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Street");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Cart", b =>
+                {
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Food", "Food")
+                        .WithMany()
+                        .HasForeignKey("FoodID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Food");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Customer", b =>
                 {
                     b.HasOne("CheeseBurgerWeb.Model.Entities.Account", "Account")
                         .WithMany()
                         .HasForeignKey("AccountID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Food", b =>
+                {
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Food_Ingredients", b =>
+                {
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Food", "Food")
+                        .WithMany()
+                        .HasForeignKey("FoodID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Ingredients", "Ingredients")
+                        .WithMany()
+                        .HasForeignKey("IngredientsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Food");
+
+                    b.Navigation("Ingredients");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.ImportOrder", b =>
+                {
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Staff", "Staff")
+                        .WithMany()
+                        .HasForeignKey("StaffID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Staff");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.ImportOrders_Ingredients", b =>
+                {
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Ingredients", "Ingredients")
+                        .WithMany()
+                        .HasForeignKey("IngredientsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredients");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Ingredients", b =>
+                {
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Measure", "Measure")
+                        .WithMany()
+                        .HasForeignKey("MeasureID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Measure");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Order_Food", b =>
+                {
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Food", "Food")
+                        .WithMany()
+                        .HasForeignKey("FoodID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Orders", "Orders")
+                        .WithMany()
+                        .HasForeignKey("OrdersOrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Food");
+
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Orders", b =>
+                {
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Staff", "Staff")
+                        .WithMany()
+                        .HasForeignKey("StaffID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Staff");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Review", b =>
+                {
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Food", "Food")
+                        .WithMany()
+                        .HasForeignKey("FoodID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Food");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Staff", b =>
+                {
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -161,18 +743,31 @@ namespace CheeseBurgerWeb.Migrations
 
                     b.Navigation("Account");
 
+                    b.Navigation("Address");
+
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Customer", b =>
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Street", b =>
                 {
-                    b.HasOne("CheeseBurgerWeb.Model.Entities.Account", "Account")
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.Ward", "Ward")
                         .WithMany()
-                        .HasForeignKey("AccountID")
+                        .HasForeignKey("WardID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Account");
+                    b.Navigation("Ward");
+                });
+
+            modelBuilder.Entity("CheeseBurgerWeb.Model.Entities.Ward", b =>
+                {
+                    b.HasOne("CheeseBurgerWeb.Model.Entities.District", "District")
+                        .WithMany()
+                        .HasForeignKey("DistrictID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("District");
                 });
 #pragma warning restore 612, 618
         }

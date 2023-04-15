@@ -12,12 +12,11 @@ namespace CheeseBurgerWeb.Model.Entities
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; } = string.Empty;
         public bool Gender { get; set; }
-        [StringLength(255)]
-        public string Address { get; set; } = string.Empty;
+        public int AddressID { get; set; }
+        [ForeignKey("AddressID")]
+        public Address Address { get; set; }
         public int AccountID { get; set; }
-        [Required]
         [ForeignKey("AccountID")]
-        public Account Account { get; set; } 
-
+        public Account Account { get; set; }
     }
 }
