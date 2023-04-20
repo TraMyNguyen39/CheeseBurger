@@ -1,0 +1,189 @@
+﻿@page
+@model ManageAccountModel
+@{
+    ViewData["Title"] = "ManageAccount";
+}
+<link rel="stylesheet" href="~/css/manage-account.css" asp-append-version="true" />
+<body>
+    <main>
+        <div class="main__form-detail">
+            <div class="main__sliderbar col-2">
+                <ul class="categories__list">
+                    <li class="categories__item active">
+                        <a class="nav-link" href="~/Admin/ManageAccount"> Quản lý tài khoản</a>
+                    </li>
+                    <li class="categories__item">
+                        <a class="nav-link" href="~/Admin/ManageUser">  Quản lý người dùng</a>
+                    </li>
+                    <li class="categories__item">
+                        <a class="nav-link" href="~/Admin/ManageIngredient">  Quản lý nguyên liệu</a>
+                    </li>
+                    <li class="categories__item">
+                        <a class="nav-link" href="~/Admin/ManageCategories">   Quản lý danh mục</a>
+                    </li>
+                    <li class="categories__item">
+                        <a class="nav-link" href="~/Admin/ManageOrder">   Quản lý đơn hàng</a>
+                    </li>
+                    <li class="categories__item ">
+                        <a class="nav-link" href="~/Admin/ManageFood">   Quản lý món ăn</a>
+                    </li>
+                    <li class="categories__item ">
+                        <a class="nav-link" href="~/Admin/SyncRevenue">   Thống kê doanh thu</a>
+                    </li>
+                </ul>
+                <ul class="categories__button">
+                    <li class="categories__item-button">
+                        <img src="~/img/Logout.png" alt="" style="height:30px">
+                        <a class="nav-link" href="#"> Đăng xuất</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blank_area col-2"></div>
+            <div class="whole__information col-7 d-flex align-items-center">
+                <div class="main__information">
+                    <div class="account__information d-flex justify-content-between">
+                        <p class="account__information-label">Chi tiết tài khoản</p>
+                        <a href="~/Admin/ChangePassword">Bạn muốn đổi mật khẩu?</a>
+                    </div>
+                    <div class="account__information-details d-flex">
+                        <div class="account__information-key col-3">
+                            <p>Tên người dùng</p>
+                            <p>Họ và tên</p>
+                            <p>Chức vụ</p>
+                            <p>Ngày sinh</p>
+                            <p>Địa chỉ email</p>
+                            <p>Số điện thoại</p>
+                            <p>Địa chỉ</p>
+                        </div>
+                        <div class="blank_area col-2"></div>
+                        <div class="account__information-value col-7">
+                            <p>mymymy</p>
+                            <p>Nguyễn Thị Trà My</p>
+                            <p>Quản trị viên</p>
+                            <p>19/11/2003</p>
+                            <p>nguyentramy@gmail.com</p>
+                            <p>0835121369</p>
+                            <p>92 Nguyễn Lâm, phường Tứ Hạ, huyện Hương Trà, tỉnh Thừa Thiên Huế </p>
+                        </div>
+                    </div>
+                    <div class="button__change-account">
+                        <button id="button__accept" type="submit">Thay đổi thông tin tài khoản</button>
+                    </div>
+                </div>
+            </div>
+            <div class="blank_area col-1"></div>
+        </div>
+    </main>
+
+    <!-- Update Account -->
+    <div class="modal__customer-update">
+        <div class="modal__customer-information">
+            <div class="button__exit d-flex justify-content-end">
+                <span class="exit__surround d-flex justify-content-center align-items-center">
+                    <i class="fas fa-times"></i>
+                </span>
+            </div>
+            <div class="modal__customer-details">
+                <div class="modal__customer-label d-flex align-items-center">
+                    <p class="modal__label-cate">Chi tiết tài khoản</p>
+                    <p class="modal__label-main">Nguyễn Thị Trà My</p>
+                </div>
+                <div class="customer__name-account">
+                    <p class="label">Họ và tên</p>
+                    <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+                </div>
+                <div class="customer__position-categories d-flex justify-content-between">
+                    <div class="customer__position col-6">
+                        <p class="label">Chức vụ</p>
+                        <div class="form__comboBoxList">
+                            <form action="dropList" method="post">
+                                <select name="combobox_Item">
+                                    <option value="" selected></option>
+                                    <option value="">Khách hàng</option>
+                                    <option value="">Quản lý</option>
+                                    <option value="">Nhân viên</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="account__calendar col-6">
+                        <p class="label">Ngày sinh</p>
+                        <form action="action_page.php">
+                            <input type="date" name="bday">
+                        </form>
+                    </div>
+
+                </div>
+                <div class="account__email-telephone d-flex justify-content-between">
+                    <div class="customer__email col-6">
+                        <p class="label">Địa chỉ email</p>
+                        <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+                    </div>
+                    <div class="customer__telephone col-6">
+                        <p class="label">Số điện thoại</p>
+                        <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+                    </div>
+                </div>
+                <div class="customer__city-district d-flex justify-content-between">
+                    <div class="customer__city-details col-6">
+                        <div class="form-group-start">
+                            <label class="control-label">Tỉnh(thành phố): </label>
+                            <div class="form__comboBoxList">
+                                <form action="dropList" method="post">
+                                    <select name="combobox_Item">
+                                        <option value="" selected>Chọn tỉnh(thành phố)</option>
+                                        <option value="">Hà Nội</option>
+                                        <option value="">Hải Phòng</option>
+                                        <option value="">Quảng Nam</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="customer__district-details col-6">
+                        <div class="form__group-district">
+                            <label class="control-label">Quận(huyện): </label>
+                            <div class="form__comboBoxList">
+                                <form action="dropList" method="post">
+                                    <select name="combobox_Item">
+                                        <option value="" selected>Chọn quận(huyện)</option>
+                                        <option value="">Hải Châu</option>
+                                        <option value="">Sơn Trà</option>
+                                        <option value="">Thanh Khê</option>
+                                        <option value="">Ngũ Hành Sơn</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="customer__ward-address d-flex justify-content-between">
+                    <div class="customer__ward col-6">
+                        <p class="label">Phường(Xã)</p>
+                        <div class="form__comboBoxList">
+                            <form action="dropList" method="post">
+                                <select name="combobox_Item">
+                                    <option value="" selected>Chọn phường(xã)</option>
+                                    <option value="">Hòa Minh</option>
+                                    <option value="">Hòa Khánh Bắc</option>
+                                    <option value="">Hòa Khánh Nam</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="customer__adress col-6">
+                        <p class="label">Số nhà</p>
+                        <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+                    </div>
+                </div>
+                <div class="button__customer-record">
+                    <button class="" type="submit">Lưu thông tin tài khoản</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Update Account -->
+    <!-- End Update Account -->
+    <script src="~/js/manage-account.js"></script>
+</body>
+

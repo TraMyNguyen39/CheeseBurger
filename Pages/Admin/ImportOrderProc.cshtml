@@ -1,0 +1,112 @@
+﻿@page
+@model ImportOrderProcModel
+@{
+    ViewData["Title"] = "ImportOrderProc";
+}
+<link rel="stylesheet" href="~/css/import__order-procs.css" asp-append-version="true" />
+<body>
+    <main>
+        <div class="main__form-detail">
+            <div class="main__sliderbar col-2">
+                <ul class="categories__list">
+                    <li class="categories__item">
+                        <a class="nav-link" href="~/Admin/ManageAccount"> Quản lý tài khoản</a>
+                    </li>
+                    <li class="categories__item">
+                        <a class="nav-link" href="~/Admin/ManageUser">  Quản lý người dùng</a>
+                    </li>
+                    <li class="categories__item">
+                        <a class="nav-link" href="~/Admin/ManageIngredient">  Quản lý nguyên liệu</a>
+                    </li>
+                    <li class="categories__item">
+                        <a class="nav-link" href="~/Admin/ManageCategories">   Quản lý danh mục</a>
+                    </li>
+                    <li class="categories__item active">
+                        <a class="nav-link" href="~/Admin/ManageOrder">   Quản lý đơn hàng</a>
+                    </li>
+                    <li class="categories__item ">
+                        <a class="nav-link" href="~/Admin/ManageFood">   Quản lý món ăn</a>
+                    </li>
+                    <li class="categories__item ">
+                        <a class="nav-link" href="~/Admin/SyncRevenue">   Thống kê doanh thu</a>
+                    </li>
+                </ul>
+                <ul class="categories__button">
+                    <li class="categories__item-button">
+                        <img src="~/img/Logout.png" alt="" style="height:30px">
+                        <a class="nav-link" href="#"> Đăng xuất</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blank__area col-2"></div>
+            <div class="ingredient__form col-7">
+                <div class="ingredient__form-details">
+                     <p class="ingredient__label-specific">Đơn nhập nguyên liệu</p>
+                     <div class="ingredient__label-wrapper d-flex">
+                        <p class="ingredient__label">Nguyên liệu:</p>
+                        <p class="ingredient__label-mass">Khối lượng:</p>
+                     </div>
+                     <div class="ingredient__label-list d-flex align-items-center">
+                        <div class="form-group">
+                            <div class="form__comboBox">
+                                <form action="dropList" method="post">
+                                    <select name="combobox_Item">
+                                    <option value="" selected>Salad</option>
+                                    <option value="">Cà chua</option>
+                                    <option value="">Ớt</option>
+                                    </select>
+                                </form>
+                            </div>          
+                         </div>
+                         <div class="search__form">
+                            <form class="form-inline my-2 my-lg-0">
+                              <div class="input-wrapper">
+                                <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+                              </div>
+                            </form>
+                        </div>
+                        <i class="fas fa-minus-circle"></i>
+                        <p class="ingredient__label">10.000VND</p>
+                     </div>
+                     <div class="ingredient__label-list d-flex align-items-center">
+                        <div class="form-group">
+                            <div class="form__comboBox">
+                                <form action="dropList" method="post">
+                                    <select name="combobox_Item">
+                                    <option value="">Salad</option>
+                                    <option value="" selected>Cà chua</option>
+                                    <option value="">Ớt</option>
+                                    </select>
+                                </form>
+                            </div>          
+                         </div>
+                         <div class="search__form">
+                            <form class="form-inline my-2 my-lg-0">
+                              <div class="input-wrapper">
+                                <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+                              </div>
+                            </form>
+                        </div>
+                        <i class="fas fa-minus-circle"></i>
+                        <p class="ingredient__label">10.000VND</p>
+                     </div>
+                     <i class="fas fa-plus-circle"></i>
+                     <div class="ingredient__total d-flex">
+                        <div class="blank__area col-md-5"></div>
+                          <p class="ingredient__total-label col-md-3">Thành tiền:</p>
+                          <p class="ingredient__total-label col-md-3">100.000 VNĐ</p>
+                     </div>
+                     <div class="ingredient__button d-flex align-items-center justify-content-between">
+                          <div class="ingredient__button-cancel col-md-5">
+                                <button class="" type="submit">Hủy đặt</button>
+                          </div>
+                          <div class="ingredient__button-order col-md-5">
+                                <button class="" type="submit">Đặt đơn</button>
+                          </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="~/js/import__order-procs.js"></script>
+</body>

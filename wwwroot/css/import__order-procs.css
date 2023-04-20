@@ -1,0 +1,203 @@
+﻿/* Slider */
+main {
+    background-color: #F5F5F5;
+    height: auto;
+}
+
+.main__form-detail {
+    max-width: 1200px;
+    display: block;
+    display: flex;
+    height: 596px;
+}
+
+    .main__form-detail .main__sliderbar {
+        padding: 40px 0 0 15px;
+        background-color: var(--white-color);
+        width: auto;
+    }
+
+        .main__form-detail .main__sliderbar .categories__list, .categories__button {
+            padding-left: 0px;
+            padding-inline-start: 0px;
+            list-style-type: none;
+            transform: translateX(20px);
+        }
+
+        .main__form-detail .main__sliderbar .categories__list {
+            padding-bottom: 235px;
+            transform: translateX(20px);
+        }
+
+            .main__form-detail .main__sliderbar .categories__list a {
+                padding: 5px 0px;
+            }
+
+.categories__list .categories__item:not(:last-child)::after {
+    content: '.';
+    font-size: 0;
+    display: block;
+    width: 75%;
+    height: 1px;
+    background-color: var(--black-color);
+}
+
+.categories__list .categories__item.active a.nav-link::before {
+    content: "";
+    position: absolute;
+    left: -15px;
+    transform: translateY(5px);
+    border-width: 6px 9px;
+    border-style: solid;
+    border-color: transparent transparent transparent var(--admin-color);
+}
+
+.categories__list .categories__item a.nav-link {
+    font-size: 15px;
+    color: var(--text-color);
+}
+
+.categories__list .categories__item.active a.nav-link {
+    color: var(--admin-color);
+    font-size: 15px;
+}
+
+.categories__list .categories__item:not(.active) > a.nav-link {
+    opacity: 0.5;
+}
+
+.categories__button .categories__item-button {
+    display: flex;
+    align-items: center;
+}
+
+.categories__list .categories__item a.nav-link:hover {
+    transform: translateY(-2px);
+}
+
+.categories__button .categories__item-button a.nav-link {
+    font-size: 15px;
+    padding-left: 15px;
+}
+/* End Slider */
+
+/* Main */
+
+.ingredient__form {
+    background-color: var(--white-color);
+    height: 500px;
+    width: 100%;
+    margin: 15px 5px 20px 10px;
+    border-radius: 6px;
+}
+
+.ingredient__form-details {
+    color: var(--black-color);
+    height: 50%;
+    width: 100%;
+    padding: 60px 0 60px 30px;
+}
+
+i.fas {
+    transform: scale(2.5);
+}
+
+    i.fas.fa-minus-circle {
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+
+    i.fas.fa-plus-circle {
+        padding: 15px 0 20px 5px;
+    }
+
+.ingredient__label-specific {
+    font-size: 20px;
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+.ingredient__label {
+    font-size: 16px;
+}
+
+.ingredient__label-mass {
+    font-size: 16px;
+    transform: translateX(90px);
+}
+
+.ingredient__label-list {
+    padding-bottom: 15px;
+    /* transform: translateX(-5px); */
+}
+
+.form__comboBox select[name="combobox_Item"] {
+    color: var(--text-color);
+    width: 180px;
+    font-size: 17px;
+    height: 40px;
+}
+
+.ingredient__form {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: 80%;
+}
+
+.form-group, .ingredient__label {
+    margin-bottom: 0 !important;
+    padding-right: 10%;
+}
+
+.input-wrapper input[type="search"] {
+    padding-right: 30px; /* adjust the padding to accommodate the icon */
+    font-size: 10px;
+    height: 40px;
+    border: 1px solid #495057;
+}
+
+.ingredient__total {
+    font-size: 16px;
+    padding-bottom: 40px;
+}
+
+.ingredient__total-label {
+    margin-left: 20px;
+    font-weight: 600;
+}
+
+.ingredient__button-order button {
+    width: 100%;
+    height: 50px;
+    background-color: var(--admin-color);
+    color: var(--white-color);
+    font-size: 16px;
+    transform: translateX(-14px);
+    border: 0;
+    padding: 0;
+    border-radius: 6px;
+}
+
+.ingredient__button-cancel button {
+    width: 100%;
+    height: 50px;
+    background-color: var(--white-color);
+    color: var(--black-color);
+    font-size: 16px;
+    transform: translateX(-14px);
+    border-width: 1px;
+    padding: 0;
+    border-radius: 6px;
+}
+
+    .ingredient__button-cancel button:hover, .ingredient__button-order button:hover, i.fas:hover {
+        opacity: 0.8;
+        cursor: pointer;
+    }
+
+    .ingredient__button-cancel button:focus, .ingredient__button-order button:focus {
+        outline: none;
+    }
+
+
+/* End Main */

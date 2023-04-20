@@ -1,0 +1,121 @@
+﻿@page
+@model ImportOrderDetailsModel
+@{
+    ViewData["Title"] = "ImportOrderDetails";
+}
+<link rel="stylesheet" href="~/css/import__order-details.css" asp-append-version="true" />
+<body>
+    <main>
+        <div class="main__form-detail">
+            <div class="main__sliderbar col-2">
+                <ul class="categories__list">
+                    <li class="categories__item">
+                        <a class="nav-link" href="~/Admin/ManageAccount"> Quản lý tài khoản</a>
+                    </li>
+                    <li class="categories__item">
+                        <a class="nav-link" href="~/Admin/ManageUser">  Quản lý người dùng</a>
+                    </li>
+                    <li class="categories__item">
+                        <a class="nav-link" href="~/Admin/ManageIngredient">  Quản lý nguyên liệu</a>
+                    </li>
+                    <li class="categories__item">
+                        <a class="nav-link" href="~/Admin/ManageCategories">   Quản lý danh mục</a>
+                    </li>
+                    <li class="categories__item active">
+                        <a class="nav-link" href="~/Admin/ManageOrder">   Quản lý đơn hàng</a>
+                    </li>
+                    <li class="categories__item ">
+                        <a class="nav-link" href="~/Admin/ManageFood">   Quản lý món ăn</a>
+                    </li>
+                    <li class="categories__item ">
+                        <a class="nav-link" href="~/Admin/SyncRevenue">   Thống kê doanh thu</a>
+                    </li>
+                </ul>
+                <ul class="categories__button">
+                    <li class="categories__item-button">
+                        <img src="~/img/Logout.png" alt="" style="height:30px">
+                        <a class="nav-link" href="#"> Đăng xuất</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blank_area col-1"></div>
+            <div class="main__information col-9">
+                <div class="main__information-detail">
+                    <div class="main__information-packages">
+                        <div class="main__information-title d-flex align-items-center">
+                            <div class="main__information-label bold">CHI TIẾT ĐƠN HÀNG</div>
+                            <div class="main__information-status">Đơn nhập</div>
+                        </div>
+                        <div class="main__information-wrapper d-flex align-items-center">
+                            <div class="main__information-list col-md-3">
+                                <div class="main__information-label">Mã đơn hàng</div>
+                                <div class="main__information-label">Ngày bán</div>
+                                <div class="main__information-label">Tổng tiền</div>
+                            </div>
+                            <div class="main__information-list col-md-3">
+                                <div class="main__information-label">102543144</div>
+                                <div class="main__information-label">12/06/2022</div>
+                                <div class="main__information-label">200.000VNĐ</div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="content-table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã nguyên liệu</th>
+                                <th class="Ingre">Nguyên liệu</th>
+                                <th class="Price">Giá</th>
+                                <th>Số lượng/Đơn vị</th>
+                                <th class="Total">Tổng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>100</td>
+                                <td class="Ingre">Salad</td>
+                                <td class="Price">5000 VND/g</td>
+                                <td>2</td>
+                                <td class="Total">10000 VND</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>101</td>
+                                <td class="Ingre">Bột mỳ</td>
+                                <td class="Price">10000 VND/kg</td>
+                                <td>3</td>
+                                <td class="Total">30000 VND</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>102</td>
+                                <td class="Ingre">Ớt</td>
+                                <td class="Price">2000 VND/g</td>
+                                <td>4</td>
+                                <td class="Total">8000 VND</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>103</td>
+                                <td class="Ingre">Cà chua</td>
+                                <td class="Price">5000 VND/kg</td>
+                                <td>5</td>
+                                <td class="Total">25000 VND</td>
+                            </tr>
+                            <tr class="specific-row">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Thành tiền</td>
+                                <td class="Total">73 000 VND</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
