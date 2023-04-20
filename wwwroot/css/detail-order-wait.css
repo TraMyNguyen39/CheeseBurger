@@ -1,0 +1,274 @@
+﻿.body {
+    margin-bottom: 5%;
+}
+
+.body__side-bar {
+    border-radius: 5px;
+    padding: 30px 0;
+    height: 300px;
+    background-color: var(--div-color);
+    box-shadow: 3px 2px 5px 3px rgba(0,0,0,.15);
+}
+
+.side-bar-box {
+    margin: 5% 10% 10% 10%;
+}
+
+.body__side-bar-item {
+    text-decoration: none;
+    font-size: 1.8rem;
+    list-style: none;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.side-bar-box a:hover {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.side-bar-box a:active {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.side-bar-filter {
+    border-bottom: 1px solid var(--text-color);
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.body__manage-account {
+    background-color: var(--div-color);
+    border-radius: 8px;
+    padding: 30px 50px;
+    box-shadow: 3px 2px 5px 3px rgba(0,0,0,.15);
+}
+
+.body__manage-account-detail {
+    background-color: var(--div-color);
+    border-radius: 8px;
+    padding: 30px 50px;
+    box-shadow: 3px 2px 5px 3px rgba(0,0,0,.15);
+    margin-left: 2%;
+    margin-bottom: 3%;
+}
+
+.body-title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.lb-title {
+    font-size: 1.7rem;
+    font-weight: 400;
+}
+
+.btn-xacnhan {
+    background-color: var(--main-color);
+    color: var(--white-color);
+    border: none;
+    outline: none;
+    width: 200px;
+    height: 25px;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 20px;
+    margin-left: 40px;
+    text-align: center;
+    line-height: 10px;
+}
+
+.body-title-detail {
+    display: block;
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+.body_detail {
+    background-color: var(--div-color);
+    border-radius: 8px;
+    height: 180px;
+    margin-left: 4%;
+    margin-top: 1%;
+    box-shadow: 3px 2px 5px 3px rgba(0,0,0,.15);
+}
+
+.body_detail-rw {
+    background-color: var(--div-color);
+    border-radius: 8px;
+    height: 180px;
+    margin-left: 2%;
+    margin-top: 1%;
+    box-shadow: 3px 2px 5px 3px rgba(0,0,0,.15);
+}
+
+.body-detail-txt {
+    font-size: 1.6rem;
+}
+
+.body_detail hr {
+    display: block;
+    width: 100%;
+    margin: 0 0 5px 0;
+    background-color: #333;
+}
+
+.body_detail-rw hr {
+    display: block;
+    width: 100%;
+    margin: 0 0 5px 0;
+    background-color: #333;
+}
+
+.grid__full-width {
+    width: 100%;
+}
+
+.grid__row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/*CSS cart.css*/
+.list-item {
+    margin: 40px 0 40px 3%;
+    font-size: 1.6rem;
+    border-radius: 10px;
+    /* flex-grow: 1; */
+    color: var(--text-color);
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+    border: none;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.cart__name-item {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    text-transform: capitalize;
+    text-align: left;
+}
+
+    .cart__name-item:hover {
+        color: var(--text-color);
+        text-decoration: none;
+        opacity: 0.8;
+    }
+
+.input-group {
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+    margin: 0 auto;
+    border: 1px solid #c6c6c6;
+    border-radius: 5px;
+}
+
+.minus-plus-button {
+    width: 2.2rem;
+    font-size: 1.6rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+    .minus-plus-button:active {
+        background-color: #CCC;
+        width: 2.3rem;
+    }
+
+.input-field {
+    width: 60%;
+    height: 2.6rem;
+    padding: 6px 10px;
+    border: none;
+    border-left: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
+    font-size: 1.4rem;
+    text-align: center;
+    opacity: 0.8;
+    background: transparent;
+}
+
+.cart__item-image {
+    margin: 6px 0;
+    border-radius: 6px;
+    width: 26%;
+    height: 26%;
+    margin-right: 10px;
+}
+
+.table i {
+    opacity: 0.8;
+}
+
+    .table i:hover {
+        opacity: 0.6;
+    }
+
+/* Total Fee */
+.fee-division {
+    width: 35%;
+    font-size: 1.6rem;
+    margin-bottom: 50px;
+    justify-self: right;
+}
+
+.total-fee-list {
+    margin: 16px 0;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+}
+
+.fee-detail {
+    border: 1px solid #dee2e6;
+}
+
+.fee-detail__item {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 20px;
+}
+
+.cancel-order {
+    background-color: var(--main-color);
+    color: var(--white-color);
+    border: none;
+    outline: none !important;
+    width: 49%;
+    height: 5%;
+    padding: 10px;
+    font-size: 1.8rem;
+    border-radius: 5px;
+    margin-left: 3%;
+}
+
+/* BreadCrumb */
+.breadcrumb__edit {
+    margin: 30px auto;
+    line-height: 40px;
+    background-color: var(--white-color);
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
+    font-size: 1.6rem;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.breadcrumb-item a {
+    color: var(--black-color);
+    text-decoration: none;
+}
+
+    .breadcrumb-item a:first-child {
+        margin-left: 20px;
+    }
+
+    .breadcrumb-item a:hover {
+        opacity: 0.8;
+    }

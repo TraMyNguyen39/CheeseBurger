@@ -1,0 +1,128 @@
+﻿@page
+@model MyOrderModel
+@{
+    ViewData["Title"] = "My Order";
+    ViewBag.Name = HttpContext.Session.GetString("Name");
+    ViewBag.Id = HttpContext.Session.GetInt32("Id");
+}
+
+<div class="breadcrumb-division">
+    <ol class="breadcrumb breadcrumb__edit">
+        <li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>       
+        <li class="breadcrumb-item active" aria-current="page">Đơn hàng của tôi</li>
+    </ol>
+</div>
+<div class="body container">
+    <div class="row justify-content-between">
+        <ul class="body__side-bar col-2">
+            <li class="body__side-bar-item-or active" style="color: #fb5028">
+                <span>Tất cả</span>
+                <span style="color: #919191">(5)</span>
+            </li>
+            <li class="body__side-bar-item-or">
+                <span>Chờ xác nhận</span>
+                <span style="color: #919191">(2)</span>
+            </li>
+            <li class="body__side-bar-item-or">
+                <span>Chuẩn bị hàng</span>
+                <span style="color: #919191">(2)</span>
+            </li>
+            <li class="body__side-bar-item-or">
+                <span>Đang giao</span>
+                <span style="color: #919191">(0)</span>
+            </li>
+            <li class="body__side-bar-item-or">
+                <span>Đã giao</span>
+                <span style="color: #919191">(1)</span>
+            </li>
+            <li class="body__side-bar-item-or">
+                <span>Đã hủy</span>
+                <span style="color: #919191">(0)</span>
+            </li>
+        </ul>
+        <div class="col justify-content-between">
+            <div class="list-item">
+                <table class="table text-center">
+                    <thead style="background-color: #fb7559">
+                        <tr class="table-header">
+                            <th class="cart__table-col col-1" scope="col">STT</th>
+                            <th class="cart__table-col col-5" scope="col">Mã đơn hàng</th>
+                            <th class="cart__table-col col-2" scope="col">Ngày đặt hàng</th>
+                            <th class="cart__table-col col-2" scope="col">Trạng thái</th>
+                            <th class="cart__table-col col-2" scope="col">Tổng tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="tr-ctn">
+                            <th scope="row" style="font-weight: 500;">1</th>
+                            <td>
+                                <a class="cart__name-item" asp-page="/User/DetailOrderWait">102543114</a>
+                            </td>
+                            <td>25/03/2023</td>
+                            <td style="color: var(--main-color);">
+                                Chờ xác nhận
+                            </td>
+                            <td style="font-weight: 500">300,000VND</td>
+                        </tr>
+                        <tr class="tr-ctn">
+                            <th scope="row" style="font-weight: 500;">2</th>
+                            <td>
+                                <a class="cart__name-item" asp-page="/User/DetailOrderDone">102543140</a>
+                            </td>
+                            <td>21/03/2023</td>
+                            <td style="color: var(--main-color);">
+                                Đã giao
+                            </td>
+                            <td style="font-weight: 500">150,000VND</td>
+                        </tr>
+                        <tr class="tr-ctn">
+                            <th scope="row" style="font-weight: 500;">3</th>
+                            <td>
+                                <a href="" class="cart__name-item">102543146</a>
+                            </td>
+                            <td>25/03/2023</td>
+                            <td style="color: var(--main-color);">
+                                Chuẩn bị hàng
+                            </td>
+                            <td style="font-weight: 500">100,000VND</td>
+                        </tr>
+                        <tr class="tr-ctn">
+                            <th scope="row" style="font-weight: 500;">4</th>
+                            <td>
+                                <a href="" class="cart__name-item">102543147</a>
+                            </td>
+                            <td>25/03/2023</td>
+                            <td style="color: var(--main-color);">
+                                Chuẩn bị hàng
+                            </td>
+                            <td style="font-weight: 500">100,000VND</td>
+                        </tr>
+                        <tr class="tr-ctn">
+                            <th scope="row" style="font-weight: 500;">5</th>
+                            <td>
+                                <a href="" class="cart__name-item">102543148</a>
+                            </td>
+                            <td>25/03/2023</td>
+                            <td style="color: var(--main-color);">
+                                Chờ xác nhận
+                            </td>
+                            <td style="font-weight: 500">100,000VND</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-pagination">
+                <div class="pagination">
+                    <a href="#"><i class="fas fa-angle-double-left"></i></a>
+                    <a href="#">1</a>
+                    <a href="#" class="active">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">6</a>
+                    <a href="#"><i class="fas fa-angle-double-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = CheeseBurger
+build_property.RootNamespace = CheeseBurger
+build_property.ProjectDir = C:\Users\DELL\OneDrive\Desktop\CheeseBurger\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\DELL\OneDrive\Desktop\CheeseBurger
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/Login/ForgetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5cRm9yZ2V0UGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/Login/LoginRegister.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5cTG9naW5SZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/Login/SuccessfulValidate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5cU3VjY2Vzc2Z1bFZhbGlkYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/Login/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5cX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/User/Cart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxDYXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/User/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxDaGFuZ2VQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/User/DetailAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxEZXRhaWxBY2NvdW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/User/DetailFood.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxEZXRhaWxGb29kLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/User/DetailOrderDone.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxEZXRhaWxPcmRlckRvbmUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/User/DetailOrderWait.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxEZXRhaWxPcmRlcldhaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/User/EmptyCart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxFbXB0eUNhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/User/Menu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxNZW51LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/User/MyOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxNeU9yZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/User/Payment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxQYXltZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/User/UpdateInfoAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxVcGRhdGVJbmZvQWNjb3VudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/User/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxfVmlld1N0YXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-gfirhtnkia
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/Shared/_LayoutLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXRMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = b-ujpwzoqes2
+
+[C:/Users/DELL/OneDrive/Desktop/CheeseBurger/Pages/Shared/_LayoutUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXRVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = b-1gku98462a

@@ -1,0 +1,93 @@
+@page
+@model MenuModel
+@{
+	ViewData["Title"] = "Menu";
+	ViewBag.Name = HttpContext.Session.GetString("Name");
+	ViewBag.Id = HttpContext.Session.GetInt32("Id");
+}
+<div class="breadcrumb-division">
+	<ol class="breadcrumb breadcrumb__edit">
+		<li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Thực đơn</li>
+	</ol>
+</div>
+<div class="row jtf-center menu">
+	<div class="col-3">
+		<div class="category-filter" method="post">
+			<p>Danh mục sản phẩm</p>
+			<a asp-page="" asp-page-handler="Category" class="category-filter-name">Tất cả</a>
+			@foreach (var i in Model.categories)
+			{
+				<a asp-page="" asp-page-handler="Category" name="@i.CategoryID" class="category-filter-name">@i.CategoryName</a>
+			}
+
+		</div>
+
+		<form class="cost-filter">
+			<p>Mức giá</p>
+			<div class="cost-filter-name">
+				<input type="checkbox" name="cost-filter" class="cost-filter-name" value="cost1">Từ 0 - 20,000đ
+			</div>
+			<div class="cost-filter-name">
+				<input type="checkbox" name="cost-filter" class="cost-filter-name" value="cost1">Từ 20,000 -
+				50,000đ
+			</div>
+			<div class="cost-filter-name">
+				<input type="checkbox" name="cost-filter" class="cost-filter-name" value="cost1">Từ 50,000 -
+				70,000đ
+			</div>
+			<div class="cost-filter-name">
+				<input type="checkbox" name="cost-filter" class="cost-filter-name" value="cost1">Từ 70,000 -
+				100,000đ
+			</div>
+		</form>
+	</div>
+	<div class="col-9 ">
+		<div class="row d-flex justify-content-between">
+			<div class="menu-sort">
+				<label class="">Sắp xếp: </label>
+				<select class="menu-sort-box">
+					<option value="">Sắp xếp</option>
+					<option value="">Tên: A - Z</option>
+					<option value="">Tên: Z - A</option>
+					<option value="">Giá: Tăng</option>
+					<option value="">Giá: Giảm</option>
+				</select>
+			</div>
+			<form class="menu-search-box">
+				<input class="search-box-input" type="text" placeholder="Nhập món ăn cần tìm">
+				<button type="submit" class="search-box-btn">
+					<i class="fas fa-magnifying-glass"></i>
+				</button>
+			</form>
+		</div>
+
+		<div class=" card-deck list-card-item d-flex flex-wrap">
+			@foreach (var i in Model.foods)
+			{
+				<div class="card-edit">
+					<img class="card-img-top card-img-edit" src=@i.ImgFood alt="">
+					<div class="card-body">
+						<div class="card-detail">
+							<a asp-page="/User/DetailFood" class="card-tittle">@i.NameFood</a>
+							<p class="card-sub">@i.PriceFood.ToString("N0")đ</p>
+						</div>
+						<button onclick="" class="submit-btn card-btn"><i class="fas fa-cart-shopping"></i>    Thêm vào giỏ hàng</button>
+					</div>
+				</div>
+			}
+		</div>
+		<div class="page-pagination">
+			<div class="pagination">
+				<a href="#"><i class="fas fa-angle-double-left"></i></a>
+				<a href="#" class="active">1</a>
+				<a href="#">2</a>
+				<a href="#">3</a>
+				<a href="#">4</a>
+				<a href="#">5</a>
+				<a href="#">6</a>
+				<a href="#"><i class="fas fa-angle-double-right"></i></a>
+			</div>
+		</div>
+	</div>
+</div>
