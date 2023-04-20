@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CheeseBurger.Pages.Admin
 {
-    public class ManageIngredientModel : PageModel
+    public class ImportOrderDetailModel : PageModel
     {
-        private readonly ILogger<ManageIngredientModel> _logger;
+        private readonly ILogger<ImportOrderDetailModel> _logger;
 
-        public ManageIngredientModel(ILogger<ManageIngredientModel> logger)
+        public ImportOrderDetailModel(ILogger<ImportOrderDetailModel> logger)
         {
             _logger = logger;
         }

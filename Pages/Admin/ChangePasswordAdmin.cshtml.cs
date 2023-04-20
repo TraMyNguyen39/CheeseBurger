@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CheeseBurger.Pages.Admin
 {
-    public class ManageIngredientModel : PageModel
+    public class ChangePasswordAdminModel : PageModel
     {
-        private readonly ILogger<ManageIngredientModel> _logger;
+        private readonly ILogger<ChangePasswordAdminModel> _logger;
 
-        public ManageIngredientModel(ILogger<ManageIngredientModel> logger)
+        public ChangePasswordAdminModel(ILogger<ChangePasswordAdminModel> logger)
         {
             _logger = logger;
         }

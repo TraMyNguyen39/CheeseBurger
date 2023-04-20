@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CheeseBurgerWeb
+namespace CheeseBurger
 {
     public class SyncRevenueModel : PageModel
     {

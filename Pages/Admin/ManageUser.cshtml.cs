@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CheeseBurgerWeb.Pages
+namespace CheeseBurger.Pages
 {
     public class ManageUserModel : PageModel
     {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CheeseBurgerWeb.Pages.Admin
+namespace CheeseBurger.Pages.Admin
 {
     public class ManageCategoriesModel : PageModel
     {
