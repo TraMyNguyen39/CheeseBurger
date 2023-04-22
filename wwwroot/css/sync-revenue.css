@@ -1,0 +1,133 @@
+﻿/* Information */
+.main__information {
+    padding-top: 45px;
+    padding-bottom: 50px;
+}
+
+main__information-detail {
+    font-size: 1.6rem;
+}
+
+.main__information-add i {
+    transform: translateY(6px);
+    margin-bottom: 10px;
+    color: var(--white-color);
+}
+
+.form-group {
+    margin-right: 10px;
+}
+
+.form-group input[type="date"] {
+    border-radius: 4px;
+    border: 1px solid var(--black-color);
+    width: 100px;
+    font-size: 1.3rem;
+}
+
+.form-group2 input[type="date"] {
+    border-radius: 4px;
+    border: 1px solid var(--black-color);
+    width: 100px;
+    font-size: 1.3rem;
+}
+
+.form-group2 {
+    transform: translateY(-5px);
+}
+
+.select__form {
+    transform: translateX(-38px);
+}
+
+.main__table-form {
+    padding-bottom: 20px;
+    transform: translateX(38px);
+}
+
+.control-label {
+    padding-right: 10px;
+    font-size: 16px;
+    transform: translateY(4px);
+}
+
+.form__comboBox select[name="combobox_Item"] {
+    color: var(--text-color);
+    border-radius: 8px;
+    width: 170px;
+    height: 30px;
+    font-size: 17px;
+}
+
+input[type="date"] {
+    border-radius: 4px;
+    border: 1px solid var(--black-color);
+    width: 180px;
+    height: 30px;
+}
+
+.column__info-details {
+    width: 100%;
+    display: block;
+    margin: 0px 20px 0px 0px;
+    height: auto;
+    padding-right: 10px !important;
+}
+
+.column__info-total .column__total-offer {
+    width: 100%;
+    height: 140px;
+    background-color: var(--white-color);
+    margin-right: 15px;
+    padding-top: 20px;
+}
+
+.column__info-total .column__total-profit {
+    width: 100%;
+    height: 140px;
+    background-color: var(--white-color);
+    padding-top: 20px;
+    padding-left: 40px;
+}
+
+.infor__details {
+    font-size: 1.6rem;
+}
+.infor__details .best__seller-info {
+    width: 100%;
+    height: 600px;
+    background-color: var(--white-color);
+    padding-top: 20px;
+    padding-left: 40px;
+}
+
+    .infor__details .best__seller-info .title {
+        font-size: 2.0rem;
+        font-weight: 600;
+    }
+
+.column__info-details .columns__chart {
+    width: 103%;
+    height: 440px;
+    margin-top: 20px;
+    background-color: var(--white-color);
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.total__amount-revenue {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.total__money-amount {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.total__money-revenue {
+    font-weight: 600;
+    font-size: 20px;
+    padding-bottom: 20px;
+}
+/* End Information */
