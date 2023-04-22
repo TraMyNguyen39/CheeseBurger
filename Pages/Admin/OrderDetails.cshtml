@@ -1,0 +1,107 @@
+﻿@page
+@model OrderDetailsModel
+@{
+	ViewData["Title"] = "OrderDetails";
+}
+<link rel="stylesheet" href="~/css/order-details.css" asp-append-version="true" />
+
+<div class="blank_area col-1"></div>
+<div class="main__information col-9">
+	<div class="main__information-detail">
+		<div class="main__information-packages">
+			<div class="main__information-title d-flex align-items-center">
+				<div class="main__information-label bold">CHI TIẾT ĐƠN HÀNG</div>
+				<div class="main__information-status">Đơn xuất</div>
+				<div class="main__information-status">Chờ xác nhận</div>
+			</div>
+			<div class="main__information-wrapper d-flex align-items-center">
+				<div class="main__information-list col-md-3">
+					<div class="main__information-label">Mã đơn hàng</div>
+					<div class="main__information-label">Ngày bán</div>
+					<div class="main__information-label">Tổng tiền</div>
+				</div>
+				<div class="main__information-list col-md-3">
+					<div class="main__information-label">102543144</div>
+					<div class="main__information-label">12/06/2022</div>
+					<div class="main__information-label">200.000VNĐ</div>
+				</div>
+			</div>
+		</div>
+		<div class="wraper__information-list">
+			<div class="customer__information-details col-4">
+				<div class="label__special ">
+					Thông tin người nhận
+				</div>
+				<p class="text__information">Nguyễn Thị Trà My</p>
+				<p class="text__information">54 Nguyễn Lương Bằng, Hòa Khánh Bắc, Liên Chiểu, Đà Nẵng</p>
+				<p class="text__information">Tel: 0764366812</p>
+			</div>
+			<div class="blank_area-customer"></div>
+			<div class="customer__information-details col-4">
+				<div class="label">
+					Phương thức vận chuyển
+				</div>
+				<p class="text__information">Giao hàng nhanh</p>
+			</div>
+			<div class="blank_area-customer"></div>
+			<div class="customer__information-details col-4">
+				<div class="label">
+					Phương thức thanh toán
+				</div>
+				<p class="text__information">Thanh toán bằng tiền mặt</p>
+			</div>
+		</div>
+		<table class="content-table">
+			<thead>
+				<tr>
+					<th>STT</th>
+					<th>Sản phẩm</th>
+					<th>Giá</th>
+					<th>Số lượng</th>
+					<th>Tổng</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>Burger</td>
+					<td>55.000VND</td>
+					<td>1</td>
+					<td>55.000VND</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Burger</td>
+					<td>55.000VND</td>
+					<td>1</td>
+					<td>55.000VND</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>Burger</td>
+					<td>55.000VND</td>
+					<td>1</td>
+					<td>55.000VND</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>Burger</td>
+					<td>55.000VND</td>
+					<td>1</td>
+					<td>55.000VND</td>
+				</tr>
+				<tr class="specific-row">
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>Thành tiền</td>
+					<td>220 000 VND</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="button__wrapper">
+			<div class="button__dispose"><button class="" type="submit">HỦY ĐƠN HÀNG</button></div>
+			<div class="button__accept"><button class="" type="submit">XÁC NHẬN ĐƠN</button></div>
+		</div>
+	</div>
+</div>

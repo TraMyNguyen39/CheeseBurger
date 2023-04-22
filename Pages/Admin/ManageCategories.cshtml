@@ -1,0 +1,207 @@
+﻿@page
+@model ManageCategoriesModel
+@{
+	ViewData["Title"] = "ManageCategories";
+}
+<link rel="stylesheet" href="~/css/manage-categories.css" asp-append-version="true" />
+
+
+<div class="blank_area col-1"></div>
+<div class="main__information col-9">
+	<div class="form-group">
+		<label class="control-label">Sắp xếp: </label>
+		<div class="form__comboBox">
+			<form action="dropList" method="post">
+				<select name="combobox_Item">
+					<option value="" selected>Tên từ A-Z</option>
+					<option value="">Tên từ Z-A</option>
+				</select>
+			</form>
+		</div>
+	</div>
+	<div class="table__details-form">
+		<div class="table__information">
+			<table class="content-table">
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th>Mã danh mục</th>
+						<th>Tên danh mục</th>
+						<th>Số lượng món</th>
+						<th>Tùy chọn</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="STT">1</td>
+						<td class="ID_mon">100</td>
+						<td>Hamburger</td>
+						<td class="Number_mon">5</td>
+						<td class="Option">
+							<i class="fas fa-eye"></i>
+							<i class="fas fa-pencil-alt"></i>
+							<i class="fas fa-ban"></i>
+						</td>
+					</tr>
+					<tr>
+						<td class="STT">2</td>
+						<td class="ID_mon">102</td>
+						<td>Gà rán-Gà quay</td>
+						<td class="Number_mon">4</td>
+						<td class="Option">
+							<i class="fas fa-eye"></i>
+							<i class="fas fa-pencil-alt"></i>
+							<i class="fas fa-ban"></i>
+						</td>
+					</tr>
+					<tr>
+						<td class="STT">3</td>
+						<td class="ID_mon">103</td>
+						<td>Combo 1 người</td>
+						<td class="Number_mon">3</td>
+						<td class="Option">
+							<i class="fas fa-eye"></i>
+							<i class="fas fa-pencil-alt"></i>
+							<i class="fas fa-ban"></i>
+						</td>
+					</tr>
+					<tr>
+						<td class="STT">4</td>
+						<td class="ID_mon">104</td>
+						<td>Combo 2 người</td>
+						<td class="Number_mon">2</td>
+						<td class="Option">
+							<i class="fas fa-eye"></i>
+							<i class="fas fa-pencil-alt"></i>
+							<i class="fas fa-ban"></i>
+						</td>
+					</tr>
+					<tr>
+						<td class="STT">5</td>
+						<td class="ID_mon">105</td>
+						<td>Thức uống</td>
+						<td class="Number_mon">5</td>
+						<td class="Option">
+							<i class="fas fa-eye"></i>
+							<i class="fas fa-pencil-alt"></i>
+							<i class="fas fa-ban"></i>
+						</td>
+					</tr>
+					<tr>
+						<td class="STT">6</td>
+						<td class="ID_mon">106</td>
+						<td>Tráng miệng</td>
+						<td class="Number_mon">4</td>
+						<td class="Option">
+							<i class="fas fa-eye"></i>
+							<i class="fas fa-pencil-alt"></i>
+							<i class="fas fa-ban"></i>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="page-pagination">
+				<div class="pagination">
+					<a href="#"><i class="fas fa-angle-double-left"></i></a>
+					<a href="#">1</a>
+					<a href="#" class="active">2</a>
+					<a href="#">3</a>
+					<a href="#">4</a>
+					<a href="#">5</a>
+					<a href="#">6</a>
+					<a href="#"><i class="fas fa-angle-double-right"></i></a>
+				</div>
+			</div>
+		</div>
+		<div class="categories-add">
+			<div class="categories__form-add">
+				<p class="categories__text-specific">Thêm danh mục</p>
+				<p class="categories__text">Tạo danh mục mới:</p>
+				<div class="info__form"><input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search"></div>
+				<div class="categories__button"><button class="" type="submit">Thêm danh mục</button></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal Modify -->
+<div class="modal__food-modify">
+	<div class="modal__food-information">
+		<div class="button__exit d-flex justify-content-end">
+			<span class="exit__surround d-flex justify-content-center align-items-center">
+				<i class="fas fa-times"></i>
+			</span>
+		</div>
+		<div class="categories-edit">
+			<div class="categories__form-edit">
+				<p class="categories__text-specific">Cập nhật danh mục</p>
+				<p class="categories__text">Nhập tên mới:</p>
+				<div class="info__form"><input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search"></div>
+				<div class="categories__button"><button class="" type="submit">Cập nhật danh mục</button></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal Modify -->
+<!-- Modal Read -->
+<div class="modal__food-read">
+	<div class="modal__read-information">
+		<div class="button__exit d-flex justify-content-end">
+			<span class="exit__surround d-flex justify-content-center align-items-center">
+				<i class="fas fa-times"></i>
+			</span>
+		</div>
+		<div class="categories-read">
+			<div class="categories__form-edit">
+				<p class="categories__text-specific">Xem danh mục</p>
+				<div class="categories__information-label d-flex align-items-center">
+					<div class="categories__information-key col-md-4">
+						<p class="categories__text">Nhập tên mới:</p>
+						<p class="categories__text">Mã danh mục:</p>
+						<p class="categories__text">Số lượng món:</p>
+					</div>
+					<div class="blank__area col-md-1">
+					</div>
+					<div class="categories__information-element col-md-4">
+						<p class="categories__text">Hamburger</p>
+						<p class="categories__text">100</p>
+						<p class="categories__text">5</p>
+					</div>
+				</div>
+				<div class="table__information-read">
+					<table class="content__table-read">
+						<thead>
+							<tr>
+								<th>STT</th>
+								<th class="Name-col">Tên món ăn</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="STT">1</td>
+								<td class="Name-col">Món số 1</td>
+							</tr>
+							<tr>
+								<td class="STT">2</td>
+								<td class="Name-col">Món số 2</td>
+							</tr>
+							<tr>
+								<td class="STT">3</td>
+								<td class="Name-col">Món số 3</td>
+							</tr>
+							<tr>
+								<td class="STT">4</td>
+								<td class="Name-col">Món số 4</td>
+							</tr>
+							<tr>
+								<td class="STT">5</td>
+								<td class="Name-col">Món số 5</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal Read -->
+<script src="~/js/manage-categories.js"></script>

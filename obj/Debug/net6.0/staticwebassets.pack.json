@@ -41,12 +41,48 @@
       "PackagePath": "staticwebassets\\css\\home-page.css"
     },
     {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\import-order-details.css",
+      "PackagePath": "staticwebassets\\css\\import-order-details.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\import-order-procs.css",
+      "PackagePath": "staticwebassets\\css\\import-order-procs.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\layout-admin.css",
+      "PackagePath": "staticwebassets\\css\\layout-admin.css"
+    },
+    {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\layout-login.css",
       "PackagePath": "staticwebassets\\css\\layout-login.css"
     },
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\layout-user.css",
       "PackagePath": "staticwebassets\\css\\layout-user.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\manage-account.css",
+      "PackagePath": "staticwebassets\\css\\manage-account.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\manage-categories.css",
+      "PackagePath": "staticwebassets\\css\\manage-categories.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\manage-food.css",
+      "PackagePath": "staticwebassets\\css\\manage-food.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\manage-ingredient.css",
+      "PackagePath": "staticwebassets\\css\\manage-ingredient.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\manage-order.css",
+      "PackagePath": "staticwebassets\\css\\manage-order.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\manage-user.css",
+      "PackagePath": "staticwebassets\\css\\manage-user.css"
     },
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\menu.css",
@@ -57,12 +93,20 @@
       "PackagePath": "staticwebassets\\css\\my-order.css"
     },
     {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\order-details.css",
+      "PackagePath": "staticwebassets\\css\\order-details.css"
+    },
+    {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\payment.css",
       "PackagePath": "staticwebassets\\css\\payment.css"
     },
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\sync-revenue.css",
+      "PackagePath": "staticwebassets\\css\\sync-revenue.css"
     },
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\update-info-account.css",
@@ -83,6 +127,10 @@
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\4-eggtart.jpg",
       "PackagePath": "staticwebassets\\img\\4-eggtart.jpg"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\AdminHub1.png",
+      "PackagePath": "staticwebassets\\img\\AdminHub1.png"
     },
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Banner.jfif",
@@ -125,8 +173,16 @@
       "PackagePath": "staticwebassets\\img\\Bánh kẹp.png"
     },
     {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\CheeseBurger.png",
+      "PackagePath": "staticwebassets\\img\\CheeseBurger.png"
+    },
+    {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Lipton.jpg",
       "PackagePath": "staticwebassets\\img\\Lipton.jpg"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Logout.png",
+      "PackagePath": "staticwebassets\\img\\Logout.png"
     },
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\R.jfif",
@@ -143,6 +199,14 @@
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\empty-cart.png",
       "PackagePath": "staticwebassets\\img\\empty-cart.png"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\logo 1.png",
+      "PackagePath": "staticwebassets\\img\\logo 1.png"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\logo 2.png",
+      "PackagePath": "staticwebassets\\img\\logo 2.png"
     },
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\logo.png",
@@ -169,8 +233,40 @@
       "PackagePath": "staticwebassets\\js\\detail-food.js"
     },
     {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\import__order-procs.js",
+      "PackagePath": "staticwebassets\\js\\import__order-procs.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\manage-account.js",
+      "PackagePath": "staticwebassets\\js\\manage-account.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\manage-categories.js",
+      "PackagePath": "staticwebassets\\js\\manage-categories.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\manage-food.js",
+      "PackagePath": "staticwebassets\\js\\manage-food.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\manage-ingredient.js",
+      "PackagePath": "staticwebassets\\js\\manage-ingredient.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\manage-order.js",
+      "PackagePath": "staticwebassets\\js\\manage-order.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\manage-user.js",
+      "PackagePath": "staticwebassets\\js\\manage-user.js"
+    },
+    {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\sync-revenue.js",
+      "PackagePath": "staticwebassets\\js\\sync-revenue.js"
     },
     {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\LICENSE",

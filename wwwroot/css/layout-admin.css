@@ -1,0 +1,202 @@
+﻿/* Header */
+.background {
+    width: 100%;
+    background-color: #F8F8FF;
+}
+.header {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #ee4d2d,#FA5230);
+    width: 100%;
+}
+
+.header__navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* .logo-link {
+    margin-left: 5%;
+} */
+.logo-link:hover {
+    opacity: 0.8;
+}
+
+.logo-brand {
+    width: 200px;
+}
+
+img.logo-server {
+    margin-top: 5px;
+}
+
+.header__navbar-item .fas {
+    padding-left: 10px;
+}
+
+
+.header__navbar-admin {
+    font-size: 2.6rem;
+    color: var(--white-color);
+    font-weight: 700;
+}
+
+.header__navbar-admin:hover {
+    color: var(--white-color);
+    text-decoration: none;
+}
+
+.header__navbar-item {
+    margin-right: 5%;
+}
+
+.header__navbar-item,
+.header__navbar--item-link {
+    display: inline-block;
+    font-size: 1.8rem;
+    color: var(--white-color);
+    text-decoration: none;
+    font-weight: 400;
+    margin: 0 8px;
+    display: inline-flex;
+    align-items: center;
+}
+
+    .header__navbar--item-link:hover,
+    .header__navbar-icon:hover {
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.7);
+        opacity: 0.8;
+        cursor: pointer;
+    }
+
+.header__nabar-icon-link {
+    color: var(--white-color);
+    text-decoration: none;
+}
+
+.header__navbar-icon {
+    font-size: 1.6rem;
+    color: var(--white-color);
+    margin: 0 4px;
+    padding-right: 4px;
+}
+/* End Header */
+
+/* Sidebar */
+main {
+    background-color: #F5F5F5;
+    height: auto;
+}
+
+.main__form-detail {
+    display: block;
+/*    margin: 0px;*/
+    display: flex;
+    height: calc(100vh - 60px);
+}
+
+    .main__form-detail .main__sliderbar {
+        background-color: var(--white-color);
+        width: 20%;
+        position: relative;
+        padding: 0;
+        padding-top: 40px;
+        box-shadow: -3px 5px 9px 0 #555;
+    }
+
+.main__form-detail .main__sliderbar .categories__list, .categories__button {
+    padding-left: 0px;
+    padding-inline-start: 0px;
+    list-style-type: none;
+}
+
+
+            .main__form-detail .main__sliderbar .categories__list a {
+                padding: 5px 0px;
+            }
+
+
+ul.categories__list {
+    margin: 0 auto;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+a.nav-link {
+    border-bottom: 1px solid var(--text-color);
+}
+
+/*.categories__list .categories__item:not(:last-child)::after {
+    content: '.';
+    font-size: 0;
+    display: block;
+    width: 75%;
+    height: 1px;
+    background-color: var(--black-color);
+}*/
+
+.categories__list .categories__item.active a.nav-link::before {
+    content: "";
+    position: absolute;
+    left: 10%;
+    transform: translateY(calc(50% + 2px));
+    border-width: 6px 9px;
+    border-style: solid;
+    border-color: transparent transparent transparent var(--main-color);
+}
+
+.categories__list .categories__item a.nav-link {
+    font-size: 1.6rem;
+    color: var(--text-color);
+}
+
+.categories__list .categories__item.active a.nav-link {
+    color: var(--main-color);
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.categories__list .categories__item:not(.active) > a.nav-link {
+    opacity: 0.8;
+}
+
+.categories__button .categories__item-button {
+    display: flex;
+    align-items: center;
+}
+
+.categories__list .categories__item:not(.active) > a.nav-link:hover {
+    transform: translateY(-2px);
+}
+
+.categories__button {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    width: 60%;
+    transform: translateX(-50%);
+}
+
+.categories__button .categories__item-button a.nav-link {
+    font-size: 1.6rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    border: none;
+    padding: 0;
+}
+
+.categories__button .categories__item-button a.nav-link:hover {
+    color: var(--main-color);
+}
+
+i.fas.fa-right-from-bracket {
+    font-size: 1.6rem;
+    margin-right: 15px;
+    padding-bottom: 3px;
+}
+/* End Sidebar */
