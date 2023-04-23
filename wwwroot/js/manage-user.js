@@ -1,4 +1,4 @@
-// thay doi thong tin tai khoan
+﻿// thay doi thong tin tai khoan
 var eyeButtons = document.querySelectorAll("td.Option__eye");
 
 for (var i = 0; i < eyeButtons.length; i++) {
@@ -30,4 +30,18 @@ function handleCloseModal() {
 
 for (var i = 0; i < buttonExit.length; i++) {
   buttonExit[i].addEventListener("click", handleCloseModal);
+}
+
+// Xoa
+var banButtons = document.querySelectorAll("td.Option__ban");
+
+for (var i = 0; i < banButtons.length; i++) {
+    banButtons[i].addEventListener("click", function () {
+        let text = "Bạn có chắc chắn muốn xoá người dùng này không?";
+        if (confirm(text) == true) {
+            
+        } else {
+            
+        }
+    });
 }

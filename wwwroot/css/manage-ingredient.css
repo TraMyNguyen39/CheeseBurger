@@ -5,9 +5,9 @@
     background-color: var(--admin-color);
     color: var(--white-color);
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 18px;
     border: 0px;
-    transform: translateX(25px);
+    margin-bottom: 30px;
 }
 
     .button__add button:hover {
@@ -18,80 +18,12 @@
     .button__add button:focus {
         outline: none;
     }
-
-.main__information {
-    padding-top: 45px;
-}
-
-.main__information-add i {
-    transform: translateY(6px);
-    margin-bottom: 10px;
-    color: var(--white-color);
-}
-
-.main__table-text {
-    font-size: 16px;
-}
-
-.main__table-form {
-    display: flex;
-    font-size: 16px;
-}
-
-    .main__table-form button {
-        background-color: orange;
-        margin: 0 auto;
-        display: block;
-    }
-
-.search__form input[type="search"] {
-    width: 300px;
-}
-
-.input-wrapper {
-    position: relative;
-    transform: translateX(35px);
-}
-
-    .input-wrapper input[type="search"] {
-        padding-right: 30px; /* adjust the padding to accommodate the icon */
-        border-radius: 10px;
-        font-size: 16px;
-    }
-
-    .input-wrapper i {
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%);
-        z-index: 0;
-        transition: transform 0.2s ease-in-out;
-    }
-
-        .input-wrapper i:hover {
-            color: #ee4d2d;
-        }
-
-.col-md-3 .form__comboBox select[name="combobox_Item"] {
-    color: var(--text-color);
-    border-radius: 8px;
-    width: 180px;
-    font-size: 17px;
-}
 /* End Information */
 
 /* Table */
-.content-table {
-    border-collapse: collapse;
-    margin: 15px 0;
-    font-size: 16px;
-    width: 100%;
-    border-radius: 5px 5px 0 0;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    transform: translateX(15px);
+td.Option i {
+    margin: 0 5px;
 }
-
     .content-table thead tr {
         background-color: var(--admin-color);
         color: var(--black-color);
@@ -107,13 +39,12 @@
     .content-table tbody tr {
         border-bottom: 1px solid var(--black-color);
     }
+td.Ten_mon {
+    text-align: left;
+}
 
 .comboList_menu {
     border-radius: 20px;
-}
-
-.content-table tbody tr .Option i {
-    padding-right: 10px;
 }
 
     .content-table tbody tr .Option i:hover {
@@ -126,59 +57,20 @@
 }
 
 .content-table tbody tr td {
-    text-align: center !important;
+    text-align: center;
 }
 
-.page-pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
+.content-table tbody tr td.Ten_mon {
+    text-align: left;
+    padding-left: 5%;
 }
-
-.pagination a {
-    display: block;
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-    font-size: 1.25rem;
-    border-radius: 6px;
-}
-
-    .pagination a.active {
-        background-color: var(--table-color);
-        color: white;
-    }
-
-.pagination i {
-    color: var(--table-color);
-}
-
-.pagination a:hover:not(.active) {
-    background-color: #ddd;
-    opacity: 0.6;
+.content-table tbody tr td.Number_mon, .content-table tbody tr td.Number_mon {
+    text-align: right;
+    padding-right: 5%;
 }
 
 /* End Table */
 
-/* Xem them Button */
-.button__show-more {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 40px;
-    font-size: 1.5rem;
-}
-
-    .button__show-more button {
-        width: 300px;
-        height: 40px;
-        background-color: var(--yellow-color);
-        border-radius: 15px;
-        color: var(--white-color);
-    }
-/* End */
 
 /* Modal Add */
 .modal__ingredient-information {
@@ -233,12 +125,18 @@
 
 .ingredient__name input[type="search"], .ingredient__categories input[type="search"] {
     height: 40px;
-    font-size: 20px;
+    font-size: 1.6rem;
     border: 1px solid #495057;
+    padding: 0 5px;
+}
+.ingredient__name input[type="search"]:focus, .ingredient__categories input[type="search"]:focus {
+    outline: none;
+    box-shadow: none;
 }
 
-.ingredient__price, .ingredient__categories {
-    padding: 10px 5px 5px 0px !important;
+.ingredient__price .form__comboBoxList select[name="combobox_Item"]:focus-visible {
+    outline: none;
+    box-shadow: none;
 }
 
 .ingredient__price-categories {
@@ -248,11 +146,12 @@
 .ingredient__price .form__comboBoxList select[name="combobox_Item"], .ingredient__producer .form__comboBoxList select[name="combobox_Item"] {
     height: 40px;
     width: 200px;
+    padding: 0 5px;
 }
 
-.ingredient__price-categories .ingredient__producer {
+/*.ingredient__price-categories .ingredient__producer {
     transform: translateY(10px);
-}
+}*/
 
 .button__ingredient-add button {
     width: 100%;
@@ -275,7 +174,8 @@
 .modal__ingredient-information {
     background-color: var(--white-color);
     margin: 40px;
-    border-radius: 6px;
+    border-radius: 8px;
+    position: relative;
 }
 
 .button__exit .exit__surround {
@@ -316,18 +216,7 @@
 }
 
 .modal__label-main {
-    font-weight: 700;
-    font-size: 20px;
-}
-
-.ingredient__name input[type="search"], .ingredient__categories input[type="search"] {
-    height: 40px;
-    font-size: 20px;
-    border: 1px solid #495057;
-}
-
-.ingredient__price, .ingredient__categories {
-    padding: 10px 5px 5px 0px !important;
+    padding: 0;
 }
 
 .ingredient__price-categories {
@@ -357,6 +246,9 @@
 .button__ingredient-modify button:focus{
     outline: none;
 }
+p.label {
+    font-size: 1.8rem;
+}
 /* End Modal Update */
 
 /* Read Modal */
@@ -383,11 +275,12 @@
 
 .modal__read-information {
     background-color: var(--white-color);
-    padding: 0px 0px 40px 40px;
+    padding: 30px 40px;
     margin: 40px;
-    width: 35%;
+    width: 30%;
     height: auto;
-    border-radius: 6px;
+    border-radius: 8px;
+    position: relative;
 }
 
 .categories__text-specific {
@@ -397,10 +290,20 @@
 }
 
 .categories__information-label {
-    font-size: 15px;
+    font-size: 1.8rem;
 }
 
 .categories__information-key {
     padding-left: 0 !important;
 }
+.exit-btn {
+    width: 100%;
+    font-size: 1.6rem;
+}
 /* End Read Modal */
+.form__comboBox.cbb_sort select {
+    margin-left: 10px;
+    border-radius: 8px;
+    width: 180px;
+    font-size: 16px;
+}

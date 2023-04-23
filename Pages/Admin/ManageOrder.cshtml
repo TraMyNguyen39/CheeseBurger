@@ -5,41 +5,42 @@
 }
 <link rel="stylesheet" href="~/css/manage-order.css" asp-append-version="true" />
 
-<div class="blank_area col-1"></div>
-<div class="main__table col-9">
-	<div class="main__information-add d-flex justify-content-end align-items-center">
-		<div class="button__add">
-			<form action="~/Admin/ImportOrderProc">
-				<button type="submit">Thêm đơn nhập</button>
-			</form>
-		</div>
-		<i class="fas fa-plus"></i>
-	</div>
+<div class="main__table">
 	<div class="main__table-status">
 		<ul class="main__status">
-			<li class="main__status-details col-2 active">
-				<button class="btn__status" type="submit">Tất cả(8)</button>
+			<li class="main__status-details active">
+				<button class="btn__status" type="submit">Tất cả (8)</button>
 			</li>
-			<li class="main__status-details col-2">
-				<button class="btn__status" type="submit">Chờ xác nhận(1)</button>
+			<li class="main__status-details">
+				<button class="btn__status" type="submit">Chờ xác nhận (1)</button>
 			</li>
-			<li class="main__status-details col-2">
-				<button class="btn__status" type="submit">Chuẩn bị hàng(1)</button>
+			<li class="main__status-details">
+				<button class="btn__status" type="submit">Chuẩn bị hàng (1)</button>
 			</li>
-			<li class="main__status-details col-2">
-				<button class="btn__status" type="submit">Đang giao(1)</button>
+			<li class="main__status-details">
+				<button class="btn__status" type="submit">Đang giao (1)</button>
 			</li>
-			<li class="main__status-details col-2">
-				<button class="btn__status" type="submit">Đã giao(3)</button>
+			<li class="main__status-details">
+				<button class="btn__status" type="submit">Đã giao (3)</button>
 			</li>
-			<li class="main__status-details col-2">
-				<button class="btn__status" type="submit">Đã hủy(2)</button>
+			<li class="main__status-details">
+				<button class="btn__status" type="submit">Đã hủy (2)</button>
+			</li>
+			<li class="main__status-details btn-not-success">
+				<button class="btn__status btn-not-success" type="submit">Không thành công (2)</button>
 			</li>
 		</ul>
 	</div>
+	<div class="main__information-add d-flex justify-content-end align-items-center">
+		<div class="button__add">
+			<form action="~/Admin/ImportOrderProc">
+				<button type="submit">Thêm đơn nhập +</button>
+			</form>
+		</div>
+	</div>
 	<div class="main__information">
 		<div class="main__table-form">
-			<div class="col-md-2">
+			<div class="col-md-2 pl-0">
 				<div class="form-group">
 					<label class="control-label">Loại đơn: </label>
 					<div class="form__comboBox">
@@ -70,7 +71,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="col-md-4 d-flex justify-content-end align-items-center">
+			<div class="col-md-4 d-flex justify-content-end align-items-center pr-0">
 				<div class="form-group">
 					<label class="control-label"></label>
 					<div class="search__form">
@@ -90,7 +91,7 @@
 				<tr>
 					<th>STT</th>
 					<th>Mã đơn hàng</th>
-					<th class="Name">Tên người dùng</th>
+					<th class="Name">Tên người mua</th>
 					<th>Ngày đặt hàng</th>
 					<th>Đơn bán</th>
 					<th>Trạng thái</th>
@@ -98,47 +99,20 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>102543144</td>
-					<td class="Name">Nguyễn My</td>
-					<td>25/02/2023</td>
-					<td> <input type="checkbox" id="order-sold" name="order-sold" value="order-sold" checked></td>
-					<td class="Status">
-						Chờ xác nhận
-					</td>
-					<td>100 000 VND</td>
-				</tr>
-				<tr class="active-row">
-					<td>2</td>
-					<td>102543145</td>
-					<td class="Name">Huỳnh Đông</td>
-					<td>25/02/2023</td>
-					<td><input type="checkbox" id="order-sold" name="order-sold" value="order-sold"></td>
-					<td class="Status">
-					</td>
-					<td>150 000 VND</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>102543146</td>
-					<td class="Name">Võ Đạt</td>
-					<td>25/02/2023</td>
-					<td><input type="checkbox" id="order-sold" name="order-sold" value="order-sold"></td>
-					<td class="Status">
-					</td>
-					<td>100 000 VND</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>102543146</td>
-					<td class="Name">Lê Duy</td>
-					<td>25/02/2023</td>
-					<td><input type="checkbox" id="order-sold" name="order-sold" value="order-sold"></td>
-					<td class="Status">
-					</td>
-					<td>100 000 VND</td>
-				</tr>
+				@for (var i = 1; i < 5; i ++)
+				{
+					<tr>
+						<td>1</td>
+						<td><a asp-page="" class="IDOrder">102543144</a></td>
+						<td><a asp-page="" class="Name">Nguyen My</a></td>
+						<td>25/02/2023</td>
+						<td> <input type="checkbox" id="order-sold" name="order-sold" value="order-sold" checked></td>
+						<td class="Status">
+							Chờ xác nhận
+						</td>
+						<td>100 000 VND</td>
+					</tr>
+				}
 			</tbody>
 		</table>
 		<div class="page-pagination">

@@ -4,17 +4,15 @@
 	ViewData["Title"] = "ManageFood";
 }
 <link rel="stylesheet" href="~/css/manage-food.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
 
-
-<div class="blank_area col-1"></div>
-<div class="main__information col-9">
+<div class="main__information">
 	<div class="main__information-detail">
 		<div class="main__information-add d-flex justify-content-end align-items-center">
-			<div class="button__add"><button class="" type="submit">Thêm món ăn</button></div>
-			<i class="fas fa-plus"></i>
+			<div class="button__add"><button class="" type="submit">Thêm món ăn +</button></div>
 		</div>
 		<div class="main__table-form">
-			<div class="col-md-3">
+			<div class="col-md-3 pl-0">
 				<div class="form-group">
 					<label class="control-label">Danh mục: </label>
 					<div class="form__comboBox">
@@ -43,14 +41,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="blank_area col-md-1"></div>
-			<div class="col-md-5 d-flex justify-content-end align-items-center">
+			<div class="col-md-6 pr-0 mr-0 d-flex justify-content-end">
 				<div class="form-group">
 					<label class="control-label"></label>
 					<div class="search__form">
 						<form class="form-inline my-2 my-lg-0">
 							<div class="input-wrapper">
-								<input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm mã sản phẩm, tên sản phẩm" aria-label="Search">
+								<input class="form-control" type="search" placeholder="Tìm kiếm mã, tên sản phẩm" aria-label="Search">
 								<i class="fas fa-search"></i>
 							</div>
 						</form>
@@ -62,18 +59,16 @@
 		<table class="content-table">
 			<thead>
 				<tr>
-					<th class="STT">STT</th>
-					<th class="ID_mon">Mã món ăn</th>
-					<th class="Ten_mon">Tên món ăn</th>
-					<th class="Danh_muc">Danh mục</th>
-					<th class="Trang_thai">Trạng thái</th>
-					<th class="Option">Tùy chọn</th>
+					<th class="STT col-1">STT</th>
+					<th class="Ten_mon col-3">Tên món ăn</th>
+					<th class="Danh_muc col-3">Danh mục</th>
+					<th class="Trang_thai col-3">Trạng thái</th>
+					<th class="Option col-2">Tùy chọn</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td class="STT">1</td>
-					<td class="ID_mon">100</td>
 					<td class="Ten_mon">Hamburger</td>
 					<td class="Danh_muc">Gà Quay</td>
 					<td class="Trang_thai">Đang bán</td>
@@ -85,7 +80,6 @@
 				</tr>
 				<tr>
 					<td class="STT">1</td>
-					<td class="ID_mon">100</td>
 					<td class="Ten_mon">Hamburger</td>
 					<td class="Danh_muc">Gà Quay</td>
 					<td class="Trang_thai">Đang bán</td>
@@ -97,7 +91,6 @@
 				</tr>
 				<tr>
 					<td class="STT">1</td>
-					<td class="ID_mon">100</td>
 					<td class="Ten_mon">Hamburger Gà quay Flavar</td>
 					<td class="Danh_muc">Gà Quay</td>
 					<td class="Trang_thai">Đang bán</td>
@@ -109,7 +102,6 @@
 				</tr>
 				<tr>
 					<td class="STT">1</td>
-					<td class="ID_mon">100</td>
 					<td class="Ten_mon">Hamburger</td>
 					<td class="Danh_muc">Gà Quay</td>
 					<td class="Trang_thai">Đang bán</td>
@@ -138,12 +130,12 @@
 <div class="modal__food-add">
 	<div class="modal__food-information">
 		<div class="button__exit d-flex justify-content-end">
-			<button class="exit__surround">
+			<span class="exit__surround d-flex align-items-center justify-content-center">
 				<i class="fas fa-times"></i>
-			</button>
+			</span>
 		</div>
 		<div class="modal__food-details">
-			<p class="modal__label-main">Thêm món ăn</p>
+			<p class="modal__label-main">THÊM MÓN ĂN</p>
 			<div class="food__name">
 				<p class="label">Tên món ăn</p>
 				<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
@@ -165,56 +157,13 @@
 				</div>
 				<div class="food__categories col-6">
 					<p class="label">Đơn giá</p>
-					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+					<input class="form-control mr-sm-2" type="search" placeholder="">
 				</div>
 			</div>
 			<div class="food__description">
 				<p class="label">Mô tả</p>
-				<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+				<input class="form-control mr-sm-2" type="search" placeholder="">
 			</div>
-			<!-- <div class="food__recipe">
-				<div class="col-md-2">
-					<div class="form-group-start">
-					   <label class="control-label">Nguyên liệu: </label>
-					   <div class="form__comboBoxList">
-						 <form action="dropList" method="post">
-							<select name="combobox_Item">
-							<option value="" selected>Tất cả</option>
-							<option value="">Gà quay</option>
-							<option value="">Vịt quay</option>
-							<option value="">Hamburger</option>
-							<option value="">Cơm</option>
-							</select>
-					   </div>
-					</div>
-				</div>
-				<div class="blank__area col-md-1"></div>
-				<div class="col-md-2">
-					<div class="form-group">
-						<label class="control-label">Khối lượng:</label>
-						<div class="search__weight">
-							<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
-						</div>
-					</div>
-				</div>
-				<div class="blank__area col-md-1"></div>
-				<div class="col-md-2">
-					<div class="form-group">
-						<label class="control-label">Sắp xếp: </label>
-						<div class="form__comboBoxList">
-							<form action="dropList" method="post">
-								<select name="combobox_Item">
-								<option value="" selected>Tên từ A-Z</option>
-								<option value="">Tên từ Z-A</option>
-								</select>
-						</div>
-					 </div>
-				</div>
-				<div class="blank__area col-md-1"></div>
-				<div class="plus__button d-flex align-items-center">
-					<i class="fas fa-plus-circle"></i>
-				</div>
-			</div> -->
 			<div class="file__image d-flex align-items-center">
 				<form action="/upload.php" method="post" enctype="multipart/form-data">
 					<p class="image__text">Hình ảnh</p>

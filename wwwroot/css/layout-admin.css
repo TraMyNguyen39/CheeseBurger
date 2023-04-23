@@ -200,3 +200,173 @@ i.fas.fa-right-from-bracket {
     padding-bottom: 3px;
 }
 /* End Sidebar */
+
+/* Paging */
+.page-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.pagination a {
+    display: block;
+    color: var(--text-color);
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    font-size: 1.4rem;
+    border-radius: 6px;
+}
+
+    .pagination a.active {
+        background-color: var(--main-color);
+        color: white;
+    }
+
+.pagination i {
+    color: var(--table-color);
+}
+
+.pagination a:hover:not(.active) {
+    background-color: var(--main-color);
+    opacity: 0.6;
+}
+
+/*Modal*/
+
+.button__exit {
+    display: flex;
+    justify-content: end;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.8rem;
+}
+
+    .button__exit .exit__surround {
+        text-align: center;
+        line-height: 40px;
+        width: 40px;
+        height: 40px;
+        background-color: #D43352;
+        border: 0;
+        border-bottom-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+        .button__exit .exit__surround i {
+            color: var(--white-color);
+        }
+
+            .button__exit .exit__surround i:focus {
+                outline: none;
+            }
+
+            .button__exit .exit__surround i:hover, .button__exit .exit__surround:hover {
+                opacity: 0.8;
+                cursor: pointer;
+            }
+
+        .button__exit .exit__surround:focus {
+            outline: none;
+        }
+
+
+.modal__customer-details:not(.modal__label-main) {
+    font-size: 1.6rem;
+}
+
+.modal__label-main {
+    font-size: 2rem;
+    padding-left: 10px;
+}
+
+.modal__label-cate {
+    font-size: 2rem;
+    font-weight: 700;
+}
+/*submit btn*/
+.submit-btn:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.submit-btn:focus {
+    outline: none;
+}
+
+.submit-btn {
+    width: 40%;
+    height: 40px;
+    color: var(--white-color);
+    background: linear-gradient(to right, #ee4d2d,#ff7337);
+    margin-top: 20px;
+    border-radius: 5px;
+    font-weight: 500;
+    border: none;
+}
+
+a.submit-btn {
+    color: var(--white-color);
+    text-align: center;
+    line-height: 40px;
+    text-decoration: none;
+    margin-right: 15px;
+    margin-left: 10%;
+}
+
+    a.submit-btn:hover {
+        text-decoration: none;
+        color: var(--white-color);
+        opacity: 0.8;
+    }
+
+/*Table*/
+/* Table */
+.content-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 16px;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: -3px 4px 16px rgba(0,0,0,.4);
+    background-color: var(--white-color);
+}
+
+    .content-table thead tr {
+        background: var(--main-color);
+        color: var(--black-color);
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .content-table th,
+    .content-table td {
+        padding: 12px 0px;
+    }
+
+    .content-table tbody tr {
+        border-bottom: 1px solid var(--black-color);
+        text-align: center;
+    }
+
+    .content-table thead tr th {
+        text-align: center;
+    }
+    .content-table thead tr th.Role {
+        text-align: left;
+    }
+    .content-table tbody tr .Name, .content-table tbody tr .Email, .content-table tbody tr .Role{
+        text-align: left;
+    }
+
+.comboList_menu {
+    border-radius: 20px;
+}
+
+.content-table tbody tr .Option__eye i:hover, .content-table tbody tr .Option__pencil i:hover, .content-table tbody tr .Option__ban i:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}

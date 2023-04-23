@@ -5,69 +5,51 @@
 }
 <link rel="stylesheet" href="~/css/import-order-procs.css" asp-append-version="true" />
 
-<div class="blank__area col-2"></div>
-<div class="ingredient__form col-7">
+<div class="ingredient__for">
 	<div class="ingredient__form-details">
 		<p class="ingredient__label-specific">Đơn nhập nguyên liệu</p>
 		<div class="ingredient__label-wrapper d-flex">
-			<p class="ingredient__label">Nguyên liệu:</p>
-			<p class="ingredient__label-mass">Khối lượng:</p>
+			<p class="ingredient__label col-3 pl-0">Nguyên liệu:</p>
+			<p class="ingredient__label-mass col-4">Khối lượng:</p>
+			<p class="ingredient__label-mass col-3">Thành tiền:</p>
 		</div>
-		<div class="ingredient__label-list d-flex align-items-center">
-			<div class="form-group">
-				<div class="form__comboBox">
-					<form action="dropList" method="post">
-						<select name="combobox_Item">
-							<option value="" selected>Salad</option>
-							<option value="">Cà chua</option>
-							<option value="">Ớt</option>
-						</select>
+		@for(int i = 0; i < 2; i++)
+		{
+			<div class="ingredient__label-list d-flex align-items-center">
+				<div class="form-group col-3 pl-0">
+					<div class="form__comboBox">
+						<form action="dropList" method="post">
+							<select name="combobox_Item">
+								<option value="" selected>Salad</option>
+								<option value="">Cà chua</option>
+								<option value="">Ớt</option>
+							</select>
+						</form>
+					</div>
+				</div>
+				<div class="search__form col-4">
+					<form class="form-inline my-2 my-lg-0">
+						<div class="input-wrapper">
+							<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+							<span class="unit">kilogam</span>
+						</div>
 					</form>
 				</div>
+				<p class="ingredient__money col-3">10.000đ</p>
+				<i class="fas fa-minus-circle"></i>
 			</div>
-			<div class="search__form">
-				<form class="form-inline my-2 my-lg-0">
-					<div class="input-wrapper">
-						<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
-					</div>
-				</form>
-			</div>
-			<i class="fas fa-minus-circle"></i>
-			<p class="ingredient__label">10.000VND</p>
-		</div>
-		<div class="ingredient__label-list d-flex align-items-center">
-			<div class="form-group">
-				<div class="form__comboBox">
-					<form action="dropList" method="post">
-						<select name="combobox_Item">
-							<option value="">Salad</option>
-							<option value="" selected>Cà chua</option>
-							<option value="">Ớt</option>
-						</select>
-					</form>
-				</div>
-			</div>
-			<div class="search__form">
-				<form class="form-inline my-2 my-lg-0">
-					<div class="input-wrapper">
-						<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
-					</div>
-				</form>
-			</div>
-			<i class="fas fa-minus-circle"></i>
-			<p class="ingredient__label">10.000VND</p>
-		</div>
+		}
 		<i class="fas fa-plus-circle"></i>
 		<div class="ingredient__total d-flex">
 			<div class="blank__area col-md-5"></div>
-			<p class="ingredient__total-label col-md-3">Thành tiền:</p>
-			<p class="ingredient__total-label col-md-3">100.000 VNĐ</p>
+			<p class="ingredient__total-label col-md-3">Tổng tiền:</p>
+			<p class="ingredient__total-label col-md-3">100.000đ</p>
 		</div>
 		<div class="ingredient__button d-flex align-items-center justify-content-between">
-			<div class="ingredient__button-cancel col-md-5">
+			<div class="ingredient__button-cancel col-md-6">
 				<button class="" type="submit">Hủy đặt</button>
 			</div>
-			<div class="ingredient__button-order col-md-5">
+			<div class="ingredient__button-order col-md-6">
 				<button class="" type="submit">Đặt đơn</button>
 			</div>
 		</div>

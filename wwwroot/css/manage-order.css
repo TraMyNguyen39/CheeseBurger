@@ -2,47 +2,63 @@
 
 .main__table {
     font-size: 16px;
-    padding-top: 45px;
+    padding-top: 40px;
+    width: 75%;
+    margin: 0 auto;
 }
-
+.main__table-form {
+    display: flex;
+    font-size: 16px;
+}
 .form__comboBox select[name="combobox_Item"] {
     color: var(--text-color);
-    border-radius: 8px;
-    width: 50px;
-    font-size: 17px;
+    border-radius: 6px;
+    width: 150px;
+    font-size: 16px;
+    border: 1px solid #495057;
+    transform: translateY(5px);
+    padding: 1px 5px;
 }
 /* End Main */
+.main__information {
+    width: 100%;
+    margin-top: 0;
+}
+
 .main__information-add i {
-    transform: translateY(6px);
     margin-bottom: 10px;
     color: var(--white-color);
 }
-
+.button__add {
+    margin: 30px 0;
+}
 .button__add button {
     width: 180px;
     height: 40px;
     background-color: var(--admin-color);
     color: var(--white-color);
     border-radius: 5px;
-    font-size: 15px;
+    font-size: 16px;
     border: 0px;
-    transform: translateX(25px);
 }
 
     .button__add button:focus {
         outline: none;
     }
 
+label {
+    margin-bottom: 0;
+}
+label.control-label {
+     line-height: 1.5; 
+    margin-bottom: 10px;
+}
 .time-start {
     transform: translateX(30px);
 }
 
 .time-end {
-    transform: translateY(17px);
-}
-
-.time-start .label {
-    margin-bottom: 3px;
+    transform: translateY(29%);
 }
 
 .time-start .control-label, .time-end .control-label {
@@ -59,11 +75,28 @@ input[type="date"] {
     opacity: 0.8;
 }
 
+a.IDOrder {
+    color: var(--main-color);
+}
+
+a.IDOrder:hover {
+    color: var(--main-color);
+    text-decoration: none;
+    opacity: 0.5;
+}
+a.Name {
+    color: var(--text-color);
+}
+a.Name:hover {
+    text-decoration: none;
+    opacity: 0.5;
+    color: var(--text-color);
+}
+
 .main__table-status {
     height: 30px;
     display: block;
     transform: translateX(-20px);
-    margin-top: 20px;
     font-size: 16px;
 }
 
@@ -71,14 +104,17 @@ input[type="date"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 105%;
+    width: 100%;
     height: auto;
+    padding: 0;
+    margin: 0 auto;
 }
 
     .main__status .main__status-details {
         font-size: 16px;
         list-style-type: none;
         padding: 5px !important;
+        width: calc(100% / 7);
     }
 
     .main__status button:hover {
@@ -97,7 +133,6 @@ input[type="date"] {
         height: 30px;
         border: 0;
     }
-
     .main__status .active button {
         background-color: var(--admin-color);
         border-radius: 20px;
@@ -106,6 +141,9 @@ input[type="date"] {
         height: 30px;
         color: var(--white-color);
         border: 0;
+    }
+    .main__status .main__status-details button.btn__status.btn-not-success {
+        width: 118%;
     }
 
 .main__table-information {
@@ -118,7 +156,6 @@ input[type="date"] {
 
 .main__table-form {
     display: flex;
-    margin-top: 20px;
 }
 
     .main__table-form button {
@@ -134,7 +171,6 @@ input[type="date"] {
 
 .input-wrapper {
     position: relative;
-    transform: translateX(35px);
 }
 
     .input-wrapper input[type="search"] {
@@ -157,7 +193,7 @@ input[type="date"] {
         }
 
 /* Table */
-.content-table {
+/*.content-table {
     border-collapse: collapse;
     margin: 25px 0;
     width: 100%;
@@ -166,7 +202,7 @@ input[type="date"] {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     transform: translateX(15px);
 }
-
+*/
     .content-table thead tr {
         background-color: var(--admin-color);
         color: var(--black-color);
@@ -200,39 +236,3 @@ input[type="date"] {
 }
 
 
-.form__comboBox select[name="combobox_Item"] {
-    border-radius: 8px;
-    width: 150px;
-    font-size: 18px;
-    border: 1px solid #495057;
-}
-
-.page-pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-}
-
-.pagination a {
-    display: block;
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-    font-size: 1.25rem;
-}
-
-    .pagination a.active {
-        background-color: var(--table-color);
-        color: white;
-    }
-
-.pagination i {
-    color: var(--table-color);
-}
-
-.pagination a:hover:not(.active) {
-    background-color: #ddd;
-}
-/* End Table */

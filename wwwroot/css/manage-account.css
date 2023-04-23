@@ -13,6 +13,7 @@
 
 .main__information {
     width: 100%;
+    margin-top: 0;
 }
 
 .account__information-label {
@@ -34,40 +35,6 @@
     padding-left: 0px;
 }
 
-.submit-btn:hover {
-    cursor: pointer;
-    opacity: 0.8;
-}
-
-.submit-btn:focus {
-    outline: none;
-}
-
-.submit-btn {
-    width: 40%;
-    height: 40px;
-    color: var(--white-color);
-    background: linear-gradient(to right, #ee4d2d,#ff7337);
-    margin-top: 20px;
-    border-radius: 5px;
-    font-weight: 500;
-    border: none;
-}
-
-a.submit-btn {
-    color: var(--white-color);
-    text-align: center;
-    line-height: 40px;
-    text-decoration: none;
-    margin-right: 15px;
-    margin-left: 10%;
-}
-
-    a.submit-btn:hover {
-        text-decoration: none;
-        color: var(--white-color);
-        opacity: 0.8;
-    }
 /* End Main Information */
 
 /* Update Account */
@@ -79,43 +46,6 @@ a.submit-btn {
     border-radius: 8px;
     position: relative;
 }
-
-.button__exit {
-    display: flex;
-    justify-content: end;
-    position: absolute;
-    top: 0;
-    right: 0;
-    font-size: 1.8rem;
-}
-
-    .button__exit .exit__surround {
-        text-align: center;
-        line-height: 40px;
-        width: 40px;
-        height: 40px;
-        background-color: #D43352;
-        border: 0;
-        border-bottom-left-radius: 8px;
-        border-top-right-radius: 8px;
-    }
-
-        .button__exit .exit__surround i {
-            color: var(--white-color);
-        }
-
-            .button__exit .exit__surround i:focus {
-                outline: none;
-            }
-
-            .button__exit .exit__surround i:hover, .button__exit .exit__surround:hover {
-                opacity: 0.8;
-                cursor: pointer;
-            }
-
-        .button__exit .exit__surround:focus {
-            outline: none;
-        }
 
 .modal__customer-update.open {
     display: flex;
@@ -133,19 +63,6 @@ a.submit-btn {
     display: none;
 }
 
-.modal__customer-details:not(.modal__label-main) {
-    font-size: 1.6rem;
-}
-
-.modal__label-main {
-    font-weight: 700;
-    font-size: 2rem;
-}
-
-.modal__label-cate {
-    font-size: 2rem;
-    padding-right: 5px;
-}
 
 .item-line {
     margin-bottom: 6px;
@@ -172,6 +89,7 @@ a.submit-btn {
 
 input.form-control:focus {
     border: 1px solid rgb(73, 80, 87);
+    box-shadow: none;
 }
 
 .form-control select {

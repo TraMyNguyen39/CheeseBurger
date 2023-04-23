@@ -1,5 +1,5 @@
 ﻿@page
-@model ManageUserModel
+@model ManageStaffModel
 @{
 	ViewData["Title"] = "ManageUser";
 }
@@ -8,10 +8,25 @@
 <div class="main__information">
 	<div class="main__information-detail">
 		<div class="main__table-form">
-			<div class="col-md-6 pl-0">
-				<div class="form-group d-flex">
+			<div class="col-md-3 pl-0">
+				<div class="form-group">
+					<label class="control-label">Chức vụ: </label>
+					<div class="form__comboBox">
+						<form action="dropList" method="post">
+							<select name="combobox_Item">
+								<option value="" selected>Tất cả</option>
+								<option value="">Quản trị viên</option>
+								<option value="">Nhân viên nhà bếp</option>
+								<option value="">Nhân viên giao hàng</option>
+							</select>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
 					<label class="control-label">Sắp xếp: </label>
-					<div class="form__comboBox cbb_sort">
+					<div class="form__comboBox">
 						<form action="dropList" method="post">
 							<select name="combobox_Item">
 								<option value="" selected>Tất cả</option>
@@ -24,6 +39,7 @@
 			</div>
 			<div class="col-md-6 pr-0 mr-0 d-flex justify-content-end">
 				<div class="form-group">
+					<label class="control-label"><br></label>
 					<div class="search__form">
 						<form class="form-inline my-2 my-lg-0">
 							<div class="input-wrapper">
@@ -39,9 +55,10 @@
 			<thead>
 				<tr class="tr">
 					<th class="STT col-1">STT</th>
-					<th class="ID col-2">Mã KH</th>
-					<th class="Name col-3">Tên người dùng</th>
-					<th class="Email col-3">Email</th>
+					<th class="ID col-1">Mã NV</th>
+					<th class="Name col-3">Họ tên</th>
+					<th class="Role col-2">Chức vụ</th>
+					<th class="SDT col-2">Số điện thoại</th>
 					<th class="Option__eye col-1">Xem</th>
 					<th class="Option__pencil col-1">Sửa</th>
 					<th class="Option__ban col-1">Xoá</th>
@@ -52,7 +69,8 @@
 					<td class="STT">1</td>
 					<td class="ID">100</td>
 					<td class="Name">Võ Thế Đạt</td>
-					<td class="Email">vothedat@gmail.com</td>
+					<td class="Role">Giao hàng</td>
+					<td class="SDT">0985551212</td>
 					<td class="Option__eye"> <i class="fas fa-eye"></i></td>
 					<td class="Option__pencil"> <i class="fas fa-pencil-alt"></i></td>
 					<td class="Option__ban">  <i class="fas fa-ban"></i></td>
@@ -61,7 +79,8 @@
 					<td class="STT">2</td>
 					<td class="ID">101</td>
 					<td class="Name">Huỳnh Quang Đông</td>
-					<td class="Email">huynhquangdong@gmail.com</td>
+					<td class="Role">Nhà bếp</td>
+					<td class="SDT">0985551219</td>
 					<td class="Option__eye"> <i class="fas fa-eye"></i></td>
 					<td class="Option__pencil"> <i class="fas fa-pencil-alt"></i></td>
 					<td class="Option__ban">  <i class="fas fa-ban"></i></td>
@@ -70,16 +89,8 @@
 					<td class="STT">3</td>
 					<td class="ID">102</td>
 					<td class="Name">Nguyễn Thị Trà My</td>
-					<td class="Email">nguyenthitramy@gmail.com</td>
-					<td class="Option__eye"> <i class="fas fa-eye"></i></td>
-					<td class="Option__pencil"> <i class="fas fa-pencil-alt"></i></td>
-					<td class="Option__ban">  <i class="fas fa-ban"></i></td>
-				</tr>
-				<tr class="tr">
-					<td class="STT">4</td>
-					<td class="ID">103</td>
-					<td class="Name">Nguyễn Thanh Hà</td>
-					<td class="Email">nguyenthanhha@gmail.com</td>
+					<td class="Role">QTV</td>
+					<td class="SDT">0985551218</td>
 					<td class="Option__eye"> <i class="fas fa-eye"></i></td>
 					<td class="Option__pencil"> <i class="fas fa-pencil-alt"></i></td>
 					<td class="Option__ban">  <i class="fas fa-ban"></i></td>
@@ -226,6 +237,7 @@
 				<div class="staff__info-key col-3">
 					<p>Mã người dùng:</p>
 					<p>Họ và tên:</p>
+					<p>Chức vụ:</p>
 					<p>Ngày sinh:</p>
 					<p>Giới tính:</p>
 					<p>Số điện thoại:</p>
@@ -235,6 +247,7 @@
 				<div class="staff__info-value col-9">
 					<p>102</p>
 					<p>Nguyễn Thị Trà My</p>
+					<p>Quản trị viên</p>
 					<p>19/11/2003</p>
 					<p>Nữ</p>
 					<p>0835121369</p>
