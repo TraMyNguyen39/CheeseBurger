@@ -3,15 +3,17 @@
 @{
 	ViewData["Title"] = "ImportOrderDetails";
 }
+<link rel="stylesheet" href="~/css/order-details.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/import-order-details.css" asp-append-version="true" />
 
-<div class="blank_area col-1"></div>
-<div class="main__information col-9">
+<div class="main__information">
 	<div class="main__information-detail">
 		<div class="main__information-packages">
 			<div class="main__information-title d-flex align-items-center">
 				<div class="main__information-label bold">CHI TIẾT ĐƠN HÀNG</div>
-				<div class="main__information-status">Đơn nhập</div>
+				<div class="main__information-status">Đơn xuất</div>
+				<div class="main__information-status">Chờ xác nhận</div>
 			</div>
 			<div class="main__information-wrapper d-flex align-items-center">
 				<div class="main__information-list col-md-3">

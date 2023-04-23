@@ -1,20 +1,9 @@
 ﻿/* Information */
-.button__add button {
-    width: 150px;
-    height: 40px;
-    background-color: var(--yellow-color);
-    color: var(--white-color);
-    border-radius: 15px;
-    font-size: 15px;
-}
-
-    .button__add button:hover {
-        cursor: pointer;
-        opacity: 0.8;
-    }
 
 .main__information {
-    padding-top: 45px;
+    margin: 0 auto;
+    margin-top: 60px;
+    width: 60%;
 }
 
 .main__information-add i {
@@ -23,17 +12,13 @@
     margin-bottom: 10px;
 }
 
-.main__table-information {
-    padding: 20px 15px 0px 15px;
-}
-
 .main__table-text {
-    font-size: 15px;
+    font-size: 18px;
 }
 
 .main__table-form {
     display: flex;
-    font-size: 15px;
+    font-size: 18px;
 }
 
     .main__table-form button {
@@ -48,13 +33,14 @@
 
 .input-wrapper {
     position: relative;
-    transform: translateX(50px);
+/*    transform: translateX(50px);*/
 }
 
     .input-wrapper input[type="search"] {
-        padding-right: 30px; /* adjust the padding to accommodate the icon */
+        padding: 5px;
+        padding-left: 10px; /* adjust the padding to accommodate the icon */
         border-radius: 10px;
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .input-wrapper i {
@@ -74,91 +60,21 @@
     color: var(--text-color);
     border-radius: 8px;
     width: 180px;
-    font-size: 17px;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.form-group select {
+    padding: 2px 5px;
+    outline: none;
+    border: 1px solid #ced4da;
+}
+.form-group input:focus {
+    outline: none;
+    box-shadow: none;
+    border: 1px solid #ced4da;
 }
 /* End Information */
-
-/* Table */
-.content-table {
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 16px;
-    width: 102%;
-    border-radius: 5px 5px 0 0;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    transform: translateX(15px);
-}
-
-    .content-table thead tr {
-        background-color: var(--admin-color);
-        color: var(--black-color);
-        text-align: left;
-        font-weight: bold;
-    }
-
-    .content-table th,
-    .content-table td {
-        padding: 12px 15px;
-    }
-
-    .content-table tbody tr {
-        border-bottom: 1px solid var(--black-color);
-    }
-
-    .content-table thead tr th:not(.Name) {
-        text-align: center !important;
-    }
-
-    .content-table tbody tr td:not(.Name) {
-        text-align: center !important;
-    }
-
-.comboList_menu {
-    border-radius: 20px;
-}
-
-.content-table tbody tr .Option i {
-    padding-right: 10px;
-}
-
-.content-table tbody tr .Option__eye i:hover, .content-table tbody tr .Option__pencil i:hover, .content-table tbody tr .Option__ban i:hover {
-    cursor: pointer;
-    opacity: 0.6;
-}
-
-.page-pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-}
-
-.pagination a {
-    display: block;
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-    font-size: 1.25rem;
-}
-
-    .pagination a.active {
-        background-color: var(--table-color);
-        color: white;
-    }
-
-.pagination i {
-    color: var(--table-color);
-}
-
-.pagination a:hover:not(.active) {
-    background-color: #ddd;
-}
-
-
-
-
 /* .STT, .Option__ban, .checkbox, .Option__eye, .ID, .Option__pencil{
     display: flex;
     flex-direction: row;
@@ -168,34 +84,15 @@
 /* End Table */
 
 /* Modal Add */
+
 .modal__account-information {
     background-color: var(--white-color);
-    padding: 0px 30px 40px 30px;
-    margin-left: 40px;
-    width: 70%;
-    height: 90%;
-    border-radius: 6px;
+    padding: 40px;
+    margin: 0 auto;
+    width: 50%;
+    border-radius: 8px;
+    position: relative;
 }
-
-.button__exit .exit__surround {
-    width: 30px;
-    height: 30px;
-    background-color: #D43352;
-    border: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: translateX(30px);
-}
-
-    .button__exit .exit__surround i {
-        color: var(--white-color);
-    }
-
-        .button__exit .exit__surround i:hover, .button__exit .exit__surround:hover {
-            opacity: 0.8;
-            cursor: pointer;
-        }
 
 .modal__account-update.open {
     display: flex;
@@ -212,20 +109,6 @@
     left: 0;
     background: rgba(0, 0, 0, 0.8);
     display: none;
-}
-
-.modal__account-details:not(.modal__label-main) {
-    font-size: 16px;
-}
-
-.modal__label-main {
-    font-weight: 700;
-    font-size: 20px;
-}
-
-.modal__label-cate {
-    font-size: 20px;
-    padding-right: 5px;
 }
 
 .account__name input[type="search"], .account__telephone input[type="search"], .account__email input[type="search"], .account__adress input[type="search"] {
@@ -307,16 +190,22 @@
     display: none;
 }
 
+.staff__info-full p {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
 .modal__info-details {
     background-color: var(--white-color);
     font-size: 16px;
-    padding-right: 30px;
-    border-radius: 6px;
+    border-radius: 8px;
+    width: 50%;
+    position: relative;
 }
 
 .modal__staff-details {
-    padding: 10px 20px 20px 70px;
-    width: 800px;
+    padding: 40px;
+    width: 100%;
 }
 
 .modal__staff-label {
@@ -331,30 +220,23 @@
     padding-left: 0 !important;
 }
 
-.staff__info-second {
-    transform: translateX(30px);
-}
-
 .staff__address {
     padding-bottom: 40px;
 }
 
-.button__change-account button[type="submit"]:hover {
-    cursor: pointer;
-    opacity: 0.8;
-}
-
-.button__change-account button[type="submit"]:focus {
-    outline: none;
-}
-
-.button__change-account button[type="submit"] {
-    width: 50%;
-    height: 40px;
-    color: var(--white-color);
-    background-color: var(--admin-color);
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px;
+.btn-save {
+    width: 100%;
 }
 /* End Modal Full Info */
+
+.form__comboBox.cbb_sort select {
+    margin-left: 10px;
+    border-radius: 8px;
+    width: 180px;
+    font-size: 16px;
+    padding: 5px;
+}
+
+label.control-label {
+    line-height: 35px;
+}

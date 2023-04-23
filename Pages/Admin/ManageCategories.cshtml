@@ -4,38 +4,38 @@
 	ViewData["Title"] = "ManageCategories";
 }
 <link rel="stylesheet" href="~/css/manage-categories.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
 
-
-<div class="blank_area col-1"></div>
-<div class="main__information col-9">
-	<div class="form-group">
+<div class="main__information">
+	<div class="form-group d-flex">
 		<label class="control-label">Sắp xếp: </label>
-		<div class="form__comboBox">
+		<div class="form__comboBox cbb_sort">
 			<form action="dropList" method="post">
 				<select name="combobox_Item">
-					<option value="" selected>Tên từ A-Z</option>
+					<option value="" selected>Tất cả</option>
+					<option value="">Tên từ A-Z</option>
 					<option value="">Tên từ Z-A</option>
 				</select>
 			</form>
 		</div>
 	</div>
 	<div class="table__details-form">
-		<div class="table__information">
+		<div class="table__information col-9 pl-0">
 			<table class="content-table">
 				<thead>
 					<tr>
-						<th>STT</th>
-						<th>Mã danh mục</th>
-						<th>Tên danh mục</th>
-						<th>Số lượng món</th>
-						<th>Tùy chọn</th>
+						<th class="STT col-1">STT</th>
+						<th class="ID_mon col-2">Mã DM</th>
+						<th class="Ten_mon col-3">Tên danh mục</th>
+						<th class="Number_mon col-3">Số lượng món</th>
+						<th class="Option col-3">Tùy chọn</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td class="STT">1</td>
 						<td class="ID_mon">100</td>
-						<td>Hamburger</td>
+						<td class="Ten_mon">Hamburger</td>
 						<td class="Number_mon">5</td>
 						<td class="Option">
 							<i class="fas fa-eye"></i>
@@ -46,7 +46,7 @@
 					<tr>
 						<td class="STT">2</td>
 						<td class="ID_mon">102</td>
-						<td>Gà rán-Gà quay</td>
+						<td class="Ten_mon">Gà rán-Gà quay</td>
 						<td class="Number_mon">4</td>
 						<td class="Option">
 							<i class="fas fa-eye"></i>
@@ -57,7 +57,7 @@
 					<tr>
 						<td class="STT">3</td>
 						<td class="ID_mon">103</td>
-						<td>Combo 1 người</td>
+						<td class="Ten_mon">Combo 1 người</td>
 						<td class="Number_mon">3</td>
 						<td class="Option">
 							<i class="fas fa-eye"></i>
@@ -68,9 +68,9 @@
 					<tr>
 						<td class="STT">4</td>
 						<td class="ID_mon">104</td>
-						<td>Combo 2 người</td>
+						<td class="Ten_mon">Combo 2 người</td>
 						<td class="Number_mon">2</td>
-						<td class="Option">
+						<td class="Option ">
 							<i class="fas fa-eye"></i>
 							<i class="fas fa-pencil-alt"></i>
 							<i class="fas fa-ban"></i>
@@ -79,9 +79,9 @@
 					<tr>
 						<td class="STT">5</td>
 						<td class="ID_mon">105</td>
-						<td>Thức uống</td>
+						<td class="Ten_mon">Thức uống</td>
 						<td class="Number_mon">5</td>
-						<td class="Option">
+						<td class="Option ">
 							<i class="fas fa-eye"></i>
 							<i class="fas fa-pencil-alt"></i>
 							<i class="fas fa-ban"></i>
@@ -90,9 +90,9 @@
 					<tr>
 						<td class="STT">6</td>
 						<td class="ID_mon">106</td>
-						<td>Tráng miệng</td>
+						<td class="Ten_mon">Tráng miệng</td>
 						<td class="Number_mon">4</td>
-						<td class="Option">
+						<td class="Option ">
 							<i class="fas fa-eye"></i>
 							<i class="fas fa-pencil-alt"></i>
 							<i class="fas fa-ban"></i>
@@ -113,13 +113,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="categories-add">
-			<div class="categories__form-add">
+		<div class="categories-add col-3">
+			<form class="categories__form-add">
 				<p class="categories__text-specific">Thêm danh mục</p>
 				<p class="categories__text">Tạo danh mục mới:</p>
-				<div class="info__form"><input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search"></div>
-				<div class="categories__button"><button class="" type="submit">Thêm danh mục</button></div>
-			</div>
+				<div class="info__form"><input class="form-control mr-sm-2" type="search" placeholder=""></div>
+				<button class="submit-btn add-category-btn" type="submit">Thêm danh mục +</button>
+			</form>
 		</div>
 	</div>
 </div>
@@ -136,7 +136,7 @@
 				<p class="categories__text-specific">Cập nhật danh mục</p>
 				<p class="categories__text">Nhập tên mới:</p>
 				<div class="info__form"><input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search"></div>
-				<div class="categories__button"><button class="" type="submit">Cập nhật danh mục</button></div>
+				<button class="submit-btn update-cate-btn" type="submit">Cập nhật danh mục</button>
 			</div>
 		</div>
 	</div>
@@ -144,7 +144,7 @@
 <!-- End Modal Modify -->
 <!-- Modal Read -->
 <div class="modal__food-read">
-	<div class="modal__read-information">
+	<div class="modal__read-information modal__read-category-edit">
 		<div class="button__exit d-flex justify-content-end">
 			<span class="exit__surround d-flex justify-content-center align-items-center">
 				<i class="fas fa-times"></i>
@@ -154,53 +154,26 @@
 			<div class="categories__form-edit">
 				<p class="categories__text-specific">Xem danh mục</p>
 				<div class="categories__information-label d-flex align-items-center">
-					<div class="categories__information-key col-md-4">
-						<p class="categories__text">Nhập tên mới:</p>
+					<div class="categories__information-key col-md-6">
+						<p class="categories__text">Tên danh mục:</p>
 						<p class="categories__text">Mã danh mục:</p>
 						<p class="categories__text">Số lượng món:</p>
 					</div>
-					<div class="blank__area col-md-1">
-					</div>
-					<div class="categories__information-element col-md-4">
+					<div class="categories__information-element col-md-6">
 						<p class="categories__text">Hamburger</p>
 						<p class="categories__text">100</p>
 						<p class="categories__text">5</p>
 					</div>
 				</div>
-				<div class="table__information-read">
-					<table class="content__table-read">
-						<thead>
-							<tr>
-								<th>STT</th>
-								<th class="Name-col">Tên món ăn</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="STT">1</td>
-								<td class="Name-col">Món số 1</td>
-							</tr>
-							<tr>
-								<td class="STT">2</td>
-								<td class="Name-col">Món số 2</td>
-							</tr>
-							<tr>
-								<td class="STT">3</td>
-								<td class="Name-col">Món số 3</td>
-							</tr>
-							<tr>
-								<td class="STT">4</td>
-								<td class="Name-col">Món số 4</td>
-							</tr>
-							<tr>
-								<td class="STT">5</td>
-								<td class="Name-col">Món số 5</td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="list-foods">
+					<div class="categories__information-label">Danh sách món ăn:</div>
+					<div class="list-food-item">1. Cánh gà</div>
+					<div class="list-food-item">2. Chân gà</div>
+					<div class="list-food-item">3. Đùi gà</div>
+					<div class="list-food-item">4. Thịt gà</div>
 				</div>
 			</div>
-		</div>
+			<button class="submit-btn exit-btn" type="submit">OK</button>		</div>
 	</div>
 </div>
 <!-- End Modal Read -->

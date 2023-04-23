@@ -1,6 +1,6 @@
 ﻿/* Main */
 .main__information {
-    font-size: 15px;
+    font-size: 1.8rem;
     padding-top: 45px;
 }
 
@@ -16,157 +16,35 @@
     display: flex;
 }
 
-    .table__details-form .table__information {
-        padding-right: 250px;
-    }
-
-.content-table {
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 1em;
-    width: 160%;
-    border-radius: 5px 5px 0 0;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    /* transform: translateX(15px); */
-}
-
-    .content-table thead tr {
-        background-color: var(--admin-color);
-        color: var(--black-color);
-        text-align: left;
-        font-weight: bold;
-    }
-
-    .content-table th,
-    .content-table td {
-        padding: 12px 15px;
-    }
-
-    .content-table .STT {
-        transform: translateX(10px);
-    }
-
-    .content-table .ID_mon {
-        transform: translateX(30px);
-    }
-
-    .content-table .Number_mon {
-        transform: translateX(38px);
-    }
-
-    .content-table tbody tr {
-        border-bottom: 1px solid var(--black-color);
-    }
-
-.comboList_menu {
-    border-radius: 20px;
-}
-
-.content-table tbody tr .Option i {
-    padding-right: 10px;
-}
-
-    .content-table tbody tr .Option i:hover {
-        cursor: pointer;
-        opacity: 0.4;
-    }
-
-.page-pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-    transform: translateX(30%);
-}
-
-.pagination a {
-    display: block;
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-    font-size: 1.25rem;
-}
-
-    .pagination a.active {
-        background-color: var(--table-color);
-        color: white;
-    }
-
-.pagination i {
-    color: var(--table-color);
-}
-
-.pagination a:hover:not(.active) {
-    background-color: #ddd;
-}
-
 /* End Table */
 
 /* Form Add */
 .categories-add {
     background-color: var(--white-color);
-    width: 30%;
-    height: 200px;
-    transform: translate(30px, 25px);
-}
-
-.categories__form-add {
-    margin: 20px
-}
-
-    .categories__form-add .categories__text-specific {
-        font-size: 2rem;
-    }
-
-.info__form {
-    padding-bottom: 15px;
-}
-
-.categories__button:hover {
-    opacity: 0.8;
-}
-
-.categories__button button[type="submit"]:focus {
-    outline: none;
-}
-
-.categories__button button[type="submit"] {
-    transform: translateX(-20px);
-    width: 100%;
-    color: var(--white-color);
-    background-color: var(--admin-color);
-    padding: 0;
+    height: fit-content;
+    font-size: 1.6rem;
     border-radius: 6px;
-    height: 40px;
+    padding: 30px;
+    margin-top: 25px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.info__form input:focus {
+    outline: none;
+    box-shadow: none;
+    border: 1px solid #ced4da;
+}
+.add-category-btn {
+    width: 100%;
 }
 /* End Form Add */
-
 /* Modal Edit */
 .modal__food-information {
     background-color: var(--white-color);
-    padding: 0px 0px 40px 40px;
-    width: 24%;
+    padding: 40px;
     height: auto;
-    border-radius: 6px;
+    border-radius: 8px;
+    position: relative;
 }
-
-.button__exit .exit__surround {
-    width: 30px;
-    height: 30px;
-    background-color: #D43352;
-}
-
-    .button__exit .exit__surround i {
-        color: var(--white-color);
-        font-size: 16px;
-    }
-
-        .button__exit .exit__surround i:hover, .button__exit .exit__surround:hover, .categories__button button[type="submit"]:hover {
-            opacity: 0.8;
-            cursor: pointer;
-        }
 
 .modal__food-modify.open {
     display: flex;
@@ -186,18 +64,12 @@
 
 .categories-edit {
     background-color: var(--white-color);
-    width: 250px;
-    height: 200px;
-    transform: translateY(25px);
-    font-size: 15px;
-}
-
-.categories__form-edit {
-    margin: 20px;
+    font-size: 1.8rem;
 }
 
 .info__form input[type="search"] {
     height: 30px;
+    font-size: 1.6rem;
 }
 
 .categories__form-edit .categories__text-specific {
@@ -205,13 +77,10 @@
     font-weight: 600;
 }
 
-.categories__button button[type="submit"] {
-    border: 0;
-    height: 35px;
+.update-cate-btn {
+    width: 100%;
 }
-
 /* End Modal Edit */
-
 /* Modal Read */
 .modal__food-read.open {
     display: flex;
@@ -219,32 +88,14 @@
     align-items: center;
 }
 
-.categories-read {
-    width: 100%;
-    height: auto;
+.modal__read-information.modal__read-category-edit {
+    width: 25%;
 }
 
-.modal__food-read {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.8);
-    display: none;
-}
-
-.modal__read-information {
-    background-color: var(--white-color);
-    padding: 0px 0px 40px 40px;
-    margin: 40px;
-    width: 35%;
-    height: auto;
-    border-radius: 6px;
-}
-
-.categories__information-label {
-    font-size: 1.6rem;
+.list-food-item {
+    font-size: 1.8rem;
+    margin-left: 20%;
+    margin-top: 5px;
 }
 
 .categories__information-key {

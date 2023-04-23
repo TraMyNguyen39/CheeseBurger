@@ -13,6 +13,7 @@
 				<p>Họ và tên:</p>
 				<p>Chức vụ:</p>
 				<p>Ngày sinh:</p>
+				<p>Giới tính:</p>
 				<p>Địa chỉ email:</p>
 				<p>Số điện thoại:</p>
 				<p>Địa chỉ:</p>
@@ -22,6 +23,7 @@
 				<p>Nguyễn Thị Trà My</p>
 				<p>Quản trị viên</p>
 				<p>19/11/2003</p>
+				<p>Nữ</p>
 				<p>nguyentramy@gmail.com</p>
 				<p>0835121369</p>
 				<p>92 Nguyễn Lâm, phường Tứ Hạ, huyện Hương Trà, tỉnh Thừa Thiên Huế </p>
@@ -71,16 +73,26 @@
 						<input type="date" name="bday" class="form-control">
 					</form>
 				</div>
-
+			</div>
+			<div class="item-line">
+				<p class="label">Địa chỉ Email</p>
+				<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
 			</div>
 			<div class="item-line d-flex justify-content-between">
 				<div class="item-col col-6">
-					<p class="label">Địa chỉ email</p>
+					<p class="label">Số điện thoại</p>
 					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
 				</div>
 				<div class="item-col col-6">
-					<p class="label">Số điện thoại</p>
-					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+					<p class="label">Giới tính</p>
+					<div class="form-control">
+						<form action="dropList" method="post">
+							<select name="combobox_Item">
+								<option value="">Nam</option>
+								<option value="">Nữ</option>
+							</select>
+						</form>
+					</div>
 				</div>
 			</div>
 			<div class="item-line d-flex justify-content-between">

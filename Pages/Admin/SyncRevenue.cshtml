@@ -6,11 +6,10 @@
 <link rel="stylesheet" href="~/css/sync-revenue.css" asp-append-version="true" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 
-<div class="blank_area col-1"> </div>
-<div class="main__information col-9">
+<div class="main__information">
 	<div class="main__information-detail">
 		<div class="main__table-form d-flex align-items-center">
-			<div class="select__form col-md-4 ">
+			<div class="select__form col-4 ">
 				<div class="form-group d-flex align-items-center">
 					<label class="control-label"> Thống kê: </label>
 					<div class="form__comboBox">
@@ -24,9 +23,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="form__start col-md-4 d-flex justify-content-end align-items-center">
-			</div>
-			<div class="form__end col-md-4 d-flex justify-content-end align-items-center">
+			<div class="form__end col-4 d-flex justify-content-end align-items-center datetime">
 				<div class="form-group d-flex align-items-center">
 					<label class="control-label"> Từ: </label>
 					<form action="action_page.php">
@@ -40,23 +37,26 @@
 					</form>
 				</div>
 			</div>
-			<div class="blank_area col-md-1"> </div>
 		</div>
 		<div class="infor__details d-flex">
 			<div class="column__info-details col-8">
 				<div class="column__info-total d-flex">
 					<div class="column__total-offer text-center col-3">
-						<p class="order__amount"> Số lượng đơn</p>
+						<p class="order__amount"> Số lượng đơn bán</p>
 						<p class="total__money-amount"> 50</p>
 					</div>
-					<div class="column__total-profit col-9">
+					<div class="column__total-offer text-center col-3">
+						<p class="order__amount"> Số lượng <br /> đơn nhập</p>
+						<p class="total__money-amount"> 50</p>
+					</div>
+					<div class="column__total-profit col-5">
 						<p class="total__amount"> Tổng lợi nhuận</p>
-						<p class="total__money-amount"> 100.000.000VNĐ</p>
+						<p class="total__money-amount"> 100.000.000đ</p>
 					</div>
 				</div>
 				<div class="columns__chart">
 					<p class="total__amount-revenue"> Tổng doanh thu</p>
-					<p class="total__money-revenue"> 400.000.000VNĐ</p>
+					<p class="total__money-revenue"> 400.000.000đ</p>
 					<canvas id="myChart"> </canvas>
 				</div>
 			</div>
