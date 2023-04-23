@@ -193,6 +193,10 @@
       "PackagePath": "staticwebassets\\img\\Trứng.png"
     },
     {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\avt.png",
+      "PackagePath": "staticwebassets\\img\\avt.png"
+    },
+    {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\bg_login1.jpg",
       "PackagePath": "staticwebassets\\img\\bg_login1.jpg"
     },

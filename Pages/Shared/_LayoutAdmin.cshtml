@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿che<!DOCTYPE html>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width" />
@@ -15,7 +15,7 @@
 	<header class="header">
 		<div class="container-fluid">
 			<nav class="header__navbar">
-				<a asp-page="" class="logo-link">
+				<a asp-page="User/HomePage" class="logo-link">
 					<img src="~/img/logo_black.png" alt="abc" class="logo-server" style="height: 50px">
 				</a>
 				<a asp-page="" class="header__navbar-admin">AdminHub</a>
@@ -27,30 +27,35 @@
 	<div class="background">
 		<div class="main__form-detail">
 			<div class="main__sliderbar">
+				<div class="account">
+					<img class="account-avt" src="~/img/avt.png" />
+					<div class="account-detail">
+						<a class="account-name" asp-page="/Admin/ManageAccount">Nguyễn Thị Trà My</a>
+						<p class="account-role">Quản trị viên</p>
+					</div>
+				</div>
 				<ul class="categories__list">
-					<li class="categories__item " id="revenue">
-						<a class="nav-link " href="~/Admin/SyncRevenue" >   Thống kê doanh thu</a>
+					<li class="categories__item" id="revenue">
+						<a class="nav-link " asp-page="/Admin/SyncRevenue" >   Thống kê doanh thu</a>
 					</li>
-					<li class="categories__item " id="account">
-						<a class="nav-link" href="~/Admin/ManageAccount" > Quản lý tài khoản</a>
-					</li>
+					
 					<li class="categories__item " id="customer">
-						<a class="nav-link" href="~/Admin/ManageUser" >  Quản lý khách hàng</a>
+						<a class="nav-link" asp-page="/Admin/ManageUser" >  Quản lý khách hàng</a>
 					</li>
 					<li class="categories__item " id="staff">
-						<a class="nav-link" href="~/Admin/ManageStaff">  Quản lý nhân viên</a>
+						<a class="nav-link" asp-page="/Admin/ManageStaff">  Quản lý nhân viên</a>
 					</li>
 					<li class="categories__item " id="ingredient">
-						<a class="nav-link" href="~/Admin/ManageIngredient">  Quản lý nguyên liệu</a>
+						<a class="nav-link" asp-page="/Admin/ManageIngredient">  Quản lý nguyên liệu</a>
 					</li>
 					<li class="categories__item " id="category">
-						<a class="nav-link" href="~/Admin/ManageCategories">   Quản lý danh mục</a>
+						<a class="nav-link" asp-page="/Admin/ManageCategories">   Quản lý danh mục</a>
 					</li>
 					<li class="categories__item " id="order">
-						<a class="nav-link" href="~/Admin/ManageOrder">   Quản lý đơn hàng</a>
+						<a class="nav-link" asp-page="/Admin/ManageOrder">   Quản lý đơn hàng</a>
 					</li>
 					<li class="categories__item " id="food">
-						<a class="nav-link" href="~/Admin/ManageFood">   Quản lý món ăn</a>
+						<a class="nav-link" asp-page="/Admin/ManageFood">   Quản lý món ăn</a>
 					</li>
 				</ul>
 				<ul class="categories__button">

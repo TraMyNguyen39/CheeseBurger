@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "kJSANWW+hmxtrE5iLsWx49HPkci90mcN0AOWJlFALYw=",
+  "Hash": "h34aDkDMtaUY0xJGMYgBebJucRRPSy7KHcK0BDd/kg4=",
   "Source": "CheeseBurger",
   "BasePath": "_content/CheeseBurger",
   "Mode": "Default",
@@ -593,6 +593,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\AdminHub1.png"
+    },
+    {
+      "Identity": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\avt.png",
+      "SourceId": "CheeseBurger",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\",
+      "BasePath": "_content/CheeseBurger",
+      "RelativePath": "img/avt.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\avt.png"
     },
     {
       "Identity": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Bánh kẹp.png",

@@ -108,6 +108,35 @@ main {
         box-shadow: -3px 5px 9px 0 #555;
     }
 
+.account {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 30px;
+}
+img.account-avt {
+    width: 50px;
+    height: 50px;
+}
+.account-detail {
+    margin-left: 15px;
+    align-self: center;
+}
+a.account-name {
+    color: var(--text-color);
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+a.account-name:hover {
+    color: var(--admin-color);
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+p.account-role {
+    font-size: 1.6rem;
+    font-style: italic;
+}
 .main__form-detail .main__sliderbar .categories__list, .categories__button {
     padding-left: 0px;
     padding-inline-start: 0px;
@@ -253,6 +282,9 @@ i.fas.fa-right-from-bracket {
         border: 0;
         border-bottom-left-radius: 8px;
         border-top-right-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
         .button__exit .exit__surround i {
