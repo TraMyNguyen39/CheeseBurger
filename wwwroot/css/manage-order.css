@@ -2,9 +2,9 @@
 
 .main__table {
     font-size: 16px;
-    padding-top: 40px;
     width: 75%;
     margin: 0 auto;
+    margin-top: 60px;
 }
 .main__table-form {
     display: flex;
@@ -16,13 +16,13 @@
     width: 150px;
     font-size: 16px;
     border: 1px solid #495057;
-    transform: translateY(5px);
     padding: 1px 5px;
 }
 /* End Main */
 .main__information {
     width: 100%;
     margin-top: 0;
+    padding-top: 0;
 }
 
 .main__information-add i {
@@ -30,12 +30,12 @@
     color: var(--white-color);
 }
 .button__add {
-    margin: 30px 0;
+    margin: 40px 0 10px;
 }
 .button__add button {
     width: 180px;
     height: 40px;
-    background-color: var(--admin-color);
+    background: linear-gradient(to right, #ee4d2d,#ff7337);
     color: var(--white-color);
     border-radius: 5px;
     font-size: 16px;
@@ -60,14 +60,15 @@ label.control-label {
 .time-end {
     transform: translateY(29%);
 }
-
 .time-start .control-label, .time-end .control-label {
-    margin-right: 5px;
+    margin-bottom: 0;
+    margin-right: 20px;
 }
 
 input[type="date"] {
     border-radius: 4px;
-    border: 1px solid var(--black-color);
+    padding: 0 5px;
+    border: 1px solid #495057;
 }
 
 .button__add button:hover {
@@ -96,13 +97,13 @@ a.Name:hover {
 .main__table-status {
     height: 30px;
     display: block;
-    transform: translateX(-20px);
+/*    transform: translateX(-20px);*/
     font-size: 16px;
 }
 
 .main__status {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
     height: auto;
@@ -114,7 +115,7 @@ a.Name:hover {
         font-size: 16px;
         list-style-type: none;
         padding: 5px !important;
-        width: calc(100% / 7);
+        width: fit-content;
     }
 
     .main__status button:hover {
@@ -127,25 +128,23 @@ a.Name:hover {
     }
 
     .main__status .main__status-details:not(.active) button {
-        background-color: var(--white-color);
+        background-color: var(--pink-color);
         border-radius: 20px;
         width: 100%;
         height: 30px;
         border: 0;
+        padding: 0 15px;
+        box-shadow: 1px 0px 13px 0px rgba(0,0,0,.4);
     }
     .main__status .active button {
         background-color: var(--admin-color);
         border-radius: 20px;
         width: 100%;
-        transform: translateX(-10px);
         height: 30px;
         color: var(--white-color);
         border: 0;
+        padding: 0 15px
     }
-    .main__status .main__status-details button.btn__status.btn-not-success {
-        width: 118%;
-    }
-
 .main__table-information {
     padding: 20px 15px 0px 15px;
 }
@@ -203,12 +202,12 @@ a.Name:hover {
     transform: translateX(15px);
 }
 */
-    .content-table thead tr {
-        background-color: var(--admin-color);
-        color: var(--black-color);
-        text-align: left;
-        font-weight: bold;
-    }
+.content-table thead tr {
+    background: linear-gradient(to right, #ee4d2d,#ff7337);
+    text-align: left;
+    font-weight: bold;
+    color: var(--white-color);
+}
 
     .content-table th,
     .content-table td {

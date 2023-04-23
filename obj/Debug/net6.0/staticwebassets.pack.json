@@ -261,6 +261,10 @@
       "PackagePath": "staticwebassets\\js\\manage-user.js"
     },
     {
+      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\sidebar.js",
+      "PackagePath": "staticwebassets\\js\\sidebar.js"
+    },
+    {
       "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -1,14 +1,14 @@
 ﻿/* Header */
 .background {
     width: 100%;
-    background-color: #F8F8FF;
+    background-color: #fff;
 }
 .header {
     height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to right, #ee4d2d,#FA5230);
+    background: var(--admin-color);
     width: 100%;
 }
 
@@ -336,10 +336,10 @@ a.submit-btn {
 }
 
     .content-table thead tr {
-        background: var(--main-color);
-        color: var(--black-color);
+        background: linear-gradient(to right, #ee4d2d,#ff7337);
         text-align: left;
         font-weight: bold;
+        color: var(--white-color);
     }
 
     .content-table th,

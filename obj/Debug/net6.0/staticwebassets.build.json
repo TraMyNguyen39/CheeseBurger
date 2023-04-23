@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Jol+fuiJ6uk/ujVjRUgtJt+w06oscOq61Azt8yVpIuU=",
+  "Hash": "kJSANWW+hmxtrE5iLsWx49HPkci90mcN0AOWJlFALYw=",
   "Source": "CheeseBurger",
   "BasePath": "_content/CheeseBurger",
   "Mode": "Default",
@@ -1137,6 +1137,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\manage-user.js"
+    },
+    {
+      "Identity": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\sidebar.js",
+      "SourceId": "CheeseBurger",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\",
+      "BasePath": "_content/CheeseBurger",
+      "RelativePath": "js/sidebar.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\sidebar.js"
     },
     {
       "Identity": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\site.js",

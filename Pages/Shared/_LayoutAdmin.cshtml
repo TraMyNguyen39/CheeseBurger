@@ -28,29 +28,29 @@
 		<div class="main__form-detail">
 			<div class="main__sliderbar">
 				<ul class="categories__list">
-					<li class="categories__item">
-						<a class="nav-link" href="~/Admin/ManageAccount"> Quản lý tài khoản</a>
+					<li class="categories__item " id="revenue">
+						<a class="nav-link " href="~/Admin/SyncRevenue" >   Thống kê doanh thu</a>
 					</li>
-					<li class="categories__item">
-						<a class="nav-link" href="~/Admin/ManageUser">  Quản lý khách hàng</a>
+					<li class="categories__item " id="account">
+						<a class="nav-link" href="~/Admin/ManageAccount" > Quản lý tài khoản</a>
 					</li>
-					<li class="categories__item">
+					<li class="categories__item " id="customer">
+						<a class="nav-link" href="~/Admin/ManageUser" >  Quản lý khách hàng</a>
+					</li>
+					<li class="categories__item " id="staff">
 						<a class="nav-link" href="~/Admin/ManageStaff">  Quản lý nhân viên</a>
 					</li>
-					<li class="categories__item">
+					<li class="categories__item " id="ingredient">
 						<a class="nav-link" href="~/Admin/ManageIngredient">  Quản lý nguyên liệu</a>
 					</li>
-					<li class="categories__item">
+					<li class="categories__item " id="category">
 						<a class="nav-link" href="~/Admin/ManageCategories">   Quản lý danh mục</a>
 					</li>
-					<li class="categories__item active">
+					<li class="categories__item " id="order">
 						<a class="nav-link" href="~/Admin/ManageOrder">   Quản lý đơn hàng</a>
 					</li>
-					<li class="categories__item ">
+					<li class="categories__item " id="food">
 						<a class="nav-link" href="~/Admin/ManageFood">   Quản lý món ăn</a>
-					</li>
-					<li class="categories__item ">
-						<a class="nav-link" href="~/Admin/SyncRevenue">   Thống kê doanh thu</a>
 					</li>
 				</ul>
 				<ul class="categories__button">
@@ -65,5 +65,6 @@
 		</div>
 	</div>
 	@await RenderSectionAsync("Scripts", required: false)
+	<script src="~/js/sidebar.js"></script>
 </body>
 </html>
