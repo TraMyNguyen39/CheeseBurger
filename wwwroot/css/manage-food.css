@@ -1,0 +1,118 @@
+﻿
+.input-wrapper {
+    position: relative;
+    transform: translateY(12px);
+}
+/* Table */
+
+    .content-table tbody tr td.Danh_muc {
+        text-align: left;
+        padding-left: 5%;
+    }
+/* End Table */
+
+/* Modal Add */
+.modal__food-information {
+    background-color: var(--white-color);
+    width: 50%;
+    height: fit-content;
+    position: relative;
+    border-radius: 8px;
+}
+
+
+.modal__food-add.open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal__food-add {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+.modal__food-details:not(.modal__label-main) {
+    padding: 40px;
+    font-size: 1.6rem;
+}
+
+
+.food__name input, .food__categories input, .food__description input, .search__weight input, .form__comboBoxList select{
+    height: 40px;
+    font-size: 1.6rem;
+    border: 1px solid #495057;
+    padding: 0 10px;
+}
+    .food__name input:focus, .food__categories input:focus, .food__description input:focus, .search__weight input:focus, .form__comboBoxList select:focus,
+    .food__name input:focus-visible, .food__categories input:focus-visible, .food__description input:focus-visible, .search__weight input:focus-visible, .form__comboBoxList select:focus-visible {
+        outline: none;
+        box-shadow: none;
+        border: 1px solid #495057;
+    }
+
+
+
+.food__price, .food__categories, .food__description {
+    padding: 10px 5px 10px 0px !important;
+}
+
+
+.form__comboBoxList select[name="combobox_Item"] {
+    height: 40px;
+    width: 100%;
+}
+
+.image__text {
+    margin: 0 10px 0 0;
+}
+
+.file__image {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.button__food-add button {
+    width: 100%;
+    height: 45px;
+    background-color: var(--admin-color);
+    color: var(--white-color);
+    border: 0;
+    padding: 0;
+    border-radius: 6px;
+}
+
+    .button__food-add button:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+
+    .button__food-add button:focus {
+        outline: none;
+    }
+/* End Modal Add */
+.categories__text {
+    font-size: 1.8rem;
+}
+.food-line img {
+    border-style: none;
+    width: 50%;
+    height: fit-content;
+    border-radius: 8px;
+}
+
+.modal__read-information {
+    background-color: var(--white-color);
+    padding: 30px 40px;
+    /* margin: 40px; */
+    width: 40%;
+    height: auto;
+    border-radius: 8px;
+    position: relative;
+}
+

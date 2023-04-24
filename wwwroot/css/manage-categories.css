@@ -1,0 +1,139 @@
+﻿/* Main */
+.main__information {
+    font-size: 1.8rem;
+    padding-top: 45px;
+}
+
+.form__comboBox select[name="combobox_Item"] {
+    color: var(--text-color);
+    border-radius: 8px;
+    width: 180px;
+    font-size: 17px;
+}
+/* End Main */
+/* Table */
+.table__details-form {
+    display: flex;
+}
+
+/* End Table */
+
+/* Form Add */
+.categories-add {
+    background-color: var(--white-color);
+    height: fit-content;
+    font-size: 1.6rem;
+    border-radius: 6px;
+    padding: 30px;
+    margin-top: 25px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.info__form input:focus {
+    outline: none;
+    box-shadow: none;
+    border: 1px solid #ced4da;
+}
+.add-category-btn {
+    width: 100%;
+}
+/* End Form Add */
+/* Modal Edit */
+.modal__food-information {
+    background-color: var(--white-color);
+    padding: 40px;
+    height: auto;
+    border-radius: 8px;
+    position: relative;
+}
+
+.modal__food-modify.open {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal__food-modify {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+.categories-edit {
+    background-color: var(--white-color);
+    font-size: 1.8rem;
+}
+
+.info__form input[type="search"] {
+    height: 30px;
+    font-size: 1.6rem;
+}
+
+.categories__form-edit .categories__text-specific {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.update-cate-btn {
+    width: 100%;
+}
+/* End Modal Edit */
+/* Modal Read */
+.modal__food-read.open {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal__read-information.modal__read-category-edit {
+    width: 25%;
+}
+
+.list-food-item {
+    font-size: 1.8rem;
+    margin-left: 20%;
+    margin-top: 5px;
+}
+
+.categories__information-key {
+    padding-left: 0 !important;
+}
+
+.content__table-read {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 1.25em;
+    width: 80%;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    /* transform: translateX(15px); */
+}
+
+    .content__table-read thead tr {
+        background-color: var(--table-color);
+        color: var(--black-color);
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .content__table-read th,
+    .content__table-read td {
+        padding: 12px 15px;
+    }
+
+    .content__table-read .STT {
+        transform: translateX(5px);
+    }
+
+    .content__table-read tbody tr {
+        border-bottom: 1px solid var(--black-color);
+    }
+
+.Name-col {
+    transform: translateX(20px);
+}
+/* End Modal Read */

@@ -1,0 +1,237 @@
+﻿/* Main */
+
+.main__table {
+    font-size: 16px;
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+.main__table-form {
+    display: flex;
+    font-size: 16px;
+}
+.form__comboBox select[name="combobox_Item"] {
+    color: var(--text-color);
+    border-radius: 6px;
+    width: 150px;
+    font-size: 16px;
+    border: 1px solid #495057;
+    padding: 1px 5px;
+}
+/* End Main */
+.main__information {
+    width: 100%;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.main__information-add i {
+    margin-bottom: 10px;
+    color: var(--white-color);
+}
+.button__add {
+    margin: 40px 0 10px;
+}
+.button__add button {
+    width: 180px;
+    height: 40px;
+    background: linear-gradient(to right, #ee4d2d,#ff7337);
+    color: var(--white-color);
+    border-radius: 5px;
+    font-size: 16px;
+    border: 0px;
+}
+
+    .button__add button:focus {
+        outline: none;
+    }
+
+label {
+    margin-bottom: 0;
+}
+label.control-label {
+     line-height: 1.5; 
+    margin-bottom: 10px;
+}
+.time-start {
+    transform: translateX(30px);
+}
+
+.time-end {
+    transform: translateY(29%);
+}
+.time-start .control-label, .time-end .control-label {
+    margin-bottom: 0;
+    margin-right: 20px;
+}
+
+input[type="date"] {
+    border-radius: 4px;
+    padding: 0 5px;
+    border: 1px solid #495057;
+}
+
+.button__add button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+a.IDOrder {
+    color: var(--main-color);
+}
+
+a.IDOrder:hover {
+    color: var(--main-color);
+    text-decoration: none;
+    opacity: 0.5;
+}
+a.Name {
+    color: var(--text-color);
+}
+a.Name:hover {
+    text-decoration: none;
+    opacity: 0.5;
+    color: var(--text-color);
+}
+
+.main__table-status {
+    height: 30px;
+    display: block;
+/*    transform: translateX(-20px);*/
+    font-size: 16px;
+}
+
+.main__status {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0 auto;
+}
+
+    .main__status .main__status-details {
+        font-size: 16px;
+        list-style-type: none;
+        padding: 5px !important;
+        width: fit-content;
+    }
+
+    .main__status button:hover {
+        opacity: 0.8;
+        cursor: pointer;
+    }
+
+    .main__status button:focus {
+        outline: none;
+    }
+
+    .main__status .main__status-details:not(.active) button {
+        background-color: var(--pink-color);
+        border-radius: 20px;
+        width: 100%;
+        height: 30px;
+        border: 0;
+        padding: 0 15px;
+        box-shadow: 1px 0px 13px 0px rgba(0,0,0,.4);
+    }
+    .main__status .active button {
+        background-color: var(--admin-color);
+        border-radius: 20px;
+        width: 100%;
+        height: 30px;
+        color: var(--white-color);
+        border: 0;
+        padding: 0 15px
+    }
+.main__table-information {
+    padding: 20px 15px 0px 15px;
+}
+
+.main__table-text {
+    font-size: 15px;
+}
+
+.main__table-form {
+    display: flex;
+}
+
+    .main__table-form button {
+        background-color: orange;
+        margin: 0 auto;
+        display: block;
+    }
+
+.search__form input[type="search"] {
+    width: 300px;
+    border: 1px solid #495057;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+    .input-wrapper input[type="search"] {
+        padding-right: 30px; /* adjust the padding to accommodate the icon */
+        border-radius: 10px;
+        font-size: 15px;
+    }
+
+    .input-wrapper i {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        z-index: 0;
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .input-wrapper i:hover {
+            color: #ee4d2d;
+        }
+
+/* Table */
+/*.content-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    transform: translateX(15px);
+}
+*/
+.content-table thead tr {
+    background: linear-gradient(to right, #ee4d2d,#ff7337);
+    text-align: left;
+    font-weight: bold;
+    color: var(--white-color);
+}
+
+    .content-table th,
+    .content-table td {
+        padding: 12px 15px;
+    }
+
+    .content-table tbody tr {
+        border-bottom: 1px solid var(--black-color);
+    }
+
+    .content-table thead tr th:not(.Name) {
+        text-align: center !important;
+    }
+
+    .content-table tbody tr td:not(.Name) {
+        text-align: center !important;
+    }
+
+    .content-table tbody tr td.Status {
+        color: var(--admin-color);
+    }
+
+.comboList_menu {
+    border-radius: 20px;
+}
+
+

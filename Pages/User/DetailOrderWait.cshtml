@@ -1,0 +1,133 @@
+﻿@page
+@model DetailOrderWaitModel
+@{
+    ViewData["Title"] = "Detail Order Wait";
+    ViewBag.Name = HttpContext.Session.GetString("Name");
+    ViewBag.Id = HttpContext.Session.GetInt32("Id");
+}
+
+<div class="breadcrumb-division">
+    <ol class="breadcrumb breadcrumb__edit">
+        <li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a asp-page="/User/MyOrder">Đơn hàng của tôi</a></li>     
+        <li class="breadcrumb-item active" aria-current="page">Chi tiết đơn hàng</li>
+    </ol>
+</div>
+<div class="body container">
+    <div class="row justify-content-between">
+        <div class="body__side-bar col-3">
+            <div class="side-bar-box">
+                <a class="body__side-bar-item" asp-page="/User/DetailAccount">Chi tiết tài khoản</a>
+                <div class="side-bar-filter"></div>
+                <a class="body__side-bar-item" asp-page="/User/ChangePassword">Đổi mật khẩu</a>
+                <div class="side-bar-filter"></div>
+                <a class="body__side-bar-item active" style="color: #ff5028" asp-page="/User/MyOrder">Đơn hàng của tôi</a>
+                <div class="side-bar-filter"></div>
+                <a class="body__side-bar-item" asp-page="#">Đăng xuất</a>
+            </div>
+        </div>
+        <div class="col justify-content-between">
+            <div class="body__manage-account-detail col-12 flex justify-content-center">
+                <div class="row">
+                    <label class="body-title ml-4">CHI TIẾT ĐƠN HÀNG</label>
+                    <button class="btn-xacnhan">Chờ xác nhận</button>
+                </div>
+                <label class="lb-title">Mã đơn hàng: 102543114</label>
+                <br>
+                <label class="lb-title">Ngày mua: 25/03/2023</label>
+                <br>
+                <label class="lb-title">Tổng tiền: 300.000 VNĐ</label>
+            </div>
+            <div class="row">
+                <div class="body_detail col-4 flex justify-content-center">
+                    <label class="body-title-detail">Thông tin người nhận</label>
+                    <hr>
+                    <p class="body-detail-txt">
+                        Nguyễn Thị Trà My
+                        <br>
+                        193 Nguyễn Lương Bằng, Hòa Khánh Bắc, Liên Chiểu, Đà Nẵng
+                        <br>
+                        <br>
+                        Tel: 0123456789
+                    </p>
+                </div>
+                <div class="body_detail-rw col-3 flex justify-content-center">
+                    <label class="body-title-detail">Hình thức vận chuyển</label>
+                    <hr>
+                    <p class="body-detail-txt" style="text-align: center;">
+                        Giao hàng nhanh
+                    </p>
+                </div>
+                <div class="body_detail-rw col-4 flex justify-content-center">
+                    <label class="body-title-detail">Phương thức thanh toán</label>
+                    <hr>
+                    <p class="body-detail-txt" style="text-align: center">
+                        Thanh toán bằng tiền mặt
+                    </p>
+                </div>
+            </div>
+            <div class="list-item">
+                <table class="table text-center">
+                    <thead style="background-color: var(--div-color)">
+                        <tr class="table-header">
+                            <th class="cart__table-col col-1" scope="col">STT</th>
+                            <th class="cart__table-col col-5" scope="col">Sản phẩm</th>
+                            <th class="cart__table-col col-2" scope="col">Giá</th>
+                            <th class="cart__table-col col-2" scope="col">Số lượng</th>
+                            <th class="cart__table-col col-2" scope="col">Tổng Giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" style="font-weight: 500;">1</th>
+                            <td class="d-flex align-items-center">
+                                <img src="~/img/Burger-Flava.jpg" alt="" class="cart__item-image" />
+                                <a href="" class="cart__name-item">Hamburger Gà Quay Flavar</a>
+                            </td>
+                            <td>100,000VND</td>
+                            <td>
+                                1
+                            </td>
+                            <td style="font-weight: 500">100,000VND</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" style="font-weight: 500;">2</th>
+                            <td class="d-flex align-items-center">
+                                <img src="~/img/4-eggtart.jpg" alt="" class="cart__item-image" />
+                                <a href="" class="cart__name-item">Bánh trứng</a>
+                            </td>
+                            <td>70,000VND</td>
+                            <td>
+                                1
+                            </td>
+                            <td style="font-weight: 500">70,000VND</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" style="font-weight: 500;">3</th>
+                            <td class="d-flex align-items-center">
+                                <img src="~/img/Lipton.jpg" alt="" class="cart__item-image" />
+                                <a href="" class="cart__name-item">Lipton</a>
+                            </td>
+                            <td>30,000VND</td>
+                            <td>
+                                1
+                            </td>
+                            <td style="font-weight: 500">30,000VND</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                Thành tiền:
+                            </td>
+                            <td style="font-weight: 500">200,000VND</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="cancel-order">HỦY ĐƠN HÀNG</button>
+        </div>
+
+    </div>
+</div>
