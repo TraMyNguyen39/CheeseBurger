@@ -98,6 +98,7 @@ input.form-control:focus {
     border: none;
     outline: none;
 }
+
 .button__save-change {
     width: 100%;
 }
@@ -110,9 +111,10 @@ input.form-control:focus {
     margin-bottom: 10px;
 }
 
-.input__type input:focus {
-    box-shadow: none;
-}
+    .input__type input:focus {
+        box-shadow: none;
+    }
+
 .button__customer-save {
     width: 100%;
 }

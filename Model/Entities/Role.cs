@@ -6,11 +6,10 @@ namespace CheeseBurger.Model.Entities
 {
     public class Role
     {
-        [Key]
-        public int RoleID { get; set; }
-        [Required]
-        [StringLength(15)]
-        public string RoleName { get; set; }
-
-    }
+		[Key]
+		public int RoleID { get; set; }
+		[Required]
+		[StringLength(50)]
+		public string RoleName { get; set; }
+	}
 }

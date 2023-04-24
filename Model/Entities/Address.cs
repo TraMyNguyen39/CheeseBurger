@@ -7,11 +7,13 @@ namespace CheeseBurger.Model.Entities
     {
         [Key]
         public int AddressID { get; set; }
-        public int NumberHouse { get; set; }
+		[Required]
+		[StringLength(100)]
+		public string NumberHouse { get; set; } = string.Empty;
 
-        public int StreetID { get; set; }
-        [ForeignKey("StreetID")]
-        public Street Street { get; set; }
+		public int WardID { get; set; }
+		[ForeignKey("WardID")]
+		public Ward Ward { get; set; }
 
-    }
+	}
 }

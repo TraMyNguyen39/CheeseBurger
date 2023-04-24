@@ -13,10 +13,10 @@ namespace CheeseBurger.Model.Entities
         [StringLength(200)]
 
         public String IngredientsName { get; set; } = String.Empty;
-
-        public float IngredientsPrice { get; set; }
-
-        public bool IsDeleted { get; set; }
+		[Required]
+		public float IngredientsPrice { get; set; }
+		[Required]
+		public bool IsDeleted { get; set; }
 
         public int MeasureID { get; set; }
         [ForeignKey("MeasureID")]

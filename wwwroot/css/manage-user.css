@@ -34,7 +34,7 @@
 
 .input-wrapper {
     position: relative;
-/*    transform: translateX(50px);*/
+    /*    transform: translateX(50px);*/
 }
 
     .input-wrapper input[type="search"] {
@@ -70,6 +70,7 @@
     outline: none;
     border: 1px solid #ced4da;
 }
+
 .form-group input:focus {
     outline: none;
     box-shadow: none;
@@ -123,14 +124,13 @@
 }
 
 .account__position, .account__email, .account__city-details, .account__ward {
-    padding: 10px 10px 5px 0 !important;
+    padding: 10px 0 5px 0 !important;
 }
 
 /* .account__city-district {
     display: flex;
     padding-top: 20px;
 }
-
 .account__ward-address {
     padding-bottom: 20px;
 } */

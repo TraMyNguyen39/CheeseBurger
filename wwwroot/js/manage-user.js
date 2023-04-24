@@ -1,12 +1,12 @@
 ﻿// thay doi thong tin tai khoan
-var eyeButtons = document.querySelectorAll("td.Option__eye");
+//var eyeButtons = document.querySelectorAll("td.Option__eye");
 
-for (var i = 0; i < eyeButtons.length; i++) {
-  eyeButtons[i].addEventListener("click", function() {
-    var modal = document.querySelector(".modal__info-full");
-    modal.classList.add("open");
-  });
-}
+//for (var i = 0; i < eyeButtons.length; i++) {
+//  eyeButtons[i].addEventListener("click", function() {
+//    var modal = document.querySelector(".modal__info-full");
+//    modal.classList.add("open");
+//  });
+//}
 // end
 
 // Xem

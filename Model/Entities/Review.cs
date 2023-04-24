@@ -15,7 +15,8 @@ namespace CheeseBurger.Model.Entities
 
         [StringLength(Int32.MaxValue)]
         public String Img { get; set; }
-        public DateTime DateReview { get; set; }
+		[DataType(DataType.DateTime)]
+		public DateTime DateReview { get; set; }
         public int CustomerID { get; set; }
         [ForeignKey("CustomerID")]
         public Customer Customer { get; set; }

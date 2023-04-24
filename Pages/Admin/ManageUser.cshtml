@@ -5,6 +5,10 @@
 }
 <link rel="stylesheet" href="~/css/manage-user.css" asp-append-version="true" />
 
+@{
+	int CntCus = 0;
+}
+
 <div class="main__information">
 	<div class="main__information-detail">
 		<div class="main__table-form">
@@ -47,43 +51,25 @@
 					<th class="Option__ban col-1">Xoá</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr class="tr">
-					<td class="STT">1</td>
-					<td class="ID">100</td>
-					<td class="Name">Võ Thế Đạt</td>
-					<td class="Email">vothedat@gmail.com</td>
-					<td class="Option__eye"> <i class="fas fa-eye"></i></td>
-					<td class="Option__pencil"> <i class="fas fa-pencil-alt"></i></td>
-					<td class="Option__ban">  <i class="fas fa-ban"></i></td>
-				</tr>
-				<tr class="tr">
-					<td class="STT">2</td>
-					<td class="ID">101</td>
-					<td class="Name">Huỳnh Quang Đông</td>
-					<td class="Email">huynhquangdong@gmail.com</td>
-					<td class="Option__eye"> <i class="fas fa-eye"></i></td>
-					<td class="Option__pencil"> <i class="fas fa-pencil-alt"></i></td>
-					<td class="Option__ban">  <i class="fas fa-ban"></i></td>
-				</tr>
-				<tr class="tr">
-					<td class="STT">3</td>
-					<td class="ID">102</td>
-					<td class="Name">Nguyễn Thị Trà My</td>
-					<td class="Email">nguyenthitramy@gmail.com</td>
-					<td class="Option__eye"> <i class="fas fa-eye"></i></td>
-					<td class="Option__pencil"> <i class="fas fa-pencil-alt"></i></td>
-					<td class="Option__ban">  <i class="fas fa-ban"></i></td>
-				</tr>
-				<tr class="tr">
-					<td class="STT">4</td>
-					<td class="ID">103</td>
-					<td class="Name">Nguyễn Thanh Hà</td>
-					<td class="Email">nguyenthanhha@gmail.com</td>
-					<td class="Option__eye"> <i class="fas fa-eye"></i></td>
-					<td class="Option__pencil"> <i class="fas fa-pencil-alt"></i></td>
-					<td class="Option__ban">  <i class="fas fa-ban"></i></td>
-				</tr>
+			<tbody>			
+				@foreach (var customer in Model.Customers)
+				{					
+					<tr class="tr">
+						<td class="STT">@(++CntCus)</td>
+						<td class="ID">@(100 + @customer.CustomerID)</td>
+						<td class="Name">@customer.CustomerName</td>
+						@{
+							var id = customer.AccountID;
+							var cus = Model.Accounts.Single(p => p.AccountID == id);
+							var email = cus.Email;
+						}
+						<td class="Email">@email</td>
+						<td class="Option__eye"> <i class="fas fa-eye"></i></td>
+						<td class="Option__pencil"> <i class="fas fa-pencil-alt"></i></td>
+						<td class="Option__ban">  <i class="fas fa-ban"></i></td>
+						<input type="hidden" name="id" id="id"/>
+					</tr>
+				}				
 			</tbody>
 		</table>
 		<div class="page-pagination">
@@ -111,14 +97,14 @@
 		<div class="modal__account-details">
 			<div class="modal__account-label d-flex align-items-center">
 				<p class="modal__label-cate">Cập nhật tài khoản</p>
-				<p class="modal__label-main">Nguyễn Thị Trà My</p>
+				<p class="modal__label-main"></p>
 			</div>
 			<div class="account__name">
 				<p class="label">Họ và tên</p>
 				<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
 			</div>
 			<div class="account__position-categories d-flex justify-content-between">
-				<div class="account__position col-6">
+				<div class="account__position col-12">
 					<p class="label">Chức vụ</p>
 					<div class="form__comboBoxList">
 						<form action="dropList" method="post">
@@ -130,13 +116,7 @@
 							</select>
 						</form>
 					</div>
-				</div>
-				<div class="account__date col-6">
-					<p class="label">Ngày sinh</p>
-					<form action="action_page.php">
-						<input type="date" name="bday">
-					</form>
-				</div>
+				</div>				
 			</div>
 			<div class="account__email-telephone d-flex justify-content-between">
 				<div class="account__email col-6">
@@ -215,36 +195,57 @@
 				<i class="fas fa-times"></i>
 			</div>
 		</div>
-		<div class="modal__staff-details">
-			<p class="modal__label-main">
-				<div class="modal__staff-label d-flex align-items-center">
-					<p class="modal__label-cate">Chi tiết tài khoản</p>
-					<p class="modal__label-main">Nguyễn Thị Trà My</p>
+		<form method="post" asp-page="ManageUser" asp-page-handler="Detail">
+			<div class="modal__staff-details">
+				<p class="modal__label-main">
+					<div class="modal__staff-label d-flex align-items-center">
+						<p class="modal__label-cate">Chi tiết tài khoản</p>
+						<p class="modal__label-main"></p>
+					</div>
+				</p>
+				<div class="staff__info-full d-flex">
+					<div class="staff__info-key col-3">
+						<p>Mã người dùng:</p>
+						<p>Họ và tên:</p>
+						<p>Giới tính:</p>
+						<p>Số điện thoại:</p>
+						<p>Email:</p>
+						@*<p>Địa chỉ:</p>*@
+					</div>
+					<div class="staff__info-value col-9">
+						<p type="text" name="iduser" id="iduser"></p>
+						<p type="text" name="nameuser" id="nameuser"></p>
+						<p type="text" name="genderuser" id="genderuser"></p>
+						<p type="text" name="phoneuser" id="phoneuser"></p>
+						<p type="text" name="emailuser" id="emailuser"></p>
+						@*<p name="iduser" id="iduser"></p>*@
+					</div>
 				</div>
-			</p>
-			<div class="staff__info-full d-flex">
-				<div class="staff__info-key col-3">
-					<p>Mã người dùng:</p>
-					<p>Họ và tên:</p>
-					<p>Ngày sinh:</p>
-					<p>Giới tính:</p>
-					<p>Số điện thoại:</p>
-					<p>Email:</p>
-					<p>Địa chỉ:</p>
-				</div>
-				<div class="staff__info-value col-9">
-					<p>102</p>
-					<p>Nguyễn Thị Trà My</p>
-					<p>19/11/2003</p>
-					<p>Nữ</p>
-					<p>0835121369</p>
-					<p>nguyentramy@gmail.com</p>
-					<p>92 Nguyễn Lâm, phường Tứ Hạ, huyện Hương Trà, tỉnh Thừa Thiên-Huế</p>
-				</div>
+				<button class="submit-btn btn-save" type="submit">Thay đổi thông tin tài khoản</button>
+				<input type="hidden" name="id" id="id" />
 			</div>
-			<button class="submit-btn btn-save" type="submit">Thay đổi thông tin tài khoản</button>
-		</div>
+		</form>
 	</div>
 </div>
 <script src="~/js/manage-user.js"></script>
+<script type="text/javascript">
+	$(document).ready(funtion() {
+		$('table .Option__eye').on('click', funtion() {
+			var id = $(this).parent().find('#id').val();
+			$.ajax({
+				type: 'GET',
+				data: {id: id},
+				url: '@Url.Page("ManageUser", "Find")',
+				success: function (result) {
+					$('#modal__info-full #id').val(result.id);
+					$('#modal__info-full #nameuser').val(result.nameuser);
+					$('#modal__info-full #genderuser').val(result.genderuser);
+					$('#modal__info-full #phoneuser').val(result.phoneuser);
+					$('#modal__info-full #emailuser').val(result.emailuser);
+				}
+
+			})
+		});
+	});
+</script>
 <!-- End Full Information -->

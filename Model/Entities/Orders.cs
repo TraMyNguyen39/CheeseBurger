@@ -7,12 +7,14 @@ namespace CheeseBurger.Model.Entities
     {
         [Key]
         public int OrderID { get; set; }
-        public DateTime SaleDate { get; set; }
+		[Required]
+		[DataType(DataType.DateTime)]
+		public DateTime SaleDate { get; set; }
 
-        [StringLength(500)]
-        public String Note { get; set; } = String.Empty;
-
-        public float TotalMoney { get; set; }
+		[StringLength(Int32.MaxValue)]
+		public String Note { get; set; } = String.Empty;
+		[Required]
+		public float TotalMoney { get; set; }
 
         [StringLength(50)]
         public String StatusOdr { get; set; } = String.Empty;

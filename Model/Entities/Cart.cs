@@ -12,8 +12,7 @@ namespace CheeseBurger.Model.Entities
         public virtual Customer Customer { get; set; }
         [Key]
         [Column(Order = 2)]
-        public int FoodID { get; set; }
-        public virtual Food Food { get; set;}
+        public int FoodID { get; set; }  
         public int Quantity { get; set; }
     }
 
