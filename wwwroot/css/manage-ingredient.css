@@ -2,12 +2,12 @@
 .button__add button {
     width: 200px;
     height: 40px;
-    background-color: var(--admin-color);
+    background: linear-gradient(to right, #ee4d2d,#ff7337);
     color: var(--white-color);
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 16px;
     border: 0px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
     .button__add button:hover {
@@ -24,21 +24,23 @@
 td.Option i {
     margin: 0 5px;
 }
-    .content-table thead tr {
-        background-color: var(--admin-color);
-        color: var(--black-color);
-        text-align: left;
-        font-weight: bold;
-    }
 
-    .content-table th,
-    .content-table td {
-        padding: 12px 15px;
-    }
+.content-table thead tr {
+    background: linear-gradient(to right, #ee4d2d,#ff7337);
+    text-align: left;
+    font-weight: bold;
+    color: var(--white-color);
+}
 
-    .content-table tbody tr {
-        border-bottom: 1px solid var(--black-color);
-    }
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+}
+
+.content-table tbody tr {
+    border-bottom: 1px solid var(--black-color);
+}
+
 td.Ten_mon {
     text-align: left;
 }
@@ -47,10 +49,10 @@ td.Ten_mon {
     border-radius: 20px;
 }
 
-    .content-table tbody tr .Option i:hover {
-        cursor: pointer;
-        opacity: 0.6;
-    }
+.content-table tbody tr .Option i:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}
 
 .content-table thead tr th {
     text-align: center !important;
@@ -60,14 +62,15 @@ td.Ten_mon {
     text-align: center;
 }
 
-.content-table tbody tr td.Ten_mon {
-    text-align: left;
-    padding-left: 5%;
-}
-.content-table tbody tr td.Number_mon, .content-table tbody tr td.Number_mon {
-    text-align: right;
-    padding-right: 5%;
-}
+    .content-table tbody tr td.Ten_mon {
+        text-align: left;
+        padding-left: 5%;
+    }
+
+    .content-table tbody tr td.Number_mon, .content-table tbody tr td.Number_mon {
+        text-align: right;
+        padding-right: 5%;
+    }
 
 /* End Table */
 
@@ -129,10 +132,11 @@ td.Ten_mon {
     border: 1px solid #495057;
     padding: 0 5px;
 }
-.ingredient__name input[type="search"]:focus, .ingredient__categories input[type="search"]:focus {
-    outline: none;
-    box-shadow: none;
-}
+
+    .ingredient__name input[type="search"]:focus, .ingredient__categories input[type="search"]:focus {
+        outline: none;
+        box-shadow: none;
+    }
 
 .ingredient__price .form__comboBoxList select[name="combobox_Item"]:focus-visible {
     outline: none;
@@ -234,18 +238,19 @@ td.Ten_mon {
 
 .button__ingredient-modify button {
     width: 100%;
-    height: 44px;
+    height: 40px;
     background-color: var(--admin-color);
     color: var(--white-color);
-    margin-top: 30px;
+    margin-top: 20px;
     border-width: 0;
     padding: 0;
     border-radius: 6px;
 }
 
-.button__ingredient-modify button:focus{
-    outline: none;
-}
+    .button__ingredient-modify button:focus {
+        outline: none;
+    }
+
 p.label {
     font-size: 1.8rem;
 }
@@ -296,6 +301,7 @@ p.label {
 .categories__information-key {
     padding-left: 0 !important;
 }
+
 .exit-btn {
     width: 100%;
     font-size: 1.6rem;

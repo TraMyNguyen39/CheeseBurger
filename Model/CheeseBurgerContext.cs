@@ -9,8 +9,7 @@ namespace CheeseBurger.Model
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Staff> Staffs { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<Street> Streets { get; set; }
+        public DbSet<Address> Addresses { get; set; }  
         public DbSet<Ward> Wards { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -38,7 +37,7 @@ namespace CheeseBurger.Model
                 .HasKey(fi => new { fi.FoodID, fi.IngredientsId });
 
             modelBuilder.Entity<Order_Food>()
-                .HasKey(of => new { of.OrderDetID, of.FoodID });
+                .HasKey(of => new { of.OrderID, of.FoodID });
 
             modelBuilder.Entity<Orders>()
                 .HasOne(e => e.Staff)

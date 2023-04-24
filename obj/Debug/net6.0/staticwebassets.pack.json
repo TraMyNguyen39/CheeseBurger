@@ -1,499 +1,507 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\CheeseBurger.bundle.scp.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\CheeseBurger.bundle.scp.css",
       "PackagePath": "staticwebassets\\CheeseBurger.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\base.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\base.css",
       "PackagePath": "staticwebassets\\css\\base.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\bootstrap.min.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\cart.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\cart.css",
       "PackagePath": "staticwebassets\\css\\cart.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\change-password.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\change-password.css",
       "PackagePath": "staticwebassets\\css\\change-password.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\detail-account.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\detail-account.css",
       "PackagePath": "staticwebassets\\css\\detail-account.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\detail-food.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\detail-food.css",
       "PackagePath": "staticwebassets\\css\\detail-food.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\detail-order-done.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\detail-order-done.css",
       "PackagePath": "staticwebassets\\css\\detail-order-done.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\detail-order-wait.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\detail-order-wait.css",
       "PackagePath": "staticwebassets\\css\\detail-order-wait.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\home-page.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\home-page.css",
       "PackagePath": "staticwebassets\\css\\home-page.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\import-order-details.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\import-order-details.css",
       "PackagePath": "staticwebassets\\css\\import-order-details.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\import-order-procs.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\import-order-procs.css",
       "PackagePath": "staticwebassets\\css\\import-order-procs.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\layout-admin.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\layout-admin.css",
       "PackagePath": "staticwebassets\\css\\layout-admin.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\layout-login.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\layout-login.css",
       "PackagePath": "staticwebassets\\css\\layout-login.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\layout-user.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\layout-user.css",
       "PackagePath": "staticwebassets\\css\\layout-user.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\manage-account.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\manage-account.css",
       "PackagePath": "staticwebassets\\css\\manage-account.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\manage-categories.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\manage-categories.css",
       "PackagePath": "staticwebassets\\css\\manage-categories.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\manage-food.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\manage-food.css",
       "PackagePath": "staticwebassets\\css\\manage-food.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\manage-ingredient.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\manage-ingredient.css",
       "PackagePath": "staticwebassets\\css\\manage-ingredient.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\manage-order.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\manage-order.css",
       "PackagePath": "staticwebassets\\css\\manage-order.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\manage-user.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\manage-user.css",
       "PackagePath": "staticwebassets\\css\\manage-user.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\menu.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\menu.css",
       "PackagePath": "staticwebassets\\css\\menu.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\my-order.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\my-order.css",
       "PackagePath": "staticwebassets\\css\\my-order.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\order-details.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\order-details.css",
       "PackagePath": "staticwebassets\\css\\order-details.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\payment.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\payment.css",
       "PackagePath": "staticwebassets\\css\\payment.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\site.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\sync-revenue.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\sync-revenue.css",
       "PackagePath": "staticwebassets\\css\\sync-revenue.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\css\\update-info-account.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\css\\update-info-account.css",
       "PackagePath": "staticwebassets\\css\\update-info-account.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\favicon.ico",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\3-Fried-Chicken.jpg",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\3-Fried-Chicken.jpg",
       "PackagePath": "staticwebassets\\img\\3-Fried-Chicken.jpg"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\315935294_1667495190338863_6363304223474082833_n.jpg",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\315935294_1667495190338863_6363304223474082833_n.jpg",
       "PackagePath": "staticwebassets\\img\\315935294_1667495190338863_6363304223474082833_n.jpg"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\4-eggtart.jpg",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\4-eggtart.jpg",
       "PackagePath": "staticwebassets\\img\\4-eggtart.jpg"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\AdminHub1.png",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\AdminHub1.png",
       "PackagePath": "staticwebassets\\img\\AdminHub1.png"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Banner.jfif",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\Banner.jfif",
       "PackagePath": "staticwebassets\\img\\Banner.jfif"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Banner1.jpg",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\Banner1.jpg",
       "PackagePath": "staticwebassets\\img\\Banner1.jpg"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Bread.png",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\Bread.png",
       "PackagePath": "staticwebassets\\img\\Bread.png"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Buger-Flavar-1.png",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\Buger-Flavar-1.png",
       "PackagePath": "staticwebassets\\img\\Buger-Flavar-1.png"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Burger-Flava.jpg",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\Burger-Flava.jpg",
       "PackagePath": "staticwebassets\\img\\Burger-Flava.jpg"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Burger-Flavar-2.jpg",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\Burger-Flavar-2.jpg",
       "PackagePath": "staticwebassets\\img\\Burger-Flavar-2.jpg"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Burger-Flavar-4.png",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\Burger-Flavar-4.png",
       "PackagePath": "staticwebassets\\img\\Burger-Flavar-4.png"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Burger-flavar-3.jfif",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\Burger-flavar-3.jfif",
       "PackagePath": "staticwebassets\\img\\Burger-flavar-3.jfif"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Burger-flavar-4.jpg",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\Burger-flavar-4.jpg",
       "PackagePath": "staticwebassets\\img\\Burger-flavar-4.jpg"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Bánh kẹp.png",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\Bánh kẹp.png",
       "PackagePath": "staticwebassets\\img\\Bánh kẹp.png"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\CheeseBurger.png",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\CheeseBurger.png",
       "PackagePath": "staticwebassets\\img\\CheeseBurger.png"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Lipton.jpg",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\Lipton.jpg",
       "PackagePath": "staticwebassets\\img\\Lipton.jpg"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Logout.png",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\Logout.png",
       "PackagePath": "staticwebassets\\img\\Logout.png"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\R.jfif",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\R.jfif",
       "PackagePath": "staticwebassets\\img\\R.jfif"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\Trứng.png",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\Trứng.png",
       "PackagePath": "staticwebassets\\img\\Trứng.png"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\bg_login1.jpg",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\avt.png",
+      "PackagePath": "staticwebassets\\img\\avt.png"
+    },
+    {
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\bg_login1.jpg",
       "PackagePath": "staticwebassets\\img\\bg_login1.jpg"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\empty-cart.png",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\empty-cart.png",
       "PackagePath": "staticwebassets\\img\\empty-cart.png"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\logo 1.png",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\logo 1.png",
       "PackagePath": "staticwebassets\\img\\logo 1.png"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\logo 2.png",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\logo 2.png",
       "PackagePath": "staticwebassets\\img\\logo 2.png"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\logo.png",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\logo.png",
       "PackagePath": "staticwebassets\\img\\logo.png"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\logo_black.png",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\logo_black.png",
       "PackagePath": "staticwebassets\\img\\logo_black.png"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\logo_watch.png",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\logo_watch.png",
       "PackagePath": "staticwebassets\\img\\logo_watch.png"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\img\\success4.svg",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\img\\success4.svg",
       "PackagePath": "staticwebassets\\img\\success4.svg"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\bootstrap.min.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\js\\bootstrap.min.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\detail-food.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\js\\detail-food.js",
       "PackagePath": "staticwebassets\\js\\detail-food.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\import__order-procs.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\js\\import__order-procs.js",
       "PackagePath": "staticwebassets\\js\\import__order-procs.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\manage-account.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\js\\manage-account.js",
       "PackagePath": "staticwebassets\\js\\manage-account.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\manage-categories.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\js\\manage-categories.js",
       "PackagePath": "staticwebassets\\js\\manage-categories.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\manage-food.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\js\\manage-food.js",
       "PackagePath": "staticwebassets\\js\\manage-food.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\manage-ingredient.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\js\\manage-ingredient.js",
       "PackagePath": "staticwebassets\\js\\manage-ingredient.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\manage-order.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\js\\manage-order.js",
       "PackagePath": "staticwebassets\\js\\manage-order.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\manage-user.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\js\\manage-user.js",
       "PackagePath": "staticwebassets\\js\\manage-user.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\site.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\js\\sidebar.js",
+      "PackagePath": "staticwebassets\\js\\sidebar.js"
+    },
+    {
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\js\\sync-revenue.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\js\\sync-revenue.js",
       "PackagePath": "staticwebassets\\js\\sync-revenue.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Id": "C:\\Users\\DELL\\OneDrive\\Desktop\\CheeseBurger\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Id": "H:\\PBL3_B\\CheeseBurger\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {

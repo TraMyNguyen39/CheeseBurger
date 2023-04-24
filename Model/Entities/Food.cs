@@ -9,21 +9,22 @@ namespace CheeseBurger.Model.Entities
         public int FoodID { get; set; }
 
         [Required]
-        [StringLength(100)]
-        public String FoodName { get; set; } = String.Empty;
-
-        public int Quantity { get; set; }
-        public float Price { get; set; }
+		[StringLength(Int32.MaxValue)]
+		public String FoodName { get; set; } = String.Empty;
+		[Required]
+		public int Quantity { get; set; }
+		[Required]
+		public float Price { get; set; }
 
         [StringLength(Int32.MaxValue)]
         public String ImageFood { get; set; } = String.Empty;
 
         [StringLength(Int32.MaxValue)]
         public String Description { get; set; } = String.Empty;
+		[Required]
+		public bool IsDeleted { get; set; }
 
-        public bool IsDeleted { get; set; }
-
-        public int CategoryID { get; set; }
+        public int? CategoryID { get; set; }
         [ForeignKey("CategoryID")]
         public Category Category { get; set; }
     }

@@ -7,9 +7,11 @@ namespace CheeseBurger.Model.Entities
     {
         [Key]
         public int CustomerID { get; set; }
-        [StringLength(50)]
+        [StringLength(100)]
         public string CustomerName { get; set; }
-        [DataType(DataType.PhoneNumber)]
+		[StringLength(10)]
+		[DataType(DataType.PhoneNumber)]
+        [Required]
         public string Phone { get; set; }
         public bool Gender { get; set; }
         public int? AddressID { get; set; }

@@ -1,10 +1,14 @@
 ﻿
+.input-wrapper {
+    position: relative;
+    transform: translateY(12px);
+}
 /* Table */
 
-    .content-table tbody tr td.Danh_muc {
-        text-align: left;
-        padding-left: 5%;
-    }
+.content-table tbody tr td.Danh_muc {
+    text-align: left;
+    padding-left: 5%;
+}
 /* End Table */
 
 /* Modal Add */
@@ -39,12 +43,13 @@
 }
 
 
-.food__name input, .food__categories input, .food__description input, .search__weight input, .form__comboBoxList select{
+.food__name input, .food__categories input, .food__description input, .search__weight input, .form__comboBoxList select {
     height: 40px;
     font-size: 1.6rem;
     border: 1px solid #495057;
     padding: 0 10px;
 }
+
     .food__name input:focus, .food__categories input:focus, .food__description input:focus, .search__weight input:focus, .form__comboBoxList select:focus,
     .food__name input:focus-visible, .food__categories input:focus-visible, .food__description input:focus-visible, .search__weight input:focus-visible, .form__comboBoxList select:focus-visible {
         outline: none;
@@ -92,3 +97,23 @@
         outline: none;
     }
 /* End Modal Add */
+.categories__text {
+    font-size: 1.8rem;
+}
+
+.food-line img {
+    border-style: none;
+    width: 50%;
+    height: fit-content;
+    border-radius: 8px;
+}
+
+.modal__read-information {
+    background-color: var(--white-color);
+    padding: 30px 40px;
+    /* margin: 40px; */
+    width: 40%;
+    height: auto;
+    border-radius: 8px;
+    position: relative;
+}

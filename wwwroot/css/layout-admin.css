@@ -1,14 +1,15 @@
 ﻿/* Header */
 .background {
     width: 100%;
-    background-color: #F8F8FF;
+    background-color: #fff;
 }
+
 .header {
     height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to right, #ee4d2d,#FA5230);
+    background: var(--admin-color);
     width: 100%;
 }
 
@@ -44,10 +45,10 @@ img.logo-server {
     font-weight: 700;
 }
 
-.header__navbar-admin:hover {
-    color: var(--white-color);
-    text-decoration: none;
-}
+    .header__navbar-admin:hover {
+        color: var(--white-color);
+        text-decoration: none;
+    }
 
 .header__navbar-item {
     margin-right: 5%;
@@ -94,7 +95,7 @@ main {
 
 .main__form-detail {
     display: block;
-/*    margin: 0px;*/
+    /*    margin: 0px;*/
     display: flex;
     height: calc(100vh - 60px);
 }
@@ -108,6 +109,39 @@ main {
         box-shadow: -3px 5px 9px 0 #555;
     }
 
+.account {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 30px;
+}
+
+img.account-avt {
+    width: 50px;
+    height: 50px;
+}
+
+.account-detail {
+    margin-left: 15px;
+    align-self: center;
+}
+
+a.account-name {
+    color: var(--text-color);
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+    a.account-name:hover {
+        color: var(--admin-color);
+        text-decoration: none;
+        opacity: 0.8;
+    }
+
+p.account-role {
+    font-size: 1.6rem;
+    font-style: italic;
+}
+
 .main__form-detail .main__sliderbar .categories__list, .categories__button {
     padding-left: 0px;
     padding-inline-start: 0px;
@@ -115,9 +149,9 @@ main {
 }
 
 
-            .main__form-detail .main__sliderbar .categories__list a {
-                padding: 5px 0px;
-            }
+    .main__form-detail .main__sliderbar .categories__list a {
+        padding: 5px 0px;
+    }
 
 
 ul.categories__list {
@@ -182,17 +216,17 @@ a.nav-link {
     transform: translateX(-50%);
 }
 
-.categories__button .categories__item-button a.nav-link {
-    font-size: 1.6rem;
-    color: var(--text-color);
-    opacity: 0.8;
-    border: none;
-    padding: 0;
-}
+    .categories__button .categories__item-button a.nav-link {
+        font-size: 1.6rem;
+        color: var(--text-color);
+        opacity: 0.8;
+        border: none;
+        padding: 0;
+    }
 
-.categories__button .categories__item-button a.nav-link:hover {
-    color: var(--main-color);
-}
+        .categories__button .categories__item-button a.nav-link:hover {
+            color: var(--main-color);
+        }
 
 i.fas.fa-right-from-bracket {
     font-size: 1.6rem;
@@ -253,6 +287,9 @@ i.fas.fa-right-from-bracket {
         border: 0;
         border-bottom-left-radius: 8px;
         border-top-right-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
         .button__exit .exit__surround i {
@@ -336,10 +373,10 @@ a.submit-btn {
 }
 
     .content-table thead tr {
-        background: var(--main-color);
-        color: var(--black-color);
+        background: linear-gradient(to right, #ee4d2d,#ff7337);
         text-align: left;
         font-weight: bold;
+        color: var(--white-color);
     }
 
     .content-table th,
@@ -355,10 +392,12 @@ a.submit-btn {
     .content-table thead tr th {
         text-align: center;
     }
-    .content-table thead tr th.Role {
-        text-align: left;
-    }
-    .content-table tbody tr .Name, .content-table tbody tr .Email, .content-table tbody tr .Role{
+
+        .content-table thead tr th.Role {
+            text-align: left;
+        }
+
+    .content-table tbody tr .Name, .content-table tbody tr .Email, .content-table tbody tr .Role {
         text-align: left;
     }
 

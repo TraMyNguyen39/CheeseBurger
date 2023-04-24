@@ -12,9 +12,11 @@ namespace CheeseBurger.Model.Entities
         [StringLength(Int32.MaxValue)]
         public string IOName { get; set; } = String.Empty;
 
-        public DateTime DateIO { get; set; }
+		[DataType(DataType.DateTime)]
+		public DateTime DateIO { get; set; }
 
-        public float TMoneyIO { get; set; }
+		[Required]
+		public float TMoneyIO { get; set; }
 
         public int StaffID { get; set; }
         [ForeignKey("StaffID")]

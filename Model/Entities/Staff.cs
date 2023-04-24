@@ -7,14 +7,12 @@ namespace CheeseBurger.Model.Entities
     {
         [Key]
         public int StaffID { get; set; }
-        [StringLength(50)]
+        [StringLength(100)]
         public string StaffName { get; set; }
-        [StringLength(15)]
+        [StringLength(10)]
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
         public bool Gender { get; set; }
-        [DataType(DataType.DateTime)]
-        public DateTime Birth { get; set; }
         public int AccountID { get; set; }
         [ForeignKey("AccountID")]
         public Account Account { get; set; }

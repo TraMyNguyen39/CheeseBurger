@@ -5,16 +5,19 @@ namespace CheeseBurger.Model.Entities
 {
     public class Order_Food
     {
-        [Key]
-        [Column(Order = 1)]
-        public int OrderDetID { get; set; }
-        public virtual Orders Orders { get; set; }
 
-        public int QuantityOG { get; set; }
+		[Key]
+		[Column(Order = 1)]
+		public int OrderID { get; set; }
+		public Orders Orders { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
-        public int FoodID { get; set; }
-        public virtual Food Food { get; set; }
-    }
+		[Key]
+		[Column(Order = 2)]
+		public int FoodID { get; set; }
+		public Food Food { get; set; }
+		[Required]
+		public int QuantityOF { get; set; }
+		[Required]
+		public decimal PriceOF { get; set; }
+	}
 }
