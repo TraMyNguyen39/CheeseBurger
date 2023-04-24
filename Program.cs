@@ -18,7 +18,8 @@ service.AddDbContext<CheeseBurgerContext>(option =>
 });
 
 service.AddSession();
-
+service.AddScoped<IIngredientsService, IngredientsService>();
+service.AddScoped<IIngredientsRespository, IngredientsRespository>();
 service.AddScoped<IAccountService, AccountService>();
 service.AddScoped<IAccountRespository, AccountRespository>();
 service.AddScoped<IFoodService, FoodService>();
