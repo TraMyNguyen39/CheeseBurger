@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CheeseBurger.Migrations
 {
-    public partial class AddDatabaseToIngredient : Migration
+    /// <inheritdoc />
+    public partial class CreateDatabase : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -537,7 +539,7 @@ namespace CheeseBurger.Migrations
                 name: "IX_Wards_DistrictID",
                 table: "Wards",
                 column: "DistrictID");
-		}
+        }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
