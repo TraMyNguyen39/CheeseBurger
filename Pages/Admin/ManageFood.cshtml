@@ -3,8 +3,8 @@
 @{
 	ViewData["Title"] = "ManageFood";
 }
-<link rel="stylesheet" href="~/css/manage-food.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/manage-food.css" asp-append-version="true" />
 
 <div class="main__information">
 	<div class="main__information-detail">
@@ -176,4 +176,91 @@
 		</div>
 	</div>
 </div>
+
+<!-- Modal Update -->
+<div class="modal__ingredient-modify">
+	<div class="modal__ingredient-information">
+		<div class="button__exit d-flex justify-content-end">
+			<span class="exit__surround d-flex align-items-center justify-content-center">
+				<i class="fas fa-times"></i>
+			</span>
+		</div>
+		<div class="modal__ingredient-details">
+			<p class="modal__label-main">Cập nhật món ăn</p>
+			<div class="ingredient__name">
+				<p class="label">Tên món ăn</p>
+				<input class="form-control" type="search" placeholder="" aria-label="Search">
+			</div>
+			<div class="ingredient__price-categories d-flex justify-content-between">
+				<div class="ingredient__categories col-6 pl-0 pr-2">
+					<p class="label">Danh mục</p>
+					<input class="form-control" type="search" placeholder="" aria-label="Search">
+				</div>
+				<div class="ingredient__price col-6 pr-0 pl-2">
+					<p class="label">Trạng thái</p>
+					<div class="form__comboBoxList">
+						<form action="dropList" method="post">
+							<select name="combobox_Item">
+								<option value="" selected>Ngừng bán</option>
+								<option value="">Đang bán</option>
+							</select>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="food__description">
+				<p class="label">Mô tả</p>
+				<input class="form-control mr-sm-2" type="search" placeholder="">
+			</div>
+			<div class="file__image d-flex align-items-center">
+				<form action="/upload.php" method="post" enctype="multipart/form-data">
+					<p class="image__text">Hình ảnh:</p>
+					<input type="file" name="fileupload" id="fileupload">
+				</form>
+			</div>
+			<div class="button__ingredient-modify">
+				<button class="" type="submit">Cập nhật món ăn</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal Update-->
+<!-- Modal Read -->
+<div class="modal__food-read">
+	<div class="modal__read-information">
+		<div class="button__exit d-flex justify-content-end">
+			<span class="exit__surround d-flex align-items-center justify-content-center">
+				<i class="fas fa-times"></i>
+			</span>
+		</div>
+		<div class="categories-read">
+			<div class="categories__form-edit">
+				<p class="categories__text-specific">Thông tin món ăn</p>
+				<div class="food-line d-flex">
+					<p class="categories__text col-md-4 pl-0">Hình ảnh</p>
+					<img class="food-img" src="~/img/Burger-Flava.jpg"/>
+				</div>
+				<div class="food-line d-flex">
+					<p class="categories__text col-md-4 pl-0">Tên món ăn:</p>
+					<p class="categories__text col-8">Hamburger gà quay Flavar</p>
+				</div>
+				<div class="food-line d-flex">
+					<p class="categories__text col-md-4 pl-0">Danh mục:</p>
+					<p class="categories__text col-8">Hamburger gà quay Flavar</p>
+				</div>
+				<div class="food-line d-flex">
+					<p class="categories__text col-md-4 pl-0">Danh mục:</p>
+					<p class="categories__text col-8">Hamburger gà quay Flavar</p>
+				</div>
+				<div class="food-line d-flex">
+					<p class="categories__text col-md-4 pl-0">Mô tả:</p>
+					<p class="categories__text col-8">Hamburger gà quay Flavar là sự kết hợp độc đáo của abcdef</p>
+				</div>
+				<button class="submit-btn exit-btn" type="submit">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal Read -->
+
 <script src="~/js/manage-food.js"></script>

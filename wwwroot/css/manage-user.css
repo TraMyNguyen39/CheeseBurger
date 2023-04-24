@@ -3,7 +3,8 @@
 .main__information {
     margin: 0 auto;
     margin-top: 60px;
-    width: 60%;
+    padding-top: 45px;
+    width: 70%;
 }
 
 .main__information-add i {

@@ -35,7 +35,7 @@ namespace CheeseBurger.Pages
                 if (user.isStaff)
                 {
                     HttpContext.Session.SetString("Role", accountService.GetStaffRole(user.AccountID));
-                    return RedirectToPage("/User/Menu");
+                    return RedirectToPage("/Admin/SyncRevenue");
                 }
                 else
                 {

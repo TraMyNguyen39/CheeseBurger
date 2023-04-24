@@ -1,4 +1,8 @@
 ﻿
+.input-wrapper {
+    position: relative;
+    transform: translateY(12px);
+}
 /* Table */
 
     .content-table tbody tr td.Danh_muc {
@@ -92,3 +96,23 @@
         outline: none;
     }
 /* End Modal Add */
+.categories__text {
+    font-size: 1.8rem;
+}
+.food-line img {
+    border-style: none;
+    width: 50%;
+    height: fit-content;
+    border-radius: 8px;
+}
+
+.modal__read-information {
+    background-color: var(--white-color);
+    padding: 30px 40px;
+    /* margin: 40px; */
+    width: 40%;
+    height: auto;
+    border-radius: 8px;
+    position: relative;
+}
+
