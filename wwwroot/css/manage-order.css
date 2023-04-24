@@ -67,10 +67,9 @@ label {
     transform: translateY(29%);
 }
 
-    .time-start .control-label, .time-end .control-label {
-        margin-bottom: 0;
-        margin-right: 20px;
-    }
+.time-start .control-label, .time-end .control-label {
+    margin-right: 5px;
+}
 
 input[type="date"] {
     border-radius: 4px;
@@ -106,7 +105,7 @@ a.Name {
 .main__table-status {
     height: 30px;
     display: block;
-    /*    transform: translateX(-20px);*/
+    transform: translateX(-20px);
     font-size: 16px;
 }
 
@@ -155,7 +154,6 @@ a.Name {
         border: 0;
         padding: 0 15px
     }
-
 .main__table-information {
     padding: 20px 15px 0px 15px;
 }
