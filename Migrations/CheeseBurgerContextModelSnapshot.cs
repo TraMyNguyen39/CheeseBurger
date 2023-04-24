@@ -318,7 +318,7 @@ namespace CheeseBurger.Migrations
 
                     b.HasKey("MeasureID");
 
-                    b.ToTable("Measure", (string)null);
+                    b.ToTable("Measures");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Order_Food", b =>

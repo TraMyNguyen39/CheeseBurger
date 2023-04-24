@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheeseBurger.Migrations
 {
     [DbContext(typeof(CheeseBurgerContext))]
-    [Migration("20230423025522_CreateDataMeasure")]
-    partial class CreateDataMeasure
+    [Migration("20230424041757_CreateDatabase")]
+    partial class CreateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -321,7 +321,7 @@ namespace CheeseBurger.Migrations
 
                     b.HasKey("MeasureID");
 
-                    b.ToTable("Measure", (string)null);
+                    b.ToTable("Measures");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Order_Food", b =>
