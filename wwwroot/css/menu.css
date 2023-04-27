@@ -4,51 +4,57 @@
     font-size: 1.8rem;
 }
 
-.category-filter,
-.cost-filter {
-    width: 100%;
+.filter-menu {
+    font-size: 1.8rem;
+    width: 80%;
+    margin: auto;
     margin-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.category-filter p,
-.cost-filter p {
+.filter-menu:nth-child(2) {
+    margin-top: 30px;
+}
+
+.filter-menu p
+{
         width: 100%;
-        font-size: 1.8rem;
         text-align: center;
         font-weight: 500;
         border-bottom: 1px solid var(--text-color);
         padding-bottom: 15px;
 }
 
-a.category-filter-name {
+a.category-filter-name,
+a.cost-filter-name {
     border: none;
     color: var(--text-color);
     margin: 5px 0;
     text-decoration: none;
+    font-size: 1.8rem;
 }
 
-a.category-filter-name:hover {
+a.category-filter-name:hover,
+a.cost-filter-name:hover {
     opacity: 0.8;
+    color: var(--main-color);
 }
 
-.cost-filter-name {
-    margin: 5px 0;
+a.category-filter-name.active, a.cost-filter-name.active {
+    color: var(--main-color);
+    font-weight: 500;
 }
-
-    .cost-filter-name input {
-        margin-right: 8px;
-    }
 
 /* search and sort box */
 .menu-sort {
-    margin-left: 1%;
-    width: 40%;
+    transform: translateX(-2%);
+    width: 50%;
     font-size: 1.8rem;
     font-weight: 500;
 }
+
 
 .menu-sort-box {
     width: 50%;
@@ -62,7 +68,6 @@ a.category-filter-name:hover {
     outline: none;
     opacity: 0.7;
     margin-left: 10px;
-    margin-bottom: 30px;
 }
 
 .menu-search-box {
@@ -74,7 +79,6 @@ a.category-filter-name:hover {
     position: relative;
     overflow: hidden;
     font-size: 1.6rem;
-    margin-right: 2%;
 }
 
 .search-box-input {
@@ -113,6 +117,12 @@ a.category-filter-name:hover {
 .search-box-btn:focus,
 .search-box-btn:focus-visible{
     outline: none;
+}
+
+/*Danger message*/
+.alert.alert-danger {
+    padding: 10px;
+    text-align: center;
 }
 /* menu-item */
 
@@ -195,4 +205,8 @@ a.category-filter-name:hover {
 .pagination a:hover:not(.active) {
     background-color: var(--main-color);
     opacity: 0.6;
+}
+
+i.fas.fa-cart-shopping {
+    margin-right: 10px;
 }

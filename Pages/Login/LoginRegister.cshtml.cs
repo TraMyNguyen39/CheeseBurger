@@ -8,15 +8,18 @@ namespace CheeseBurger.Pages
     public class LoginRegisterModel : PageModel
     {
         private readonly IAccountService accountService;
+        private readonly ICustomerService customerService;
         [BindProperty]
         public string Email { get; set; }
         [BindProperty]
         public string Password { get; set; }
-        public string Message { get; set; }
+		[BindProperty(SupportsGet = true)]
+		public string Message { get; set; }
 
-        public LoginRegisterModel(IAccountService accountService)
+        public LoginRegisterModel(IAccountService accountService, ICustomerService customerService)
         {
             this.accountService = accountService;
+            this.customerService = customerService;
         }
 
         public IActionResult OnPost()
@@ -39,7 +42,9 @@ namespace CheeseBurger.Pages
                 }
                 else
                 {
-                    return RedirectToPage("/User/Cart");
+                    var customerID = customerService.GetCustomerID(user.AccountID);
+                    HttpContext.Session.SetInt32("customerID", customerID);
+                    return RedirectToPage("/User/Menu");
                 }
             }
         }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheeseBurger.Migrations
 {
     [DbContext(typeof(CheeseBurgerContext))]
-    [Migration("20230424041757_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20230426145423_CreateDB")]
+    partial class CreateDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,15 +62,17 @@ namespace CheeseBurger.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressID"));
 
-                    b.Property<int>("NumberHouse")
-                        .HasColumnType("int");
+                    b.Property<string>("NumberHouse")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("StreetID")
+                    b.Property<int>("WardID")
                         .HasColumnType("int");
 
                     b.HasKey("AddressID");
 
-                    b.HasIndex("StreetID");
+                    b.HasIndex("WardID");
 
                     b.ToTable("Addresses");
                 });
@@ -89,8 +91,6 @@ namespace CheeseBurger.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CustomerID", "FoodID");
-
-                    b.HasIndex("FoodID");
 
                     b.ToTable("Carts");
                 });
@@ -128,14 +128,16 @@ namespace CheeseBurger.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CustomerName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("Gender")
                         .HasColumnType("bit");
 
                     b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("CustomerID");
 
@@ -172,7 +174,7 @@ namespace CheeseBurger.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FoodID"));
 
-                    b.Property<int>("CategoryID")
+                    b.Property<int?>("CategoryID")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -181,8 +183,8 @@ namespace CheeseBurger.Migrations
 
                     b.Property<string>("FoodName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageFood")
                         .HasMaxLength(2147483647)
@@ -326,7 +328,7 @@ namespace CheeseBurger.Migrations
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Order_Food", b =>
                 {
-                    b.Property<int>("OrderDetID")
+                    b.Property<int>("OrderID")
                         .HasColumnType("int")
                         .HasColumnOrder(1);
 
@@ -334,17 +336,15 @@ namespace CheeseBurger.Migrations
                         .HasColumnType("int")
                         .HasColumnOrder(2);
 
-                    b.Property<int?>("OrdersOrderID")
+                    b.Property<decimal>("PriceOF")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("QuantityOF")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuantityOG")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderDetID", "FoodID");
+                    b.HasKey("OrderID", "FoodID");
 
                     b.HasIndex("FoodID");
-
-                    b.HasIndex("OrdersOrderID");
 
                     b.ToTable("Order_Foods");
                 });
@@ -364,8 +364,8 @@ namespace CheeseBurger.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Note")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("SaleDate")
                         .HasColumnType("datetime2");
@@ -438,8 +438,8 @@ namespace CheeseBurger.Migrations
 
                     b.Property<string>("RoleName")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("RoleID");
 
@@ -460,22 +460,19 @@ namespace CheeseBurger.Migrations
                     b.Property<int?>("AddressID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Birth")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("Gender")
                         .HasColumnType("bit");
 
                     b.Property<string>("Phone")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("RoleID")
                         .HasColumnType("int");
 
                     b.Property<string>("StaffName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("StaffID");
 
@@ -486,29 +483,6 @@ namespace CheeseBurger.Migrations
                     b.HasIndex("RoleID");
 
                     b.ToTable("Staffs");
-                });
-
-            modelBuilder.Entity("CheeseBurger.Model.Entities.Street", b =>
-                {
-                    b.Property<int>("StreetID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StreetID"));
-
-                    b.Property<string>("StreetName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("WardID")
-                        .HasColumnType("int");
-
-                    b.HasKey("StreetID");
-
-                    b.HasIndex("WardID");
-
-                    b.ToTable("Streets");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Ward", b =>
@@ -536,13 +510,13 @@ namespace CheeseBurger.Migrations
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Address", b =>
                 {
-                    b.HasOne("CheeseBurger.Model.Entities.Street", "Street")
+                    b.HasOne("CheeseBurger.Model.Entities.Ward", "Ward")
                         .WithMany()
-                        .HasForeignKey("StreetID")
+                        .HasForeignKey("WardID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Street");
+                    b.Navigation("Ward");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Cart", b =>
@@ -553,15 +527,7 @@ namespace CheeseBurger.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CheeseBurger.Model.Entities.Food", "Food")
-                        .WithMany()
-                        .HasForeignKey("FoodID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Customer");
-
-                    b.Navigation("Food");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Customer", b =>
@@ -585,9 +551,7 @@ namespace CheeseBurger.Migrations
                 {
                     b.HasOne("CheeseBurger.Model.Entities.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryID");
 
                     b.Navigation("Category");
                 });
@@ -654,7 +618,9 @@ namespace CheeseBurger.Migrations
 
                     b.HasOne("CheeseBurger.Model.Entities.Orders", "Orders")
                         .WithMany()
-                        .HasForeignKey("OrdersOrderID");
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Food");
 
@@ -730,17 +696,6 @@ namespace CheeseBurger.Migrations
                     b.Navigation("Address");
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("CheeseBurger.Model.Entities.Street", b =>
-                {
-                    b.HasOne("CheeseBurger.Model.Entities.Ward", "Ward")
-                        .WithMany()
-                        .HasForeignKey("WardID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ward");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Ward", b =>

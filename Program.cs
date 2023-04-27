@@ -22,10 +22,15 @@ service.AddScoped<IIngredientsService, IngredientsService>();
 service.AddScoped<IIngredientsRespository, IngredientsRespository>();
 service.AddScoped<IAccountService, AccountService>();
 service.AddScoped<IAccountRespository, AccountRespository>();
+service.AddScoped<ICustomerService, CustomerService>();
+service.AddScoped<ICustomerRespository, CustomerRespository>();
 service.AddScoped<IFoodService, FoodService>();
 service.AddScoped<IFoodRepository, FoodRepository>();
 service.AddScoped<ICategoryService, CategoryService>();
 service.AddScoped<ICategoryRepository, CategoryRepository>();
+service.AddScoped<ICartService, CartService>();
+service.AddScoped<ICartRepository, CartRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

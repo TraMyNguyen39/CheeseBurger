@@ -4,6 +4,6 @@ namespace CheeseBurger.Service
 {
     public interface IFoodService
     {
-        List<FoodDTO> GetFoodsMenu(int category, int priceRange ,int sortBy);
+        List<FoodDTO> GetFoodsMenu(int category, int priceRange , string arrange, bool isDescending, string searchText);
     }
 }

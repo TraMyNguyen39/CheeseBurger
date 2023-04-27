@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CheeseBurger.Migrations
 {
-    public partial class AddDatabaseToIngredient : Migration
+    /// <inheritdoc />
+    public partial class CreateDB : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -70,7 +72,7 @@ namespace CheeseBurger.Migrations
                 {
                     RoleID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false)
+                    RoleName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,13 +85,13 @@ namespace CheeseBurger.Migrations
                 {
                     FoodID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FoodName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    FoodName = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
                     ImageFood = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CategoryID = table.Column<int>(type: "int", nullable: false)
+                    CategoryID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -98,8 +100,7 @@ namespace CheeseBurger.Migrations
                         name: "FK_Foods_Categories_CategoryID",
                         column: x => x.CategoryID,
                         principalTable: "Categories",
-                        principalColumn: "CategoryID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CategoryID");
                 });
 
             migrationBuilder.CreateTable(
@@ -145,19 +146,19 @@ namespace CheeseBurger.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Streets",
+                name: "Addresses",
                 columns: table => new
                 {
-                    StreetID = table.Column<int>(type: "int", nullable: false)
+                    AddressID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StreetName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    NumberHouse = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     WardID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Streets", x => x.StreetID);
+                    table.PrimaryKey("PK_Addresses", x => x.AddressID);
                     table.ForeignKey(
-                        name: "FK_Streets_Wards_WardID",
+                        name: "FK_Addresses_Wards_WardID",
                         column: x => x.WardID,
                         principalTable: "Wards",
                         principalColumn: "WardId",
@@ -211,33 +212,13 @@ namespace CheeseBurger.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Addresses",
-                columns: table => new
-                {
-                    AddressID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NumberHouse = table.Column<int>(type: "int", nullable: false),
-                    StreetID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Addresses", x => x.AddressID);
-                    table.ForeignKey(
-                        name: "FK_Addresses_Streets_StreetID",
-                        column: x => x.StreetID,
-                        principalTable: "Streets",
-                        principalColumn: "StreetID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
                     CustomerID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Gender = table.Column<bool>(type: "bit", nullable: false),
                     AddressID = table.Column<int>(type: "int", nullable: true),
                     AccountID = table.Column<int>(type: "int", nullable: false)
@@ -264,10 +245,9 @@ namespace CheeseBurger.Migrations
                 {
                     StaffID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StaffName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    StaffName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Gender = table.Column<bool>(type: "bit", nullable: false),
-                    Birth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AccountID = table.Column<int>(type: "int", nullable: false),
                     RoleID = table.Column<int>(type: "int", nullable: false),
                     AddressID = table.Column<int>(type: "int", nullable: true)
@@ -310,12 +290,6 @@ namespace CheeseBurger.Migrations
                         column: x => x.CustomerID,
                         principalTable: "Customers",
                         principalColumn: "CustomerID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Carts_Foods_FoodID",
-                        column: x => x.FoodID,
-                        principalTable: "Foods",
-                        principalColumn: "FoodID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -378,7 +352,7 @@ namespace CheeseBurger.Migrations
                     OrderID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SaleDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Note = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Note = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
                     TotalMoney = table.Column<float>(type: "real", nullable: false),
                     StatusOdr = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     StaffID = table.Column<int>(type: "int", nullable: false),
@@ -412,14 +386,14 @@ namespace CheeseBurger.Migrations
                 name: "Order_Foods",
                 columns: table => new
                 {
-                    OrderDetID = table.Column<int>(type: "int", nullable: false),
+                    OrderID = table.Column<int>(type: "int", nullable: false),
                     FoodID = table.Column<int>(type: "int", nullable: false),
-                    OrdersOrderID = table.Column<int>(type: "int", nullable: true),
-                    QuantityOG = table.Column<int>(type: "int", nullable: false)
+                    QuantityOF = table.Column<int>(type: "int", nullable: false),
+                    PriceOF = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order_Foods", x => new { x.OrderDetID, x.FoodID });
+                    table.PrimaryKey("PK_Order_Foods", x => new { x.OrderID, x.FoodID });
                     table.ForeignKey(
                         name: "FK_Order_Foods_Foods_FoodID",
                         column: x => x.FoodID,
@@ -427,21 +401,17 @@ namespace CheeseBurger.Migrations
                         principalColumn: "FoodID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Order_Foods_Orders_OrdersOrderID",
-                        column: x => x.OrdersOrderID,
+                        name: "FK_Order_Foods_Orders_OrderID",
+                        column: x => x.OrderID,
                         principalTable: "Orders",
-                        principalColumn: "OrderID");
+                        principalColumn: "OrderID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Addresses_StreetID",
+                name: "IX_Addresses_WardID",
                 table: "Addresses",
-                column: "StreetID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Carts_FoodID",
-                table: "Carts",
-                column: "FoodID");
+                column: "WardID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_AccountID",
@@ -484,11 +454,6 @@ namespace CheeseBurger.Migrations
                 column: "FoodID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_Foods_OrdersOrderID",
-                table: "Order_Foods",
-                column: "OrdersOrderID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Orders_AddressID",
                 table: "Orders",
                 column: "AddressID");
@@ -529,15 +494,10 @@ namespace CheeseBurger.Migrations
                 column: "RoleID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Streets_WardID",
-                table: "Streets",
-                column: "WardID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Wards_DistrictID",
                 table: "Wards",
                 column: "DistrictID");
-		}
+        }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -589,9 +549,6 @@ namespace CheeseBurger.Migrations
 
             migrationBuilder.DropTable(
                 name: "Roles");
-
-            migrationBuilder.DropTable(
-                name: "Streets");
 
             migrationBuilder.DropTable(
                 name: "Wards");

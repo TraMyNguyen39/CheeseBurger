@@ -2,5 +2,6 @@
 {
     public interface ICustomerService
     {
-    }
+		int GetCustomerID(int accountID);
+	}
 }

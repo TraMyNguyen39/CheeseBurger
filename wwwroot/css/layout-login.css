@@ -27,7 +27,7 @@
 
     .form-box .button-box {
         width: 80%;
-        margin: 35px auto;
+        margin: 30px auto 15px;
         position: relative;
         box-shadow: 0 0 20px 20px var(--div-color);
         border-radius: 20px;
@@ -76,7 +76,7 @@ button.button-box__toggle-btn {
 
 .input-group {
     position: absolute;
-    top: 35%;
+    top: 30%;
     width: 75%;
     transition: .5s;
 }

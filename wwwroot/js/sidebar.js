@@ -1,6 +1,6 @@
 ﻿window.onload = function () {
     var menuClass = localStorage.getItem('menuClass');
-    localStorage.clear;
+    localStorage.clear();
     var element = document.getElementById(menuClass);
     if (element) {
         element.classList.add('active');
