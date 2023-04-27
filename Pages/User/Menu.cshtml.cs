@@ -69,7 +69,6 @@ namespace CheeseBurger.Pages
 			{
 				//Add sản phẩm vào cart
 				cartService.AddCart((int)customerID, cartProductID, 1);
-				Message = "Sản phẩm đã được thêm vào giỏ hàng";
 				return RedirectToPage("/User/Menu");
 			}
 			else
