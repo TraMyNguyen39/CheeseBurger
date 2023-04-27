@@ -13,14 +13,13 @@
 </div>
 <div class="row jtf-center menu">
 	<div class="col-3">
-		<form class="filter-menu">
+		<form class="filter-menu" method="get">
 			<p>Danh mục sản phẩm</p>
 			<a asp-page="/user/menu" asp-route-price=@Model.priceRange asp-route-sortBy=@Model.sortBy asp-route-search=@Model.searchText class="category-filter-name" id="cate-all">Tất cả</a>
 			@foreach (var i in Model.categories)
 			{
 				<a asp-page="/user/menu" asp-route-category=@i.CategoryID asp-route-price=@Model.priceRange asp-route-sortBy=@Model.sortBy asp-route-search=@Model.searchText class="category-filter-name" id="cate-@i.CategoryID">@i.CategoryName</a>
 			}
-
 		</form>
 
 		<form class="filter-menu">

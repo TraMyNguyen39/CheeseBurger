@@ -4,6 +4,6 @@ namespace CheeseBurger.Repository
 {
     public interface ICategoryRepository
     {
-		List<Category> GetAllCategoryName();
+		List<Category> GetAllCategory();
 	}
 }
