@@ -61,7 +61,6 @@ namespace CheeseBurger.Pages
             }
             else { Message = null; }
         }
-
 		public IActionResult OnPost()
 		{
 			var customerID = HttpContext.Session.GetInt32("customerID");
@@ -73,7 +72,7 @@ namespace CheeseBurger.Pages
 			}
 			else
 			{
-				return RedirectToPage("/Login/Loginregister", new { Message = "* Bạn phải đăng nhập / đăng ký trước khi tương tác với giỏ hàng" });
+				return RedirectToPage("/Login/Loginregister", new { Message = "* Bạn phải đăng nhập/ đăng ký trước khi tương tác với giỏ hàng" });
 			}
 		}
 	}
