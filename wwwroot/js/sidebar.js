@@ -1,6 +1,5 @@
 ﻿window.onload = function () {
-    var menuClass = localStorage.getItem('menuClass');
-    localStorage.clear();
+    var menuClass = sessionStorage.getItem('menuClass');
     var element = document.getElementById(menuClass);
     if (element) {
         element.classList.add('active');
@@ -16,6 +15,6 @@ for (var i = 0; i < manageFunction.length; i++) {
         var current = document.getElementsByClassName("active");
         current[0].className = current[0].className.replace(" active", "");
         this.classList.toggle("active");
-        localStorage.setItem('menuClass', this.id);
+        sessionStorage.setItem('menuClass', this.id);
     });
 };
