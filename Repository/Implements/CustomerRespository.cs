@@ -13,6 +13,11 @@ namespace CheeseBurger.Repository.Implements
 		{
 			this.context = context;
 		}
+		public int GetCustomerID(int accountID)
+		{
+			var customer = context.Customers.Where(p => p.AccountID == accountID).Select(p => p).FirstOrDefault();
+			return customer != null ? customer.CustomerID : 0;
+		}
 		public CustomerDTO GetCustomer(int id)
 		{
 			var cus_data = from c in context.Customers

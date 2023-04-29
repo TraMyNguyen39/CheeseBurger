@@ -6,6 +6,10 @@ namespace CheeseBurger.Service.Implements
 {
 	public class CustomerService : ICustomerService
 	{
+		public int GetCustomerID(int accountID)
+		{
+			return customerRespository.GetCustomerID(accountID);
+		}
 		private readonly ICustomerRespository customerRespository;
 		public CustomerService(ICustomerRespository customerRespository)
 		{

@@ -160,7 +160,7 @@ namespace CheeseBurger.Migrations
 
                     b.HasKey("DistrictID");
 
-                    b.ToTable("District");
+                    b.ToTable("Districts");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Food", b =>
@@ -330,8 +330,8 @@ namespace CheeseBurger.Migrations
                         .HasColumnType("int")
                         .HasColumnOrder(2);
 
-                    b.Property<decimal>("PriceOF")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("PriceOF")
+                        .HasColumnType("real");
 
                     b.Property<int>("QuantityOF")
                         .HasColumnType("int");
