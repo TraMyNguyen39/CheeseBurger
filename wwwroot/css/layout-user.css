@@ -78,6 +78,7 @@
 }
 
 .header__navbar--searchbox-input {
+    font-size: 1.6rem;
     border: 0;
     outline: none;
     background-color: transparent;

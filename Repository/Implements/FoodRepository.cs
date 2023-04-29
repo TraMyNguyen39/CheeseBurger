@@ -1,5 +1,6 @@
 ﻿using CheeseBurger.DTO;
 using CheeseBurger.Model;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CheeseBurger.Repository.Implements
 {
@@ -10,13 +11,45 @@ namespace CheeseBurger.Repository.Implements
 		{
 			this.context = context;
 		}
-		public List<FoodDTO> GetFoodsMenu(int category, int priceRange, int sortBy)
+
+		public List<FoodDTO> GetFoodsMenu(int category, int priceRange, string arrange, bool isDescending, string searchText)
 		{
+			var foods = context.Foods.Select(p => p);
 			if (category != 0)
-				return context.Foods.Where(p => p.CategoryID == category)
-								.Select(p => new FoodDTO {IDFood = p.FoodID, NameFood = p.FoodName, PriceFood = p.Price, ImgFood = p.ImageFood})
-								.ToList();
-			else return context.Foods.Select(p => new FoodDTO { IDFood = p.FoodID, NameFood = p.FoodName, PriceFood = p.Price, ImgFood = p.ImageFood }).ToList();
+				foods = foods.Where(p => p.CategoryID == category).Select(p => p);
+
+			switch (priceRange)
+			{
+				case 1:
+					foods = foods.Where(p => p.Price >= 0 && p.Price <= 20000).Select(p => p);
+					break;
+				case 2:
+					foods = foods.Where(p => p.Price >= 20000 && p.Price <= 50000).Select(p => p);
+					break;
+				case 3:
+					foods = foods.Where(p => p.Price >= 50000 && p.Price <= 70000).Select(p => p);
+					break;
+				case 4:
+					foods = foods.Where(p => p.Price >= 70000 && p.Price <= 100000).Select(p => p);
+					break;
+			}
+			
+			switch(arrange)
+			{
+				case "name":
+					foods = isDescending ? foods.OrderByDescending(p => p.FoodName) : foods.OrderBy(p => p.FoodName);
+					break;
+				case "price":
+					foods = isDescending ? foods.OrderByDescending(p => p.Price) : foods.OrderBy(p => p.Price);
+					break;
+			}
+			
+			if (!searchText.IsNullOrEmpty())
+			{
+				foods = foods.Where(p => p.FoodName.Contains(searchText)).Select(p => p);
+			}	
+
+			return foods.Select(p => new FoodDTO { IDFood = p.FoodID, NameFood = p.FoodName, PriceFood = p.Price, ImgFood = p.ImageFood }).ToList();
 		}
 	}
 }

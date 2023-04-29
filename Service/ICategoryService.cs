@@ -4,6 +4,6 @@ namespace CheeseBurger.Service
 {
     public interface ICategoryService
     {
-        List<Category> GetAllCategoryName();
+        List<Category> GetAllCategory();
     }
 }

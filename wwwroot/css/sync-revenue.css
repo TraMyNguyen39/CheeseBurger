@@ -5,8 +5,14 @@
     padding-top: 0;
 }
 
-main__information-detail {
+.main__information-detail {
     font-size: 1.6rem;
+}
+.main__table-form {
+    margin-bottom: 20px;
+}
+form {
+    margin: 0;
 }
 
 .datetime {

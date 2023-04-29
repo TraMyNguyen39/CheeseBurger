@@ -1,177 +1,99 @@
 ﻿@page
 @model CartModel
 @{
-    ViewData["Title"] = "Cart";
-    ViewBag.Name = HttpContext.Session.GetString("Name");
-    ViewBag.Id = HttpContext.Session.GetInt32("Id");
+	ViewData["Title"] = "Cart";
+	ViewBag.Name = HttpContext.Session.GetString("Name");
+	ViewBag.Id = HttpContext.Session.GetInt32("Id");
 }
 
 <div class="breadcrumb-division">
-    <ol class="breadcrumb breadcrumb__edit">
-        <li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
-    </ol>
+	<ol class="breadcrumb breadcrumb__edit">
+		<li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+	</ol>
 </div>
 
-<div class="list-item">
-    <table class="table text-center">
-        <thead style="background-color: var(--div-color)">
-            <tr class="table-header">
-                <th class="cart__table-col col-1" scope="col">STT</th>
-                <th class="cart__table-col col-4" scope="col">Sản phẩm</th>
-                <th class="cart__table-col col-2" scope="col">Giá</th>
-                <th class="cart__table-col col-2" scope="col">Số lượng</th>
-                <th class="cart__table-col col-2" scope="col">Tổng Giá</th>
-                <th class="cart__table-col col-1" scope="col">Xoá</th>
-            </tr>
-        </thead>
-        <tbody>
-                <tr>
-                    <th scope="row" style="font-weight: 500;">1</th>
-                    <td class="d-flex align-items-center">
-                        <img src="~/img/Burger-Flava.jpg" alt="" class="cart__item-image" />
-                        <a asp-page="/User/DetailFood" class="cart__name-item">Hamburger Gà Quay Flavar</a>
-                    </td>
-                    <td>55,000đ</td>
-                    <td>
-                        <div class="input-group">
-                            <div class="minus minus-plus-button">-</div>
-                            <input type="text" name="qty" id="1" value="1" class="input-field">
-                            <div class="plus minus-plus-button">+</div>
-                        </div>
-                    </td>
-                    <td style="font-weight: 500">55,000đ</td>
-                    <td><i class="fa-solid fa-ban" style="color: red"></i></td>
-                </tr>
+<div class="list-item cart">
+	<table class="table text-center">
+		<thead style="background-color: var(--div-color)">
+			<tr class="table-header">
+				<th class="cart__table-col col-1" scope="col">STT</th>
+				<th class="cart__table-col col-4" scope="col">Sản phẩm</th>
+				<th class="cart__table-col col-2" scope="col">Đơn giá</th>
+				<th class="cart__table-col col-2" scope="col">Số lượng</th>
+				<th class="cart__table-col col-2" scope="col">Thành tiền</th>
+				<th class="cart__table-col col-1" scope="col">Xoá</th>
+			</tr>
+		</thead>
+		<tbody>
+			@{
+				var count = 1;
+				@foreach (var i in Model.carts)
+				{
+					<tr>
+						<th scope="row" style="font-weight: 500;">@count</th>
+						<td class="d-flex align-items-center">
+							<img src=@i.FoodPic alt="Ảnh món ăn" class="cart__item-image" />
+							<a asp-page="/User/DetailFood" asp-route-id="@i.FoodId" class="cart__name-item">@i.Name</a>
+						</td>
+						<td>@i.Price.ToString("N0")đ</td>
+						<td>
+							<form class="input-group" method="post">
+								<div class="minus minus-plus-button">-</div>
+								<input type="text" value="@i.Quantity" class="input-field"
+							   	onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="quantity">
+								<div class="plus minus-plus-button">+</div>
+								<input type="hidden" value="@i.FoodId" name="foodId" />
+								<input type="submit" style="width: 0; height: 0; display: none" />
+							</form>
+						</td>
+						<td style="font-weight: 500">@((i.Quantity * i.Price).ToString("N0"))đ</td>
+						<td>
+							<form method="post" asp-page-handler="Remove">
+								<input type="hidden" name="foodId" value="@i.FoodId">
+								<button type="submit" class="icon-btn">
+									<i class="fa-solid fa-trash-can"></i>
+								</button>
+							</form>
+						</td>
+					</tr>
+					count++;
+				}
+			}
 
-                <tr>
-                    <th scope="row" style="font-weight: 500;">2</th>
-                    <td class="d-flex align-items-center">
-                    <img src="https://static.kfcvietnam.com.vn/images/items/lg/Pepsi-Can.jpg?v=LEqxeL" alt="" class="cart__item-image" />
-                        <a asp-page="/User/DetailFood" class="cart__name-item">Pepsi lon</a>
-                    </td>
-                    <td>14,000đ</td>
-                    <td>
-                        <div class="input-group">
-                            <div class="minus minus-plus-button">-</div>
-                            <input type="text" name="qty" id="2" value="1" class="input-field">
-                            <div class="plus minus-plus-button">+</div>
-                        </div>
-                    </td>
-                    <td style="font-weight: 500">14,000VND</td>
-                    <td><i class="fa-solid fa-ban" style="color: red"></i></td>
-                </tr>
-
-                <tr>
-                    <th scope="row" style="font-weight: 500;">3</th>
-                    <td class="d-flex align-items-center">
-                    <img src="https://static.kfcvietnam.com.vn/images/items/lg/1-gahoangkim.jpg?v=LEqxeL" alt="Gà Hoàng Kim" class="cart__item-image" />
-                        <a asp-page="/User/DetailFood" class="cart__name-item">Gà Hoàng Kim</a>
-                    </td>
-                    <td>41,000đ</td>
-                    <td>
-                        <div class="input-group">
-                            <div class="minus minus-plus-button">-</div>
-                            <input type="text" name="qty" id="3" value="1" class="input-field">
-                            <div class="plus minus-plus-button">+</div>
-                        </div>
-                    </td>
-                    <td style="font-weight: 500">41,000đ</td>
-                    <td><i class="fa-solid fa-ban" style="color: red"></i></td>
-                </tr>
-                <tr>
-                    <th scope="row" style="font-weight: 500;">4</th>
-                    <td class="d-flex align-items-center">
-                        <img src="~/img/Burger-Flava.jpg" alt="" class="cart__item-image" />
-                        <a asp-page="/User/DetailFood" class="cart__name-item">Hamburger Gà Quay Flavar</a>
-                    </td>
-                    <td>55,000đ</td>
-                    <td>
-                        <div class="input-group">
-                            <div class="minus minus-plus-button">-</div>
-                            <input type="text" name="qty" id="1" value="1" class="input-field">
-                            <div class="plus minus-plus-button">+</div>
-                        </div>
-                    </td>
-                    <td style="font-weight: 500">55,000đ</td>
-                    <td><i class="fa-solid fa-ban" style="color: red"></i></td>
-                </tr>
-                <tr>
-                    <th scope="row" style="font-weight: 500;">5</th>
-                    <td class="d-flex align-items-center">
-                        <img src="~/img/Burger-Flava.jpg" alt="" class="cart__item-image" />
-                        <a asp-page="/User/DetailFood" class="cart__name-item">Hamburger Gà Quay Flavar</a>
-                    </td>
-                    <td>55,000đ</td>
-                    <td>
-                        <div class="input-group">
-                            <div class="minus minus-plus-button">-</div>
-                            <input type="text" name="qty" id="1" value="1" class="input-field">
-                            <div class="plus minus-plus-button">+</div>
-                        </div>
-                    </td>
-                    <td style="font-weight: 500">55,000đ</td>
-                    <td><i class="fa-solid fa-ban" style="color: red"></i></td>
-                </tr>
-        </tbody>
-    </table>
+		</tbody>
+	</table>
 </div>
 
-<div class="row d-flex justify-content-end">
-    <div class="fee-division col-5">
-        <span style="font-weight: 500;" class="fee-detail__item">Tổng đơn</span>
-        <div class="total-fee-list">
-            <div class="fee-detail">
-                <div class="fee-detail__item">
-                    <span>Tổng tiền hàng</span><span>220,000đ</span>
-                </div>
-                <div class="fee-detail__item">
-                    <span>Phí vận chuyển</span><span>13,000đ</span>
-                </div>
-                <div class="fee-detail__item">
-                    <span>Thuế</span><span>0%</span>
-                </div>
-            </div>
-            <div class="fee-detail">
-                <div class="fee-detail__item" style="font-weight: 500;">
-                    <span>Tổng thanh toán</span><span>233,000đ</span>
-                </div>
-            </div>
-        </div>
-        <button class="submit-btn" onclick="window.location.href = 'https://localhost:44344/User/Payment';">Mua Hàng</button>
+<div class="row d-flex justify-content-end cart">
+	<div class="fee-division col-5">
+		<span class="fee-detail__item">Tổng đơn</span>
+		<div class="total-fee-list">
+			@{
+				var total = 0.0;
+				foreach ( var i in Model.carts)
+				{
+					total += i.Quantity * i.Price;
+				}
+				<div class="fee-detail">
+					<div class="fee-detail__item">
+						<span>Tổng tiền hàng</span><span>@total.ToString("N0")đ</span>
+					</div>
+					<div class="fee-detail__item">
+						<span>Thuế</span><span>3%</span>
+					</div>
+				</div>
+				<div class="fee-detail">
+					<div class="fee-detail__item" style="font-weight: 500;">
+						<span>Tổng thanh toán</span><span>@((total + total*3/100).ToString("N0"))đ</span>
+					</div>
+				</div>
+			}
+		</div>
+		<button class="submit-btn" onclick="window.location.href = 'https://localhost:44344/User/Payment';">Mua Hàng</button>
 
-    </div>
+	</div>
 </div>
 
-<script>
-    var plusButton = document.getElementsByClassName('plus');
-    var minusButton = document.getElementsByClassName('minus');
-    //Increase
-    for (var i = 0; i < plusButton.length; i++) {
-        var button = plusButton[i];
-        button.addEventListener('click', function handleClick(event) {
-            var input = event.target.parentElement.children[1];
-            var inputValue = input.value;
-            var newValue = parseInt(inputValue) + 1;
-            if (isNaN(newValue))
-            {
-                newValue = 1;
-            }
-            input.value = newValue;
-        });
-    }
-    //Descrease
-    for (var i = 0; i < minusButton.length; i++) {
-        var button = minusButton[i];
-        button.addEventListener('click', function handleClick(event) {
-            var input = event.target.parentElement.children[1];
-            var inputValue = input.value;
-            var newValue = parseInt(inputValue) - 1;
-            if (isNaN(newValue) || newValue <= 0)
-            {
-                newValue = 1;
-            }
-            input.value = newValue;
-        });
-    }
-</script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/cart.js"></script>

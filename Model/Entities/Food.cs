@@ -12,8 +12,6 @@ namespace CheeseBurger.Model.Entities
 		[StringLength(Int32.MaxValue)]
 		public String FoodName { get; set; } = String.Empty;
 		[Required]
-		public int Quantity { get; set; }
-		[Required]
 		public float Price { get; set; }
 
         [StringLength(Int32.MaxValue)]

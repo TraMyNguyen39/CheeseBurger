@@ -10,7 +10,7 @@ namespace CheeseBurger.Repository.Implements
 		{
 			this.context = context;
 		}
-		public List<Category> GetAllCategoryName()
+		public List<Category> GetAllCategory()
 		{
 			return context.Categories.Select(p => p).ToList();
 		}

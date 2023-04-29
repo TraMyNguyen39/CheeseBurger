@@ -25,10 +25,10 @@
     text-align: left;
 }
 
-    .cart__name-item:hover {
+.cart .cart__name-item:hover {
         color: var(--main-color);
         text-decoration: none;
-    }
+}
 
 .input-group {
     display: flex;
@@ -50,8 +50,8 @@
         width: 2.3rem;
     }
 
-.input-field {
-    width: 60%;
+tr .input-field {
+    width: 59%;
     height: 2.6rem;
     padding: 6px 10px;
     border: none;
@@ -71,20 +71,36 @@
     margin-right: 10px;
 }
 
+.icon-btn {
+    background: transparent;
+    border: none;
+}
+.icon-btn:focus, 
+.icon-btn:focus-visible  {
+    border: none;
+    outline: none;
+}
 .table i {
     opacity: 0.8;
+    font-size: 2rem;
 }
 
-    .table i:hover {
-        opacity: 0.6;
-    }
+.table i:hover {
+    opacity: 0.6;
+}
 
 /* Total Fee */
-.fee-division {
+.cart.list-item {
+    margin: 40px auto;
+}
+.cart .fee-division {
     width: 35%;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin-bottom: 50px;
-    justify-self: right;
+    padding: 15px;
+    border-radius: 8px;
+    transform: translateX(-15px);
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,.5);
 }
 
 .total-fee-list {
@@ -101,6 +117,12 @@
     display: flex;
     justify-content: space-between;
     margin: 10px 20px;
+}
+
+span.fee-detail__item {
+    font-weight: 500;
+    font-size: 1.8rem;
+    justify-content: center;
 }
 
 /* empty cart*/

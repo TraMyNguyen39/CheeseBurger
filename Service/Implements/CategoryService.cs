@@ -10,9 +10,9 @@ namespace CheeseBurger.Service.Implements
 		{
 			this.categoryRepository = categoryRepository;
 		}
-		public List<Category> GetAllCategoryName()
+		public List<Category> GetAllCategory()
 		{
-			return categoryRepository.GetAllCategoryName();
+			return categoryRepository.GetAllCategory();
 		}
 	}
 }
