@@ -11,33 +11,24 @@
 
 <div class="main__information">
 	<div class="main__information-detail">
-		<div class="main__table-form">
-			<div class="col-md-6 pl-0">
-				<div class="form-group d-flex">
-					<label class="control-label">Sắp xếp: </label>
-					<div class="form__comboBox cbb_sort">
-						<form action="dropList" method="post">
-							<select name="combobox_Item">
-								<option value="" selected>Tất cả</option>
-								<option value="">Tên từ A-Z</option>
-								<option value="">Tên từ Z-A</option>
-							</select>
-						</form>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 pr-0 mr-0 d-flex justify-content-end">
-				<div class="form-group">
-					<div class="search__form">
-						<form class="form-inline my-2 my-lg-0">
-							<div class="input-wrapper">
-								<input class="form-control" type="search" placeholder="Nhập tên người dùng" aria-label="Search">
-								<i class="fas fa-search"></i>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
+		<div class="d-flex justify-content-between align-items-center mb-5">
+			<form class="menu-sort-user" method="get">
+				<label style="margin-left: 2%">Sắp xếp theo: </label>
+				<select name="sortBy" class="menu-sort-user-box" id="sort-select">
+					<option value="all">Sắp xếp</option>
+					<option value="name-asc">Tăng theo tên</option>
+					<option value="name-desc">Giảm theo tên</option>
+				</select>
+				<input name="search" value="@Model.searchText" type="hidden" />
+				<input type="submit" style="visibility: hidden; width:0" />
+			</form>
+			<form class="menu-search-user-box" method="get">
+				<input class="search-user-box-input" type="text" name="search" placeholder="Nhập tên cần tìm">
+				<input class="search-user-box-hidden" name="sortBy" value="@Model.sortBy" type="hidden" />
+				<button type="submit" class="search-user-box-btn">
+					<i class="fas fa-magnifying-glass"></i>
+				</button>
+			</form>
 		</div>
 		<table class="content-table">
 			<thead>
@@ -52,22 +43,16 @@
 				</tr>
 			</thead>
 			<tbody>			
-				@foreach (var customer in Model.Customers)
+				@foreach (var customer in Model.customers)
 				{					
 					<tr class="tr">
 						<td class="STT">@(++CntCus)</td>
-						<td class="ID">@(100 + @customer.CustomerID)</td>
-						<td class="Name">@customer.CustomerName</td>
-						@{
-							var id = customer.AccountID;
-							var cus = Model.Accounts.Single(p => p.AccountID == id);
-							var email = cus.Email;
-						}
-						<td class="Email">@email</td>
-						<td class="Option__eye"> <i class="fas fa-eye"></i></td>
-						<td class="Option__pencil"> <i class="fas fa-pencil-alt"></i></td>
-						<td class="Option__ban">  <i class="fas fa-ban"></i></td>
-						<input type="hidden" name="id" id="id"/>
+						<td class="ID">@(100 + @customer.CusID)</td>
+						<td class="Name">@customer.CusName</td>						
+						<td class="Email">@customer.CusEmail</td>
+						<td class="Option__eye" data-id="@customer.CusID"> <i class="fas fa-eye"></i></td>
+						<td class="Option__pencil" data-id="@customer.CusID"> <i class="fas fa-pencil-alt"></i></td>
+						<td class="Option__ban" data-id="@customer.CusID">  <i class="fas fa-ban"></i></td>						
 					</tr>
 				}				
 			</tbody>
@@ -87,164 +72,198 @@
 	</div>
 </div>
 <!-- Update staff -->
-<div class="modal__account-update">
-	<div class="modal__account-information">
-		<div class="button__exit">
-			<div class="exit__surround">
-				<i class="fas fa-times"></i>
-			</div>
-		</div>
-		<div class="modal__account-details">
-			<div class="modal__account-label d-flex align-items-center">
-				<p class="modal__label-cate">Cập nhật tài khoản</p>
-				<p class="modal__label-main"></p>
-			</div>
-			<div class="account__name">
-				<p class="label">Họ và tên</p>
-				<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
-			</div>
-			<div class="account__position-categories d-flex justify-content-between">
-				<div class="account__position col-12">
-					<p class="label">Chức vụ</p>
-					<div class="form__comboBoxList">
-						<form action="dropList" method="post">
-							<select name="combobox_Item">
-								<option value="" selected></option>
-								<option value="">Khách hàng</option>
-								<option value="">Quản lý</option>
-								<option value="">Nhân viên</option>
-							</select>
-						</form>
-					</div>
-				</div>				
-			</div>
-			<div class="account__email-telephone d-flex justify-content-between">
-				<div class="account__email col-6">
-					<p class="label">Địa chỉ email</p>
-					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
-				</div>
-				<div class="account__telephone col-6">
-					<p class="label">Số điện thoại</p>
-					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+<form method="post" asp-page="ManageUser">
+	<div class="modal__account-update">
+		<div class="modal__account-information">
+			<div class="button__exit">
+				<div class="exit__surround">
+					<i class="fas fa-times"></i>
 				</div>
 			</div>
-			<div class="account__city-district d-flex justify-content-between">
-				<div class="account__city-details col-6">
-					<div class="form-group-start">
-						<label class="control-label">Tỉnh(thành phố): </label>
+			<div class="modal__account-details">
+				<input name="CusID" type="hidden" />
+				<div class="modal__account-label d-flex align-items-center">
+					<p class="modal__label-cate">Cập nhật tài khoản</p>
+					<p class="modal__label-main" id="name"></p>
+				</div>
+				<div class="account__name">
+					<p class="label">Họ và tên</p>
+					<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Name" required="required" readonly="readonly">
+				</div>
+				<div class="account__position-categories d-flex justify-content-between">
+					<div class="account__position col-12">
+						<p class="label">Chức vụ</p>
 						<div class="form__comboBoxList">
 							<form action="dropList" method="post">
-								<select name="combobox_Item">
-									<option value="" selected>Chọn tỉnh(thành phố)</option>
-									<option value="">Hà Nội</option>
-									<option value="">Hải Phòng</option>
-									<option value="">Quảng Nam</option>
+								<select name="combobox_Item">									
+									<option value="" selected>Khách hàng</option>
+									<option value="">Quản trị viên</option>
+									<option value="">Nhân viên đầu bếp</option>
+									<option value="">Nhân viên giao hàng</option>
 								</select>
 							</form>
 						</div>
 					</div>
 				</div>
-				<div class="account__district-details col-6">
-					<div class="form__group-district">
-						<label class="control-label">Quận(huyện): </label>
+				<div class="account__email-telephone d-flex justify-content-between">
+					<div class="account__email col-6">
+						<p class="label">Địa chỉ email</p>
+						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Email" required="required" readonly="readonly">
+					</div>
+					<div class="account__telephone col-6">
+						<p class="label">Số điện thoại</p>
+						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Phone" required="required" readonly="readonly">
+					</div>
+				</div>
+				<div class="account__city-district d-flex justify-content-between">
+					<div class="account__city-details col-6">
+						<p class="label">Tỉnh (thành phố)</p>
+						<input class="form-control mr-sm-2" type="search" placeholder="Đà Nẵng" readonly>						
+						@*<div class="form-group-start">
+							<label class="control-label">Tỉnh(thành phố): </label>
+							<div class="form__comboBoxList">
+								<form action="dropList" method="post">
+									<select name="combobox_Item">
+										<option value="" selected>Chọn tỉnh(thành phố)</option>
+										<option value="">Hà Nội</option>
+										<option value="">Hải Phòng</option>
+										<option value="">Quảng Nam</option>
+									</select>
+								</form>
+							</div>
+						</div>*@
+					</div>
+					<div class="account__district-details col-6">
+						<p class="label">Quận (huyện)</p>
+						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="District" required="required" readonly="readonly">
+						@*<div class="form__group-district">
+							<label class="control-label">Quận(huyện): </label>
+							<div class="form__comboBoxList">
+								<form action="dropList" method="post">
+									<select name="combobox_Item">
+										<option value="" selected>Chọn quận(huyện)</option>
+										<option value="">Hải Châu</option>
+										<option value="">Sơn Trà</option>
+										<option value="">Thanh Khê</option>
+										<option value="">Ngũ Hành Sơn</option>
+									</select>
+								</form>
+							</div>
+						</div>*@
+					</div>
+				</div>
+				<div class="account__ward-address d-flex justify-content-between">
+					<div class="account__ward col-6">
+						<p class="label">Phường (xã)</p>
+						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Ward" required="required" readonly="readonly">
+						@*<p class="label">Phường(Xã)</p>
 						<div class="form__comboBoxList">
 							<form action="dropList" method="post">
 								<select name="combobox_Item">
-									<option value="" selected>Chọn quận(huyện)</option>
-									<option value="">Hải Châu</option>
-									<option value="">Sơn Trà</option>
-									<option value="">Thanh Khê</option>
-									<option value="">Ngũ Hành Sơn</option>
+									<option value="" selected>Chọn phường(xã)</option>
+									<option value="">Hòa Minh</option>
+									<option value="">Hòa Khánh Bắc</option>
+									<option value="">Hòa Khánh Nam</option>
 								</select>
 							</form>
-						</div>
+						</div>*@
+					</div>
+					<div class="account__adress col-6">
+						<p class="label">Số nhà</p>
+						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="HouseNum" required="required" readonly="readonly">
 					</div>
 				</div>
-			</div>
-			<div class="account__ward-address d-flex justify-content-between">
-				<div class="account__ward col-6">
-					<p class="label">Phường(Xã)</p>
-					<div class="form__comboBoxList">
-						<form action="dropList" method="post">
-							<select name="combobox_Item">
-								<option value="" selected>Chọn phường(xã)</option>
-								<option value="">Hòa Minh</option>
-								<option value="">Hòa Khánh Bắc</option>
-								<option value="">Hòa Khánh Nam</option>
-							</select>
-						</form>
-					</div>
+				<div class="button__account-save">
+					<button class="" type="submit">Cập nhật thông tin tài khoản</button>
 				</div>
-				<div class="account__adress col-6">
-					<p class="label">Số nhà</p>
-					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
-				</div>
-			</div>
-			<div class="button__account-save">
-				<button class="" type="submit">Cập nhật thông tin tài khoản</button>
 			</div>
 		</div>
 	</div>
-</div>
+</form>
 <!-- End Update staff -->
 <!-- Full Information -->
-<div class="modal__info-full">
-	<div class="modal__info-details">
-		<div class="button__exit d-flex justify-content-end">
-			<div class="exit__surround">
-				<i class="fas fa-times"></i>
+<form method="post" asp-page="ManageUser">
+	<div class="modal__info-full">
+		<div class="modal__info-details">
+			<div class="button__exit d-flex justify-content-end">
+				<div class="exit__surround">
+					<i class="fas fa-times"></i>
+				</div>
 			</div>
-		</div>
-		<form method="post" asp-page="ManageUser" asp-page-handler="Detail">
 			<div class="modal__staff-details">
 				<p class="modal__label-main">
+					<input name="CusID" type="hidden" />
 					<div class="modal__staff-label d-flex align-items-center">
 						<p class="modal__label-cate">Chi tiết tài khoản</p>
-						<p class="modal__label-main"></p>
+						<p class="modal__label-main" id="name"></p>
 					</div>
 				</p>
 				<div class="staff__info-full d-flex">
 					<div class="staff__info-key col-3">
-						<p>Mã người dùng:</p>
-						<p>Họ và tên:</p>
-						<p>Giới tính:</p>
-						<p>Số điện thoại:</p>
-						<p>Email:</p>
-						@*<p>Địa chỉ:</p>*@
+						<p class="categories__text" for="id">Mã người dùng:</p>
+						<p class="categories__text" for="name">Họ và tên:</p>
+						<p class="categories__text" for="gender">Giới tính:</p>
+						<p class="categories__text" for="phone">Số điện thoại:</p>
+						<p class="categories__text" for="email">Email:</p>
+						<p class="categories__text" for="address">Địa chỉ:</p>
 					</div>
 					<div class="staff__info-value col-9">
-						<p type="text" name="iduser" id="iduser"></p>
-						<p type="text" name="nameuser" id="nameuser"></p>
-						<p type="text" name="genderuser" id="genderuser"></p>
-						<p type="text" name="phoneuser" id="phoneuser"></p>
-						<p type="text" name="emailuser" id="emailuser"></p>
-						@*<p name="iduser" id="iduser"></p>*@
+						<p class="categories__text" id="id"></p>
+						<p class="categories__text" id="name"></p>
+						<p class="categories__text" id="gender"></p>
+						<p class="categories__text" id="phone"></p>
+						<p class="categories__text" id="email"></p>
+						<p class="categories__text" id="address"></p>
 					</div>
 				</div>
-				<button class="submit-btn btn-save" type="submit">Thay đổi thông tin tài khoản</button>
-				<input type="hidden" name="id" id="id" />
-			</div>
-		</form>
+				@*<button class="submit-btn exit-btn" type="submit">OK</button>*@
+			</div>			
+		</div>
 	</div>
-</div>
+</form>
 <script src="~/js/manage-user.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(funtion() {
-		$('table .Option__eye').on('click', funtion() {
-			var id = $(this).parent().find('#id').val();
+	$(document).ready(function() {
+		$('.Option__eye').on('click', function() {
+			var id = $(this).data('id');
 			$.ajax({
 				type: 'GET',
 				data: {id: id},
 				url: '@Url.Page("ManageUser", "Find")',
-				success: function (result) {
-					$('#modal__info-full #id').val(result.id);
-					$('#modal__info-full #nameuser').val(result.nameuser);
-					$('#modal__info-full #genderuser').val(result.genderuser);
-					$('#modal__info-full #phoneuser').val(result.phoneuser);
-					$('#modal__info-full #emailuser').val(result.emailuser);
+				success: function (result) {					
+					$('.modal__info-full #id').text(result.id + 100);
+					$('.modal__info-full #name').text(result.name);
+					$('.modal__info-full #gender').text(result.gender ? "Nam" : "Nữ");					
+					$('.modal__info-full #phone').text(result.phone);
+					$('.modal__info-full #email').text(result.email);
+					$('.modal__info-full #address').text(result.address);
+				},
+				error: function (xhr, textStatus, errorThrown) {
+					alert('Error loading ingredient: ' + errorThrown);
 				}
+			});
+		});
 
-			})
+		$('.Option__pencil').on('click', function () {
+			var id = $(this).data('id');
+			$.ajax({
+				type: 'GET',
+				data: { id: id },
+				url: '@Url.Page("ManageUser", "Find")',
+				success: function (result) {					
+					$('.modal__account-update #name').text(result.name);
+					$('.modal__account-update input[name="Name"]').val(result.name);
+					$('.modal__account-update input[name="Email"]').val(result.email);
+					$('.modal__account-update input[name="Phone"]').val(result.phone);
+					$('.modal__account-update input[name="District"]').val(result.diss);
+					$('.modal__account-update input[name="Ward"]').val(result.wrdd);
+					$('.modal__account-update input[name="HouseNum"]').val(result.housenum);
+				},
+				error: function (xhr, textStatus, errorThrown) {
+					alert('Error loading ingredient: ' + errorThrown);
+				}
+			});
 		});
 	});
 </script>

@@ -11,6 +11,7 @@ namespace CheeseBurger.Model
         public DbSet<Role> Roles { get; set; }
         public DbSet<Address> Addresses { get; set; }  
         public DbSet<Ward> Wards { get; set; }
+        public DbSet<District> Districts { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Food> Foods { get; set; }

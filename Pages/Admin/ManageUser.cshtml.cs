@@ -1,29 +1,69 @@
+using CheeseBurger.DTO;
 using CheeseBurger.Model;
 using CheeseBurger.Model.Entities;
+using CheeseBurger.Service;
+using CheeseBurger.Service.Implements;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.IdentityModel.Tokens;
+using System.Net.Security;
 
 namespace CheeseBurger.Pages
 {
     public class ManageUserModel : PageModel
     {
-        private readonly CheeseBurgerContext _context;
-        public List<Customer> Customers { get; set; }   
-        public List<Account> Accounts { get; set; }
-        public ManageUserModel(CheeseBurgerContext context)
+        private readonly ICustomerService customerService;
+        private readonly IAddressService addressService;
+        private readonly IWardService wardService;
+        private readonly IDistrictService districtService;
+        public List<CustomerDTO> customers { get; set; }
+        public string sortBy { get; set; }
+        public string searchText { get; set; }
+        public ManageUserModel(ICustomerService customerService, IAddressService addressService, IWardService wardService,
+								IDistrictService districtService)
         {
-            _context = context;
+            this.customerService = customerService;
+            this.addressService = addressService;
+            this.wardService = wardService;
+            this.districtService = districtService;
         }
         public void OnGet()
         {
-            Customers = _context.Customers.ToList();
-            Accounts = _context.Accounts.ToList();
-        }
+			this.sortBy = Request.Query["sortBy"];
+			this.searchText = Request.Query["search"];
+			if (this.searchText != null) this.searchText = this.searchText.Trim();			
+			if (!(sortBy.IsNullOrEmpty()) || sortBy == "all")
+			{
+				string[] values = sortBy.Split('-');
+				string arrange = values[0];
+				bool isDescending = (values[1] == "desc");
+				customers = customerService.GetListCustomers(arrange, isDescending, searchText);
+			}
+			else
+			{
+				customers = customerService.GetListCustomers(null, true, searchText);
+			}
+		}
 
         public IActionResult OnGetFind(int id)
         {
-            var customer = _context.Customers.Find(id);
-            return new JsonResult(customer);
+            var cus = customerService.GetCustomer(id);
+            var adr = addressService.GetAddress(cus.CusAccID);
+            var wrd = wardService.GetWard(adr.WardID);
+            var dis = districtService.GetDistrict(wrd.DistrictID);
+            var result = new
+            {
+                id = cus.CusID,
+                name = cus.CusName,
+                gender = cus.CusGender,
+                phone = cus.CusPhone,
+                email = cus.CusEmail,
+                address = adr.NumberHouse + ", " + wrd.WardName + ", " + dis.DistrictName,
+                wrdd = wrd.WardName,
+                diss = dis.DistrictName,
+                housenum = adr.NumberHouse
+            };
+            return new JsonResult(result);
         }
     }
 }

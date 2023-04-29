@@ -18,6 +18,6 @@ namespace CheeseBurger.Model.Entities
 		[Required]
 		public int QuantityOF { get; set; }
 		[Required]
-		public decimal PriceOF { get; set; }
+		public float PriceOF { get; set; }
 	}
 }

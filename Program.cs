@@ -26,6 +26,14 @@ service.AddScoped<IFoodService, FoodService>();
 service.AddScoped<IFoodRepository, FoodRepository>();
 service.AddScoped<ICategoryService, CategoryService>();
 service.AddScoped<ICategoryRepository, CategoryRepository>();
+service.AddScoped<ICustomerService, CustomerService>();
+service.AddScoped<ICustomerRespository, CustomerRespository>();
+service.AddScoped<IAddressService, AddressService>();
+service.AddScoped<IAddressRespository, AddressRespository>();
+service.AddScoped<IWardService, WardService>();
+service.AddScoped<IWardRespository, WardRespository>();
+service.AddScoped<IDistrictService, DistrictService>();
+service.AddScoped<IDistrictRespository, DistrictRespository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
