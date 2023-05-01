@@ -12,8 +12,29 @@
 
 .side-bar-box {
     margin: 5% 10% 10% 10%;
+    padding-left: 10px;
+}
+/* account */
+.account {
+    display: flex;
+    margin: 10px 10% 30px;
+    padding: 0 10px;
 }
 
+img.account-avt {
+    width: 40px;
+    height: 40px;
+}
+
+.account-detail {
+    margin-left: 15px;
+    align-self: center;
+}
+
+a.account-name {
+    font-weight: 600;
+    font-style: italic;
+}
 .body__side-bar-item {
     text-decoration: none;
     font-size: 1.8rem;
@@ -24,12 +45,12 @@
 
 .side-bar-box a:hover {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--main-color);
 }
 
 .side-bar-box a:active {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--main-color);
 }
 
 .side-bar-filter {
@@ -57,16 +78,15 @@
 
 .manage-account__title,
 .manage-account__btn {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
 }
 
 .manage-account__input {
-    height: 30px;
-    margin-bottom: 20px;
-    font-size: 1.2rem;
+    height: 40px;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
     outline: #F0F0F0;
     border-color: rgba(52, 44, 44, 0.2);
-    cursor: pointer;
     border-radius: 10px;
 }
 
@@ -80,6 +100,8 @@
     border-radius: 2px;
     margin: auto;
     border-radius: 5px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .manage-pass__input {

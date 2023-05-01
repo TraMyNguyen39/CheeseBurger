@@ -141,6 +141,7 @@
     background: transparent;
     border: none;
     color: var(--white-color);
+    font-weight: 500;
 }
 .btn-drop:focus
 {
@@ -163,7 +164,8 @@
     font-size: 1.8rem;
     left: 8px;
     min-width: 150px;
-/*    box-shadow: 1px 1px 5px 1px var(--main-color);*/
+    border-radius: 8px;
+    box-shadow: 1px 1px 5px 1px #ccc;
 }
 
 .dropdown-item:active {
