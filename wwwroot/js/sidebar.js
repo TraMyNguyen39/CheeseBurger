@@ -1,21 +1,23 @@
-﻿window.onload = function () {
-    var menuClass = localStorage.getItem('menuClass');
-    localStorage.clear();
-    var element = document.getElementById(menuClass);
-    if (element) {
-        element.classList.add('active');
-    } else {
-        element = document.getElementById('revenue');
-        element.classList.add('active');
-    }
-};
+﻿var path = window.location.pathname;
+var currentPage = path.split('/').pop(); // Lấy phần tử cuối cùng trong mảng
 
-var manageFunction = document.getElementsByClassName('categories__item');
+var setActiveMenuElement = function (menuElement) {
+    var current = document.getElementsByClassName("active");
+    if (current.length > 0) {
+        current[0].classList.remove('active');
+    }
+    menuElement.classList.add('active');
+}
+
+var manageFunction = document.querySelectorAll('.categories__item a');
 for (var i = 0; i < manageFunction.length; i++) {
-    manageFunction[i].addEventListener('click', function () {
-        var current = document.getElementsByClassName("active");
-        current[0].className = current[0].className.replace(" active", "");
-        this.classList.toggle("active");
-        localStorage.setItem('menuClass', this.id);
-    });
-};
+    if (manageFunction[i].getAttribute("href").indexOf(currentPage) !== -1) {
+        setActiveMenuElement(manageFunction[i].parentElement);
+        break;
+    }
+}
+
+// Nếu không tìm thấy liên kết, chọn liên kết đầu tiên làm mặc định
+if (!document.querySelector('.categories__item.active')) {
+    document.querySelector('.categories__item:first-child').classList.add('active');
+}

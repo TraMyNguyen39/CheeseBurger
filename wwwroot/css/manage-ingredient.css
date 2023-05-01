@@ -1,4 +1,8 @@
 ﻿/* Information */
+.main__information {
+    margin-top: 0;
+}
+
 .button__add button {
     width: 200px;
     height: 40px;
@@ -18,6 +22,78 @@
     .button__add button:focus {
         outline: none;
     }
+
+.menu-sort-user {
+    transform: translateX(-2%);
+    width: 50%;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+
+.menu-sort-user-box {
+    width: 50%;
+    height: 36px;
+    font-weight: 400;
+    font-size: 1.6rem;
+    border: 2px solid #c6c6c6;
+    background-color: transparent;
+    border-radius: 6px;
+    padding: 0 10px;
+    outline: none;
+    opacity: 0.7;
+    margin-left: 10px;
+}
+
+.menu-search-user-box {
+    width: 40%;
+    height: 36px;
+    background-color: transparent;
+    border: 2px solid #c6c6c6;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.6rem;
+}
+
+.search-user-box-input {
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    padding-left: 10px;
+    color: var(--text-color);
+}
+
+    .search-user-box-input::placeholder {
+        font-size: 1.6rem;
+        line-height: 100%;
+        font-weight: 400;
+        transform: translateY(-10%);
+    }
+
+.search-user-box-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 25%;
+    height: 102%;
+    border: none;
+    color: var(--text-color);
+    background-color: #C0C0C0;
+}
+
+.search--user-box-btn:hover {
+    opacity: 0.6;
+}
+
+.search-user-box-btn:focus,
+.search--user-box-btn:focus-visible {
+    outline: none;
+}
 /* End Information */
 
 /* Table */
@@ -62,15 +138,19 @@ td.Ten_mon {
     text-align: center;
 }
 
-    .content-table tbody tr td.Ten_mon {
-        text-align: left;
-        padding-left: 5%;
+    .content-table tbody tr td.Gia {
+        text-align: end;
     }
 
-    .content-table tbody tr td.Number_mon, .content-table tbody tr td.Number_mon {
-        text-align: right;
-        padding-right: 5%;
-    }
+.content-table tbody tr td.Ten_mon {
+    text-align: left;
+    padding-left: 5%;
+}
+
+.content-table tbody tr td.Number_mon, .content-table tbody tr td.Number_mon {
+    text-align: right;
+    padding-right: 5%;
+}
 
 /* End Table */
 
@@ -131,6 +211,11 @@ td.Ten_mon {
     font-size: 1.6rem;
     border: 1px solid #495057;
     padding: 0 5px;
+    margin-top: 5px;
+}
+
+.ingredient__name input[type="search"] {
+    margin-bottom: 10px;
 }
 
     .ingredient__name input[type="search"]:focus, .ingredient__categories input[type="search"]:focus {
@@ -151,6 +236,7 @@ td.Ten_mon {
     height: 40px;
     width: 200px;
     padding: 0 5px;
+    margin-top: 5px;
 }
 
 /*.ingredient__price-categories .ingredient__producer {
@@ -251,8 +337,14 @@ td.Ten_mon {
         outline: none;
     }
 
+p.categories__text {
+    margin: 0 0 4px;
+}
+
 p.label {
     font-size: 1.8rem;
+    color: var(--text-color);
+    padding: 0;
 }
 /* End Modal Update */
 
@@ -313,3 +405,10 @@ p.label {
     width: 180px;
     font-size: 16px;
 }
+
+/* Modal Delete */
+.modal-header .close:focus, .modal-footer .btn.dismiss:focus,
+.modal-footer .btn.confirm:focus {
+    outline: none;
+}
+/* End Modal Delete */

@@ -51,5 +51,7 @@ namespace CheeseBurger.Repository.Implements
 
 			return foods.Select(p => new FoodDTO { IDFood = p.FoodID, NameFood = p.FoodName, PriceFood = p.Price, ImgFood = p.ImageFood }).ToList();
 		}
+
+
 	}
 }

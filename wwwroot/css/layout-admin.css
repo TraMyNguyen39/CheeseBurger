@@ -177,8 +177,8 @@ a.nav-link {
 .categories__list .categories__item.active a.nav-link::before {
     content: "";
     position: absolute;
-    left: 10%;
-    transform: translateY(calc(50% + 2px));
+    left: 15%;
+    transform: translateY(calc(35%));
     border-width: 6px 9px;
     border-style: solid;
     border-color: transparent transparent transparent var(--main-color);
@@ -239,7 +239,7 @@ i.fas.fa-right-from-bracket {
 .page-pagination {
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 .pagination a {

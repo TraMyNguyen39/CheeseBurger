@@ -1,42 +1,97 @@
 using CheeseBurger.DTO;
+using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
+using CheeseBurger.Service.Implements;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Globalization;
 
 namespace CheeseBurger.Pages.Admin
 {
-    public class ManageIngredientModel : PageModel
-    {
+	public class ManageIngredientModel : PageModel
+	{
 		private readonly IIngredientsService ingredientService;
-
 		[BindProperty(SupportsGet = true)]
 		public List<IngredientDTO> ingredients { get; set; }
 		[BindProperty(SupportsGet = true)]
 		public IngredientDTO ingredient { get; set; }
 
+		[BindProperty(SupportsGet = true)]
+		public List<string> measureName { get; set; }
+
+		[BindProperty(SupportsGet = true)]
+		public int measureId { get; set; }
 		public ManageIngredientModel(IIngredientsService ingredientsService)
 		{
 			this.ingredientService = ingredientsService;
 		}
 
-		public void OnGet(int IngredientID, string IngredientName, string arrange, bool isDescending)
+		[BindProperty(SupportsGet = true, Name = "p")]
+		public int currentPage { get; set; }
+		public string sortBy { get; set; }
+		public string searchText { get; set; }
+		public List<Ingredients> ingredientes { get; set; }
+
+		public void OnGet(int IngredientID, string IngredientName)
 		{
-			ingredients = ingredientService.ArrangeIngredients(IngredientName, arrange, isDescending);
-			if (IngredientID != 0) // Add a null check
+			ingredients = ingredientService.GetIngredients(IngredientName);
+
+			// paging
+			int totalRow = ingredientService.getRowIngredient();
+
+			// GetIngredient
+			measureName = ingredientService.getIngredientName();
+			ingredient = ingredientService.getEachIngredient(IngredientID);
+
+			this.sortBy = Request.Query["sortBy"];
+			this.searchText = Request.Query["search"];
+			if (this.searchText != null) this.searchText = this.searchText.Trim();
+			if (!(sortBy.IsNullOrEmpty()) || sortBy == "all")
 			{
-				ingredient = ingredientService.getEachIngredient(IngredientID);
+				string[] values = sortBy.Split('-');
+				string arrange = values[0];
+				bool isDescending = (values[1] == "desc");
+				ingredients = ingredientService.GetListIngredients(arrange, isDescending, searchText);
+			}
+			else
+			{
+				ingredients = ingredientService.GetListIngredients(null, true, searchText);
 			}
 		}
-
-		public void OnPost(int IngredientID, string IngredientName, string combobox_Item)
+		public IActionResult OnPostCreate(string Name, string combobox_Item, float Price)
 		{
-			string[] values = combobox_Item.Split('-');
-			string arrange = values[0];
-			bool isDescending = (values[1] == "desc");
+			if (string.IsNullOrEmpty(combobox_Item))
+			{
+				ModelState.AddModelError("combobox_Item", "Please select a measure.");
+			}
 
-			// call the ArrangeIngredients method with the selected arrange and isDescending values
-			ingredients = ingredientService.ArrangeIngredients(IngredientName, arrange, isDescending);
-			ingredient = ingredientService.getEachIngredient(IngredientID);
+			ingredientService.AddData(Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price);
+			return RedirectToPage("ManageIngredient");
+		}
+
+		public IActionResult OnPostDelete(int IngredientID)
+		{
+			ingredientService.DeleteData(IngredientID);
+			return RedirectToPage("ManageIngredient");
+		}
+
+		public IActionResult OnGetFind(int id)
+		{
+			var ingre = ingredientService.FindIngredient(id);
+			return new JsonResult(ingre);
+		}
+
+		public IActionResult OnPostUpdate(int IngredientID, string Name, string combobox_Item, float Price)
+		{
+			if (string.IsNullOrEmpty(combobox_Item))
+			{
+				ModelState.AddModelError("combobox_Item", "Please select a measure.");
+			}
+			ingredientService.UpdateData(IngredientID, Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price);
+			return RedirectToPage("ManageIngredient");
 		}
 	}
 }
