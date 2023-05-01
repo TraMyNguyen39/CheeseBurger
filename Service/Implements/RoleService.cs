@@ -3,16 +3,16 @@ using CheeseBurger.Repository;
 
 namespace CheeseBurger.Service.Implements
 {
-    public class RoleService : IRoleService
-    {
+	public class RoleService : IRoleService
+	{
 		private readonly IRoleRespository roleRepository;
 		public RoleService(IRoleRespository roleRepository)
 		{
 			this.roleRepository = roleRepository;
 		}
-		public List<Role> GetAllRoleName()
+		public int GetRoleIDByName(string name)
 		{
-			return roleRepository.GetAllRoleName();
+			return roleRepository.GetRoleIDByName(name);
 		}
 	}
 }

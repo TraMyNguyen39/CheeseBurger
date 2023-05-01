@@ -1,12 +1,64 @@
-﻿// thay doi thong tin tai khoan
-//var eyeButtons = document.querySelectorAll("td.Option__eye");
+﻿window.onload = function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    var selectedValue = urlParams.get('sortBy');
+    var selectElement = document.getElementById("sort-select");
+    if (selectedValue) {
+        for (var i = 0; i < selectElement.options.length; i++) {
+            var option = selectElement.options[i];
+            if (option.value === selectedValue) {
+                option.selected = true;
+                break;
+            }
+        }
+    }
+    //if (selectedValue) {
+    //    var selectElement = document.querySelector(".menu-sort-user .menu-sort-user-box");
+    //    selectElement.value = selectedValue;
+    //}
+    var searchInput = document.querySelector(".menu-search-user-box .search-user-box-input");
+    searchInput.value = urlParams.get('search');
+};
 
-//for (var i = 0; i < eyeButtons.length; i++) {
-//  eyeButtons[i].addEventListener("click", function() {
-//    var modal = document.querySelector(".modal__info-full");
-//    modal.classList.add("open");
-//  });
-//}
+document.querySelector('#sort-select').addEventListener('change', function () {
+    document.querySelector('.menu-sort-user input[type="submit"]').click();
+});
+
+var form = document.querySelector(".menu-search-user-box");
+var inputs = form.querySelectorAll("input.search-user-box-hidden");
+var searchInput = form.querySelector(".search-user-box-input");
+form.addEventListener("submit", function (event) {
+    for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].value === "") {
+            inputs[i].name = "";
+            inputs[i].value = "";
+        }
+    }
+    form.submit();
+});
+
+var form = document.querySelector(".menu-sort-user");
+var inputs = form.querySelectorAll("input");
+form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].value.trim() === "") {
+            inputs[i].name = "";
+            inputs[i].value = "";
+        }
+    }
+    form.submit();
+});
+
+
+// thay doi thong tin tai khoan
+var eyeButtons = document.querySelectorAll("td.Option__eye");
+
+for (var i = 0; i < eyeButtons.length; i++) {
+  eyeButtons[i].addEventListener("click", function() {
+    var modal = document.querySelector(".modal__info-full");
+    modal.classList.add("open");
+  });
+}
 // end
 
 // Xem
@@ -32,16 +84,27 @@ for (var i = 0; i < buttonExit.length; i++) {
   buttonExit[i].addEventListener("click", handleCloseModal);
 }
 
-// Xoa
-var banButtons = document.querySelectorAll("td.Option__ban");
+// OK
+//var buttonOK = document.querySelectorAll("button.exit-btn-user");
 
-for (var i = 0; i < banButtons.length; i++) {
-    banButtons[i].addEventListener("click", function () {
-        let text = "Bạn có chắc chắn muốn xoá người dùng này không?";
-        if (confirm(text) == true) {
+//function handleOKModal() {
+//    var modal = this.parentNode.parentNode;
+//    modal.classList.remove("open");
+//}
+//for (var i = 0; i < buttonOK.length; i++) {
+//    buttonOK[i].addEventListener("click", handleOKModal);
+//}
+
+// Xoa
+//var banButtons = document.querySelectorAll("td.Option__ban");
+
+//for (var i = 0; i < banButtons.length; i++) {
+//    banButtons[i].addEventListener("click", function () {
+//        let text = "Bạn có chắc chắn muốn xoá người dùng này không?";
+//        if (confirm(text) == true) {
             
-        } else {
+//        } else {
             
-        }
-    });
-}
+//        }
+//    });
+//}

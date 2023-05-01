@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CheeseBurger.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateDB : Migration
+    public partial class initdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,7 +41,7 @@ namespace CheeseBurger.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "District",
+                name: "Districts",
                 columns: table => new
                 {
                     DistrictID = table.Column<int>(type: "int", nullable: false)
@@ -50,7 +50,7 @@ namespace CheeseBurger.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_District", x => x.DistrictID);
+                    table.PrimaryKey("PK_Districts", x => x.DistrictID);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,7 +86,6 @@ namespace CheeseBurger.Migrations
                     FoodID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FoodName = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
                     ImageFood = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
@@ -116,9 +115,9 @@ namespace CheeseBurger.Migrations
                 {
                     table.PrimaryKey("PK_Wards", x => x.WardId);
                     table.ForeignKey(
-                        name: "FK_Wards_District_DistrictID",
+                        name: "FK_Wards_Districts_DistrictID",
                         column: x => x.DistrictID,
-                        principalTable: "District",
+                        principalTable: "Districts",
                         principalColumn: "DistrictID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -291,6 +290,12 @@ namespace CheeseBurger.Migrations
                         principalTable: "Customers",
                         principalColumn: "CustomerID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Carts_Foods_FoodID",
+                        column: x => x.FoodID,
+                        principalTable: "Foods",
+                        principalColumn: "FoodID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -389,7 +394,7 @@ namespace CheeseBurger.Migrations
                     OrderID = table.Column<int>(type: "int", nullable: false),
                     FoodID = table.Column<int>(type: "int", nullable: false),
                     QuantityOF = table.Column<int>(type: "int", nullable: false),
-                    PriceOF = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    PriceOF = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -412,6 +417,11 @@ namespace CheeseBurger.Migrations
                 name: "IX_Addresses_WardID",
                 table: "Addresses",
                 column: "WardID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_FoodID",
+                table: "Carts",
+                column: "FoodID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_AccountID",
@@ -554,7 +564,7 @@ namespace CheeseBurger.Migrations
                 name: "Wards");
 
             migrationBuilder.DropTable(
-                name: "District");
+                name: "Districts");
         }
     }
 }

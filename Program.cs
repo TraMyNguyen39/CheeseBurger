@@ -22,16 +22,26 @@ service.AddScoped<IIngredientsService, IngredientsService>();
 service.AddScoped<IIngredientsRespository, IngredientsRespository>();
 service.AddScoped<IAccountService, AccountService>();
 service.AddScoped<IAccountRespository, AccountRespository>();
-service.AddScoped<ICustomerService, CustomerService>();
-service.AddScoped<ICustomerRespository, CustomerRespository>();
 service.AddScoped<IFoodService, FoodService>();
 service.AddScoped<IFoodRepository, FoodRepository>();
 service.AddScoped<ICategoryService, CategoryService>();
 service.AddScoped<ICategoryRepository, CategoryRepository>();
+service.AddScoped<ICustomerService, CustomerService>();
+service.AddScoped<ICustomerRespository, CustomerRespository>();
+service.AddScoped<IAddressService, AddressService>();
+service.AddScoped<IAddressRespository, AddressRespository>();
+service.AddScoped<IWardService, WardService>();
+service.AddScoped<IWardRespository, WardRespository>();
+service.AddScoped<IDistrictService, DistrictService>();
+service.AddScoped<IDistrictRespository, DistrictRespository>();
 service.AddScoped<ICartService, CartService>();
 service.AddScoped<ICartRepository, CartRepository>();
 service.AddScoped<IReviewRepository, ReviewRepository>();
 service.AddScoped<IReviewService, ReviewService>();
+service.AddScoped<IStaffService, StaffService>();
+service.AddScoped<IStaffRespository, StaffRespository>();
+service.AddScoped<IRoleService, RoleService>();
+service.AddScoped<IRoleRespository, RoleRespository>();
 
 var app = builder.Build();
 

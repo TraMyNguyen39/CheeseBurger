@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheeseBurger.Migrations
 {
     [DbContext(typeof(CheeseBurgerContext))]
-    [Migration("20230426145423_CreateDB")]
-    partial class CreateDB
+    [Migration("20230429034241_initdb")]
+    partial class initdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,17 +80,17 @@ namespace CheeseBurger.Migrations
             modelBuilder.Entity("CheeseBurger.Model.Entities.Cart", b =>
                 {
                     b.Property<int>("CustomerID")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
+                        .HasColumnType("int");
 
                     b.Property<int>("FoodID")
-                        .HasColumnType("int")
-                        .HasColumnOrder(2);
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("CustomerID", "FoodID");
+
+                    b.HasIndex("FoodID");
 
                     b.ToTable("Carts");
                 });
@@ -163,7 +163,7 @@ namespace CheeseBurger.Migrations
 
                     b.HasKey("DistrictID");
 
-                    b.ToTable("District");
+                    b.ToTable("Districts");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Food", b =>
@@ -195,9 +195,6 @@ namespace CheeseBurger.Migrations
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
 
                     b.HasKey("FoodID");
 
@@ -336,8 +333,8 @@ namespace CheeseBurger.Migrations
                         .HasColumnType("int")
                         .HasColumnOrder(2);
 
-                    b.Property<decimal>("PriceOF")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("PriceOF")
+                        .HasColumnType("real");
 
                     b.Property<int>("QuantityOF")
                         .HasColumnType("int");
@@ -527,7 +524,15 @@ namespace CheeseBurger.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CheeseBurger.Model.Entities.Food", "Food")
+                        .WithMany()
+                        .HasForeignKey("FoodID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Customer");
+
+                    b.Navigation("Food");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Customer", b =>
