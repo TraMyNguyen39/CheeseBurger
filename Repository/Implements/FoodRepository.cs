@@ -74,5 +74,7 @@ namespace CheeseBurger.Repository.Implements
 										TotalRating = q.Star.ToString()
 									}).ToList();
 		}
+
+
 	}
 }
