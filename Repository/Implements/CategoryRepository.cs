@@ -14,5 +14,10 @@ namespace CheeseBurger.Repository.Implements
 		{
 			return context.Categories.Select(p => p).ToList();
 		}
+
+		public Category GetCategorybyId(int categoryId)
+		{
+			return context.Categories.Find(categoryId);
+		}
 	}
 }

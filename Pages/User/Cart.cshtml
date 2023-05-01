@@ -2,8 +2,6 @@
 @model CartModel
 @{
 	ViewData["Title"] = "Cart";
-	ViewBag.Name = HttpContext.Session.GetString("Name");
-	ViewBag.Id = HttpContext.Session.GetInt32("Id");
 }
 
 <div class="breadcrumb-division">
@@ -71,7 +69,7 @@
 		<div class="total-fee-list">
 			@{
 				var total = 0.0;
-				foreach ( var i in Model.carts)
+				foreach (var i in Model.carts)
 				{
 					total += i.Quantity * i.Price;
 				}
@@ -85,7 +83,7 @@
 				</div>
 				<div class="fee-detail">
 					<div class="fee-detail__item" style="font-weight: 500;">
-						<span>Tổng thanh toán</span><span>@((total + total*3/100).ToString("N0"))đ</span>
+						<span>Tổng thanh toán</span><span>@((total + total * 3 / 100).ToString("N0"))đ</span>
 					</div>
 				</div>
 			}

@@ -9,8 +9,8 @@
         <div class="button-box">
             <div id="switch-btn"></div>
             <div class="toggle-btn">
-                <button type="button" class="button-box__toggle-btn" onclick="login()">Đăng nhập</button>
-                <button type="button" class="button-box__toggle-btn" onclick="register()">Đăng ký</button>
+                <button type="button" class="button-box__toggle-btn" id="login-state" onclick="login()">Đăng nhập</button>
+                <button type="button" class="button-box__toggle-btn" id="register-state" onclick="register()">Đăng ký</button>
             </div>
         </div>
         <!-- Đăng nhập -->
@@ -66,5 +66,18 @@
             y.style.left = "450px";
             z.style.left = "0"
         }
+
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            var status = urlParams.get('status').toLowerCase();
+            if (status == "register")
+            {
+                document.getElementById('register-state').click();
+            }
+            else
+            {
+                document.getElementById('login-state').click();
+            }
+        };
     </script>
 </div>

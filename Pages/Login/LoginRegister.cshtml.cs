@@ -48,5 +48,9 @@ namespace CheeseBurger.Pages
                 }
             }
         }
+        public void OnGetLogout ()
+        {
+            HttpContext.Session.Clear();
+        }
     }
 }

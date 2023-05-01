@@ -30,6 +30,8 @@ service.AddScoped<ICategoryService, CategoryService>();
 service.AddScoped<ICategoryRepository, CategoryRepository>();
 service.AddScoped<ICartService, CartService>();
 service.AddScoped<ICartRepository, CartRepository>();
+service.AddScoped<IReviewRepository, ReviewRepository>();
+service.AddScoped<IReviewService, ReviewService>();
 
 var app = builder.Build();
 

@@ -14,5 +14,10 @@ namespace CheeseBurger.Service.Implements
 		{
 			return categoryRepository.GetAllCategory();
 		}
+
+		public Category GetCategorybyId(int categoryId)
+		{
+			return categoryRepository.GetCategorybyId(categoryId);
+		}
 	}
 }
