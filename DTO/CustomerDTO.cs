@@ -8,6 +8,7 @@
         public string CusPhone { get; set; }
         public string CusEmail { get; set; }
         public bool CusIsStaff { get; set; }
+        public bool CusIsDeleted { get; set; }
         public int CusAccID { get; set; }
         public int CusAddID { get; set; } 
     }

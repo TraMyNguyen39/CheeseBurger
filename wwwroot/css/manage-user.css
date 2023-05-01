@@ -226,8 +226,9 @@
     padding-bottom: 40px;
 }
 
-.btn-save {
+.exit-btn-user {
     width: 100%;
+    font-size: 1.6rem;
 }
 /* End Modal Full Info */
 
@@ -243,7 +244,7 @@ label.control-label {
     line-height: 35px;
 }
 
-/* Sort + Search */
+/* Sort + Search Customer */
 .menu-sort-user {
     transform: translateX(-2%);
     width: 50%;
@@ -288,12 +289,12 @@ label.control-label {
     color: var(--text-color);
 }
 
-    .search-user-box-input::placeholder {
-        font-size: 1.6rem;
-        line-height: 100%;
-        font-weight: 400;
-        transform: translateY(-10%);
-    }
+.search-user-box-input::placeholder {
+    font-size: 1.6rem;
+    line-height: 100%;
+    font-weight: 400;
+    transform: translateY(-10%);
+}
 
 .search-user-box-btn {
     position: absolute;
@@ -315,3 +316,102 @@ label.control-label {
 .search--user-box-btn:focus-visible {
     outline: none;
 }
+
+.menu-sort-user {
+    transform: translateX(-2%);
+    width: 50%;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+/* Sort + Seach Staff */
+.menu-sort-staff-box {
+    height: 36px;
+    font-weight: 400;
+    font-size: 1.6rem;
+    border: 2px solid #c6c6c6;
+    background-color: transparent;
+    border-radius: 6px;
+    padding: 0 10px;
+    outline: none;
+    opacity: 0.7;
+    margin-left: 10px;
+}
+
+.menu-search-staff-box {
+    width: 40%;
+    height: 36px;
+    background-color: transparent;
+    border: 2px solid #c6c6c6;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.6rem;
+}
+
+.search-staff-box-input {
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    padding-left: 10px;
+    color: var(--text-color);
+}
+
+.search-staff-box-input::placeholder {
+    font-size: 1.6rem;
+    line-height: 100%;
+    font-weight: 400;
+    transform: translateY(-10%);
+}
+
+.search-staff-box-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 25%;
+    height: 102%;
+    border: none;
+    color: var(--text-color);
+    background-color: #C0C0C0;
+}
+
+.search-staff-box-btn:hover {
+    opacity: 0.6;
+}
+
+.search-staff-box-btn:focus,
+.search-staff-box-btn:focus-visible {
+    outline: none;
+}
+
+.menu-sort-staff {
+    transform: translateX(-2%);
+    width: 50%;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.menu-sort-staff-role {
+    transform: translateX(-2%);
+    width: 50%;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.menu-sort-staff-role-box {
+    height: 36px;
+    font-weight: 400;
+    font-size: 1.6rem;
+    border: 2px solid #c6c6c6;
+    background-color: transparent;
+    border-radius: 6px;
+    padding: 0 10px;
+    outline: none;
+    opacity: 0.7;
+    margin-left: 10px;
+}
+

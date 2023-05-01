@@ -36,7 +36,10 @@ service.AddScoped<IDistrictService, DistrictService>();
 service.AddScoped<IDistrictRespository, DistrictRespository>();
 service.AddScoped<ICartService, CartService>();
 service.AddScoped<ICartRepository, CartRepository>();
-
+service.AddScoped<IStaffService, StaffService>();
+service.AddScoped<IStaffRespository, StaffRespository>();
+service.AddScoped<IRoleService, RoleService>();
+service.AddScoped<IRoleRespository, RoleRespository>();
 
 var app = builder.Build();
 

@@ -4,6 +4,6 @@ namespace CheeseBurger.Repository
 {
     public interface IRoleRespository
     {
-		List<Role> GetAllRoleName();
+		int GetRoleIDByName(string name);
 	}
 }

@@ -31,6 +31,7 @@ namespace CheeseBurger.Repository.Implements
 							   CusPhone = c.Phone,
 							   CusEmail = a.Email,
 							   CusIsStaff = a.isStaff,
+							   CusIsDeleted = a.isDeleted,
 							   CusAccID = a.AccountID,
 							   CusAddID = adr.AddressID
 						   };
@@ -50,6 +51,7 @@ namespace CheeseBurger.Repository.Implements
 							   CusPhone = c.Phone,
 							   CusEmail = a.Email,
 							   CusIsStaff = a.isStaff,
+							   CusIsDeleted = a.isDeleted,
 							   CusAccID = a.AccountID,
 							   CusAddID = adr.AddressID
 						   };						 
@@ -64,6 +66,40 @@ namespace CheeseBurger.Repository.Implements
 					break;
 			}		
 			return cus_data.ToList();
+		}
+		public void UpdateData(int id, int roleID)
+		{			
+			var cus_data = context.Customers.Where(p => p.CustomerID == id).Select(p => p).FirstOrDefault();
+			var sta_data = context.Staffs.Where(p => p.Phone.Equals(cus_data.Phone)).Select(p => p).FirstOrDefault();
+			var cus_acc = context.Accounts.Where(p => p.AccountID == cus_data.AccountID).Select(p => p).FirstOrDefault();
+			if (sta_data == null) 
+			{				
+				cus_acc.isStaff = true;
+				var staff = new Staff
+				{
+					StaffName = cus_data.CustomerName,
+					Phone = cus_data.Phone,
+					Gender = cus_data.Gender,
+					AccountID = cus_data.AccountID,
+					RoleID = roleID,
+					AddressID = cus_data.AddressID
+				};
+				context.Staffs.Add(staff);
+				context.SaveChanges();
+			}
+			else
+			{
+				cus_acc.isStaff = true;
+				sta_data.RoleID = roleID;
+				context.SaveChanges();
+			}
+		}
+		public void DeleteData(int id)
+		{
+			var cus_data = context.Customers.Where(p => p.CustomerID == id).Select(p => p).FirstOrDefault();
+			var cus_acc = context.Accounts.Where(p => p.AccountID == cus_data.AccountID).Select(p => p).FirstOrDefault();
+			cus_acc.isDeleted = true;
+			context.SaveChanges();
 		}
 	}
 }

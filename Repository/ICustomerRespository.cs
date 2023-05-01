@@ -8,5 +8,7 @@ namespace CheeseBurger.Repository
 		int GetCustomerID(int accountID);
 		CustomerDTO GetCustomer(int id);
         List<CustomerDTO> GetListCustomers(string arrange, bool isDescending, string searchText);
+        void UpdateData(int id, int roleID);
+        void DeleteData(int id);
     }
 }

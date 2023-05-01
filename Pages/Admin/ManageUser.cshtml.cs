@@ -16,16 +16,18 @@ namespace CheeseBurger.Pages
         private readonly IAddressService addressService;
         private readonly IWardService wardService;
         private readonly IDistrictService districtService;
-        public List<CustomerDTO> customers { get; set; }
+        private readonly IRoleService roleService;		
+		public List<CustomerDTO> customers { get; set; }
         public string sortBy { get; set; }
         public string searchText { get; set; }
         public ManageUserModel(ICustomerService customerService, IAddressService addressService, IWardService wardService,
-								IDistrictService districtService)
+								IDistrictService districtService, IRoleService roleService)
         {
             this.customerService = customerService;
             this.addressService = addressService;
             this.wardService = wardService;
             this.districtService = districtService;
+            this.roleService = roleService;
         }
         public void OnGet()
         {
@@ -42,7 +44,7 @@ namespace CheeseBurger.Pages
 			else
 			{
 				customers = customerService.GetListCustomers(null, true, searchText);
-			}
+			}            
 		}
 
         public IActionResult OnGetFind(int id)
@@ -64,6 +66,25 @@ namespace CheeseBurger.Pages
                 housenum = adr.NumberHouse
             };
             return new JsonResult(result);
+        }
+
+        public IActionResult OnPostUpdate(int CusID, string combobox_Item)
+        {
+            if (string.IsNullOrEmpty(combobox_Item))
+            {
+                ModelState.AddModelError("combobox_Item", "Please select a role");
+            }
+            var FindIDRole = roleService.GetRoleIDByName(combobox_Item);
+            if (FindIDRole != 0)
+            {
+                customerService.UpdateData(CusID, FindIDRole);
+            } 
+            return RedirectToPage("ManageUser");
+        }
+        public IActionResult OnPostDelete(int CusID)
+        {
+            customerService.DeleteData(CusID);
+            return RedirectToPage("ManageUser");
         }
     }
 }

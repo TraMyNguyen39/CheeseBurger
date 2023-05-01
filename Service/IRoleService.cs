@@ -4,6 +4,6 @@ namespace CheeseBurger.Service
 {
     public interface IRoleService
     {
-		List<Role> GetAllRoleName();
+		int GetRoleIDByName(string name);
 	}
 }

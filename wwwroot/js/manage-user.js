@@ -1,10 +1,20 @@
 ﻿window.onload = function () {
     const urlParams = new URLSearchParams(window.location.search);
     var selectedValue = urlParams.get('sortBy');
+    var selectElement = document.getElementById("sort-select");
     if (selectedValue) {
-        var selectElement = document.querySelector(".menu-sort-user .menu-sort-user-box");
-        selectElement.value = selectedValue;
+        for (var i = 0; i < selectElement.options.length; i++) {
+            var option = selectElement.options[i];
+            if (option.value === selectedValue) {
+                option.selected = true;
+                break;
+            }
+        }
     }
+    //if (selectedValue) {
+    //    var selectElement = document.querySelector(".menu-sort-user .menu-sort-user-box");
+    //    selectElement.value = selectedValue;
+    //}
     var searchInput = document.querySelector(".menu-search-user-box .search-user-box-input");
     searchInput.value = urlParams.get('search');
 };
@@ -74,16 +84,27 @@ for (var i = 0; i < buttonExit.length; i++) {
   buttonExit[i].addEventListener("click", handleCloseModal);
 }
 
-// Xoa
-var banButtons = document.querySelectorAll("td.Option__ban");
+// OK
+//var buttonOK = document.querySelectorAll("button.exit-btn-user");
 
-for (var i = 0; i < banButtons.length; i++) {
-    banButtons[i].addEventListener("click", function () {
-        let text = "Bạn có chắc chắn muốn xoá người dùng này không?";
-        if (confirm(text) == true) {
+//function handleOKModal() {
+//    var modal = this.parentNode.parentNode;
+//    modal.classList.remove("open");
+//}
+//for (var i = 0; i < buttonOK.length; i++) {
+//    buttonOK[i].addEventListener("click", handleOKModal);
+//}
+
+// Xoa
+//var banButtons = document.querySelectorAll("td.Option__ban");
+
+//for (var i = 0; i < banButtons.length; i++) {
+//    banButtons[i].addEventListener("click", function () {
+//        let text = "Bạn có chắc chắn muốn xoá người dùng này không?";
+//        if (confirm(text) == true) {
             
-        } else {
+//        } else {
             
-        }
-    });
-}
+//        }
+//    });
+//}
