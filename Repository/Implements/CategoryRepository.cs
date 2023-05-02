@@ -109,5 +109,10 @@ namespace CheeseBurger.Repository.Implements
 
             return foods;
         }
-    }
+
+		public int GetCategoryIdByName(string Name)
+		{
+			return context.Categories.Where(p => p.CategoryName.Contains(Name)).Select(p => p.CategoryID).FirstOrDefault();
+		}
+	}
 }

@@ -6,12 +6,16 @@
     flex-wrap: wrap;
 }
 
-form.col-8 {
-    padding-left: 0;
+form.body__payment {
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 1px 0px 23px 1px rgb(0, 0, 0, 0.4);
+    height: fit-content;
 }
 
 .receiver {
     width: 90%;
+    margin: 0 auto;
 }
 
 .receiver p {
@@ -46,9 +50,11 @@ form.col-8 {
     padding-left: 15px;
 }
 
-.payment .col-4 {
-    box-shadow: 3px 0px 22px 2px rgba(0,0,0,.4);
+.payment__book {
+    box-shadow: 1px 0px 9px 1px var(--main-color);
     border-radius: 6px;
+    margin-left: 30px;
+    width: 30%;
 }
 
 .list-payment {
@@ -107,7 +113,7 @@ form.col-8 {
 .home-link__payment {
     width: calc(50% - 10px);
     height: 40px;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 

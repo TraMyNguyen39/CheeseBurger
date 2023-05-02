@@ -19,7 +19,7 @@ namespace CheeseBurger.Model.Entities
         [StringLength(50)]
         public String StatusOdr { get; set; } = String.Empty;
 
-        public int StaffID { get; set; }
+        public int? StaffID { get; set; }
         [ForeignKey("StaffID")]
         public Staff Staff { get; set; }
 

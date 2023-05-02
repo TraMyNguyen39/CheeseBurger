@@ -42,6 +42,10 @@ service.AddScoped<IStaffService, StaffService>();
 service.AddScoped<IStaffRespository, StaffRespository>();
 service.AddScoped<IRoleService, RoleService>();
 service.AddScoped<IRoleRespository, RoleRespository>();
+//service.AddScoped<IOrderService, OrderService>();
+//service.AddScoped<IOrderRepository, OrderRepository>();
+//service.AddScoped<IOrder_FoodRepository, Order_FoodRepository>();
+//service.AddScoped<IOrder_FoodService, Order_FoodService>();
 
 var app = builder.Build();
 
