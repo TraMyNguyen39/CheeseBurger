@@ -12,6 +12,12 @@ namespace CheeseBurger.Repository.Implements
 		{
 			this.context = context;
 		}
+
+		public int GetStaffID(int accountID)
+		{
+			var staff = context.Staffs.Where(p => p.AccountID == accountID).Select(p => p).FirstOrDefault();
+			return staff != null ? staff.StaffID : 0;
+		}
 		public StaffDTO GetStaff(int id)
 		{
 			var sta_data = from c in context.Staffs

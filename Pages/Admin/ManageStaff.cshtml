@@ -136,7 +136,7 @@
 				<div class="account__city-district d-flex justify-content-between">
 					<div class="account__city-details col-6">
 						<p class="label_control">Tỉnh (thành phố)</p>
-						<input class="form-control mr-sm-2" type="search" placeholder="Đà Nẵng" readonly>
+						<input class="form-control mr-sm-2" type="search" value="Đà Nẵng" readonly="readonly">
 					</div>
 					<div class="account__district-details col-6">
 						<p class="label_control">Quận (huyện)</p>
@@ -269,7 +269,7 @@
 		});
 
 		$('.Option__pencil').on('click', function () {
-			var id = $(this).data('id');
+			var id = $(this).data('id');						
 			$.ajax({
 				type: 'GET',
 				data: { id: id },
@@ -283,6 +283,10 @@
 					$('.modal__account-update input[name="District"]').val(result.diss);
 					$('.modal__account-update input[name="Ward"]').val(result.wrdd);
 					$('.modal__account-update input[name="HouseNum"]').val(result.housenum);
+					
+					$('select[name="combobox_Item"] option').filter(function() {
+						return $(this).text().trim() === result.rolnamee;
+					}).prop('selected', true);
 				},
 				error: function (xhr, textStatus, errorThrown) {
 					alert('Error loading ingredient: ' + errorThrown);

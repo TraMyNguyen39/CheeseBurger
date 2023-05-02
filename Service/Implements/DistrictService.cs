@@ -10,6 +10,10 @@ namespace CheeseBurger.Service.Implements
 		{
 			this.districtRespository = districtRespository;
 		}
+		public List<District> GetListDistricts()
+		{
+			return districtRespository.GetListDistricts();
+		}
 		public District GetDistrict(int id)
 		{
 			return districtRespository.GetDistrict(id);

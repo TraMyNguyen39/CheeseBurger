@@ -1,4 +1,4 @@
-using CheeseBurger.DTO;
+﻿using CheeseBurger.DTO;
 using CheeseBurger.Model;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
@@ -51,7 +51,7 @@ namespace CheeseBurger.Pages
 		public IActionResult OnGetFind(int id)
 		{
 			var sta = staffService.GetStaff(id);			
-			var adr = addressService.GetAddress(sta.StaAccID);
+			var adr = addressService.GetAddress(sta.StaAddID);
 			var wrd = wardService.GetWard(adr.WardID);
 			var dis = districtService.GetDistrict(wrd.DistrictID);
 			var result = new
@@ -62,7 +62,7 @@ namespace CheeseBurger.Pages
 				phone = sta.StaPhone,
 				email = sta.StaEmail,
 				rolnamee = sta.StaRoleName,
-				address = adr.NumberHouse + ", " + wrd.WardName + ", " + dis.DistrictName,
+				address = adr.NumberHouse + ", " + wrd.WardName + ", " + dis.DistrictName + ", Đà Nẵng",
 				wrdd = wrd.WardName,
 				diss = dis.DistrictName,
 				housenum = adr.NumberHouse

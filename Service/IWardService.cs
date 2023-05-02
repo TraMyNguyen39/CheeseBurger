@@ -4,6 +4,7 @@ namespace CheeseBurger.Service
 {
     public interface IWardService
     {
+		List<Ward> GetListWards();
 		Ward GetWard(int id);
 	}
 }
