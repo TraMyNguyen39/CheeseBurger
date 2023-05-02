@@ -20,8 +20,9 @@ namespace CheeseBurger.Model.Entities
         [ForeignKey("RoleID")]
         public Role Role { get; set; }
 
-        public int? AddressID { get; set; }
-        [ForeignKey("AddressID")]
-        public Address Address { get; set; }
-    }
+		public string HouseNumber { get; set; }
+		public int? WardID { get; set; }
+		[ForeignKey("WardID")]
+		public Ward Ward { get; set; }
+	}
 }

@@ -8,26 +8,30 @@ namespace CheeseBurger.Pages
 {
     public class PaymenteModel : PageModel
     {
-		private readonly IAddressService addressService;
 		private readonly IWardService wardService;
 		private readonly IDistrictService districtService;
-		private readonly IOrderService orderService;
+		//private readonly IOrderService orderService;
         //private readonly IOrder_FoodService orderFoodService;
         private readonly ICartService cartService;
-        [BindProperty]
+		public List<District> List_Districts { get; set; }
+		public List<Ward> List_Wards { get; set; }
+        public List<CartDTO> carts { get; set; }
+		[BindProperty]
         public string name { get; set; }
         [BindProperty]
         public string phoneNumber { get; set; }
-
-
-        public List<CartDTO> carts { get; set; }
-		public PaymenteModel(IAddressService addressService, IWardService wardService, IOrderService orderService, 
+		[BindProperty]
+		public int wardId { get; set; }
+		[BindProperty]
+		public int districtId { get; set; }
+		[BindProperty]
+		public string hourseNumber { get; set; }
+		public PaymenteModel(IWardService wardService,
             IDistrictService districtService, ICartService cartService)
         {
-            this.addressService = addressService;
             this.wardService = wardService;
             this.districtService = districtService;
-            this.orderService = orderService;
+            //this.orderService = orderService;
             this.cartService = cartService;
             //this.orderFoodService = orderFoodService;
         }
@@ -37,7 +41,9 @@ namespace CheeseBurger.Pages
             if (customerId != null)
             {
 				carts = cartService.GetAllCarts((int)customerId);
-                return Page();
+				List_Districts = districtService.GetListDistricts();
+				List_Wards = wardService.GetListWards();
+				return Page();
 			}
 			return RedirectToPage("/Login/LoginRegister");
         }

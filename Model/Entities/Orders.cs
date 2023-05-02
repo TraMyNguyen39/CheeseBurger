@@ -17,7 +17,7 @@ namespace CheeseBurger.Model.Entities
 		public float TotalMoney { get; set; }
 
         [StringLength(50)]
-        public String StatusOdr { get; set; } = String.Empty;
+        public int StatusOdr { get; set; }
 
         public int? StaffID { get; set; }
         [ForeignKey("StaffID")]
@@ -27,8 +27,9 @@ namespace CheeseBurger.Model.Entities
         [ForeignKey("CustomerID")]
         public Customer Customer { get; set; }
 
-        public int AddressID { get; set; }
+        public string HourseNumber { get; set; }
+        public int WardID { get; set; }
         [ForeignKey("AddressID")]
-        public Address Address { get; set; }
+        public Ward Address { get; set; }
     }
 }

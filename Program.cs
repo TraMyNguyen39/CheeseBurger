@@ -28,8 +28,6 @@ service.AddScoped<ICategoryService, CategoryService>();
 service.AddScoped<ICategoryRepository, CategoryRepository>();
 service.AddScoped<ICustomerService, CustomerService>();
 service.AddScoped<ICustomerRespository, CustomerRespository>();
-service.AddScoped<IAddressService, AddressService>();
-service.AddScoped<IAddressRespository, AddressRespository>();
 service.AddScoped<IWardService, WardService>();
 service.AddScoped<IWardRespository, WardRespository>();
 service.AddScoped<IDistrictService, DistrictService>();

@@ -9,7 +9,6 @@ namespace CheeseBurger.Model
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Staff> Staffs { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Address> Addresses { get; set; }  
         public DbSet<Ward> Wards { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Cart> Carts { get; set; }
@@ -55,7 +54,7 @@ namespace CheeseBurger.Model
             modelBuilder.Entity<Orders>()
                 .HasOne(e => e.Address)
                 .WithMany()
-                .HasForeignKey(e => e.AddressID)
+                .HasForeignKey(e => e.WardID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
