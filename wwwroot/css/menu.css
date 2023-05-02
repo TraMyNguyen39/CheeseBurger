@@ -128,7 +128,7 @@ a.category-filter-name.active, a.cost-filter-name.active {
 
 .card-edit {
     width: 31%;
-    height: 330px;
+    height: 360px;
     margin: 0 1% 30px 1%;
     box-shadow: 1px 1px 5px 0px rgba(0,0,0,.5);
     border-radius: 6px;
@@ -209,4 +209,25 @@ a.category-filter-name.active, a.cost-filter-name.active {
 
 i.fas.fa-cart-shopping {
     margin-right: 10px;
+}
+/*alert-successful*/
+.alert.alert-success.alert-menu-edit {
+    z-index: 2;
+    right: 15px;
+    left: 35%;
+    top: 65px;
+    bottom: unset;
+}
+/*rating*/
+.card-body .rating-infor {
+    position: absolute;
+    bottom: 15%;
+}
+.stars-outer.stars-outer-menu {
+    margin: 0;
+    font-size: 20px;
+}
+.card-body .rating-infor .numbersof-rating {
+    margin-left: 5px;
+    font-size: 1.6rem;
 }

@@ -25,7 +25,8 @@ namespace CheeseBurger.Pages
         [BindProperty]
         public int cartProductID { get; set; }
 		public string Message { get; set; }
-
+		[BindProperty (SupportsGet = true)]
+		public bool successfulStatus { get; set; }
 		public MenuModel (IFoodService foodService, ICategoryService categoryService, ICartService cartService)
         {
             this.foodService = foodService;
@@ -41,9 +42,12 @@ namespace CheeseBurger.Pages
 			this.priceRange = Request.Query["price"];
             this.sortBy = Request.Query["sortBy"];
 
-			if (this.searchText != null) this.searchText = this.searchText.Trim();
+			if (this.searchText != null) 
+				this.searchText = this.searchText.Trim();
+			
 			var category = !(Int32.TryParse(this.categoryID, out int categoryID)) ? 0 : categoryID;
 			var price = !(Int32.TryParse(this.priceRange, out int priceRange)) ? 0 : priceRange;
+			
 			if (!(sortBy.IsNullOrEmpty() || sortBy == "all"))
             {
 				string[] values = sortBy.Split('-');
@@ -55,6 +59,7 @@ namespace CheeseBurger.Pages
             {
 				foods = foodService.GetFoodsMenu(category, price, null, true, searchText);
 			}
+
             if (foods.Count == 0)
             {
                 Message = "Không có sản phẩm nào đáp ứng điều kiện!";
@@ -68,7 +73,7 @@ namespace CheeseBurger.Pages
 			{
 				//Add sản phẩm vào cart
 				cartService.AddCart((int)customerID, cartProductID, 1);
-				return RedirectToPage("/User/Menu");
+				return RedirectToPage("/User/Menu", new { successfulStatus = true });
 			}
 			else
 			{

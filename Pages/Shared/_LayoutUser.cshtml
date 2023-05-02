@@ -46,32 +46,46 @@
 
 				<ul class="header__navbar-list header__navbar-list--icon">
 					<li class="header__navbar-item">
-						@if (ViewBag.Id == null)
-						{
-							<a asp-page="/Login/LoginRegister" class="header__navbar--item-link">
-								<i class="header__navbar-icon fas fa-cart-shopping"></i>
-								Giỏ hàng
-							</a>
-						}
-						else
-						{
-							<a asp-page="/User/Cart" class="header__navbar--item-link">
-								<i class="header__navbar-icon fas fa-cart-shopping"></i>
-								Giỏ hàng
-							</a>
-						}
+						<a asp-page="/User/Cart" class="header__navbar--item-link">
+							<i class="header__navbar-icon fas fa-cart-shopping"></i>
+							Giỏ hàng
+						</a>
 					</li>
 					<li class="header__navbar-item">
-						<a asp-area="" asp-page="/User/DetailAccount" class="header__navbar--item-link">
-							<i class="header__navbar-icon fas fa-user"></i>
-							@if (@ViewBag.Name != null) {
-								@ViewBag.Name;
-							}
-							else
-							{
-								@:Tài khoản
-							}
-						</a>
+					<li class="header__navbar-item">
+						<div class="header__navbar--item-link dropdown">
+								@{
+									var name = Context.Session.GetString("Name");
+									<button class="btn-drop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="header__navbar-icon fas fa-user"></i>
+										@if (name != null)
+										{
+											@name
+											;
+										}
+										else
+										{
+											@:Tài khoản
+										}
+									</button>
+									if (name == null)
+									{
+										<div class="dropdown-menu">
+											<a class="dropdown-item" asp-page="/Login/LoginRegister" asp-route-status="Login">Đăng nhập</a>
+											<a class="dropdown-item" asp-page="/Login/LoginRegister" asp-route-status="Register">Đăng ký</a>
+										</div>
+									}
+									else
+									{
+										<div class="dropdown-menu">
+											<a class="dropdown-item" asp-page="/User/DetailAccount">Tài khoản</a>
+											<a class="dropdown-item" asp-page="/User/MyOrder">Đơn hàng của tôi</a>
+											<a class="dropdown-item" asp-page="/Login/LoginRegister" asp-page-handler="Logout">Đăng xuất</a>
+										</div>
+									}
+								}
+						</div>
+					</li>
 					</li>
 				</ul>
 			</nav>

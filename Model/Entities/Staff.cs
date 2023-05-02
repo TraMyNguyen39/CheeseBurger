@@ -12,7 +12,7 @@ namespace CheeseBurger.Model.Entities
         [StringLength(10)]
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
-        public bool Gender { get; set; }
+        public bool? Gender { get; set; }
         public int AccountID { get; set; }
         [ForeignKey("AccountID")]
         public Account Account { get; set; }

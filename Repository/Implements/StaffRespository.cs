@@ -22,7 +22,7 @@ namespace CheeseBurger.Repository.Implements
 						   {
 							   StaID = c.StaffID,
 							   StaName = c.StaffName,
-							   StaGender = c.Gender,
+							   StaGender = c.Gender ?? true,
 							   StaPhone = c.Phone,
 							   StaEmail = a.Email,
 							   StaIsStaff = a.isStaff,
@@ -43,7 +43,7 @@ namespace CheeseBurger.Repository.Implements
 						   {
 							   StaID = c.StaffID,
 							   StaName = c.StaffName,
-							   StaGender = c.Gender,
+							   StaGender = c.Gender ?? true,
 							   StaPhone = c.Phone,
 							   StaEmail = a.Email,
 							   StaIsStaff = a.isStaff,

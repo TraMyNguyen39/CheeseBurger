@@ -11,8 +11,8 @@
 
 	/// Thiết lập active filter
 	var filterCate = document.getElementsByClassName("category-filter-name");
-	var element = document.getElementById(localStorage.getItem("cate"));
-	localStorage.removeItem("cate");
+	var element = document.getElementById("cate-" + urlParams.get("category"));
+	//localStorage.removeItem("cate");
 	if (element) {
 		element.classList.add('active');
 	}
@@ -22,8 +22,7 @@
 	}
 
 	var filterPrice = document.getElementsByClassName("cost-filter-name");
-	var element = document.getElementById(localStorage.getItem("price"));
-	localStorage.removeItem("price");
+	var element = document.getElementById("price-" + urlParams.get("price"));
 	if (element) {
 		element.classList.add('active');
 	}
@@ -46,7 +45,7 @@ for (var i = 0; i < filterCate.length; i++) {
 		var currentActive = document.querySelector('.category-filter-name.active');
 		currentActive.className = currentActive.className.replace('active', '');
 		this.classList.toggle("active");
-		localStorage.setItem("cate", this.id);
+		//localStorage.setItem("cate", this.id);
 	});
 }
 
@@ -56,7 +55,6 @@ for (var i = 0; i < filterPrice.length; i++) {
 		var currentActive = document.querySelector('.cost-filter-name.active');
 		currentActive.className = currentActive.className.replace('active', '');
 		this.classList.toggle("active");
-		localStorage.setItem("price", this.id);
 	});
 }
 
@@ -89,3 +87,17 @@ form.addEventListener("submit", function (event) {
 	// Gửi form nếu không có input rỗng
 	form.submit();
 });
+
+var alert = document.querySelector(".alert-success");
+var hideTimeout = setTimeout(function () {
+	alert.classList.remove('show');
+}, 3000);
+
+// Ngoi sao
+var list = document.querySelectorAll('.stars-outer input');
+for (var i = 0; i < list.length; i++) {
+	rating = list[i].value;
+	const starPercentage = (rating / 5) * 100;
+	const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+	list[i].parentElement.children[0].style.width = starPercentageRounded;
+}

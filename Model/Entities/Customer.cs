@@ -13,7 +13,7 @@ namespace CheeseBurger.Model.Entities
 		[DataType(DataType.PhoneNumber)]
         [Required]
         public string Phone { get; set; }
-        public bool Gender { get; set; }
+        public bool? Gender { get; set; }
         public int? AddressID { get; set; }
         [ForeignKey("AddressID")]
         public Address Address { get; set; }

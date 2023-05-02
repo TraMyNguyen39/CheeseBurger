@@ -36,6 +36,8 @@ service.AddScoped<IDistrictService, DistrictService>();
 service.AddScoped<IDistrictRespository, DistrictRespository>();
 service.AddScoped<ICartService, CartService>();
 service.AddScoped<ICartRepository, CartRepository>();
+service.AddScoped<IReviewRepository, ReviewRepository>();
+service.AddScoped<IReviewService, ReviewService>();
 service.AddScoped<IStaffService, StaffService>();
 service.AddScoped<IStaffRespository, StaffRespository>();
 service.AddScoped<IRoleService, RoleService>();

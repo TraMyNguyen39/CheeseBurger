@@ -20,17 +20,19 @@ namespace CheeseBurger.Pages
         {
             this.cartService = cartService;
         }
-        public void OnGet()
+        public IActionResult OnGet()
         {
 			var customerID = HttpContext.Session.GetInt32("customerID");
             if (customerID != null)
             {
 				carts = cartService.GetAllCarts((int)customerID);
+				if (carts.Count == 0)
+				{
+					return RedirectToPage("/User/EmptyCart");
+				}
+				else return Page();
 			}
-            else
-			{
-				RedirectToPage("/User/EmptyCart");
-			}
+			return RedirectToPage("/Login/LoginRegister", new { Message = "* Bạn phải đăng nhập/ đăng ký trước khi tương tác với giỏ hàng" });
 		}
 		public IActionResult OnPost([FromForm]int foodId, [FromForm]int quantity)
 		{
