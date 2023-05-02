@@ -86,5 +86,11 @@ namespace CheeseBurger.Pages
 			}
 			return RedirectToPage("ManageStaff");
 		}
+
+		public IActionResult OnPostDelete(int StaID)
+		{
+			staffService.DeleteData(StaID);
+			return RedirectToPage("ManageStaff");
+		}
 	}
 }

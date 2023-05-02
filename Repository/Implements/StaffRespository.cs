@@ -109,5 +109,12 @@ namespace CheeseBurger.Repository.Implements
 				context.SaveChanges();
 			}
 		}
+		public void DeleteData(int id)
+		{
+			var sta_data = context.Staffs.Where(p => p.StaffID == id).Select(p => p).FirstOrDefault();
+			var cus_acc = context.Accounts.Where(p => p.AccountID == sta_data.AccountID).Select(p => p).FirstOrDefault();
+			cus_acc.isDeleted = true;
+			context.SaveChanges();
+		}
 	}
 }

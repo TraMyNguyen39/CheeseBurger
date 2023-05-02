@@ -27,6 +27,9 @@ namespace CheeseBurger.Service.Implements
 		{
 			staffRespository.AddCusData(id, RoleID);
 		}
-		
+		public void DeleteData(int id)
+		{
+			staffRespository.DeleteData(id);
+		}
 	}
 }
