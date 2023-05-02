@@ -12,6 +12,12 @@ namespace CheeseBurger.Repository.Implements
 		{
 			this.context = context;
 		}
+
+		public int GetStaffID(int accountID)
+		{
+			var staff = context.Staffs.Where(p => p.AccountID == accountID).Select(p => p).FirstOrDefault();
+			return staff != null ? staff.StaffID : 0;
+		}
 		public StaffDTO GetStaff(int id)
 		{
 			var sta_data = from c in context.Staffs
@@ -108,6 +114,13 @@ namespace CheeseBurger.Repository.Implements
 				sta_acc.isStaff = false;
 				context.SaveChanges();
 			}
+		}
+		public void DeleteData(int id)
+		{
+			var sta_data = context.Staffs.Where(p => p.StaffID == id).Select(p => p).FirstOrDefault();
+			var cus_acc = context.Accounts.Where(p => p.AccountID == sta_data.AccountID).Select(p => p).FirstOrDefault();
+			cus_acc.isDeleted = true;
+			context.SaveChanges();
 		}
 	}
 }

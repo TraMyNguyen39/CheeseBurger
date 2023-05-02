@@ -10,6 +10,10 @@ namespace CheeseBurger.Repository.Implements
 		{
 			this.context = context;
 		}
+		public List<Ward> GetListWards()
+		{
+			return context.Wards.Select(p => p).ToList();
+		}
 		public Ward GetWard(int id)
 		{
 			return context.Wards.Where(p => p.WardId == id).FirstOrDefault();

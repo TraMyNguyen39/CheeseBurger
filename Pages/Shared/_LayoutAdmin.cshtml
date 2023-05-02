@@ -30,8 +30,18 @@
 				<div class="account">
 					<img class="account-avt" src="~/img/avt.png" />
 					<div class="account-detail">
-						<a class="account-name" asp-page="/Admin/ManageAccount">Nguyễn Thị Trà My</a>
-						<p class="account-role">Quản trị viên</p>
+						<a class="account-name" asp-page="/Admin/ManageAccount">
+							@{
+								var name = Context.Session.GetString("Name");
+								@name;
+							}	
+						</a>
+						<p class="account-role">
+							@{
+								var role = Context.Session.GetString("Role");
+								@role;
+							}
+						</p>
 					</div>
 				</div>
 				<ul class="categories__list">

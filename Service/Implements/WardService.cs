@@ -10,6 +10,10 @@ namespace CheeseBurger.Service.Implements
 		{
 			this.wardRespository = wardRespository;
 		}
+		public List<Ward> GetListWards()
+		{
+			return wardRespository.GetListWards();
+		}
 		public Ward GetWard(int id)
 		{
 			return wardRespository.GetWard(id);
