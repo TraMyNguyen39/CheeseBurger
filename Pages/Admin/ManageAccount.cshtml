@@ -35,7 +35,7 @@
 </div>
 
 <!-- Update Account -->
-<form method="post" asp-page="ManageAccount" asp-page-handler="Update">
+@*<form method="post" asp-page="ManageAccount" asp-page-handler="Update">*@
 	<div class="modal__customer-update">
 		<div class="modal__customer-information">
 			<div class="button__exit">
@@ -50,20 +50,23 @@
 				</div>
 				<div class="item-line">
 					<p class="label">Họ và tên</p>
-					<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Name" required="required">
+					<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Name" id="namesta">
+					<small>Error message</small>
 				</div>
 				<div class="item-line">
 					<p class="label">Chức vụ</p>
-					<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Role" readonly="readonly">
+					<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Role" readonly="readonly">					
 				</div>
 				<div class="item-line">
 					<p class="label">Địa chỉ Email</p>
-					<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Email" required="required">
+					<input class="form-control mr-sm-2" type="email" aria-label="Search" name="Email" id="email">
+					<small>Error message</small>
 				</div>
 				<div class="item-line d-flex justify-content-between">
 					<div class="item-col col-6">
 						<p class="label">Số điện thoại</p>
-						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Phone" required="required">
+						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Phone" id="phone">
+						<small>Error message</small>
 					</div>
 					<div class="item-col col-6">
 						<p class="label">Giới tính</p>
@@ -112,15 +115,16 @@
 					</div>
 					<div class="item-col col-6">
 						<p class="label">Số nhà</p>
-						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="HouseNum" required="required">
+						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="HouseNum" id="housenumber">
+						<small>Error message</small>
 					</div>
 				</div>
-				<button class="submit-btn button__save-change" type="submit">LƯU THÔNG TIN TÀI KHOẢN</button>
+				<button class="submit-btn button__save-change" type="submit" id="btn-register">LƯU THÔNG TIN TÀI KHOẢN</button>
 			</div>
 			<input type="hidden" name="StaID" class="modal__staff-id" value="" />
 		</div>
 	</div>
-</form>
+@*</form>*@
 <!-- End Update Account -->
 <script src="~/js/manage-account.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -199,5 +203,5 @@
 				break;
 			}
 		}
-	});	
+	});
 </script>
