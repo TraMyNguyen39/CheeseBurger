@@ -40,19 +40,13 @@ namespace CheeseBurger.Model
                 .HasKey(of => new { of.OrderID, of.FoodID });
 
             modelBuilder.Entity<Orders>()
-                .HasOne(e => e.Staff)
-                .WithMany()
-                .HasForeignKey(e => e.StaffID)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Orders>()
                 .HasOne(e => e.Customer)
                 .WithMany()
                 .HasForeignKey(e => e.CustomerID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Orders>()
-                .HasOne(e => e.Address)
+                .HasOne(e => e.Ward)
                 .WithMany()
                 .HasForeignKey(e => e.WardID)
                 .OnDelete(DeleteBehavior.Restrict);

@@ -11,7 +11,7 @@
 	</ol>
 </div>
 
-<form class="row container payment jtf-center" method="post">
+<form class="row container payment jtf-center pr-0 pl-0" method="post">
 	<div class="col-8 body__payment">
 		<div class="receiver">
 			<p>Địa chỉ giao hàng</p>
@@ -67,6 +67,7 @@
 					<input class="receiver-item-input" type="text" name="Note">
 				</div>
 			</div>
+
 			<button class="home-link home-link__payment" onclick="window.location.href = 'https://localhost:44344/User/Menu';">
 				<i class="fa-solid fa-chevron-left"></i>
 				Trở về mua sắm
@@ -74,10 +75,10 @@
 		</div>
 	</div>
 
-	<div class="d-flex align-items-center payment__book">
+	<div class="d-flex payment__book">
 		<div class="list-payment">
 			<div class="list-payment-item">
-				@foreach (var i in Model.carts)
+				@foreach (var i in Model.Carts)
 				{
 					<div class="payment-item">
 						<div class="payment-item-infor">
@@ -96,7 +97,7 @@
 			@{
 				var total = 0.0;
 				<div class="list-fee-detail">
-					@foreach (var i in Model.carts)
+					@foreach (var i in Model.Carts)
 					{
 						total += i.Quantity * i.Price;
 					}
