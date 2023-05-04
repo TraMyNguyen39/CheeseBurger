@@ -18,13 +18,14 @@
 			<div class="list-receiver-item">
 				<div class="receiver-item">
 					<label>Tên người nhận <span style="color: red">&lowast;</span></label><br>
-					<input class="receiver-item-input" type="text" name="name-receiver" required asp-for="name">
+					<input class="receiver-item-input" type="text" name="Name" required>
 				</div>
 			</div>
 			<div class="list-receiver-item justify-content-between">
 				<div class="receiver-item">
-					<label>Số điện thoại <span style="color: red">&lowast;</span></label><br>
-					<input class="receiver-item-input" type="text" name="phone-receiver" required asp-for="phoneNumber">
+					<label>Số điện thoại <span style="color: red">&lowast;</span></label>
+					<div id="phone_error" class="error hidden">* Vui lòng nhập đúng số điện thoại</div>
+					<input class="receiver-item-input" type="text" id="phone_number" required name="PhoneNumber">
 				</div>
 			</div>
 			<div class="row list-receiver-item d-flex">
@@ -36,7 +37,7 @@
 				</div>
 				<div class="receiver-item col" style="padding-left: 5px">
 					<label>Quận (Huyện) <span style="color: red">&lowast;</span></label><br>
-					<select class="receiver-item-input" name="combobox_Item_District" required="required" id="district" asp-for="districtId">
+					<select class="receiver-item-input" name="combobox_Item_District" required="required" id="district">
 						@foreach (var i in Model.List_Districts)
 						{
 							<option value="@i.DistrictID" data-id_district="@i.DistrictID">@i.DistrictName</option>
@@ -48,7 +49,7 @@
 			<div class="row list-receiver-item d-flex">
 				<div class="receiver-item col" style="padding-right: 5px">
 					<label>Phường (Xã) <span style="color: red">&lowast;</span></label><br>
-					<select class="receiver-item-input" name="combobox_Item_Ward" required="required" id="ward"asp-for="wardId">
+					<select class="receiver-item-input" name="WardId" required="required" id="ward">
 						@foreach (var i in Model.List_Wards)
 						{
 							<option value="@i.WardId" data-district="@i.DistrictID">@i.WardName</option>
@@ -57,7 +58,13 @@
 				</div>
 				<div class="receiver-item col" style="padding-left: 5px">
 					<label>Số nhà <span style="color: red">&lowast;</span></label><br>
-					<input class="receiver-item-input" type="text" name="home-receiver" required asp-for="hourseNumber">
+					<input class="receiver-item-input" type="text" name="HouseNumber" required>
+				</div>
+			</div>
+			<div class="list-receiver-item">
+				<div class="receiver-item note-edit">
+					<label>Ghi chú</label><br>
+					<input class="receiver-item-input" type="text" name="Note">
 				</div>
 			</div>
 			<button class="home-link home-link__payment" onclick="window.location.href = 'https://localhost:44344/User/Menu';">

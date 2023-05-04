@@ -36,5 +36,9 @@ namespace CheeseBurger.Service.Implements
 		{
 			staffRespository.DeleteData(id);
 		}
+		public void UpdateInfo(int id, string name, string email, string phone, string gender, string house, int WardID)
+		{
+			staffRespository.UpdateInfo(id, name, email, phone, gender, house, WardID);
+		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using CheeseBurger.DTO;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
+using CheeseBurger.Service.Implements;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -64,6 +65,15 @@ namespace CheeseBurger.Pages
 				housenum = sta.HouseNumber
 			};
 			return new JsonResult(result);
+		}
+
+		public IActionResult OnGetUpdate(int StaID, string Name, string Email, string Phone, string combobox_Item_Gender,
+										 string combobox_Item_District, string combobox_Item_Ward, string HouseNum)
+		{
+			var FindIDWard = wardService.GetWardIDByName(combobox_Item_Ward);
+			staffService.UpdateInfo(StaID, Name, Email, Phone, combobox_Item_Gender, HouseNum, FindIDWard);
+			// return RedirectToPage("ManageAccount");
+			return OnGet();
 		}
 	}
 }

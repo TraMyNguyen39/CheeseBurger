@@ -6,5 +6,6 @@ namespace CheeseBurger.Service
     {
 		List<Ward> GetListWards();
 		Ward GetWard(int id);
+		int GetWardIDByName(string name);
 	}
 }

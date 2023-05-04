@@ -35,7 +35,7 @@
 </div>
 
 <!-- Update Account -->
-@*<form method="post" asp-page="ManageAccount" asp-page-handler="Update">*@
+<form method="post" asp-page="ManageAccount" asp-page-handler="Update" class="UpdateAccount">
 	<div class="modal__customer-update">
 		<div class="modal__customer-information">
 			<div class="button__exit">
@@ -49,27 +49,27 @@
 					<p class="modal__label-main" id="name"></p>
 				</div>
 				<div class="item-line">
-					<p class="label">Họ và tên</p>
+					<p class="label">Họ và tên <span style="color: red">&lowast;</span></p>
 					<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Name" id="namesta">
 					<small>Error message</small>
 				</div>
 				<div class="item-line">
-					<p class="label">Chức vụ</p>
+					<p class="label">Chức vụ <span style="color: red">&lowast;</span></p>
 					<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Role" readonly="readonly">					
 				</div>
 				<div class="item-line">
-					<p class="label">Địa chỉ Email</p>
+					<p class="label">Địa chỉ Email <span style="color: red">&lowast;</span></p>
 					<input class="form-control mr-sm-2" type="email" aria-label="Search" name="Email" id="email">
 					<small>Error message</small>
 				</div>
 				<div class="item-line d-flex justify-content-between">
 					<div class="item-col col-6">
-						<p class="label">Số điện thoại</p>
+						<p class="label">Số điện thoại <span style="color: red">&lowast;</span></p>
 						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Phone" id="phone">
 						<small>Error message</small>
 					</div>
 					<div class="item-col col-6">
-						<p class="label">Giới tính</p>
+						<p class="label">Giới tính <span style="color: red">&lowast;</span></p>
 						<div class="form-control">
 							<form method="post">
 								<select name="combobox_Item_Gender">
@@ -82,41 +82,46 @@
 				</div>
 				<div class="item-line d-flex justify-content-between">
 					<div class="item-col col-6">
-						<label class="control-label">Tỉnh(thành phố): </label>
+						<label class="control-label">Tỉnh (Thành phố): </label>
 						<input class="form-control mr-sm-2" type="search" value="Đà Nẵng" readonly="readonly">
 					</div>
 					<div class="item-col col-6">
-						<label class="control-label">Quận(huyện): </label>
+						<label class="control-label">Quận (Huyện): </label>
 						<div class="form-control">
 							<form method="post">
-								<select name="combobox_Item_District" required="required" id="district">									
+								<select name="combobox_Item_District" required="required" id="district">	
+									<option value="">Chọn Quận (Huyện)</option>
 									@foreach (var i in Model.List_Districts)
 									{
 										<option value="@i.DistrictName" data-id_district="@i.DistrictID">@i.DistrictName</option>
-									}
-								</select>
-							</form>
+									}									
+								</select>							
+							</form>							
 						</div>
+						<small id="error-msg-dis"></small>
 					</div>
 				</div>
 				<div class="item-line d-flex justify-content-between">
 					<div class="item-col col-6">
-						<p class="label">Phường(Xã)</p>
+						<p class="label">Phường (Xã)</p>
 						<div class="form-control">
 							<form method="post">
 								<select name="combobox_Item_Ward" required="required" id="ward">
+								<option value="">Chọn Phường (Xã)</option>
 									@foreach (var i in Model.List_Wards)
 									{
 										<option value="@i.WardName" data-district="@i.DistrictID">@i.WardName</option>
-									}
-								</select>
+									}									
+								</select>	
 							</form>
+							<small id="error-msg"></small>
 						</div>
+						
 					</div>
 					<div class="item-col col-6">
 						<p class="label">Số nhà</p>
 						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="HouseNum" id="housenumber">
-						<small>Error message</small>
+							<small id="error-msg-house" style="left: 2%">Error message</small>
 					</div>
 				</div>
 				<button class="submit-btn button__save-change" type="submit" id="btn-register">LƯU THÔNG TIN TÀI KHOẢN</button>
@@ -124,7 +129,7 @@
 			<input type="hidden" name="StaID" class="modal__staff-id" value="" />
 		</div>
 	</div>
-@*</form>*@
+</form>
 <!-- End Update Account -->
 <script src="~/js/manage-account.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -189,6 +194,7 @@
 		var districtID = districtSelect.options[districtSelect.selectedIndex].getAttribute("data-id_district");
 
 		// Lặp qua các tùy chọn phường trong combobox phường và ẩn đi những tùy chọn không thuộc quận được chọn
+
 		for (var i = 0; i < wardSelect.options.length; i++) {
 			if (wardSelect.options[i].getAttribute("data-district") == districtID) {
 				wardSelect.options[i].style.display = "block";
@@ -196,12 +202,13 @@
 				wardSelect.options[i].style.display = "none";
 			}
 		}
+		wardSelect.selectedIndex = 0;
 		// Chọn sẵn phường đầu tiên trong combobox phường
-		for (var i = 0; i < wardSelect.options.length; i++) {
-			if (wardSelect.options[i].getAttribute("data-district") == districtID) {
-				wardSelect.selectedIndex = i;
-				break;
-			}
-		}
+		//for (var i = 0; i < wardSelect.options.length; i++) {
+		//	if (wardSelect.options[i].getAttribute("data-district") == districtID) {
+		//		wardSelect.selectedIndex = i;
+		//		break;
+		//	}
+		//}
 	});
 </script>

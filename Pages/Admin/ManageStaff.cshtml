@@ -76,6 +76,12 @@
 				}			
 			</tbody>
 		</table>
+		@if (@Model.MessageStaff != null)
+		{
+			<div class="alert alert-danger" role="alert">
+				<strong style="font-size: 1.8rem">@Model.MessageStaff</strong>
+			</div>
+		}
 		<div class="page-pagination">
 			<div class="pagination">
 				<a href="#"><i class="fas fa-angle-double-left"></i></a>

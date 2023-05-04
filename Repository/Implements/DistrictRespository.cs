@@ -18,5 +18,14 @@ namespace CheeseBurger.Repository.Implements
 		{
 			return context.Districts.Where(p => p.DistrictID == id).FirstOrDefault();
 		}
+		public int GetDistrictIDByName(string name)
+		{
+			var IDDistrict = context.Districts.FirstOrDefault(p => p.DistrictName.Equals(name));
+			if (IDDistrict != null)
+			{
+				return IDDistrict.DistrictID;
+			}
+			return 0;
+		}
 	}
 }

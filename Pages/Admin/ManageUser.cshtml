@@ -15,7 +15,7 @@
 			<form class="menu-sort-user" method="get">
 				<label style="margin-left: 2%">Sắp xếp theo: </label>
 				<select name="sortBy" class="menu-sort-user-box" id="sort-select">
-					<option value="all">Sắp xếp</option>
+					<option value="all">Tất cả</option>
 					<option value="name-asc">Tăng theo tên</option>
 					<option value="name-desc">Giảm theo tên</option>
 				</select>
@@ -57,9 +57,16 @@
 							<td class="Option__ban" data-id="@customer.CusID">  <i class="fas fa-ban"></i></td>
 						</tr>
 					}
-				}				
+				}	
+				
 			</tbody>
 		</table>
+		@if (@Model.MessageUser != null)
+		{
+			<div class="alert alert-danger" role="alert">
+				<strong style="font-size: 1.8rem">@Model.MessageUser</strong>
+			</div>
+		}
 		<div class="page-pagination">
 			<div class="pagination">
 				<a href="#"><i class="fas fa-angle-double-left"></i></a>
