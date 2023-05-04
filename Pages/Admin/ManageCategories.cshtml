@@ -1,0 +1,301 @@
+﻿@page
+@model ManageCategoriesModel
+@{
+    ViewData["Title"] = "ManageCategories";
+    int stt = 0;
+}
+<link rel="stylesheet" href="~/css/manage-categories.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
+
+<div class="main__information">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <form class="menu-sort-user" method="get">
+            <label style="margin-left: 2%">Sắp xếp theo: </label>
+            <select name="sortBy" class="menu-sort-user-box" id="sort-select">
+                <option value="all">Sắp xếp</option>
+                <option value="name-asc">Tăng theo tên</option>
+                <option value="name-desc">Giảm theo tên</option>
+            </select>
+            <input name="search" value="@Model.searchText" type="hidden" />
+            <input type="submit" style="visibility: hidden; width:0" />
+        </form>
+    </div>
+    @{
+        var pageSize = 3; // Number of rows to show per page
+        var totalPages = (int)Math.Ceiling((double)Model.categories.Count / pageSize); // Calculate the total number of pages
+        var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
+        var categories = Model.categories.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
+        if (Model.currentPage < 1) Model.currentPage = 1;
+        if (Model.currentPage > totalPages) Model.currentPage = totalPages;
+    }
+    <div class="table__details-form">
+        <div class="table__information col-9 pl-0">
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th class="STT col-1">STT</th>
+                        <th class="ID_mon col-2">Mã DM</th>
+                        <th class="Ten_mon col-3">Tên danh mục</th>
+                        <th class="Number_mon col-3">Số lượng món</th>
+                        <th class="Option col-3">Tùy chọn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var i in categories)
+                    {
+                        <tr>
+                            <td class="STT">@(++stt)</td>
+                            <td class="ID_mon">@i.CategoryID</td>
+                            <td class="Ten_mon">@i.CategoryName</td>
+                            <td class="Number_mon">@i.Quantity</td>
+                            <td class="Option">
+                                <i class="fas fa-eye" data-id="@i.CategoryID" onclick="showCategoryDetails(@i.CategoryID)"></i>
+                                <i class="fas fa-pencil-alt" data-id="@i.CategoryID"></i>
+                                <i class="fas fa-ban" data-id="@i.CategoryID"></i>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @{
+                var pagingmodel = new CheeseBurger.Helpers.PagingModel()
+            {
+                currentPage = Model.currentPage,
+                countPages = totalPages,
+                generateUrl = (int? p) => Url.Page("/Admin/ManageCategories", new { p })
+            };
+            }
+            <partial name="_Paging" model="@pagingmodel" />
+        </div>
+        <div class="categories-add col-3">
+            <form class="categories__form-add" method="post" asp-page="ManageCategories" asp-page-handler="Create">
+                <p class="categories__text-specific">Thêm danh mục</p>
+                <p class="categories__text">Tạo danh mục mới:</p>
+                <div class="info__form"><input class="form-control mr-sm-2" type="search" placeholder="" name="Name" required="required"></div>
+                <button class="submit-btn add-category-btn" type="submit" name="p">Thêm danh mục +</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal Modify -->
+<form method="post" asp-page="ManageCategories" asp-page-handler="Update">
+    <div class="modal__food-modify">
+        <div class="modal__food-information">
+            <div class="button__exit d-flex justify-content-end">
+                <span class="exit__surround d-flex justify-content-center align-items-center">
+                    <i class="fas fa-times"></i>
+                </span>
+            </div>
+            <div class="categories-edit">
+                <div class="categories__form-edit">
+                    <p class="categories__text-specific">Cập nhật danh mục</p>
+                    <p class="categories__text">Nhập tên mới:</p>
+                    <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Name" required="required">
+                    <button class="submit-btn update-cate-btn" type="submit">Cập nhật danh mục</button>
+                </div>
+                <input type="hidden" name="CategoriesID" class="modal__categories-id" value="" />
+            </div>
+        </div>
+    </div>
+</form>
+<!-- End Modal Modify -->
+<!-- Modal Read -->
+    <div class="modal__food-read">
+        <div class="modal__read-information modal__read-category-edit">
+            <div class="button__exit d-flex justify-content-end">
+                <span class="exit__surround d-flex justify-content-center align-items-center">
+                    <i class="fas fa-times"></i>
+                </span>
+            </div>
+            <div class="categories-read">
+                <div class="categories__form-edit">
+                    <input name="CategoryID" type="hidden" />
+                    <p class="categories__text-specific">Xem danh mục</p>
+                    <div class="categories__information-label d-flex align-items-center">
+                        <div class="categories__information-key col-md-7">
+                            <label for="name" class="categories__text">Tên danh mục:</label>
+                            <label for="id" class="categories__text">Mã danh mục:</label>
+                            <label for="amount" class="categories__text">Số lượng món:</label>
+                        </div>
+                        <div class="categories__information-element col-md-6">
+                            <p class="categories__text" id="name"></p>
+                            <p class="categories__text" id="id"></p>
+                            <p class="categories__text" id="amount"></p>
+                        </div>
+                    </div>
+                    <div class="list-foods">
+                        <div class="categories__information-label">Danh sách món ăn:</div>
+                        <div class="list-food-item"></div>
+                    </div>
+                </div>
+                <button class="submit-btn exit-btn">OK</button>
+            </div>
+        </div>
+    </div>
+<!-- End Modal Read -->
+<!-- Modal Delete -->
+<form method="post" asp-page="ManageCategories" asp-page-handler="Delete">
+    <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="confirm-label"></h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="text-center wirningColor">
+                        <i class="fas fa-exclamation-triangle fa-4x"></i>
+                    </div>
+                    <br />
+                    <center>
+                        <p class="message"></p>
+                        <input type="hidden" name="CategoriesID" class="modal__categories-id" value="" />
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger dismiss" data-dismiss="modal"></button>
+                    <button type="submit" class="btn btn-primary confirm"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- End Modal Delete -->
+<script src="~/js/manage-categories.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+    $('.fa-pencil-alt').on('click', function () {
+        var id = $(this).data('id');
+        $.ajax({
+            type: 'GET',
+            data: { id: id },
+            url: '@Url.Page("ManageCategories", "Find")',
+            success: function (result) {
+                $('.modal__food-modify input[name="CategoriesID"]').val(result.categoryID); // Save ID to hidden input
+                $('.modal__food-modify input[name="Name"]').val(result.categoryName); // Update category name
+                $('.modal__food-modify').show(); // Show the modal window
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Error loading categories: ' + errorThrown);
+            }
+        });
+    });
+</script>
+<script>
+    function showCategoryDetails(id) {
+        // Lấy thông tin hàng được chọn
+        var row = $('td.ID_mon').filter(function () {
+            return $(this).text() == id;
+        }).closest('tr');
+        var categoryName = row.find('td.Ten_mon').text();
+        var categoryID = row.find('td.ID_mon').text();
+        var quantity = row.find('td.Number_mon').text();
+
+        // Đổ thông tin vào form
+        $('#name').text(categoryName);
+        $('#id').text(categoryID);
+        $('#amount').text(quantity);   
+        
+        populateFoods(categoryID);
+    }
+</script>
+<script>
+    $(function () {
+        (function ($) {
+            $.fn.confirm = function (options) {
+                var settings = $.extend({}, $.fn.confirm.defaults, options);
+
+                return this.each(function () {
+                    var element = this;
+                    $('.modal-title', this).html(settings.title);
+                    $('.message', this).html(settings.message);
+                    $('.confirm', this).html(settings.confirm);
+                    $('.dismiss', this).html(settings.dismiss);
+
+                    $(this).on('click', '.confirm', function (event) {
+                        $(element).data('confirm', true);
+                    });
+
+                    $(this).on('hide.bs.modal', function (event) {
+                        if ($(this).data('confirm')) {
+                            $(this).trigger('confirm', event);
+                            $(this).removeData('confirm');
+                        } else {
+                            $(this).trigger('dismiss', event);
+                        }
+
+                        $(this).off('confirm dismiss');
+                    });
+
+                    $(this).modal('show');
+                });
+            };
+
+            $.fn.confirm.defaults = {
+                title: 'Modal title',
+                message: 'One fine body&hellip;',
+                confirm: 'OK',
+                dismiss: 'Cancel'
+            };
+        })(jQuery);
+    });
+    $(".fa-ban").click(function () {
+        var id = $(this).data('id');
+        $.ajax({
+            type: 'GET',
+            data: { id: id },
+            url: '@Url.Page("ManageCategories", "Find")',
+            success: function (result) {
+                $('#confirm input[name="CategoriesID"]').val(result.categoryID); // Lưu trữ ID vào trường ẩn
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Error loading categories: ' + errorThrown);
+            }
+        });
+        $('#confirm').confirm({
+            title: 'confirmation',
+            message: 'Bạn có muốn xóa danh mục này không?',
+            confirm: 'Delete',
+            dismiss: 'Cancel'
+        });
+    });
+</script>
+<script>
+function populateFoods(CategoryID) {
+    var number = 0;
+    $.ajax({
+        url: '@Url.Page("ManageCategories", "Categories")',
+        type: 'GET',
+        data: { id: CategoryID },
+        success: function (data) {
+            var listItems = '';
+
+            for (var i = 0; i < data.length; i++) {
+                listItems += '<div class="list-food-item">' + (++number) + '.' + ' ' + data[i].foodName + '</div>';
+            }
+
+            $('.list-food-item').empty().append(listItems);
+            $('#amount').text(data.length);
+
+            // Assign the JSON response to "datashow" variable
+            var datashow = data;
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+        }
+    });
+}
+</script>
