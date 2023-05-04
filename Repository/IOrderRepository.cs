@@ -1,7 +1,9 @@
-﻿namespace CheeseBurger.Repository
+﻿using CheeseBurger.Model.Entities;
+
+namespace CheeseBurger.Repository
 {
     public interface IOrderRepository
     {
-        int CreateOrder();
+        void CreateOrder(Orders order);
     }
 }

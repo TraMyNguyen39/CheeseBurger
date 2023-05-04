@@ -7,14 +7,14 @@
 }
 
 div.body__payment {
-    padding: 30px;
+    padding: 40px 30px;
     border-radius: 10px;
     box-shadow: 1px 0px 23px 1px rgb(0, 0, 0, 0.4);
     height: fit-content;
 }
 
 .receiver {
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
 }
 
@@ -55,6 +55,7 @@ div.body__payment {
     border-radius: 6px;
     margin-left: 30px;
     width: 30%;
+    height: fit-content;
 }
 
 .list-payment {
@@ -117,4 +118,12 @@ div.body__payment {
 }
 
 
+/* Phone number validate*/
+.error {
+    color: red;
+    font-size: 1.6rem;
+}
 
+.hidden {
+    display: none
+}

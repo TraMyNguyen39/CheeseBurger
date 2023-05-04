@@ -30,7 +30,7 @@ namespace CheeseBurger.Pages
             var user = accountService.GetAccount(Email, Password);
             if (user == null)
             {
-                Message = "* Tài khoản / Mật khẩu không đúng!";
+                Message = "* Tài khoản/ Mật khẩu không đúng!";
                 return Page();
             }
             else

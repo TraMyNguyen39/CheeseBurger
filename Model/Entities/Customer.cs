@@ -14,7 +14,7 @@ namespace CheeseBurger.Model.Entities
         [Required]
         public string Phone { get; set; }
         public bool? Gender { get; set; }
-		public string? HouseNumber { get; set; }
+		public string HouseNumber { get; set; }
 		public int? WardID { get; set; }
         [ForeignKey("WardID")]
         public Ward Ward { get; set; }
