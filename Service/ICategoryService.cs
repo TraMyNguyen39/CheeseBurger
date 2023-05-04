@@ -16,5 +16,6 @@ namespace CheeseBurger.Service
         void DeleteData(int id);
         List<Food> GetByCategoryID(int CateId);
 		Category GetCategorybyId(int categoryId);
+		int GetCategoryIdByName(string Name);
 	}
 }

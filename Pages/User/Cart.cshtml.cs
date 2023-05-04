@@ -27,10 +27,9 @@ namespace CheeseBurger.Pages
             {
 				carts = cartService.GetAllCarts((int)customerID);
 				if (carts.Count == 0)
-				{
 					return RedirectToPage("/User/EmptyCart");
-				}
-				else return Page();
+				else 
+					return Page();
 			}
 			return RedirectToPage("/Login/LoginRegister", new { Message = "* Bạn phải đăng nhập/ đăng ký trước khi tương tác với giỏ hàng" });
 		}

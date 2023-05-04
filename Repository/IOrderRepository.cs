@@ -2,5 +2,6 @@
 {
     public interface IOrderRepository
     {
+        int CreateOrder();
     }
 }

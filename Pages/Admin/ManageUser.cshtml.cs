@@ -13,18 +13,16 @@ namespace CheeseBurger.Pages
     public class ManageUserModel : PageModel
     {
         private readonly ICustomerService customerService;
-        private readonly IAddressService addressService;
         private readonly IWardService wardService;
         private readonly IDistrictService districtService;
         private readonly IRoleService roleService;		
 		public List<CustomerDTO> customers { get; set; }
         public string sortBy { get; set; }
         public string searchText { get; set; }
-        public ManageUserModel(ICustomerService customerService, IAddressService addressService, IWardService wardService,
+        public ManageUserModel(ICustomerService customerService, IWardService wardService,
 								IDistrictService districtService, IRoleService roleService)
         {
             this.customerService = customerService;
-            this.addressService = addressService;
             this.wardService = wardService;
             this.districtService = districtService;
             this.roleService = roleService;
@@ -50,8 +48,7 @@ namespace CheeseBurger.Pages
         public IActionResult OnGetFind(int id)
         {
             var cus = customerService.GetCustomer(id);
-            var adr = addressService.GetAddress(cus.CusAddID);
-            var wrd = wardService.GetWard(adr.WardID);
+            var wrd = wardService.GetWard(cus.WardID);
             var dis = districtService.GetDistrict(wrd.DistrictID);
             var result = new
             {
@@ -60,10 +57,10 @@ namespace CheeseBurger.Pages
                 gender = cus.CusGender,
                 phone = cus.CusPhone,
                 email = cus.CusEmail,
-                address = adr.NumberHouse + ", " + wrd.WardName + ", " + dis.DistrictName + ", Đà Nẵng",
+                address = cus.HouseNumber + ", " + wrd.WardName + ", " + dis.DistrictName + ", Đà Nẵng",
                 wrdd = wrd.WardName,
                 diss = dis.DistrictName,
-                housenum = adr.NumberHouse
+                housenum = cus.HouseNumber
             };
             return new JsonResult(result);
         }

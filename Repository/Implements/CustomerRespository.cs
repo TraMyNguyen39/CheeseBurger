@@ -25,7 +25,7 @@ namespace CheeseBurger.Repository.Implements
 						   select new { c, a};
 			
 			var customer = from p in cus_data
-						   from adr in context.Addresses.Where(adr => adr.AddressID == p.c.AddressID).DefaultIfEmpty()
+						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()
 						   select new CustomerDTO
 						   {
 							   CusID = p.c.CustomerID,
@@ -36,7 +36,8 @@ namespace CheeseBurger.Repository.Implements
 							   CusIsStaff = p.a.isStaff,
 							   CusIsDeleted = p.a.isDeleted,
 							   CusAccID = p.a.AccountID,
-							   CusAddID = (adr == null) ? 0 : adr.AddressID,
+							   WardID = (adr == null) ? 0 : adr.WardId,
+							   HouseNumber = p.c.HouseNumber
 						   };
 			return customer.Where(p => p.CusID == id).FirstOrDefault();
 		}
@@ -45,30 +46,34 @@ namespace CheeseBurger.Repository.Implements
 		{
 			var cus_data = from c in context.Customers
 						   join a in context.Accounts on c.AccountID equals a.AccountID
-						   join adr in context.Addresses on c.AddressID equals adr.AddressID
+						   select new { c, a };
+
+			var customer = from p in cus_data
+						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()
 						   select new CustomerDTO
 						   {
-							   CusID = c.CustomerID,
-							   CusName = c.CustomerName,
-							   CusGender = c.Gender ?? true,
-							   CusPhone = c.Phone,
-							   CusEmail = a.Email,
-							   CusIsStaff = a.isStaff,
-							   CusIsDeleted = a.isDeleted,
-							   CusAccID = a.AccountID,
-							   CusAddID = adr.AddressID
+							   CusID = p.c.CustomerID,
+							   CusName = p.c.CustomerName,
+							   CusGender = p.c.Gender ?? true,
+							   CusPhone = p.c.Phone,
+							   CusEmail = p.a.Email,
+							   CusIsStaff = p.a.isStaff,
+							   CusIsDeleted = p.a.isDeleted,
+							   CusAccID = p.a.AccountID,
+							   WardID = (adr == null) ? 0 : adr.WardId,
+							   HouseNumber = p.c.HouseNumber
 						   };						 
 			if (!searchText.IsNullOrEmpty())
 			{
-				cus_data = cus_data.Where(p => p.CusName.Contains(searchText)).Select(p => p);
+				customer = customer.Where(p => p.CusName.Contains(searchText)).Select(p => p);
 			}
 			switch (arrange)
 			{
 				case "name":
-					cus_data = isDescending ? cus_data.OrderByDescending(p => p.CusName) : cus_data.OrderBy(p => p.CusName);
+					customer = isDescending ? customer.OrderByDescending(p => p.CusName) : customer.OrderBy(p => p.CusName);
 					break;
 			}		
-			return cus_data.ToList();
+			return customer.ToList();
 		}
 		public void UpdateData(int id, int roleID)
 		{			
@@ -85,7 +90,8 @@ namespace CheeseBurger.Repository.Implements
 					Gender = cus_data.Gender,
 					AccountID = cus_data.AccountID,
 					RoleID = roleID,
-					AddressID = cus_data.AddressID
+					WardID = cus_data.WardID,
+					HouseNumber = cus_data.HouseNumber,
 				};
 				context.Staffs.Add(staff);
 				context.SaveChanges();
