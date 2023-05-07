@@ -1,4 +1,7 @@
-﻿namespace CheeseBurger.DTO
+﻿using CheeseBurger.Model.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CheeseBurger.DTO
 {
 	public class StaffDTO
 	{
@@ -11,6 +14,7 @@
         public bool StaIsDeleted { get; set; }
         public string StaRoleName { get; set; }
         public int StaAccID { get; set; }
-        public int StaAddID { get; set; } 
-    }
+		public string HouseNumber { get; set; }
+		public int WardID { get; set; }
+	}
 }

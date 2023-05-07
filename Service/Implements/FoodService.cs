@@ -22,5 +22,41 @@ namespace CheeseBurger.Service.Implements
 		{
 			return foodRepository.GetFoodsMenu(category, priceRange, arrange, isDescending, searchText);
 		}
-	}
+		public List<AdminFoodDTO> GetFoodAdmin()
+		{
+			return foodRepository.GetFoodAdmin();
+		}
+		public int getRowFood()
+		{
+			return foodRepository.getRowFood();
+		}
+        public List<String> GetNameCategories()
+		{
+			return foodRepository.GetNameCategories();
+		}
+        public List<AdminFoodDTO> GetListFoods(string categories, string arrange, bool isDescending, string searchText)
+		{
+			return foodRepository.GetListFoods(categories, arrange, isDescending, searchText);
+		}
+		public int ConvertCategoryNametoCategoryId(string Name)
+		{
+			return foodRepository.ConvertCategoryNametoCategoryId(Name);
+		}
+        public void AddData(string Name, int cateID, float Price, string Describe, string fileupload)
+		{
+			foodRepository.AddData(Name, cateID, Price, Describe, fileupload);
+		}
+        public void DeleteData(int id)
+		{
+			foodRepository.DeleteData(id);
+		}
+		public dynamic FindFood(int id)
+		{
+			return foodRepository.FindFood(id);
+		}
+        public void UpdateData(int FoodID, string Name, int CategoryID, float Price, string Describe, string fileupload)
+		{
+			foodRepository.UpdateData(FoodID, Name, CategoryID, Price, Describe, fileupload);
+		}
+    }
 }

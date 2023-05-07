@@ -6,68 +6,155 @@
 <link rel="stylesheet" href="~/css/sync-revenue.css" asp-append-version="true" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 
-<div class="main__information">
+<div class="main__information">	
 	<div class="main__information-detail">
 		<div class="main__table-form d-flex align-items-center">
 			<div class="select__form col-4 ">
 				<div class="form-group d-flex align-items-center">
 					<label class="control-label"> Thống kê: </label>
 					<div class="form__comboBox">
-						<form action="dropList" method="post">
+						<form method="post">
 							<select name="combobox_Item">
-								<option value="" selected> Theo ngày</option>
-								<option value=""> Theo tháng</option>
-								<option value=""> Theo năm</option>
+								<option value="day" selected> Theo ngày</option>
+								<option value="month"> Theo tháng</option>
+								<option value="year"> Theo năm</option>
 							</select>
 						</form>
 					</div>
 				</div>
 			</div>
-			<div class="form__end col-4 d-flex justify-content-end align-items-center datetime">
+			<div class="form__end col-4 d-flex align-items-center datetime">
 				<div class="form-group d-flex align-items-center">
-					<label class="control-label"> Từ: </label>
-					<form action="action_page.php">
-						<input type="date" name="bday">
+					<form method="get" action="">
+						<label class="control-label">Từ:</label>
+						<input type="date" name="fromDate" onchange="submitForm()">
 					</form>
 				</div>
 				<div class="form-group2 d-flex align-items-center">
-					<label class="control-label"> Đến: </label>
-					<form action="action_page.php">
-						<input type="date" name="bday">
+					<form method="get" action="">
+						<label class="control-label">Đến:</label>
+						<input type="date" name="toDate" onchange="submitForm()">
 					</form>
 				</div>
 			</div>
 		</div>
-		<div class="infor__details d-flex">
-			<div class="column__info-details col-8">
-				<div class="column__info-total d-flex">
-					<div class="column__total-offer text-center col-3">
-						<p class="order__amount"> Số lượng đơn bán</p>
-						<p class="total__money-amount"> 50</p>
-					</div>
-					<div class="column__total-offer text-center col-3">
-						<p class="order__amount"> Số lượng <br /> đơn nhập</p>
-						<p class="total__money-amount"> 50</p>
-					</div>
-					<div class="column__total-profit col-5">
-						<p class="total__amount"> Tổng lợi nhuận</p>
-						<p class="total__money-amount"> 100.000.000đ</p>
-					</div>
+		<div class="column__info-details col-12">
+			<div class="column__info-total d-flex">
+				<div class="column__total-offer text-center col-3">
+					<p class="order__amount"> Số lượng đơn bán</p>
+					<p class="total__money-amount"> @Model.NumberOrder</p>
 				</div>
-				<div class="columns__chart">
-					<p class="total__amount-revenue"> Tổng doanh thu</p>
-					<p class="total__money-revenue"> 400.000.000đ</p>
-					<canvas id="myChart"> </canvas>
+				<div class="column__total-offer text-center col-3">
+					<p class="order__amount"> Số lượng đơn nhập</p>
+					<p class="total__money-amount"> @Model.NumberIOrder</p>
+				</div>
+				<div class="column__total-profit col-5">
+					<p class="total__amount"> Tổng lợi nhuận</p>
+					<p class="total__money-amount"> @Model.TotalFund.ToString("N0")VNĐ</p>
 				</div>
 			</div>
-			<div class="best__seller-info col-4">
-				<p class="title"> Bán chạy nhất</p>
-				<p> Cánh gà chiên nước mắm</p>
-				<p> Sườn nướng mật ong</p>
-				<p> Cơm chiên dương châu</p>
-				<p> Others</p>
+			<div class="columns__chart">
+				<p class="total__amount-revenue"> Tổng doanh thu</p>
+				<p class="total__money-revenue"> @Model.TotalIncome.ToString("N0")VNĐ</p>
+				<canvas id="myChart"> </canvas>
 			</div>
 		</div>
 	</div>
 </div>
-<script src="~/js/sync-revenue.js"></script>
+@*<script src="~/js/sync-revenue.js"></script>*@
+<script>
+	const selectBox = document.querySelector('select[name="combobox_Item"]');
+	const fromDate = document.querySelector('input[name="fromDate"]');
+	const toDate = document.querySelector('input[name="toDate"]');
+
+	function updateFormFields() {
+		if (selectBox.value === 'day') {
+			fromDate.type = 'date';
+			toDate.type = 'date';
+		} else if (selectBox.value === 'month') {
+			fromDate.type = 'month';
+			toDate.type = 'month';
+		} else if (selectBox.value === 'year') {
+			fromDate.type = 'number';
+			toDate.type = 'number';
+		}
+	}
+
+	updateFormFields();
+
+	selectBox.addEventListener('change', updateFormFields);
+
+
+	/* Get the canvas element and context */
+	var ctx = document.getElementById('myChart').getContext('2d');
+
+	/* Define the data for the chart */
+	var data = {
+		labels: ['January', 'February', 'March', 'April', 'May'],
+		datasets: [
+			{
+				label: 'Profit',
+				//backgroundColor: '#FA5230',
+				borderColor: 'rgba(255, 99, 132, 1)',
+				fill: false,
+				//borderWidth: 1,
+				data: [50, 60, 40, 40, 80],
+				tension: 0.1
+
+			},
+			{
+				label: 'Funds',
+				//backgroundColor: '#E3E7FC',
+				//borderWidth: 1,
+				data: [20, 40, 30, 20, 50],
+				fill: false,
+				tension: 0.1,
+				borderColor: 'rgba(75, 192, 192, 1)'
+				//borderRadius: [0, 10, 10, 0],
+			}
+		]
+	};
+
+	/* Define the options for the chart */
+	var options = {
+		scales: {
+			yAxes: [{
+				ticks: {
+					beginAtZero: true
+				}
+			}]
+		},
+	};
+
+	/* Create the chart */
+	var myChart = new Chart(ctx, {
+		type: 'line',
+		data: data,
+		options: options
+	});
+</script>
+<script>
+	function submitForm() {
+		const fromDateInput = document.getElementsByName("fromDate")[0];
+		const toDateInput = document.getElementsByName("toDate")[0];
+
+		// Kiểm tra cả hai input đã được chọn giá trị chưa
+		if (fromDateInput.value && toDateInput.value) {
+			// Tạo URL mới với các tham số fromDate và toDate
+			const url = new URL(window.location.href);
+			url.searchParams.set("fromDate", fromDateInput.value);
+			url.searchParams.set("toDate", toDateInput.value);
+
+			// Chuyển hướng trình duyệt đến URL mới
+			window.location.href = url.toString();
+		}
+	}
+</script>
+
+
+
+
+
+
+
+

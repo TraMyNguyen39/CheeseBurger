@@ -9,15 +9,13 @@ namespace CheeseBurger.Pages
     public class DetailAccountModel : PageModel
     {
 		private readonly ICustomerService customerService;
-		private readonly IAddressService addressService;
 		private readonly IWardService wardService;
 		private readonly IDistrictService districtService;
 		public CustomerDTO customer { get; set; }
         public string address { get; set; }
-        public DetailAccountModel (ICustomerService customerService, IAddressService addressService, IWardService wardService, IDistrictService districtService)
+        public DetailAccountModel (ICustomerService customerService, IWardService wardService, IDistrictService districtService)
         {
             this.customerService = customerService;
-			this.addressService = addressService;
 			this.wardService = wardService;
 			this.districtService = districtService;
         }
@@ -28,12 +26,11 @@ namespace CheeseBurger.Pages
             if (customerId != null)
             {
 				customer = customerService.GetCustomer((int)customerId);
-				if (customer.CusAddID != 0)
+				if (customer.WardID != 0)
 				{
-					var adr = addressService.GetAddress((int)customer.CusAddID);
-					var wrd = wardService.GetWard(adr.WardID);
+					var wrd = wardService.GetWard((int)customer.WardID);
 					var dis = districtService.GetDistrict(wrd.DistrictID);
-					address = adr.NumberHouse + ", " + wrd.WardName + ", " + dis.DistrictName + ", Đà Nẵng";
+					address = customer.HouseNumber + ", " + wrd.WardName + ", " + dis.DistrictName + ", Đà Nẵng";
 				}
 				return Page();
 			}

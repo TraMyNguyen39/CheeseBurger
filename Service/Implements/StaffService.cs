@@ -1,4 +1,5 @@
 ﻿using CheeseBurger.DTO;
+using CheeseBurger.Model.Entities;
 using CheeseBurger.Repository;
 
 namespace CheeseBurger.Service.Implements
@@ -35,6 +36,14 @@ namespace CheeseBurger.Service.Implements
 		public void DeleteData(int id)
 		{
 			staffRespository.DeleteData(id);
+		}
+		public void UpdateInfo(int id, string name, string email, string phone, int gender, string house, int WardID)
+		{
+			staffRespository.UpdateInfo(id, name, email, phone, gender, house, WardID);
+		}
+		public List<StaffDTO> GetAllStaffs()
+		{
+			return staffRespository.GetAllStaffs();
 		}
 	}
 }

@@ -39,6 +39,34 @@
 /* End Main Information */
 
 /* Update Account */
+.item-line {
+    margin-bottom: 1.5rem;
+}
+
+.item-line {
+    position: relative;
+}
+
+.item-line:last-child {
+    margin-bottom: 0;
+}
+
+.item-line.success input {
+    border-color: #2ecc71;
+}
+
+.item-line.error input {
+    border-color: #e74c3c;
+}
+
+.item-line small {
+    color: #e74c3c;
+    position: absolute;
+    bottom: -20px;
+    left: 0;    
+    font-size: 16px;
+}
+
 .modal__customer-information {
     background-color: var(--white-color);
     padding: 40px;
@@ -64,11 +92,6 @@
     display: none;
 }
 
-
-.item-line {
-    margin-bottom: 6px;
-}
-
 .form-control {
     height: 40px;
     padding: 0 10px;
@@ -76,6 +99,34 @@
     border: 1px solid rgb(73, 80, 87);
     flex-grow: 1;
     line-height: 40px;
+}
+
+.item-col {
+    position: relative;
+}
+
+.item-col:last-child {
+    margin-bottom: 0;
+}
+
+.item-col.success input {
+    border-color: #2ecc71;
+}
+
+.item-col.error input {
+    border-color: #e74c3c;
+}
+
+.item-col small {
+    color: #e74c3c;
+    position: absolute;
+    bottom: -20px;
+    left: 0;    
+    font-size: 16px;
+}
+
+.item-col.error small {
+    visibility: visible;
 }
 
 .item-col:first-child {

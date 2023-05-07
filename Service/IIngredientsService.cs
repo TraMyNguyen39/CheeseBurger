@@ -16,5 +16,7 @@ namespace CheeseBurger.Service
 		void UpdateData(int id, string Name, int measureId, float Price);
 		public IngredientDTO getEachIngredients(int IngreID);
 		List<IngredientDTO> GetListIngredients(string arrange, bool isDescending, string searchText);
-	}
+		List<String> GetNameIngredient();
+
+    }
 }

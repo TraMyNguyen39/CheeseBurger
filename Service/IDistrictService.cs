@@ -6,5 +6,6 @@ namespace CheeseBurger.Service
     {
 		List<District> GetListDistricts();
 		District GetDistrict(int id);
+		int GetDistrictIDByName(string name);
 	}
 }

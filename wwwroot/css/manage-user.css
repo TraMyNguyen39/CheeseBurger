@@ -415,3 +415,9 @@ label.control-label {
     margin-left: 10px;
 }
 
+/* Danger */
+.alert.alert-danger {
+    padding: 10px;
+    text-align: center;
+}
+

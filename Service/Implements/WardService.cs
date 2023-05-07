@@ -18,5 +18,9 @@ namespace CheeseBurger.Service.Implements
 		{
 			return wardRespository.GetWard(id);
 		}
+		public int GetWardIDByName(string name)
+		{
+			return wardRespository.GetWardIDByName(name);
+		}
 	}
 }

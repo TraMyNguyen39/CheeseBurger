@@ -10,25 +10,33 @@ namespace CheeseBurger.Model.Entities
 		[Required]
 		[DataType(DataType.DateTime)]
 		public DateTime SaleDate { get; set; }
+		[Required]
+		[StringLength(50)]
+		public string CustomerName { get; set; }
+		[DataType(DataType.PhoneNumber)]
+		public string PhoneNumber { get; set; }
 
 		[StringLength(Int32.MaxValue)]
 		public String Note { get; set; } = String.Empty;
 		[Required]
 		public float TotalMoney { get; set; }
+		[Required]
+		public int StatusOdr { get; set; }
 
-        [StringLength(50)]
-        public String StatusOdr { get; set; } = String.Empty;
+        public int? ChefID { get; set; }
+		public int? ShipperID { get; set; }
+		[ForeignKey("ChefID")]
+        public Staff ChefStaff { get; set; }
+		[ForeignKey("ShipperID")]
+		public Staff ShipperStaff { get; set; }
 
-        public int StaffID { get; set; }
-        [ForeignKey("StaffID")]
-        public Staff Staff { get; set; }
-
-        public int CustomerID { get; set; }
+		public int CustomerID { get; set; }
         [ForeignKey("CustomerID")]
         public Customer Customer { get; set; }
 
-        public int AddressID { get; set; }
-        [ForeignKey("AddressID")]
-        public Address Address { get; set; }
+        public string HourseNumber { get; set; }
+        public int WardID { get; set; }
+        [ForeignKey("WardID")]
+        public Ward Ward { get; set; }
     }
 }

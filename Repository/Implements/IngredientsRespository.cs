@@ -6,6 +6,7 @@ using CheeseBurger.Pages;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
@@ -121,7 +122,7 @@ namespace CheeseBurger.Repository.Implements
                 context.SaveChanges();
             } else
 			{
-                throw new ArgumentException($"Ingredient with name {ingredientName} already exist in the Ingredients table.");
+                throw new ArgumentException($"Tên nguyên liệu đã bị trùng. Vui lòng nhập lại!");
             }
 		}
 
@@ -151,6 +152,11 @@ namespace CheeseBurger.Repository.Implements
 				// bỏ qua trường IsDeleted
 				context.Entry(ingredient).Property(x => x.IsDeleted).IsModified = false;
 				context.SaveChanges();
+		}
+
+		public List<String> GetNameIngredient()
+		{
+			return context.Ingredients.Select(p => p.IngredientsName).ToList();
 		}
 	}
 }
