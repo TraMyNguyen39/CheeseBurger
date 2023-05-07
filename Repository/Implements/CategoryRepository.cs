@@ -38,6 +38,10 @@ namespace CheeseBurger.Repository.Implements
 			return context.Categories.Select(p => p).ToList();
 		}
 
+		public Category GetCategorybyId(int categoryId)
+		{
+			return context.Categories.Find(categoryId);
+		}
 		public int getRowCategory()
 		{
 			return context.Categories.Count();
@@ -101,5 +105,10 @@ namespace CheeseBurger.Repository.Implements
 			var foods = context.Foods.Where(f => f.CategoryID == CateId).ToList();
             return foods;
         }
-    }
+
+		public int GetCategoryIdByName(string Name)
+		{
+			return context.Categories.Where(p => p.CategoryName.Contains(Name)).Select(p => p.CategoryID).FirstOrDefault();
+		}
+	}
 }

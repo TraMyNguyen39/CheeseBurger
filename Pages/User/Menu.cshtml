@@ -2,8 +2,6 @@
 @model MenuModel
 @{
 	ViewData["Title"] = "Menu";
-	ViewBag.Name = HttpContext.Session.GetString("Name");
-	ViewBag.Id = HttpContext.Session.GetInt32("Id");
 }
 <div class="breadcrumb-division">
 	<ol class="breadcrumb breadcrumb__edit">
@@ -13,7 +11,7 @@
 </div>
 <div class="row jtf-center menu">
 	<div class="col-3">
-		<form class="filter-menu" >
+		<form class="filter-menu">
 			<p>Danh mục sản phẩm</p>
 			<a asp-page="/user/menu" asp-route-price=@Model.priceRange asp-route-sortBy=@Model.sortBy asp-route-search=@Model.searchText class="category-filter-name" id="cate-all">Tất cả</a>
 			@foreach (var i in Model.categories)
@@ -65,17 +63,38 @@
 				<strong>@Model.Message</strong>
 			</div>
 		}
-
+		@if (Model.successfulStatus)
+		{
+			<!-- Success Alert -->
+			<div class="alert alert-success alert-menu-edit alert-dismissible d-flex align-items-center fade show">
+				<i class="bi-check-circle-fill"></i>
+				<strong class="mx-1 mr-4">Thành công!</strong> Đã thêm sản phẩm vào giỏ hàng!
+				<button type="button" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+			</div>
+		}
 		<div class=" card-deck list-card-item d-flex flex-wrap">
 			@foreach (var i in Model.foods)
 			{
 				<div class="card-edit">
-					<img class="card-img-top card-img-edit" src=@i.ImgFood alt="">
+					<a asp-page="/User/DetailFood" asp-route-id="@i.IDFood"><img class="card-img-top card-img-edit" src=@i.ImgFood alt="ảnh" /></a>
 					<form class="card-body" method="post">
 						<div class="card-detail">
-							<a asp-page="/User/DetailFood" class="card-tittle">@i.NameFood</a>
+							<a asp-page="/User/DetailFood" asp-route-id="@i.IDFood" class="card-tittle">@i.NameFood</a>
 							<p class="card-sub">@i.PriceFood.ToString("N0")đ</p>
 						</div>
+
+						@{
+							<div class="rating-infor d-flex">
+								@{
+									var totalRating = i.TotalRating != null ? float.Parse(i.TotalRating) : 0;
+									<div class="stars-outer stars-outer-menu">
+										<div class="stars-inner stars-inner-menu"></div>
+										<input type="hidden" value="@totalRating">
+									</div>
+									<span class="numbersof-rating">(@totalRating)</span>
+								}
+							</div>
+						}
 						<input type="hidden" name="cartProductID" value="@i.IDFood" />
 						<button type="submit" class="submit-btn card-btn"><i class="fas fa-cart-shopping"></i>Thêm vào giỏ hàng</button>
 					</form>
@@ -97,4 +116,6 @@
 	</div>
 </div>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/menu.js"></script>

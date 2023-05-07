@@ -1,4 +1,4 @@
-using CheeseBurger.DTO;
+﻿using CheeseBurger.DTO;
 using CheeseBurger.Model;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
@@ -13,19 +13,17 @@ namespace CheeseBurger.Pages
     {
         private readonly IStaffService staffService;
         private readonly IRoleService roleService;
-		private readonly IAddressService addressService;
 		private readonly IWardService wardService;
 		private readonly IDistrictService districtService;
         public List<StaffDTO> staffs { set; get; }
 		public string roleBy { get; set; }
 		public string sortBy { get; set; }
 		public string searchText { get; set; }
-		public ManageStaffModel(IStaffService staffService, IRoleService roleService, IAddressService addressService, IWardService wardService,
+		public ManageStaffModel(IStaffService staffService, IRoleService roleService, IWardService wardService,
 								IDistrictService districtService)
         {
             this.staffService = staffService;
             this.roleService = roleService;
-            this.addressService = addressService;
             this.wardService = wardService;
             this.districtService = districtService;
         }
@@ -51,8 +49,7 @@ namespace CheeseBurger.Pages
 		public IActionResult OnGetFind(int id)
 		{
 			var sta = staffService.GetStaff(id);			
-			var adr = addressService.GetAddress(sta.StaAccID);
-			var wrd = wardService.GetWard(adr.WardID);
+			var wrd = wardService.GetWard(sta.WardID);
 			var dis = districtService.GetDistrict(wrd.DistrictID);
 			var result = new
 			{
@@ -62,10 +59,10 @@ namespace CheeseBurger.Pages
 				phone = sta.StaPhone,
 				email = sta.StaEmail,
 				rolnamee = sta.StaRoleName,
-				address = adr.NumberHouse + ", " + wrd.WardName + ", " + dis.DistrictName,
+				address = sta.HouseNumber + ", " + wrd.WardName + ", " + dis.DistrictName + ", Đà Nẵng",
 				wrdd = wrd.WardName,
 				diss = dis.DistrictName,
-				housenum = adr.NumberHouse
+				housenum = sta.HouseNumber
 			};
 			return new JsonResult(result);
 		}
@@ -84,6 +81,12 @@ namespace CheeseBurger.Pages
 			{
 				staffService.AddCusData(StaID, FindIDRole);
 			}
+			return RedirectToPage("ManageStaff");
+		}
+
+		public IActionResult OnPostDelete(int StaID)
+		{
+			staffService.DeleteData(StaID);
 			return RedirectToPage("ManageStaff");
 		}
 	}

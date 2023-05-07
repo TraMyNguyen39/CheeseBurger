@@ -1,4 +1,5 @@
 ﻿using CheeseBurger.DTO;
+using CheeseBurger.Model.Entities;
 
 namespace CheeseBurger.Service
 {

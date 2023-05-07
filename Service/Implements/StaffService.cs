@@ -10,6 +10,11 @@ namespace CheeseBurger.Service.Implements
 		{
 			this.staffRespository = staffRespository;
 		}
+
+		public int GetStaffID(int accountID)
+		{
+			return staffRespository.GetStaffID(accountID);
+		}
 		public List<StaffDTO> GetListStaffs(string role, string arrange, bool isDescending, string searchText)
 		{
 			return staffRespository.GetListStaffs(role, arrange, isDescending, searchText);
@@ -27,6 +32,9 @@ namespace CheeseBurger.Service.Implements
 		{
 			staffRespository.AddCusData(id, RoleID);
 		}
-		
+		public void DeleteData(int id)
+		{
+			staffRespository.DeleteData(id);
+		}
 	}
 }

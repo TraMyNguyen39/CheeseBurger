@@ -1,4 +1,5 @@
 ﻿using CheeseBurger.Service;
+using CheeseBurger.Service.Implements;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Identity.Client;
@@ -9,6 +10,7 @@ namespace CheeseBurger.Pages
     {
         private readonly IAccountService accountService;
         private readonly ICustomerService customerService;
+        private readonly IStaffService staffService;
         [BindProperty]
         public string Email { get; set; }
         [BindProperty]
@@ -16,10 +18,11 @@ namespace CheeseBurger.Pages
 		[BindProperty(SupportsGet = true)]
 		public string Message { get; set; }
 
-        public LoginRegisterModel(IAccountService accountService, ICustomerService customerService)
+        public LoginRegisterModel(IAccountService accountService, ICustomerService customerService, IStaffService staffService)
         {
             this.accountService = accountService;
             this.customerService = customerService;
+            this.staffService = staffService;
         }
 
         public IActionResult OnPost()
@@ -27,7 +30,7 @@ namespace CheeseBurger.Pages
             var user = accountService.GetAccount(Email, Password);
             if (user == null)
             {
-                Message = "* Tài khoản / Mật khẩu không đúng!";
+                Message = "* Tài khoản/ Mật khẩu không đúng!";
                 return Page();
             }
             else
@@ -37,7 +40,8 @@ namespace CheeseBurger.Pages
                 HttpContext.Session.SetString("Name", accountService.GetNamebyID(user.AccountID, user.isStaff));
                 if (user.isStaff)
                 {
-                    HttpContext.Session.SetString("Role", accountService.GetStaffRole(user.AccountID));
+					HttpContext.Session.SetInt32("staffID", staffService.GetStaffID(user.AccountID));
+					HttpContext.Session.SetString("Role", accountService.GetStaffRole(user.AccountID));
                     return RedirectToPage("/Admin/SyncRevenue");
                 }
                 else
@@ -47,6 +51,10 @@ namespace CheeseBurger.Pages
                     return RedirectToPage("/User/Menu");
                 }
             }
+        }
+        public void OnGetLogout ()
+        {
+            HttpContext.Session.Clear();
         }
     }
 }

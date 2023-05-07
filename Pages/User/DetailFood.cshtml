@@ -2,107 +2,148 @@
 @model DetailFoodModel
 @{
 	ViewData["Title"] = "Detail Food";
-	ViewBag.Name = HttpContext.Session.GetString("Name");
-	ViewBag.Id = HttpContext.Session.GetInt32("Id");
 }
-
 <div class="breadcrumb-division">
 	<ol class="breadcrumb breadcrumb__edit">
 		<li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>
 		<li class="breadcrumb-item"><a asp-page="/User/Menu">Thực đơn</a></li>
-		<li class="breadcrumb-item active" aria-current="page">burger gà quay flavar</li>
+		<li class="breadcrumb-item active" aria-current="page">@Model.food.FoodName</li>
 	</ol>
 </div>
 
 <div class="row product">
 	<div class="col-6 list-imgs">
 		<div class="main-img">
-			<img src="~/img/Burger-Flava.jpg" alt="">
+			<img src="@Model.food.ImageFood" alt="Ảnh món ăn">
 		</div>
 		<div class="list-more-imgs">
 			<div class="more-img">
-				<img src="~/img/Burger-Flava.jpg" alt="">
+				<img src="@Model.food.ImageFood" alt="Ảnh món ăn">
 			</div>
 			<div class="more-img">
-				<img src="~/img/Burger-Flavar-4.png" alt="">
+				<img src="@Model.food.ImageFood" alt="Ảnh món ăn">
 			</div>
 			<div class="more-img">
-				<img src="~/img/Burger-Flavar-4.png" alt="">
+				<img src="@Model.food.ImageFood" alt="Ảnh món ăn">
 			</div>
 			<div class="more-img">
-				<img src="~/img/Burger-Flavar-4.png" alt="">
+				<img src="@Model.food.ImageFood" alt="Ảnh món ăn">
 			</div>
 		</div>
 	</div>
 
-	<div class="col-6 product-infor">
+	<div class="col-5 product-infor">
 		<div class="product-detail">
-			<h1 class="product-name pb-4">Burger gà quay flavar</h1>
-			<p class="product-description pb-4">
-				Gà quay Flavar kết hợp với bánh Hamburger và Salad tạo nên hương vị khó
-				cưỡng.
+			<h1 class="product-name pb-4">@Model.food.FoodName</h1>
+			<p class="product-description pb-4 mb-0">
+				<span>Mô tả: </span>
+				@Model.food.Description
 			</p>
 			<div class="product-category pb-4">
-				<span>Danh mục: </span><a href="" class="product-category-name">Hamburger</a>
+				<span>Danh mục: </span>
+				<a class="product-category-name" asp-page="/user/menu" asp-route-category="@Model.category.CategoryID">@Model.category.CategoryName</a>
 			</div>
 			<div class="rating-infor d-flex pb-4">
-				<div class="rating rating-edit">
-					<input type="radio" name="star" id="star1"><label for="star1"></label>
-					<input type="radio" name="star" id="star2"><label for="star2"></label>
-					<input type="radio" name="star" id="star3"><label for="star3"></label>
-					<input type="radio" name="star" id="star4"><label for="star4"></label>
-					<input type="radio" name="star" id="star5"><label for="star5"></label>
-				</div>
-				<span class="numbersof-rating">(2 đánh giá)</span>
+				@{
+					var totalRating = 0.0;
+					foreach (var i in Model.reviews)
+					{
+						totalRating += i.star;
+					}
+					totalRating /= Model.reviews.Count;
+					<span>Đánh giá: </span>
+					<div class="stars-outer">
+						<div class="stars-inner"></div>
+						<input type="hidden" value="@totalRating">
+					</div>
+					@if (Model.reviews.Count == 0)
+					{
+						<span class="numbersof-rating">Chưa có đánh giá</span>
+					}
+					else
+					{
+						<span class="numbersof-rating">@totalRating sao</span>
+					}
+				}
 			</div>
-			<p class="product-cost"><span>Giá: </span><span class="product-money">50,000VND</span></p>
+			<p class="product-cost"><span>Giá: </span><span class="product-money">@Model.food.Price.ToString("N0")đ</span></p>
 		</div>
-		<div class="product-shopping">
+
+		@if (Model.successStatus)
+		{
+			<!-- Success Alert -->
+			<div class="alert alert-success alert-dismissible d-flex align-items-center fade show">
+				<i class="bi-check-circle-fill"></i>
+				<strong class="mx-1 mr-3">Thành công!</strong> Đã thêm vào giỏ hàng!
+				<button type="button" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+			</div>
+		}
+		<form class="product-shopping" method="post">
 			<div class="product-cart">
 				<div class="quantity">
 					<span>Số lượng:</span>
 					<div class="input-group__detail">
-						<button class="minus-detail minus-plus-button">-</button>
-						<input type="text" name="qty" id="detail-food-1" value="1" class="input-field">
-						<button class="plus-detail minus-plus-button">+</button>
+						<span class="minus-detail minus-plus-button">-</span>
+						<input type="text" name="qty" id="quantity" value="1" class="input-field">
+						<span class="plus-detail minus-plus-button">+</span>
 					</div>
 				</div>
-				<div class="submit-btn submit-btn__detail">
+				<input type="hidden" name="foodId" value="@Model.food.FoodID">
+				<button type="submit" class="submit-btn submit-btn__detail">
 					<i class="fas fa-cart-shopping add-cart-icon"></i>
 					Thêm vào giỏ hàng
-				</div>
+				</button>
 			</div>
-		</div>
+		</form>
 	</div>
 </div>
-
 <div class="review">
 	<div class="review-label">
-		Đánh giá <span class="numbersof-rating ml-0">(2)</span>
+		Đánh giá <span class="numbersof-rating ml-0">(@Model.reviews.Count)</span>
 	</div>
 	<div class="review-content">
-		@for (var i = 0; i < 2; i++)
+		@if (Model.reviews.Count > 0)
 		{
-			<div class="review-item">
-				<img src="~/img/315935294_1667495190338863_6363304223474082833_n.jpg" alt="" class="reviewer-avt">
-				<div class="reviewer">
-					<p class="reviewer-name">Md.Arafat Hossion</p>
-					<div class="rating rating-edit rating-review">
-						<input type="radio" name="star" id="star6"><label for="star6"></label>
-						<input type="radio" name="star" id="star7"><label for="star7"></label>
-						<input type="radio" name="star" id="star8"><label for="star8"></label>
-						<input type="radio" name="star" id="star9"><label for="star9"></label>
-						<input type="radio" name="star" id="star10"><label for="sta10"></label>
+			foreach (var i in Model.reviews)
+			{
+				<div class="review-item">
+					<img src="~/img/avt.png" alt="avartar" class="reviewer-avt">
+					<div class="reviewer">
+						<p class="reviewer-name">@i.customerName</p>
+						<p class="reviewer-date">
+							<span>Ngày đăng:</span>
+							@i.dateReview.ToString("dd/MM/yyyy")
+						</p>
+						<div class="rating-review">
+							@for (var k = 0; k < i.star; k++)
+							{
+								<span class="fa fa-star"></span>
+							}
+							@for (var k = i.star; k < 5; k++)
+							{
+								<span class="fa fa-star fa-star-o"></span>
+							}
+						</div>
+						<p class="reviewer-descript">
+							<span>Bình luận:</span>
+							@i.content
+						</p>
+						<div class="list-reviewer-pics">
+							<img src="@i.img" alt="Ảnh" class="reviewer-pic">
+						</div>
 					</div>
-					<div class="list-reviewer-pics">
-						<img src="~/img/4-eggtart.jpg" alt="" class="reviewer-pic">
-						<img src="~/img/4-eggtart.jpg" alt="" class="reviewer-pic">
-					</div>
-					<p class="reviewer-descript">Món ăn thật sự rất tuyệt vời! Nhân viên phục vụ rất tận tình. Tôi sẽ quay lại!</p>
 				</div>
-			</div>
+			}
+		}
+		else
+		{
+			<div class="review-item">Không có bình luận nào cho sản phẩm này</div>
 		}
 	</div>
 </div>
 
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/detail-food.js"></script>

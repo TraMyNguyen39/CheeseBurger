@@ -2,8 +2,6 @@
 @model MyOrderModel
 @{
     ViewData["Title"] = "My Order";
-    ViewBag.Name = HttpContext.Session.GetString("Name");
-    ViewBag.Id = HttpContext.Session.GetInt32("Id");
 }
 
 <div class="breadcrumb-division">
@@ -14,30 +12,27 @@
 </div>
 <div class="body container">
     <div class="row justify-content-between">
-        <ul class="body__side-bar col-2">
+        <ul class="body__side-bar body__side-bar-order col-2">
             <li class="body__side-bar-item-or active" style="color: #fb5028">
-                <span>Tất cả</span>
-                <span style="color: #919191">(5)</span>
+                <a class="body__side-bar-item" asp-route-status="all">Tất cả</a>
             </li>
             <li class="body__side-bar-item-or">
-                <span>Chờ xác nhận</span>
-                <span style="color: #919191">(2)</span>
+                <a class="body__side-bar-item" asp-route-status="@Enums.OrderStatus.waiting">Chờ xác nhận</a>
             </li>
             <li class="body__side-bar-item-or">
-                <span>Chuẩn bị hàng</span>
-                <span style="color: #919191">(2)</span>
+                <a class="body__side-bar-item" asp-route-status="@Enums.OrderStatus.preparing">Chuẩn bị hàng</a>
             </li>
             <li class="body__side-bar-item-or">
-                <span>Đang giao</span>
-                <span style="color: #919191">(0)</span>
+                <a class="body__side-bar-item" asp-route-status="@Enums.OrderStatus.prepareDone">Chờ giao</a>
             </li>
             <li class="body__side-bar-item-or">
-                <span>Đã giao</span>
-                <span style="color: #919191">(1)</span>
+                <a class="body__side-bar-item" asp-route-status="@Enums.OrderStatus.shipping">Đang giao</a>
+            </li >
+            <li class="body__side-bar-item-or">
+                <a class="body__side-bar-item" asp-route-status="@Enums.OrderStatus.completed">Đã giao</a>
             </li>
             <li class="body__side-bar-item-or">
-                <span>Đã hủy</span>
-                <span style="color: #919191">(0)</span>
+                <a class="body__side-bar-item" asp-route-status="@Enums.OrderStatus.canceled">Đã huỷ</a>
             </li>
         </ul>
         <div class="col justify-content-between">

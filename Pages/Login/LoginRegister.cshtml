@@ -9,8 +9,8 @@
         <div class="button-box">
             <div id="switch-btn"></div>
             <div class="toggle-btn">
-                <button type="button" class="button-box__toggle-btn" onclick="login()">Đăng nhập</button>
-                <button type="button" class="button-box__toggle-btn" onclick="register()">Đăng ký</button>
+                <button type="button" class="button-box__toggle-btn" id="login-state" onclick="login()">Đăng nhập</button>
+                <button type="button" class="button-box__toggle-btn" id="register-state" onclick="register()">Đăng ký</button>
             </div>
         </div>
         <!-- Đăng nhập -->
@@ -25,9 +25,6 @@
             </div>
             <div class="input-item">
                 <i class="fa-solid fa-key"></i><input asp-for="@Model.Password" type="password" class="input-field" placeholder="Mật khẩu" required>
-            </div>
-            <div class="checkbox-field">
-                <input type="checkbox" class="check-box"><span>Nhớ mật khẩu</span>
             </div>
             <button type="submit" class="submit-btn">Đăng nhập</button>
             <a asp-page="/Login/ForgetPassword" class="input-group__forget">Quên mật khẩu</a>
@@ -50,21 +47,5 @@
         </form>
         <a asp-area="" asp-page="/Index" class="home-link"><i class="fa-solid fa-chevron-left"></i>Về trang chủ</a>
     </div>
-
-    <script>
-        var x = document.getElementById("login");
-        var y = document.getElementById("register");
-        var z = document.getElementById("switch-btn");
-
-        function register() {
-            x.style.left = "-400px";
-            y.style.left = "50px";
-            z.style.left = "50%"
-        }
-        function login() {
-            x.style.left = "50px";
-            y.style.left = "450px";
-            z.style.left = "0"
-        }
-    </script>
 </div>
+<script src="~/js/login-register.js"></script>

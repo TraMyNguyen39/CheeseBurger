@@ -1,20 +1,10 @@
 ﻿window.onload = function () {
     const urlParams = new URLSearchParams(window.location.search);
     var selectedValue = urlParams.get('sortBy');
-    var selectElement = document.getElementById("sort-select");
     if (selectedValue) {
-        for (var i = 0; i < selectElement.options.length; i++) {
-            var option = selectElement.options[i];
-            if (option.value === selectedValue) {
-                option.selected = true;
-                break;
-            }
-        }
+        var selectElement = document.querySelector(".menu-sort-user .menu-sort-user-box");
+        selectElement.value = selectedValue;
     }
-    //if (selectedValue) {
-    //    var selectElement = document.querySelector(".menu-sort-user .menu-sort-user-box");
-    //    selectElement.value = selectedValue;
-    //}
     var searchInput = document.querySelector(".menu-search-user-box .search-user-box-input");
     searchInput.value = urlParams.get('search');
 };
@@ -49,6 +39,20 @@ form.addEventListener("submit", function (event) {
     form.submit();
 });
 
+var selectElement = document.getElementById("sort-select");
+var urlParams = new URLSearchParams(window.location.search);
+var submittedValue = urlParams.get('sortBy');
+
+// If the submitted value exists, loop through the options and set the selected option
+if (submittedValue) {
+    for (var i = 0; i < selectElement.options.length; i++) {
+        var option = selectElement.options[i];
+        if (option.value === submittedValue) {
+            option.selected = true;
+            break;
+        }
+    }
+}
 
 // thay doi thong tin tai khoan
 var eyeButtons = document.querySelectorAll("td.Option__eye");

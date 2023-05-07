@@ -35,7 +35,7 @@
 				<tr class="tr">
 					<th class="STT col-1">STT</th>
 					<th class="ID col-2">Mã KH</th>
-					<th class="Name col-3">Tên người dùng</th>
+					<th class="Name col-3">Họ và tên</th>
 					<th class="Email col-3">Email</th>
 					<th class="Option__eye col-1">Xem</th>
 					<th class="Option__pencil col-1">Sửa</th>
@@ -89,12 +89,12 @@
 					<p class="modal__label-main" id="name"></p>
 				</div>
 				<div class="account__name">
-					<p class="label">Họ và tên</p>
+					<p class="label_control">Họ và tên</p>
 					<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Name" required="required" readonly="readonly">
 				</div>
 				<div class="account__position-categories d-flex justify-content-between">
 					<div class="account__position col-12">
-						<p class="label">Chức vụ</p>
+						<p class="label_control">Chức vụ</p>
 						<div class="form__comboBoxList" style="font-size: 20px">
 							<form method="post">
 								<select name="combobox_Item" required="required" style="border-radius: 3px">
@@ -109,31 +109,31 @@
 				</div>
 				<div class="account__email-telephone d-flex justify-content-between">
 					<div class="account__email col-6">
-						<p class="label">Địa chỉ email</p>
+						<p class="label_control">Địa chỉ email</p>
 						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Email" required="required" readonly="readonly">
 					</div>
 					<div class="account__telephone col-6">
-						<p class="label">Số điện thoại</p>
+						<p class="label_control">Số điện thoại</p>
 						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Phone" required="required" readonly="readonly">
 					</div>
 				</div>
 				<div class="account__city-district d-flex justify-content-between">
 					<div class="account__city-details col-6">
-						<p class="label">Tỉnh (thành phố)</p>
-						<input class="form-control mr-sm-2" type="search" placeholder="Đà Nẵng" readonly>												
+						<p class="label_control">Tỉnh (thành phố)</p>
+						<input class="form-control mr-sm-2" type="search" value="Đà Nẵng" readonly="readonly">
 					</div>
 					<div class="account__district-details col-6">
-						<p class="label">Quận (huyện)</p>
+						<p class="label_control">Quận (huyện)</p>
 						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="District" required="required" readonly="readonly">						
 					</div>
 				</div>
 				<div class="account__ward-address d-flex justify-content-between">
 					<div class="account__ward col-6">
-						<p class="label">Phường (xã)</p>
+						<p class="label_control">Phường (xã)</p>
 						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="Ward" required="required" readonly="readonly">						
 					</div>
 					<div class="account__adress col-6">
-						<p class="label">Số nhà</p>
+						<p class="label_control">Số nhà</p>
 						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="HouseNum" required="required" readonly="readonly">
 					</div>
 				</div>
@@ -329,7 +329,7 @@
 		});
 		$('#confirm').confirm({
 			title: 'Xác nhận xóa',
-			message: 'Bạn có muốn xóa người dùng này không?',
+			message: 'Bạn có muốn xóa khách hàng này không?',
 			confirm: 'Delete',
 			dismiss: 'Cancel'
 		});

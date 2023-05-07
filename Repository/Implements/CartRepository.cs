@@ -35,8 +35,11 @@ namespace CheeseBurger.Repository.Implements
 					.Where(p => p.CustomerID == customerID && p.FoodID == cartProductID)
 					.Select(p => p)
 					.FirstOrDefault();
-			cart.Quantity = qty;
-			context.SaveChanges();
+			if (cart != null)
+			{
+				cart.Quantity = qty;
+				context.SaveChanges();
+			}
 		}
 		public void AddCart(int customerID, int cartProductID, int qty)
 		{

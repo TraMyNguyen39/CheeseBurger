@@ -15,6 +15,7 @@ namespace CheeseBurger.Repository
 		void UpdateData(int id, string Name);
 		void DeleteData(int id);
 		List<Food> GetByCategoryID(int CateId);
-
-    }
+		Category GetCategorybyId(int categoryId);
+		int GetCategoryIdByName(string Name);
+	}
 }

@@ -30,7 +30,8 @@
     }
 
 .logo-brand {
-    width: 200px;
+    width: 230px;
+    transform: translateY(5px);
 }
 
 .header__navbar--item-link,
@@ -42,6 +43,7 @@
     list-style: none;
     padding-left: 0;
     margin: auto 0;
+    display: flex;
 }
 
 .header__navbar-item,
@@ -50,7 +52,7 @@
     font-size: 2rem;
     color: var(--white-color);
     text-decoration: none;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .header__navbar-item,
@@ -134,12 +136,51 @@
     white-space: normal;
 }
 
+/* drop down menu*/
+.btn-drop {
+    background: transparent;
+    border: none;
+    color: var(--white-color);
+    font-weight: 500;
+}
+.btn-drop:focus
+{
+    outline: none;
+}
+.dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
+.dropdown > .btn-drop:active {
+    /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+
+.dropdown-item {
+    color: var(--black-color);
+    padding: .5rem 1.5rem;
+}
+.dropdown-menu {
+    font-size: 1.8rem;
+    left: 8px;
+    min-width: 150px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 5px 1px #ccc;
+}
+
+.dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: var(--main-color);
+    opacity: 0.8;
+}
+
+
 /* Footer */
 .footer {
     height: fit-content;
     width: 100%;
     background-color: var(--black-color);
-/*    position: absolute;*/
 }
 
 .footer-division {

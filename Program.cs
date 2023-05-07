@@ -28,18 +28,22 @@ service.AddScoped<ICategoryService, CategoryService>();
 service.AddScoped<ICategoryRepository, CategoryRepository>();
 service.AddScoped<ICustomerService, CustomerService>();
 service.AddScoped<ICustomerRespository, CustomerRespository>();
-service.AddScoped<IAddressService, AddressService>();
-service.AddScoped<IAddressRespository, AddressRespository>();
 service.AddScoped<IWardService, WardService>();
 service.AddScoped<IWardRespository, WardRespository>();
 service.AddScoped<IDistrictService, DistrictService>();
 service.AddScoped<IDistrictRespository, DistrictRespository>();
 service.AddScoped<ICartService, CartService>();
 service.AddScoped<ICartRepository, CartRepository>();
+service.AddScoped<IReviewRepository, ReviewRepository>();
+service.AddScoped<IReviewService, ReviewService>();
 service.AddScoped<IStaffService, StaffService>();
 service.AddScoped<IStaffRespository, StaffRespository>();
 service.AddScoped<IRoleService, RoleService>();
 service.AddScoped<IRoleRespository, RoleRespository>();
+service.AddScoped<IOrderService, OrderService>();
+service.AddScoped<IOrderRepository, OrderRepository>();
+service.AddScoped<IOrder_FoodRepository, Order_FoodRepository>();
+service.AddScoped<IOrder_FoodService, Order_FoodService>();
 
 var app = builder.Build();
 

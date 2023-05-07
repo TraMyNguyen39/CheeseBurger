@@ -60,6 +60,37 @@ form.addEventListener("submit", function (event) {
     }
     form.submit();
 });
+
+var selectElement = document.getElementById("sort-select");
+var urlParams = new URLSearchParams(window.location.search);
+var submittedValue = urlParams.get('sortBy');
+
+// If the submitted value exists, loop through the options and set the selected option
+if (submittedValue) {
+    for (var i = 0; i < selectElement.options.length; i++) {
+        var option = selectElement.options[i];
+        if (option.value === submittedValue) {
+            option.selected = true;
+            break;
+        }
+    }
+}
+
+var selectElement1 = document.getElementById("role-select");
+var urlParams1 = new URLSearchParams(window.location.search);
+var submittedValue1 = urlParams.get('roleBy');
+
+// If the submitted value exists, loop through the options and set the selected option
+if (submittedValue1) {
+    for (var i = 0; i < selectElement1.options.length; i++) {
+        var option1 = selectElement1.options[i];
+        if (option1.value === submittedValue1) {
+            option1.selected = true;
+            break;
+        }
+    }
+}
+
 // thay doi thong tin tai khoan
 var eyeButtons = document.querySelectorAll("td.Option__eye");
 
@@ -95,15 +126,15 @@ for (var i = 0; i < buttonExit.length; i++) {
 }
 
 // Xoa
-var banButtons = document.querySelectorAll("td.Option__ban");
+//var banButtons = document.querySelectorAll("td.Option__ban");
 
-for (var i = 0; i < banButtons.length; i++) {
-    banButtons[i].addEventListener("click", function () {
-        let text = "Bạn có chắc chắn muốn xoá người dùng này không?";
-        if (confirm(text) == true) {
+//for (var i = 0; i < banButtons.length; i++) {
+//    banButtons[i].addEventListener("click", function () {
+//        let text = "Bạn có chắc chắn muốn xoá người dùng này không?";
+//        if (confirm(text) == true) {
             
-        } else {
+//        } else {
             
-        }
-    });
-}
+//        }
+//    });
+//}

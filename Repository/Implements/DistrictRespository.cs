@@ -10,6 +10,10 @@ namespace CheeseBurger.Repository.Implements
 		{
 			this.context = context;
 		}
+		public List<District> GetListDistricts()
+		{
+			return context.Districts.Select(p => p).ToList();
+		}
 		public District GetDistrict(int id)
 		{
 			return context.Districts.Where(p => p.DistrictID == id).FirstOrDefault();

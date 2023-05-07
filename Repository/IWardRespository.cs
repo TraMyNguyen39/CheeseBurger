@@ -4,6 +4,7 @@ namespace CheeseBurger.Repository
 {
     public interface IWardRespository
     {
+        List<Ward> GetListWards();
         Ward GetWard(int id);
     }
 }
