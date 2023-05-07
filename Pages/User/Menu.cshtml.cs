@@ -16,8 +16,9 @@ namespace CheeseBurger.Pages
 		private readonly ICartService cartService;
 		public List<Category> categories { get; set; }
 		public List<FoodDTO> foods { get; set; }
-
-        public string categoryID { get; set; }
+		[BindProperty(SupportsGet = true, Name = "p")]
+		public int currentPage { get; set; }
+		public string categoryID { get; set; }
 		public string priceRange { get; set; }
 		public string sortBy { get; set; }
 		public string searchText { get; set; }

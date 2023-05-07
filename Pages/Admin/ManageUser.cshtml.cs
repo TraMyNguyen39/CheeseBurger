@@ -19,7 +19,9 @@ namespace CheeseBurger.Pages
 		public List<CustomerDTO> customers { get; set; }
         public string sortBy { get; set; }
         public string searchText { get; set; }
-        public ManageUserModel(ICustomerService customerService, IWardService wardService,
+		[BindProperty(SupportsGet = true, Name = "p")]
+		public int currentPage { get; set; }
+		public ManageUserModel(ICustomerService customerService, IWardService wardService,
 								IDistrictService districtService, IRoleService roleService)
         {
             this.customerService = customerService;
