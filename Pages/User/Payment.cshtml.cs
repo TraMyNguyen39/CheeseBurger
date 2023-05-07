@@ -27,6 +27,10 @@ namespace CheeseBurger.Pages
 		public string HouseNumber { get; set; }
 		[BindProperty]
 		public string Note { get; set; }
+		[BindProperty]
+		public float tempMoney { get; set; }
+		[BindProperty]
+		public float shippingMoney { get; set; }
 		public PaymenteModel(IWardService wardService, IOrderService orderService, 
 			IDistrictService districtService, ICartService cartService, IOrder_FoodService orderFoodService)
 		{
@@ -43,6 +47,10 @@ namespace CheeseBurger.Pages
 			if (customerId != null)
 			{
 				Carts = cartService.GetAllCarts((int)customerId);
+				// Tinh tong tien cua cac san pham trong gio hang
+				tempMoney = (float)cartService.GetCartTotal(Carts);
+				shippingMoney = 13000;
+
 				List_Districts = districtService.GetListDistricts();
 				List_Wards = wardService.GetListWards();
 				return Page();
@@ -51,26 +59,21 @@ namespace CheeseBurger.Pages
 		}
 		public IActionResult OnPost()
 		{
-			var customerId = HttpContext.Session.GetInt32("customerID");
-			Carts = cartService.GetAllCarts((int)customerId);
-			float totalMoney = 0;
-			// Tinh tong tien
-			foreach (var cart in Carts)
-			{
-				totalMoney += cart.Price * cart.Quantity;
-			}
-			totalMoney += 3 / 100 * totalMoney + 13000;
+			var customerId = (int)HttpContext.Session.GetInt32("customerID");
+			// Lay danh sach san pham trong gio hang
+			Carts = cartService.GetAllCarts(customerId);
 			// Tao don hang tong quat moi
 			var order = new Orders
 			{
-				CustomerID = (int)HttpContext.Session.GetInt32("customerID"),
+				CustomerID = customerId,
 				CustomerName = Name,
 				PhoneNumber = PhoneNumber,
 				HourseNumber = HouseNumber,
 				WardID = WardId,
 				Note = Note,
 				SaleDate = DateTime.Now,
-				TotalMoney = totalMoney,
+				TempMoney = tempMoney,
+				ShippingMoney = shippingMoney,
 				StatusOdr = (int)OrderStatus.waiting
 			};
 			orderService.CreateOrder(order);
@@ -85,8 +88,9 @@ namespace CheeseBurger.Pages
 					PriceOF = cart.Price
 				};
 				orderFoodService.CreateOrderDetail(orderLine);
+				cartService.DeleteCart(customerId, cart.FoodId); // Tao don hon chi tiet, dong thoi xoa gio hang
 			}
-			return RedirectToPage("/Index");
+			return RedirectToPage("/User/MyOrder");
 		}
 	}
 }

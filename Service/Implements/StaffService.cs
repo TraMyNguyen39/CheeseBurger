@@ -36,5 +36,10 @@ namespace CheeseBurger.Service.Implements
 		{
 			staffRespository.DeleteData(id);
 		}
-	}
+
+        public StaffOrderDTO GetStaffOrder(int id)
+        {
+            return staffRespository.GetStaffOrder(id);
+        }
+    }
 }

@@ -9,12 +9,17 @@ var setActiveMenuElement = function (menuElement) {
     menuElement.classList.add('active');
 }
 
-var manageFunction = document.querySelectorAll('.categories__item a');
+var manageFunction = document.querySelectorAll('.categories__item > a');
 for (var i = 0; i < manageFunction.length; i++) {
+    if (manageFunction[i].getAttribute("href").indexOf("submenu2") !== -1) {
+        setActiveMenuElement(manageFunction[i].parentElement);
+        break;
+    }
     if (manageFunction[i].getAttribute("href").indexOf(currentPage) !== -1) {
         setActiveMenuElement(manageFunction[i].parentElement);
         break;
     }
+    
 }
 
 // Nếu không tìm thấy liên kết, chọn liên kết đầu tiên làm mặc định

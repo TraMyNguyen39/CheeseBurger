@@ -34,5 +34,15 @@ namespace CheeseBurger.Service.Implements
 		{
 			cartRepository.DeleteCart(customerID, cartProductID);
 		}
-	}
+
+        public double GetCartTotal(List<CartDTO> carts)
+        {
+            double total = 0;
+            foreach (var cart in carts)
+            {
+                total += cart.Price * cart.Quantity;
+            }
+            return total;
+        }
+    }
 }

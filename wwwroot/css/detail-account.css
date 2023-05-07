@@ -7,7 +7,7 @@
     padding: 30px 0;
     height: 300px;
     background-color: var(--div-color);
-    box-shadow: 3px 2px 5px 3px rgba(0,0,0,.15);
+    box-shadow: 1px 1px 8px 0px var(--admin-color);
 }
 
 .side-bar-box {
@@ -41,6 +41,11 @@ a.account-name {
     list-style: none;
     margin-bottom: 5px;
     color: var(--text-color);
+}
+
+.body__side-bar-item.active {
+    color: var(--main-color);
+    z-index: 2;
 }
 
 .side-bar-box a:hover {

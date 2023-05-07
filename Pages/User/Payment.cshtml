@@ -94,30 +94,25 @@
 					</div>
 				}
 			</div>
-			@{
-				var total = 0.0;
 				<div class="list-fee-detail">
-					@foreach (var i in Model.Carts)
-					{
-						total += i.Quantity * i.Price;
-					}
 					<div class="fee-detail__item fee-detail-item__payment">
-						<span>Tổng tiền hàng</span><span>@total.ToString("N0")đ</span>
+						<span>Tạm tính</span><span>@Model.tempMoney.ToString("N0")đ</span>
 					</div>
 					<div class="fee-detail__item fee-detail-item__payment">
-						<span>Phí vận chuyển</span><span>13,000đ</span>
+					<span>Phí vận chuyển</span><span>@Model.shippingMoney.ToString("N0")đ</span>
 					</div>
 					<div class="fee-detail__item fee-detail-item__payment">
-						<span>Thuế</span><span></span>
+						<span>Thuế (3%)</span><span>@((Model.tempMoney * 3/100).ToString("N0"))đ</span>
 					</div>
 				</div>
 				<div class="fee-detail__item total-fee fee-detail-item__payment" style="font-weight: 500;">
-					<span>Tổng thanh toán</span><span>@((total + 13000 + total * 3 / 100).ToString("N0"))đ</span>
+					<span>Tổng thanh toán</span><span>@((Model.tempMoney + Model.shippingMoney + Model.tempMoney * 3 / 100).ToString("N0"))đ</span>
 				</div>
-			}
+			<input type="hidden" value="@Model.tempMoney" asp-for="tempMoney" />
+			<input type="hidden" value="@Model.shippingMoney" asp-for="shippingMoney" />
 			<button type="submit" class="submit-btn submit-btn__payment">
 				Đặt Hàng
-				<i class="fa-solid fa-right-long" style="margin-left: 10px; vertical-align: middle;"></i>
+				<i class="fa-solid fa-shopping-cart" style="margin-left: 10px; vertical-align: middle;"></i>
 			</button>
 		</div>
 	</div>

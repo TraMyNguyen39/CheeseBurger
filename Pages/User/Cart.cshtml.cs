@@ -10,12 +10,12 @@ namespace CheeseBurger.Pages
     {
         private readonly ICartService cartService;
         public List<CartDTO> carts { get; set; }
-
         [BindProperty]
         public int foodId { get; set; }
         [BindProperty]
         public int quantity { get; set; }
-        public string Message { get; set; }
+        public double totalMoney { get; set; }
+        public string message { get; set; }
         public CartModel(ICartService cartService)
         {
             this.cartService = cartService;
@@ -37,7 +37,10 @@ namespace CheeseBurger.Pages
             if (carts.Count == 0)
                 return RedirectToPage("/User/EmptyCart");
             else
+            {
+                totalMoney = cartService.GetCartTotal(carts);
                 return Page();
+            }
         }
         public IActionResult OnPost([FromForm] int foodId, [FromForm] int quantity)
         {

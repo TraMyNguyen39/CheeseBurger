@@ -331,6 +331,9 @@ namespace CheeseBurger.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
 
+                    b.Property<DateTime?>("ArriveTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("ChefID")
                         .HasColumnType("int");
 
@@ -358,16 +361,16 @@ namespace CheeseBurger.Migrations
                     b.Property<int?>("ShipperID")
                         .HasColumnType("int");
 
+                    b.Property<float>("ShippingMoney")
+                        .HasColumnType("real");
+
                     b.Property<int>("StatusOdr")
                         .HasColumnType("int");
 
-                    b.Property<float>("TotalMoney")
+                    b.Property<float>("TempMoney")
                         .HasColumnType("real");
 
                     b.Property<int>("WardID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("WarđID")
                         .HasColumnType("int");
 
                     b.HasKey("OrderID");

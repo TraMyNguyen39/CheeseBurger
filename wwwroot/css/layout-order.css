@@ -1,0 +1,35 @@
+﻿.main__form-detail .main__sliderbar {
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+}
+.body-title {
+    font-size: 1.8rem;
+}
+.lb-title {
+    font-size: 16px;
+}
+img.cart__item-image {
+    width: 90px;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+a.cart__name-item {
+    color: var(--text-color);
+    text-transform: capitalize;
+}
+a.cart__name-item:hover {
+    color: var(--admin-color);
+    text-decoration: none;
+}
+.fs-16 {
+    font-size: 16px;
+    font-weight: 600;
+}
+button.submit-btn.submit-btn-edit {
+    margin-top: 0;
+}
+
+.table {
+    box-shadow: 1px 1px 12px rgb(0, 0, 0, 0.4);
+}

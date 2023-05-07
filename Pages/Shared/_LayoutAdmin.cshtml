@@ -29,42 +29,71 @@
 			<div class="main__sliderbar">
 				<div class="account">
 					<img class="account-avt" src="~/img/avt.png" />
-					<div class="account-detail">
+					<div class="account-detail categories__item" id="account">
 						<a class="account-name" asp-page="/Admin/ManageAccount">
 							@{
 								var name = Context.Session.GetString("Name");
-								@name;
-							}	
+								@name
+								;
+							}
 						</a>
 						<p class="account-role">
 							@{
 								var role = Context.Session.GetString("Role");
-								@role;
+								@role
+								;
 							}
 						</p>
 					</div>
 				</div>
 				<ul class="categories__list">
 					<li class="categories__item" id="revenue">
-						<a class="nav-link " asp-page="/Admin/SyncRevenue">   Thống kê doanh thu</a>
+						<a class="nav-link " asp-page="/Admin/SyncRevenue">
+							<i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Thống kê doanh thu</span>
+						</a>
 					</li>
 					<li class="categories__item" id="customer">
-						<a class="nav-link" asp-page="/Admin/ManageUser">  Quản lý khách hàng</a>
+						<a class="nav-link" asp-page="/Admin/ManageUser">
+							<i class="fas fa-users fa-fw me-3"></i><span>Quản lý khách hàng</span>
+						</a>
 					</li>
 					<li class="categories__item " id="staff">
-						<a class="nav-link" asp-page="/Admin/ManageStaff">  Quản lý nhân viên</a>
+						<a class="nav-link" asp-page="/Admin/ManageStaff">
+							<i class="fas fa-building fa-fw me-3"></i><span>Quản lý nhân viên</span>
+						</a>
 					</li>
 					<li class="categories__item " id="ingredient">
-						<a class="nav-link" asp-page="/Admin/ManageIngredient">  Quản lý nguyên liệu</a>
+						<a class="nav-link" asp-page="/Admin/ManageIngredient"> 
+							<i class="fa-solid fa-lemon"></i><span>Quản lý nguyên liệu</span>
+						</a>
 					</li>
 					<li class="categories__item " id="category">
-						<a class="nav-link" asp-page="/Admin/ManageCategories">   Quản lý danh mục</a>
-					</li>
-					<li class="categories__item " id="order">
-						<a class="nav-link" asp-page="/Admin/ManageOrder">   Quản lý đơn hàng</a>
+						<a class="nav-link" asp-page="/Admin/ManageCategories">
+							<i class="fas fa-calendar fa-fw me-3"></i><span>Quản lý danh mục</span>
+						</a>
 					</li>
 					<li class="categories__item " id="food">
-						<a class="nav-link" asp-page="/Admin/ManageFood">   Quản lý món ăn</a>
+						<a class="nav-link" asp-page="/Admin/ManageFood">
+							<i class="fa-solid fa-burger"></i><span>Quản lý món ăn</span>
+						</a>
+					</li>
+					<li class="categories__item " id="order">
+						<a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action nav-link">
+							<div class="d-flex w-100 justify-content-start align-items-center">
+								<i class="fas fa-chart-bar fa-fw me-3"></i><span>Quản lý đơn hàng</span>
+							</div>
+						</a>
+						<!-- Submenu content -->
+						<div id='submenu2' class="collapse sidebar-submenu">
+							<a asp-page="/Admin/ManageImportOrder" class="list-group-item list-group-item-action nav-link nav-link-edit">
+								<i class="fa-solid fa-angle-right"></i>
+								<span class="menu-collapsed">Quản lý đơn nhập</span>
+							</a>
+							<a asp-page="/Admin/ManageExportOrder" class="list-group-item list-group-item-action nav-link nav-link-edit">
+								<i class="fa-solid fa-angle-right"></i>
+								<span class="menu-collapsed">Quản lý đơn xuất</span>
+							</a>
+						</div>
 					</li>
 				</ul>
 				<ul class="categories__button">
