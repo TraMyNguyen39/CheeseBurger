@@ -36,7 +36,7 @@ namespace CheeseBurger.Model.Entities
 
         public string HourseNumber { get; set; }
         public int WardID { get; set; }
-        [ForeignKey("WarđID")]
+        [ForeignKey("WardID")]
         public Ward Ward { get; set; }
     }
 }

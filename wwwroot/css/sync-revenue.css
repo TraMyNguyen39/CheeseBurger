@@ -24,8 +24,6 @@ form {
     margin-left: 5px;
 }
 
-
-
 .control-label {
     padding-right: 10px;
     font-size: 18px;
@@ -49,6 +47,25 @@ form {
     height: 30px;
     padding-left: 5px;
 }
+
+.form-group input[type="month"], .form-group2 input[type="month"] {
+    border-radius: 4px;
+    border: 1px solid var(--text-color);
+    width: 90%;
+    font-size: 1.6rem;
+    height: 30px;
+    padding-left: 5px;
+}
+
+.form-group input[type="number"], .form-group2 input[type="number"] {
+    border-radius: 4px;
+    border: 1px solid var(--text-color);
+    width: 90%;
+    font-size: 1.6rem;
+    height: 30px;
+    padding-left: 5px;
+}
+
 
 /*.column__info-details {
     width: 100%;
@@ -120,6 +137,6 @@ form {
 .total__money-revenue {
     font-weight: 600;
     font-size: 20px;
-    padding-bottom: 20px;
+    /*padding-bottom: 20px;*/
 }
 /* End Information */

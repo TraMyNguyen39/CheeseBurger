@@ -30,7 +30,7 @@
 				<div class="account">
 					<img class="account-avt" src="~/img/avt.png" />
 					<div class="account-detail">
-						<a class="account-name" asp-page="/Admin/ManageAccount">
+						<a class="account-name">
 							@{
 								var name = Context.Session.GetString("Name");
 								@name;
@@ -47,6 +47,9 @@
 				<ul class="categories__list">
 					<li class="categories__item" id="revenue">
 						<a class="nav-link " asp-page="/Admin/SyncRevenue">   Thống kê doanh thu</a>
+					</li>
+					<li class="categories__item" id="account">
+						<a class="nav-link" asp-page="/Admin/ManageAccount">  Quản lý tài khoản</a>
 					</li>
 					<li class="categories__item" id="customer">
 						<a class="nav-link" asp-page="/Admin/ManageUser">  Quản lý khách hàng</a>

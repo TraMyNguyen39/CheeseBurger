@@ -1,29 +1,52 @@
-﻿// thay doi thong tin tai khoan
-var button = document.querySelector('button.btn-change-account');
-button.addEventListener("click", function () {
-    var modal = document.querySelector('div.modal__customer-update');
-    modal.classList.add('open');
-});
-// end
-
-// exit
-var buttonExit = document.querySelector("div.button__exit");
-buttonExit.addEventListener("click", function () {
-    var modal = document.querySelector('div.modal__customer-update');
-	modal.classList.remove('open');
+﻿window.onload = function () {
 	document.querySelector('#email-error').textContent = '';
 	document.querySelector('#phone-error').textContent = '';
 	document.querySelector('#housenumber-error').textContent = '';
 	document.querySelector('#ward-error').textContent = '';
 	document.querySelector('#district-error').textContent = '';
 	document.querySelector('#name-error').textContent = '';
+}
+
+// Lấy ra combobox quận và combobox phường
+var districtSelect = document.getElementById("district");
+var wardSelect = document.getElementById("ward");
+
+// Lắng nghe sự kiện khi người dùng chọn một quận trong combobox quận
+districtSelect.addEventListener("change", function() {
+	// Lấy ra ID của quận được chọn
+	var districtID = districtSelect.options[districtSelect.selectedIndex].getAttribute("data-id_district");
+
+	// Lặp qua các tùy chọn phường trong combobox phường và ẩn đi những tùy chọn không thuộc quận được chọn
+	for (var i = 0; i < wardSelect.options.length; i++)
+	{
+		if (wardSelect.options[i].getAttribute("data-district") == districtID)
+		{
+			wardSelect.options[i].style.display = "block";
+		}
+		else
+		{
+			wardSelect.options[i].style.display = "none";
+		}
+	}
+	document.getElementById("housenumber").value = "";
+	wardSelect.selectedIndex = 0;
+	var wardIDHidden = document.querySelector('input[name="wardId"]');
+	var wardID = wardSelect.value;
+	wardIDHidden.value = wardID;
+});
+
+wardSelect.addEventListener("change", function () {
+	var wardIDHidden = document.querySelector('input[name="wardId"]');
+	document.getElementById("housenumber").value = "";
+	var wardID = wardSelect.value;
+	wardIDHidden.value = wardID;
 });
 
 // validate thong tin
 
 function validateFilledName() {
-	var name = document.querySelector("input[name='Name']");	
-	if ((name.value = name.value.trim()) === "") return false;	
+	var name = document.querySelector("input[name='Name']");
+	if ((name.value = name.value.trim()) === "") return false;
 	return true;
 }
 
@@ -39,7 +62,7 @@ function validateFilledPhone() {
 	return true;
 }
 
-function checkValidate() {	
+function checkValidate() {
 	var emailEle = document.getElementById('email');
 	var phoneEle = document.getElementById('phone');
 	var housenumEle = document.getElementById('housenumber');
@@ -80,7 +103,7 @@ function checkValidate() {
 			document.querySelector('#email-error').textContent = '* Email đã bị trùng !';
 			isCheck = false;
 		} else {
-			document.querySelector('#email-error').textContent = '';			
+			document.querySelector('#email-error').textContent = '';
 		}
 	}
 
@@ -98,7 +121,7 @@ function checkValidate() {
 		for (var i = 0; i < smElements.length; i++) {
 			var _Phones = smElements[i].textContent.trim();
 			listPhones.push(_Phones);
-		}		
+		}
 		if (listPhones.some(function (name) { return name === newPhone })) {
 			document.querySelector('#phone-error').textContent = '* Số điện thoại đã bị trùng !';
 			isCheck = false;
@@ -110,20 +133,20 @@ function checkValidate() {
 	if (housenumValue.trim() === "") {
 		if (districtValue != 0) {
 			if (wardValue == 0) {
-				document.querySelector('#district-error').textContent = '';	
+				document.querySelector('#district-error').textContent = '';
 				document.querySelector('#housenumber-error').textContent = '* Vui lòng nhập số nhà !';
 				document.querySelector('#ward-error').textContent = '* Vui lòng chọn phường (xã) !';
 				isCheck = false;
 			} else {
 				document.querySelector('#housenumber-error').textContent = '* Vui lòng nhập số nhà !';
 				document.querySelector('#ward-error').textContent = '';
-				document.querySelector('#district-error').textContent = '';	
+				document.querySelector('#district-error').textContent = '';
 				isCheck = false;
 			}
 		} else {
 			document.querySelector('#housenumber-error').textContent = '';
 			document.querySelector('#ward-error').textContent = '';
-			document.querySelector('#district-error').textContent = '';	
+			document.querySelector('#district-error').textContent = '';
 		}
 	} else {
 		if (districtValue == 0) {
@@ -138,7 +161,7 @@ function checkValidate() {
 			isCheck = false;
 		}
 		else {
-			document.querySelector('#district-error').textContent = '';			
+			document.querySelector('#district-error').textContent = '';
 			document.querySelector('#housenumber-error').textContent = '';
 			document.querySelector('#ward-error').textContent = '';
 		}
@@ -147,17 +170,17 @@ function checkValidate() {
 	return isCheck;
 }
 
-function validateForm(event) {	
+function validateForm(event) {
 	let isValid = checkValidate();
 	if (isValid) {
 		document.querySelector('.UpdateAccount').submit();
 	}
 	else {
 		event.preventDefault();
-	}	
+	}
 }
 
-document.querySelector('.button__save-change').addEventListener('click', validateForm);
+document.querySelector('.manage-account__btn').addEventListener('click', validateForm);
 
 //function isEmail(email) {
 //    return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
@@ -170,5 +193,5 @@ function isEmail(email) {
 }
 
 function isPhone(number) {
-    return /(0[3|5|7|8|9])+([0-9]{8})\b/.test(number);
+	return /(0[3|5|7|8|9])+([0-9]{8})\b/.test(number);
 }

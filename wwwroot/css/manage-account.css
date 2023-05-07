@@ -63,13 +63,8 @@
     color: #e74c3c;
     position: absolute;
     bottom: -20px;
-    left: 0;
-    visibility: hidden;
+    left: 0;    
     font-size: 16px;
-}
-
-.item-line.error small {
-    visibility: visible;
 }
 
 .modal__customer-information {
@@ -126,8 +121,7 @@
     color: #e74c3c;
     position: absolute;
     bottom: -20px;
-    left: 0;
-    visibility: hidden;
+    left: 0;    
     font-size: 16px;
 }
 

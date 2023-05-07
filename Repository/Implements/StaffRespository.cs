@@ -37,7 +37,7 @@ namespace CheeseBurger.Repository.Implements
 							   StaIsDeleted = p.a.isDeleted,
 							   StaAccID = p.a.AccountID,
 							   WardID = (adr == null) ? 0 : adr.WardId,
-							   StaRoleName = p.rol.RoleName ,
+							   StaRoleName = p.rol.RoleName,
 							   HouseNumber = p.c.HouseNumber
 						   };
 			return sta_data.Where(p => p.StaID == id).FirstOrDefault();
@@ -129,17 +129,41 @@ namespace CheeseBurger.Repository.Implements
 			cus_acc.isDeleted = true;
 			context.SaveChanges();
 		}
-		public void UpdateInfo(int id, string name, string email, string phone, string gender, string house, int WardID)
+		public void UpdateInfo(int id, string name, string email, string phone, int gender, string house, int WardID)
 		{
 			var sta_data = context.Staffs.Where(p => p.StaffID == id).Select(p => p).FirstOrDefault();
 			var sta_acc = context.Accounts.Where(p => p.AccountID == sta_data.AccountID).Select(p => p).FirstOrDefault();
 			sta_data.StaffName = name;
-			sta_data.HouseNumber = house;
-			sta_data.Gender = (gender == "Nam" ? true : false);
+			sta_data.HouseNumber = (house == "") ? null : house;
+			sta_data.Gender = (gender == 1 ? true : false);
 			sta_data.Phone = phone;
-			sta_data.WardID = WardID;
+			sta_data.WardID = (WardID == 0) ? null : WardID;
 			sta_acc.Email = email;
 			context.SaveChanges();
+		}
+		public List<StaffDTO> GetAllStaffs()
+		{
+			var staff_data = from c in context.Staffs
+							 join a in context.Accounts on c.AccountID equals a.AccountID
+							 join rol in context.Roles on c.RoleID equals rol.RoleID
+							 select new { c, a, rol };
+			var sta_data = from p in staff_data
+						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()
+						   select new StaffDTO
+						   {
+							   StaID = p.c.StaffID,
+							   StaName = p.c.StaffName,
+							   StaGender = p.c.Gender ?? true,
+							   StaPhone = p.c.Phone,
+							   StaEmail = p.a.Email,
+							   StaIsStaff = p.a.isStaff,
+							   StaIsDeleted = p.a.isDeleted,
+							   StaAccID = p.a.AccountID,
+							   WardID = (adr == null) ? 0 : adr.WardId,
+							   StaRoleName = p.rol.RoleName,
+							   HouseNumber = p.c.HouseNumber
+						   };
+			return sta_data.ToList();
 		}
 	}
 }

@@ -1,3 +1,25 @@
+const selectBox = document.querySelector('select[name="combobox_Item"]');
+const fromDate = document.querySelector('input[name="fromDate"]');
+const toDate = document.querySelector('input[name="toDate"]');
+
+function updateFormFields() {
+    if (selectBox.value === 'day') {      
+        fromDate.type = 'date';
+        toDate.type = 'date';
+    } else if (selectBox.value === 'month') {       
+        fromDate.type = 'month';
+        toDate.type = 'month';
+    } else if (selectBox.value === 'year') {      
+        fromDate.type = 'number';
+        toDate.type = 'number';
+    }
+}
+
+updateFormFields();
+
+selectBox.addEventListener('change', updateFormFields);
+
+
 /* Get the canvas element and context */
 var ctx = document.getElementById('myChart').getContext('2d');
 
@@ -35,7 +57,7 @@ var options = {
 
 /* Create the chart */
 var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'line',
     data: data,
     options: options
 }); 

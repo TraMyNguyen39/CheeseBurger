@@ -21,3 +21,7 @@ for (var i = 0; i < manageFunction.length; i++) {
 if (!document.querySelector('.categories__item.active')) {
     document.querySelector('.categories__item:first-child').classList.add('active');
 }
+
+if (currentPage === "ChangePasswordAdmin") {
+    setActiveMenuElement(manageFunction[1].parentElement);
+}

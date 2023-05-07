@@ -4,7 +4,6 @@ using CheeseBurger.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,11 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheeseBurger.Migrations
 {
     [DbContext(typeof(CheeseBurgerContext))]
-    [Migration("20230503140248_DBver3")]
-    partial class DBver3
+    partial class CheeseBurgerContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -370,9 +367,6 @@ namespace CheeseBurger.Migrations
                     b.Property<int>("WardID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WarđID")
-                        .HasColumnType("int");
-
                     b.HasKey("OrderID");
 
                     b.HasIndex("ChefID");
@@ -384,6 +378,34 @@ namespace CheeseBurger.Migrations
                     b.HasIndex("WardID");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("CheeseBurger.Model.Entities.Revenue", b =>
+                {
+                    b.Property<int>("RevenueID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RevenueID"));
+
+                    b.Property<DateTime>("DateReve")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Fund")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Income")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberIOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("RevenueID");
+
+                    b.ToTable("Revenues");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Review", b =>
