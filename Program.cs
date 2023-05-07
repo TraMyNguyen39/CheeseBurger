@@ -44,7 +44,7 @@ service.AddScoped<IOrderService, OrderService>();
 service.AddScoped<IOrderRepository, OrderRepository>();
 service.AddScoped<IOrder_FoodRepository, Order_FoodRepository>();
 service.AddScoped<IOrder_FoodService, Order_FoodService>();
-service.AddScoped<IRevenueRespository, RevenueRespository>();
+service.AddScoped<IRevenueRepository, RevenueRepository>();
 service.AddScoped<IRevenueService, RevenueService>();
 
 var app = builder.Build();
