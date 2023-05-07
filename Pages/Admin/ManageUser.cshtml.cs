@@ -19,9 +19,11 @@ namespace CheeseBurger.Pages
         private readonly IRoleService roleService;		
 		public List<CustomerDTO> customers { get; set; }
         public string sortBy { get; set; }
-        public string searchText { get; set; }   
-        public string MessageUser { get; set; }
-        public ManageUserModel(ICustomerService customerService, IWardService wardService,
+        public string searchText { get; set; }
+		[BindProperty(SupportsGet = true, Name = "p")]
+		public int currentPage { get; set; }
+		public string MessageUser { get; set; }
+		public ManageUserModel(ICustomerService customerService, IWardService wardService,
 								IDistrictService districtService, IRoleService roleService)
         {
             this.customerService = customerService;

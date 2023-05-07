@@ -1,8 +1,6 @@
-﻿using CheeseBurger.Model.Entities;
-
-namespace CheeseBurger.Service
+﻿namespace CheeseBurger.Repository
 {
-	public interface IRevenueService
+	public interface IRevenueRepository
 	{
 		int NumberOrder(DateTime fromDate, DateTime toDate);
 		int NumberIOrder(DateTime fromDate, DateTime toDate);

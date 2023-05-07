@@ -21,9 +21,10 @@ namespace CheeseBurger.Model
         public DbSet<Measure> Measures { get; set; }
         public DbSet<Order_Food> Order_Foods { get; set; }
         public DbSet<Orders> Orders { get; set; }
-        public DbSet<Review> Reviews { get; set; }  
-        public DbSet<Revenue> Revenues { get; set; }
-        public CheeseBurgerContext(DbContextOptions<CheeseBurgerContext> options) : base(options)
+        public DbSet<Review> Reviews { get; set; }
+		public DbSet<Revenues> Revenues { get; set; }
+
+		public CheeseBurgerContext(DbContextOptions<CheeseBurgerContext> options) : base(options)
         {
 
         }
@@ -50,6 +51,8 @@ namespace CheeseBurger.Model
                 .WithMany()
                 .HasForeignKey(e => e.WardID)
                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Revenues>()
+                .HasNoKey();
 
             base.OnModelCreating(modelBuilder);
         }

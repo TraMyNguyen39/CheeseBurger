@@ -19,6 +19,8 @@ namespace CheeseBurger.Pages
 		public string roleBy { get; set; }
 		public string sortBy { get; set; }
 		public string searchText { get; set; }
+		[BindProperty(SupportsGet = true, Name = "p")]
+		public int currentPage { get; set; }
 		public string MessageStaff { get; set; }
 		public ManageStaffModel(IStaffService staffService, IRoleService roleService, IWardService wardService,
 								IDistrictService districtService)

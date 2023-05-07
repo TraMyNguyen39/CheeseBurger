@@ -380,30 +380,22 @@ namespace CheeseBurger.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("CheeseBurger.Model.Entities.Revenue", b =>
+            modelBuilder.Entity("CheeseBurger.Model.Entities.Revenues", b =>
                 {
-                    b.Property<int>("RevenueID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RevenueID"));
-
                     b.Property<DateTime>("DateReve")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Fund")
-                        .HasColumnType("int");
+                    b.Property<float>("Fund")
+                        .HasColumnType("real");
 
-                    b.Property<int>("Income")
-                        .HasColumnType("int");
+                    b.Property<float>("Income")
+                        .HasColumnType("real");
 
                     b.Property<int>("NumberIOrder")
                         .HasColumnType("int");
 
                     b.Property<int>("NumberOrder")
                         .HasColumnType("int");
-
-                    b.HasKey("RevenueID");
 
                     b.ToTable("Revenues");
                 });
