@@ -3,15 +3,38 @@
     position: relative;
     transform: translateY(12px);
 }
-/* Table */
 
+.input-wrapper i:hover {
+    color: var(--black-color);
+}
+    /* Table */
 .content-table tbody tr td.Danh_muc {
     text-align: left;
     padding-left: 5%;
 }
-/* End Table */
 
-/* Modal Add */
+.content-table tbody tr td.ID_mon{
+    font-weight: normal;
+}
+
+.content-table {
+    margin-top: 0;
+}
+
+.form-group, .button__add button {
+    margin-bottom: 0 !important;
+}
+
+.main__table-form button {
+    background-color: var(--admin-color);
+    width: 14%;
+}
+
+.main__table-form button:hover{
+    cursor: pointer;
+}
+    /* End Table */
+    /* Modal Add */
 .modal__food-information {
     background-color: var(--white-color);
     width: 50%;
@@ -43,15 +66,15 @@
 }
 
 
-.food__name input, .food__categories input, .food__description input, .search__weight input, .form__comboBoxList select {
+.food__name input, .food__categories .form__comboBoxList select, .food__description input, .search__weight input, .ingredient__price input, .food__categories input{
     height: 40px;
     font-size: 1.6rem;
     border: 1px solid #495057;
     padding: 0 10px;
 }
 
-    .food__name input:focus, .food__categories input:focus, .food__description input:focus, .search__weight input:focus, .form__comboBoxList select:focus,
-    .food__name input:focus-visible, .food__categories input:focus-visible, .food__description input:focus-visible, .search__weight input:focus-visible, .form__comboBoxList select:focus-visible {
+    .food__name input:focus, .food__categories input:focus, .food__description input:focus, .search__weight input:focus, .ingredient__price input:focus,
+    .food__name input:focus-visible, .food__categories input:focus-visible, .food__description input:focus-visible, .search__weight input:focus-visible, .ingredient__price input:focus-visible {
         outline: none;
         box-shadow: none;
         border: 1px solid #495057;
@@ -89,13 +112,25 @@
 }
 
     .button__food-add button:hover {
-        cursor: pointer;
-        opacity: 0.8;
-    }
+    cursor: pointer;
+    opacity: 0.8;
+}
 
     .button__food-add button:focus {
         outline: none;
     }
+
+select#role-select, select#sort-select {
+    margin: 0;
+    padding: 0;
+    width: 150%;
+}
+
+p.image__text {
+    width: 25%;
+    font-weight: 600;
+    font-size: 1.8rem;
+}
 /* End Modal Add */
 .categories__text {
     font-size: 1.8rem;

@@ -62,5 +62,9 @@ namespace CheeseBurger.Service.Implements
 		{
 			return ingredientsRespository.GetListIngredients(arrange, isDescending, searchText);
 		}
+		public List<String> GetNameIngredient()
+        {
+			return ingredientsRespository.GetNameIngredient();
+		}
 	}
 }

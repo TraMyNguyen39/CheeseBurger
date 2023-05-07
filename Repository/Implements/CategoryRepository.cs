@@ -69,8 +69,8 @@ namespace CheeseBurger.Repository.Implements
 			}
 			else
 			{
-				throw new ArgumentException($"Category with name {CategoryName} already exist in the Categories table.");
-			}
+				throw new ArgumentException($"Tên danh mục đã bị trùng. Vui lòng nhập lại!");
+            }
 		}
         public dynamic FindCategories(int id)
         {
@@ -97,12 +97,8 @@ namespace CheeseBurger.Repository.Implements
         }
         public List<Food> GetByCategoryID(int CateId)
         {
-            // Query the database to get the foods by categoryID
-            var foods = context.Foods.Where(f => f.CategoryID == CateId).ToList();
-
-            // Log the number of foods returned
-            Console.WriteLine($"Found {foods.Count} foods with category ID {CateId}");
-
+			// Query the database to get the foods by categoryID
+			var foods = context.Foods.Where(f => f.CategoryID == CateId).ToList();
             return foods;
         }
     }

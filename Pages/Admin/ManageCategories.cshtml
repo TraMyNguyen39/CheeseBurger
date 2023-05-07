@@ -55,10 +55,16 @@
                             </td>
                         </tr>
                     }
+                    @foreach (var i in Model.categories)
+                    {
+                        <tr>
+                            <td class="Ten_DM_All" style="display: none;">@i.CategoryName</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
             @{
-                var pagingmodel = new CheeseBurger.Helpers.PagingModel()
+            var pagingmodel = new CheeseBurger.Helpers.PagingModel()
             {
                 currentPage = Model.currentPage,
                 countPages = totalPages,
@@ -68,10 +74,13 @@
             <partial name="_Paging" model="@pagingmodel" />
         </div>
         <div class="categories-add col-3">
-            <form class="categories__form-add" method="post" asp-page="ManageCategories" asp-page-handler="Create">
+            <form class="categories__form-add" method="post" asp-page="ManageCategories" asp-page-handler="Create" onsubmit="return validateForm(event)">
                 <p class="categories__text-specific">Thêm danh mục</p>
                 <p class="categories__text">Tạo danh mục mới:</p>
-                <div class="info__form"><input class="form-control mr-sm-2" type="search" placeholder="" name="Name" required="required"></div>
+                <div class="info__form">
+                     <input class="form-control mr-sm-2" type="search" placeholder="" name="Name" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
+                     <span id="category-error" style="color: red"></span>
+                </div>
                 <button class="submit-btn add-category-btn" type="submit" name="p">Thêm danh mục +</button>
             </form>
         </div>
@@ -90,7 +99,7 @@
                 <div class="categories__form-edit">
                     <p class="categories__text-specific">Cập nhật danh mục</p>
                     <p class="categories__text">Nhập tên mới:</p>
-                    <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Name" required="required">
+                    <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Name" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
                     <button class="submit-btn update-cate-btn" type="submit">Cập nhật danh mục</button>
                 </div>
                 <input type="hidden" name="CategoriesID" class="modal__categories-id" value="" />
@@ -141,7 +150,6 @@
                 <div class="modal-header">
                     <h4 class="modal-title" id="confirm-label"></h4>
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-
                 </div>
                 <div class="modal-body">
                     <div class="text-center wirningColor">
@@ -298,4 +306,27 @@ function populateFoods(CategoryID) {
         }
     });
 }
+</script>
+<script>
+    function validateForm(event) {
+        var newCategoryName = $('input[name="Name"]').val().trim().toUpperCase().replace(/\s+/g, ' ');
+        var categoryNames = []; // Khởi tạo một mảng rỗng để lưu các tên danh mục
+
+        $('td.Ten_DM_All').each(function () {
+            var categoryName = $(this).text().trim().toUpperCase().replace(/\s+/g, ' '); // Lấy nội dung của phần tử td hiện tại và loại bỏ khoảng trắng thừa
+            categoryNames.push(categoryName); // Thêm tên danh mục vào mảng
+        });
+
+        // Kiểm tra xem tên nguyên liệu mới có trong mảng tên danh mục hay không
+        if (categoryNames.some(function (name) { return name === newCategoryName })) {
+            // Hiển thị thông báo lỗi
+            $('#category-error').text('Đã tồn tại tên danh mục. Vui lòng nhập lại !!!');
+
+            // Ngăn chặn việc submit form khi có lỗi
+            event.preventDefault();
+            return false;
+        }
+        // Nếu không có lỗi, ẩn thông báo lỗi
+        $('#category-error').text('');
+    }
 </script>
