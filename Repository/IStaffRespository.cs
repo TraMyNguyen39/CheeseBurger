@@ -7,6 +7,7 @@ namespace CheeseBurger.Repository
     {
         int GetStaffID(int accountID);
         StaffDTO GetStaff(int id);
+        StaffOrderDTO GetStaffOrder(int id);
         List<StaffDTO> GetListStaffs(string role, string arrange, bool isDescending, string searchText);
         void UpdateData(int id, int RoleID);
         void AddCusData(int id, int RoleID);

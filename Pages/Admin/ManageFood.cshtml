@@ -59,7 +59,7 @@
                                 <input class="search-staff-box-hidden" name="sortBy" value="@Model.sortBy" type="hidden" />
                                 <input class="search-staff-box-hidden" name="roleBy" value="@Model.roleBy" type="hidden" />
                                 <button type="submit" class="search-staff-box-btn">
-                                    <i class="fas fa-search"></i>
+                                    <i class="fas fa-search fa-search-edit "></i>
                                 </button>
                             </div>
                         </form>
@@ -94,7 +94,7 @@
                         <td class="ID_mon">@i.FoodID</td>
                         <td class="Ten_mon">@i.FoodName</td>
                         <td class="Danh_muc">@i.CategoryName</td>
-                        <td class="Trang_thai">@i.FoodInputPrice</td>
+                        <td class="Trang_thai">@i.FoodInputPrice.ToString("N0")đ</td>
                         <td class="Option">
                             <i class="fas fa-eye" data-id="@i.FoodID" onclick="showFoodDetails(@i.FoodID)"></i>
                             <i class="fas fa-pencil-alt" data-id="@i.FoodID" onclick="showFoodDetails(@i.FoodID)"></i>

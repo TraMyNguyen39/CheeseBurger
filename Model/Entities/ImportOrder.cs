@@ -21,5 +21,5 @@ namespace CheeseBurger.Model.Entities
         public int StaffID { get; set; }
         [ForeignKey("StaffID")]
         public Staff Staff { get; set; }
-    }
+	}
 }

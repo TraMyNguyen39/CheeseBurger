@@ -219,7 +219,7 @@
 }
 
 .logo__footer {
-    margin-left: 20%;
+    text-align: center;
 }
 
 .footer__logo-brand {
@@ -227,10 +227,8 @@
 }
 
 .footer__slogan {
-    color: var(--white-color);
     font-size: 1.6rem;
-    margin: 10px 0 15px 26%;
-    margin-left: 26%;
+    margin: 0px 0 20px 22%;
 }
 
 .footer__power-slogan {
@@ -311,4 +309,10 @@
 
 .home-link:focus {
     outline: none !important;
+}
+.logo__footer-text {
+    font-size: 1.4rem;
+    color: var(--white-color);
+    margin: 0;
+    line-height: 1;
 }

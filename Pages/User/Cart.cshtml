@@ -67,15 +67,9 @@
 	<div class="fee-division col-5">
 		<span class="fee-detail__item">Tổng đơn</span>
 		<div class="total-fee-list">
-			@{
-				var total = 0.0;
-				foreach (var i in Model.carts)
-				{
-					total += i.Quantity * i.Price;
-				}
 				<div class="fee-detail">
 					<div class="fee-detail__item">
-						<span>Tổng tiền hàng</span><span>@total.ToString("N0")đ</span>
+						<span>Tổng tiền hàng</span><span>@Model.totalMoney.ToString("N0")đ</span>
 					</div>
 					<div class="fee-detail__item">
 						<span>Thuế</span><span>3%</span>
@@ -83,10 +77,9 @@
 				</div>
 				<div class="fee-detail">
 					<div class="fee-detail__item" style="font-weight: 500;">
-						<span>Tổng thanh toán</span><span>@((total + total * 3 / 100).ToString("N0"))đ</span>
+						<span>Tổng thanh toán</span><span>@((Model.totalMoney + Model.totalMoney * 3 / 100).ToString("N0"))đ</span>
 					</div>
 				</div>
-			}
 		</div>
 		<button class="submit-btn" onclick="window.location.href = 'https://localhost:44344/User/Payment';">Mua Hàng</button>
 

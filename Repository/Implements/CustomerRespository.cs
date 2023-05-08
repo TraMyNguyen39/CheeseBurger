@@ -46,6 +46,7 @@ namespace CheeseBurger.Repository.Implements
 		{
 			var cus_data = from c in context.Customers
 						   join a in context.Accounts on c.AccountID equals a.AccountID
+						   where a.isStaff == false
 						   select new { c, a };
 
 			var customer = from p in cus_data

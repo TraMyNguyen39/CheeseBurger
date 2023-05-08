@@ -3,12 +3,12 @@
     background-color: var(--white-color);
     height: fit-content;
     width: 60%;
-    margin: 0 auto;
     padding: 40px 50px 40px 50px;
     font-size: 1.6rem;
-    margin-top: 60px;
     border-radius: 6px;
     box-shadow: 0 0 5px rgba(0,0,0,.5);
+    align-self: center;
+    margin: auto;
 }
 
 .main__information {
@@ -36,6 +36,10 @@
     padding-left: 0px;
 }
 
+a.manage-account__link:hover {
+    text-decoration: none;
+    opacity: 0.8;
+}
 /* End Main Information */
 
 /* Update Account */
@@ -47,29 +51,29 @@
     position: relative;
 }
 
-.item-line:last-child {
-    margin-bottom: 0;
-}
+    .item-line:last-child {
+        margin-bottom: 0;
+    }
 
-.item-line.success input {
-    border-color: #2ecc71;
-}
+    .item-line.success input {
+        border-color: #2ecc71;
+    }
 
-.item-line.error input {
-    border-color: #e74c3c;
-}
+    .item-line.error input {
+        border-color: #e74c3c;
+    }
 
-.item-line small {
-    color: #e74c3c;
-    position: absolute;
-    bottom: -20px;
-    left: 0;    
-    font-size: 16px;
-}
+    .item-line small {
+        color: #e74c3c;
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        font-size: 16px;
+    }
 
 .modal__customer-information {
     background-color: var(--white-color);
-    padding: 40px;
+    padding: 20px 30px;
     margin: 0 auto;
     width: 50%;
     border-radius: 8px;
@@ -84,7 +88,7 @@
 
 .modal__customer-update {
     position: fixed;
-    top: 0;
+    top: 70px;
     bottom: 0;
     right: 0;
     left: 0;
@@ -105,39 +109,39 @@
     position: relative;
 }
 
-.item-col:last-child {
-    margin-bottom: 0;
-}
+    .item-col:last-child {
+        margin-bottom: 0;
+    }
 
-.item-col.success input {
-    border-color: #2ecc71;
-}
+    .item-col.success input {
+        border-color: #2ecc71;
+    }
 
-.item-col.error input {
-    border-color: #e74c3c;
-}
+    .item-col.error input {
+        border-color: #e74c3c;
+    }
 
-.item-col small {
-    color: #e74c3c;
-    position: absolute;
-    bottom: -20px;
-    left: 0;    
-    font-size: 16px;
-}
+    .item-col small {
+        color: #e74c3c;
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        font-size: 16px;
+    }
 
-.item-col.error small {
-    visibility: visible;
-}
+    .item-col.error small {
+        visibility: visible;
+    }
 
-.item-col:first-child {
-    padding-left: 0;
-    padding-right: 5px;
-}
+    .item-col:first-child {
+        padding-left: 0;
+        padding-right: 5px;
+    }
 
-.item-col:nth-child(2) {
-    padding-right: 0;
-    padding-left: 5px;
-}
+    .item-col:nth-child(2) {
+        padding-right: 0;
+        padding-left: 5px;
+    }
 
 input.form-control:focus {
     border: 1px solid rgb(73, 80, 87);

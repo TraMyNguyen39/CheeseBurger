@@ -1,8 +1,8 @@
 ﻿/* Information */
 .main__information {
-    margin-top: 30px;
     width: 70%;
-    padding-top: 0;
+    align-self: center;
+    margin: auto;
 }
 
 .main__information-detail {
@@ -19,10 +19,10 @@ form {
 
 .datetime {
     transform: translateX(10px);
+    transform: translateY(-5px);
 }
 
 .form-group2 {
-    transform: translateY(-5px);
     margin-left: 5px;
 }
 

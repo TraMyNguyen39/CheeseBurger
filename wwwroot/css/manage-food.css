@@ -4,13 +4,19 @@
     transform: translateY(12px);
 }
 
+.input-wrapper i.fa-search-edit{
+    position: relative;
+    top: 0; 
+     right: 0; 
+    transform: translateY(0);
+}
+
 .input-wrapper i:hover {
     color: var(--black-color);
 }
     /* Table */
 .content-table tbody tr td.Danh_muc {
     text-align: left;
-    padding-left: 5%;
 }
 
 .content-table tbody tr td.ID_mon{
@@ -26,10 +32,14 @@
 }
 
 .main__table-form button {
-    background-color: var(--admin-color);
-    width: 14%;
+    background-color: #C0C0C0;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
-
+td.Trang_thai {
+    text-align: right !important;
+    padding-right: 5%;
+}
 .main__table-form button:hover{
     cursor: pointer;
 }
@@ -122,7 +132,6 @@
 
 select#role-select, select#sort-select {
     margin: 0;
-    padding: 0;
     width: 150%;
 }
 
@@ -135,10 +144,12 @@ p.image__text {
 .categories__text {
     font-size: 1.8rem;
 }
-
+.food-line {
+    margin-bottom: 10px;
+}
 .food-line img {
     border-style: none;
-    width: 50%;
+    width: 30%;
     height: fit-content;
     border-radius: 8px;
 }

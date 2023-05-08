@@ -47,6 +47,7 @@ namespace CheeseBurger.Repository.Implements
 			var staff_data = from c in context.Staffs
 							 join a in context.Accounts on c.AccountID equals a.AccountID
 							 join rol in context.Roles on c.RoleID equals rol.RoleID
+							 where a.isStaff == true
 							 select new { c, a, rol };
 			var sta_data = from p in staff_data
 						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()
@@ -116,7 +117,8 @@ namespace CheeseBurger.Repository.Implements
 				};
 				context.Customers.Add(cus);
 				context.SaveChanges();
-			} else
+			}
+			else
 			{
 				sta_acc.isStaff = false;
 				context.SaveChanges();
@@ -164,6 +166,16 @@ namespace CheeseBurger.Repository.Implements
 							   HouseNumber = p.c.HouseNumber
 						   };
 			return sta_data.ToList();
+		}
+		public StaffOrderDTO GetStaffOrder(int id)
+		{
+			return context.Staffs.Where(p => p.StaffID == id)
+								 .Select(p => new StaffOrderDTO
+								 {
+									 Name = p.StaffName,
+									 PhoneNumber = p.Phone
+								 })
+								  .FirstOrDefault();
 		}
 	}
 }
