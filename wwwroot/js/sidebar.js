@@ -18,9 +18,9 @@ for (var i = 0; i < manageFunction.length; i++) {
 }
 
 // Nếu không tìm thấy liên kết, chọn liên kết đầu tiên làm mặc định
-if (!document.querySelector('.categories__item.active')) {
-    document.querySelector('.categories__item:first-child').classList.add('active');
-}
+//if (!document.querySelector('.categories__item.active')) {
+//    document.querySelector('.categories__item:first-child').classList.add('active');
+//}
 
 if (currentPage === "ChangePasswordAdmin") {
     setActiveMenuElement(manageFunction[1].parentElement);

@@ -27,36 +27,45 @@
 				<div class="form-group d-flex align-items-center">
 					<form method="get" action="">
 						<label class="control-label">Từ:</label>
-						<input type="date" name="fromDate" onchange="submitForm()">
+						<input name="fromDate" onchange="submitForm()">
 					</form>
 				</div>
 				<div class="form-group2 d-flex align-items-center">
 					<form method="get" action="">
 						<label class="control-label">Đến:</label>
-						<input type="date" name="toDate" onchange="submitForm()">
+						<input name="toDate" onchange="submitForm()">
 					</form>
 				</div>
 			</div>
 		</div>
-		<div class="column__info-details col-12">
-			<div class="column__info-total d-flex">
-				<div class="column__total-offer text-center col-3">
-					<p class="order__amount"> Số lượng đơn bán</p>
-					<p class="total__money-amount"> @Model.NumberOrder</p>
+		<div class="infor__details d-flex">
+			<div class="column__info-details col-8">
+				<div class="column__info-total d-flex">
+					<div class="column__total-offer text-center col-3">
+						<p class="order__amount"> Số lượng đơn bán</p>
+						<p class="total__money-amount"> @Model.NumberOrder</p>
+					</div>
+					<div class="column__total-offer text-center col-3">
+						<p class="order__amount"> Số lượng đơn nhập</p>
+						<p class="total__money-amount"> @Model.NumberIOrder</p>
+					</div>
+					<div class="column__total-profit col-5">
+						<p class="total__amount"> Tổng lợi nhuận</p>
+						<p class="total__money-amount"> @Model.TotalProfit.ToString("N0")VNĐ</p>
+					</div>
 				</div>
-				<div class="column__total-offer text-center col-3">
-					<p class="order__amount"> Số lượng đơn nhập</p>
-					<p class="total__money-amount"> @Model.NumberIOrder</p>
+				<div class="columns__chart">
+					<p class="total__amount-revenue"> Tổng doanh thu</p>
+					<p class="total__money-revenue"> @Model.TotalIncome.ToString("N0")VNĐ</p>
+					<canvas id="myChart"> </canvas>
 				</div>
-				<div class="column__total-profit col-5">
-					<p class="total__amount"> Tổng lợi nhuận</p>
-					<p class="total__money-amount"> @Model.TotalFund.ToString("N0")VNĐ</p>
-				</div>
-			</div>
-			<div class="columns__chart">
-				<p class="total__amount-revenue"> Tổng doanh thu</p>
-				<p class="total__money-revenue"> @Model.TotalIncome.ToString("N0")VNĐ</p>
-				<canvas id="myChart"> </canvas>
+			</div>			
+			<div class="best__seller-info col-4">
+				<p class="title"> Bán chạy nhất</p>
+				<p> Cánh gà chiên nước mắm</p>
+				<p> Sườn nướng mật ong</p>
+				<p> Cơm chiên dương châu</p>
+				<p> Others</p>
 			</div>
 		</div>
 	</div>
@@ -75,14 +84,25 @@
 			fromDate.type = 'month';
 			toDate.type = 'month';
 		} else if (selectBox.value === 'year') {
-			fromDate.type = 'number';
-			toDate.type = 'number';
-		}
+			fromDate.type = 'number'; 
+			toDate.type = 'number'; 	
+		}		
 	}
-
+	
 	updateFormFields();
 
 	selectBox.addEventListener('change', updateFormFields);
+
+	var Funds = [];
+	var Profits = [];
+	var Times = [];
+
+	@foreach (var item in Model.List_Revenues)
+	{		
+		@:Times.push('@item.DateReve.ToString("dd/MM/yyyy")');
+		@:Funds.push(@item.Fund);
+		@:Profits.push(@item.Income);
+	}
 
 
 	/* Get the canvas element and context */
@@ -90,23 +110,23 @@
 
 	/* Define the data for the chart */
 	var data = {
-		labels: ['January', 'February', 'March', 'April', 'May'],
+		labels: Times,
 		datasets: [
 			{
-				label: 'Profit',
+				label: 'Doanh thu',
 				//backgroundColor: '#FA5230',
 				borderColor: 'rgba(255, 99, 132, 1)',
 				fill: false,
 				//borderWidth: 1,
-				data: [50, 60, 40, 40, 80],
+				data: Profits,
 				tension: 0.1
 
 			},
 			{
-				label: 'Funds',
+				label: 'Vốn',
 				//backgroundColor: '#E3E7FC',
 				//borderWidth: 1,
-				data: [20, 40, 30, 20, 50],
+				data: Funds,
 				fill: false,
 				tension: 0.1,
 				borderColor: 'rgba(75, 192, 192, 1)'
@@ -138,23 +158,17 @@
 		const fromDateInput = document.getElementsByName("fromDate")[0];
 		const toDateInput = document.getElementsByName("toDate")[0];
 
-		// Kiểm tra cả hai input đã được chọn giá trị chưa
-		if (fromDateInput.value && toDateInput.value) {
+		const fromDateValue = fromDateInput.value;
+		const toDateValue = toDateInput.value;
+				
+		if (fromDateValue && toDateValue) {
 			// Tạo URL mới với các tham số fromDate và toDate
 			const url = new URL(window.location.href);
-			url.searchParams.set("fromDate", fromDateInput.value);
-			url.searchParams.set("toDate", toDateInput.value);
+			url.searchParams.set("fromDate", fromDateValue);
+			url.searchParams.set("toDate", toDateValue);
 
 			// Chuyển hướng trình duyệt đến URL mới
 			window.location.href = url.toString();
-		}
+		}		
 	}
 </script>
-
-
-
-
-
-
-
-
