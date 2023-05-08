@@ -49,7 +49,7 @@ namespace CheeseBurger.Service.Implements
 
 		public void UpdateShipper(int orderID, int shipperID)
 		{
-			orderRepository.UpdateChef(orderID, shipperID);
+			orderRepository.UpdateShipper(orderID, shipperID);
 		}
 	}
 }

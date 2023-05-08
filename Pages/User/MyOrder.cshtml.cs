@@ -14,7 +14,9 @@ namespace CheeseBurger.Pages
         [BindProperty (SupportsGet = true)]
         public int status { get; set; }
         public int[] orderCount { get; set; }
-        public MyOrderModel (IOrderService orderService)
+		[BindProperty(SupportsGet = true, Name = "p")]
+		public int currentPage { get; set; }
+		public MyOrderModel (IOrderService orderService)
         {
             this.orderService = orderService;
         }

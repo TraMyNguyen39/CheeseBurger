@@ -44,9 +44,10 @@ service.AddScoped<IOrderService, OrderService>();
 service.AddScoped<IOrderRepository, OrderRepository>();
 service.AddScoped<IOrder_FoodRepository, Order_FoodRepository>();
 service.AddScoped<IOrder_FoodService, Order_FoodService>();
+service.AddScoped<IRevenueRepository, RevenueRepository>();
+service.AddScoped<IRevenueService, RevenueService>();
 service.AddScoped<IImportOrderService, ImportOrderService>();
 service.AddScoped<IImportOrderRepository, ImportOrderRepository>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

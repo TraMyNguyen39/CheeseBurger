@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net;
 
-namespace CheeseBurger.Pages.Order
+namespace CheeseBurger.Pages.Admin
 {
-    public class DetailOrderModel : PageModel
+    public class DetailExportOrderModel : PageModel
     {
         private readonly IOrderService orderService;
         private readonly IOrder_FoodService order_FoodService;
@@ -23,7 +23,7 @@ namespace CheeseBurger.Pages.Order
         public List<LineItemDTO> lineItems { get; set; }
         [BindProperty(SupportsGet = true)]
         public int orderId { get; set; }
-        public DetailOrderModel(IOrderService orderService, IOrder_FoodService order_FoodService, ICartService cartService,
+        public DetailExportOrderModel(IOrderService orderService, IOrder_FoodService order_FoodService, ICartService cartService,
             IWardService wardService, IDistrictService districtService, IStaffService staffService)
         {
             this.orderService = orderService;

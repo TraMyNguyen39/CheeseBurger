@@ -15,7 +15,7 @@
 			<form class="menu-sort-user" method="get">
 				<label style="margin-left: 2%">Sắp xếp theo: </label>
 				<select name="sortBy" class="menu-sort-user-box" id="sort-select">
-					<option value="all">Sắp xếp</option>
+					<option value="all">Tất cả</option>
 					<option value="name-asc">Tăng theo tên</option>
 					<option value="name-desc">Giảm theo tên</option>
 				</select>
@@ -30,6 +30,14 @@
 				</button>
 			</form>
 		</div>
+		@{
+			var pageSize = 5; // Number of rows to show per page
+			var totalPages = (int)Math.Ceiling((double)Model.customers.Count / pageSize); // Calculate the total number of pages
+			var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
+			var customers = Model.customers.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
+			if (Model.currentPage < 1) Model.currentPage = 1;
+			if (Model.currentPage > totalPages) Model.currentPage = totalPages;
+		}
 		<table class="content-table">
 			<thead>
 				<tr class="tr">
@@ -43,7 +51,7 @@
 				</tr>
 			</thead>
 			<tbody>			
-				@foreach (var customer in Model.customers)
+				@foreach (var customer in customers)
 				{					
 					@if (customer.CusIsStaff == false && customer.CusIsDeleted == false)
 					{
@@ -57,21 +65,19 @@
 							<td class="Option__ban" data-id="@customer.CusID">  <i class="fas fa-ban"></i></td>
 						</tr>
 					}
-				}				
+				}	
+				
 			</tbody>
 		</table>
-		<div class="page-pagination">
-			<div class="pagination">
-				<a href="#"><i class="fas fa-angle-double-left"></i></a>
-				<a href="#">1</a>
-				<a href="#" class="active">2</a>
-				<a href="#">3</a>
-				<a href="#">4</a>
-				<a href="#">5</a>
-				<a href="#">6</a>
-				<a href="#"><i class="fas fa-angle-double-right"></i></a>
-			</div>
-		</div>
+		@{
+			var pagingmodel = new CheeseBurger.Helpers.PagingModel()
+			{
+				currentPage = Model.currentPage,
+				countPages = totalPages,
+				generateUrl = (int? p) => Url.Page("/Admin/ManageUser", new { p })
+			};
+		}
+		<partial name="_Paging" model="@pagingmodel" />
 	</div>
 </div>
 <!-- Update staff -->

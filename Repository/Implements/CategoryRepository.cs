@@ -13,15 +13,8 @@ namespace CheeseBurger.Repository.Implements
 		{
 			this.context = context;
 		}
-		public List<CategoryDTO> GetCategory() {
-			var categories = context.Categories.ToList();
-			var quantities = GetQuantities();
-			return categories.Select((p, i) => new CategoryDTO
-			{
-				CategoryID = p.CategoryID,
-				Quantity = quantities.ElementAtOrDefault(i),
-				CategoryName = p.CategoryName
-			}).ToList();
+		public List<Category> GetCategory() {
+			return context.Categories.ToList();
 		}
 		
 		public List<int> GetQuantities()
@@ -47,7 +40,7 @@ namespace CheeseBurger.Repository.Implements
 			return context.Categories.Count();
 		}
 
-		public List<CategoryDTO> GetListCategories(string arrange, bool isDescending)
+		public List<Category> GetListCategories(string arrange, bool isDescending)
 		{
 			var categories = GetCategory();
 			switch (arrange)
@@ -73,8 +66,8 @@ namespace CheeseBurger.Repository.Implements
 			}
 			else
 			{
-				throw new ArgumentException($"Category with name {CategoryName} already exist in the Categories table.");
-			}
+				throw new ArgumentException($"Tên danh mục đã bị trùng. Vui lòng nhập lại!");
+            }
 		}
         public dynamic FindCategories(int id)
         {
@@ -101,12 +94,8 @@ namespace CheeseBurger.Repository.Implements
         }
         public List<Food> GetByCategoryID(int CateId)
         {
-            // Query the database to get the foods by categoryID
-            var foods = context.Foods.Where(f => f.CategoryID == CateId).ToList();
-
-            // Log the number of foods returned
-            Console.WriteLine($"Found {foods.Count} foods with category ID {CateId}");
-
+			// Query the database to get the foods by categoryID
+			var foods = context.Foods.Where(f => f.CategoryID == CateId).ToList();
             return foods;
         }
 

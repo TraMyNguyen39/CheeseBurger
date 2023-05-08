@@ -41,5 +41,7 @@ namespace CheeseBurger.Model.Entities
 		public int CustomerID { get; set; }
         [ForeignKey("CustomerID")]
         public Customer Customer { get; set; }
+
+
     }
 }

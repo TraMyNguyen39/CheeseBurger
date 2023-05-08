@@ -1,16 +1,22 @@
-﻿/* Header */
+﻿body {
+    background-color: aliceblue !important;
+}
+/* Header */
 .background {
     width: 100%;
-    background-color: #fff;
 }
 
 .header {
-    height: 60px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--admin-color);
-    width: 100%;
+    background: linear-gradient(to top, #ee4d2d,#FA5230);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
 }
 
 .header__navbar {
@@ -97,13 +103,15 @@ main {
     display: block;
     /*    margin: 0px;*/
     display: flex;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 70px);
 }
 
     .main__form-detail .main__sliderbar {
         background-color: var(--white-color);
         width: 20%;
-        position: relative;
+        position: fixed;
+        top: 70px;
+        bottom: 0;
         padding: 0;
         padding-top: 40px;
         box-shadow: -3px 5px 9px 0 #555;
@@ -113,7 +121,7 @@ main {
     display: flex;
     justify-content: center;
     margin: 10px 0 30px;
-    padding-right: 20%;
+    padding-right: 10%;
 }
 
 img.account-avt {
@@ -126,17 +134,11 @@ img.account-avt {
     align-self: center;
 }
 
-a.account-name {
+p.account-name {
     color: var(--text-color);
     font-size: 1.6rem;
     font-weight: 600;
 }
-
-    a.account-name:hover {
-        color: var(--admin-color);
-        text-decoration: none;
-        opacity: 0.8;
-    }
 
 p.account-role {
     font-size: 1.6rem;
@@ -260,9 +262,6 @@ i.fas.fa-right-from-bracket {
     box-shadow: none;
     transform: none;
     padding: 0;
-}
-.account-detail.categories__item.active a{
-    color: var(--admin-color) !important;
 }
 /* End Sidebar */
 /* Paging */
@@ -433,6 +432,10 @@ a.submit-btn {
 
 .comboList_menu {
     border-radius: 20px;
+}
+
+td.Option i {
+    margin-left: 15px;
 }
 
 .content-table tbody tr .Option__eye i:hover, .content-table tbody tr .Option__pencil i:hover, .content-table tbody tr .Option__ban i:hover {

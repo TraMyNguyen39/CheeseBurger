@@ -18,5 +18,14 @@ namespace CheeseBurger.Repository.Implements
 		{
 			return context.Wards.Where(p => p.WardId == id).FirstOrDefault();
 		}
+		public int GetWardIDByName(string name)
+		{
+			var IDWard = context.Wards.FirstOrDefault(p => p.WardName.Equals(name));
+			if (IDWard != null)
+			{
+				return IDWard.WardId;
+			}
+			return 0;
+		}
 	}
 }

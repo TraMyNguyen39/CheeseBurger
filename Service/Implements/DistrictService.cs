@@ -18,5 +18,9 @@ namespace CheeseBurger.Service.Implements
 		{
 			return districtRespository.GetDistrict(id);
 		}
+		public int GetDistrictIDByName(string name)
+		{
+			return districtRespository.GetDistrictIDByName(name);
+		}
 	}
 }

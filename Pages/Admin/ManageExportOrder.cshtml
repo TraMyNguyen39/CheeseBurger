@@ -33,10 +33,10 @@
 			</li>
 		</ul>
 	</div>
-	<div class="main__information row">
-		<div class="time-start col-md-2">
+	<div class="main__information row align-items-end">
+		<div class="time-start col-md-2 pl-0">
 			<p class="label">Thời gian:</p>
-			<div class="form-group d-flex align-items-center">
+			<div class="form-group d-flex align-items-center mb-0">
 				<label class="control-label control-label-edit">Từ: </label>
 				<form action="action_page.php">
 					<input type="date" name="bday">
@@ -45,7 +45,7 @@
 		</div>
 		<div class="time-end col-md-3">
 			<p class="label"></p>
-			<div class="form-group d-flex align-items-center">
+			<div class="form-group d-flex align-items-center mb-0">
 				<label class="control-label control-label-edit">Đến: </label>
 				<form action="action_page.php">
 					<input type="date" name="bday">
@@ -53,17 +53,14 @@
 			</div>
 		</div>
 		<div class="col-md-7 d-flex justify-content-end align-items-center pr-0">
-			<div class="form-group">
-				<label class="control-label"></label>
-				<div class="search__form">
-					<form class="form-inline my-2 my-lg-0">
-						<div class="input-wrapper">
-							<input class="form-control" type="search" placeholder="Tìm kiếm theo tên khách hàng" aria-label="Search">
-							<i class="fas fa-search"></i>
-						</div>
-					</form>
-				</div>
-			</div>
+			<form class="menu-search-staff-box" method="get" style="width: 60%">
+				<input class="search-staff-box-input" type="text" name="search" placeholder="Nhập tên khách hàng">
+				<input class="search-staff-box-hidden" name="sortBy" value="" type="hidden" />
+				<input class="search-staff-box-hidden" name="roleBy" value="" type="hidden" />
+				<button type="submit" class="search-staff-box-btn">
+					<i class="fas fa-magnifying-glass"></i>
+				</button>
+			</form>
 		</div>
 	</div>
 	<!-- Table -->
@@ -83,7 +80,7 @@
 			{
 				<tr>
 					<td><a asp-page="/Order/DetailOrder" asp-route-orderId="@i.orderId" class="IDOrder">@i.orderId</a></td>
-					<td><a class="Name">@i.customerName</a></td>
+					<td style="text-align: left !important;"><a class="Name">@i.customerName</a></td>
 					<td>@i.createDate.ToString("HH:mm dd/MM/yyyy")</td>
 					<td>
 						<div class="Status">
@@ -92,7 +89,7 @@
 					</td>
 					<td>@((i.tempMoney * 103 / 100 + i.shippingMoney).ToString("N0"))đ</td>
 					<td>
-						<a class="cart__name-item" asp-page="/Order/DetailOrder" asp-route-orderId="@i.orderId">
+						<a class="cart__name-item" asp-page="/Admin/DetailExportOrder" asp-route-orderId="@i.orderId">
 							<i class="fas fa-eye"></i>
 						</a>
 					</td>

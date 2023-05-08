@@ -6,6 +6,7 @@ using CheeseBurger.Service.Implements;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.IdentityModel.Tokens;
+using System.Net;
 using System.Net.Security;
 
 namespace CheeseBurger.Pages
@@ -19,7 +20,10 @@ namespace CheeseBurger.Pages
 		public List<CustomerDTO> customers { get; set; }
         public string sortBy { get; set; }
         public string searchText { get; set; }
-        public ManageUserModel(ICustomerService customerService, IWardService wardService,
+		[BindProperty(SupportsGet = true, Name = "p")]
+		public int currentPage { get; set; }
+		public string MessageUser { get; set; }
+		public ManageUserModel(ICustomerService customerService, IWardService wardService,
 								IDistrictService districtService, IRoleService roleService)
         {
             this.customerService = customerService;
@@ -31,8 +35,12 @@ namespace CheeseBurger.Pages
         {
 			this.sortBy = Request.Query["sortBy"];
 			this.searchText = Request.Query["search"];
-			if (this.searchText != null) this.searchText = this.searchText.Trim();			
-			if (!(sortBy.IsNullOrEmpty()) || sortBy == "all")
+			if (this.searchText != null) this.searchText = this.searchText.Trim();
+            if (sortBy == "all")
+            {
+                customers = customerService.GetListCustomers(null, true, searchText);
+            }
+            else if (!(sortBy.IsNullOrEmpty()))
 			{
 				string[] values = sortBy.Split('-');
 				string arrange = values[0];
@@ -42,14 +50,22 @@ namespace CheeseBurger.Pages
 			else
 			{
 				customers = customerService.GetListCustomers(null, true, searchText);
-			}            
+			}  
+            if (customers.Count == 0)
+            {
+				MessageUser = "Không có khách hàng nào đáp ứng điều kiện!";
+			} else { MessageUser = null;  }         
 		}
 
         public IActionResult OnGetFind(int id)
         {
             var cus = customerService.GetCustomer(id);
-            var wrd = wardService.GetWard(cus.WardID);
-            var dis = districtService.GetDistrict(wrd.DistrictID);
+            var wrd = new Ward(); var dis = new District();
+            if (cus.WardID != 0)
+            {
+				wrd = wardService.GetWard(cus.WardID);
+				dis = districtService.GetDistrict(wrd.DistrictID);                
+			}
             var result = new
             {
                 id = cus.CusID,
@@ -57,11 +73,11 @@ namespace CheeseBurger.Pages
                 gender = cus.CusGender,
                 phone = cus.CusPhone,
                 email = cus.CusEmail,
-                address = cus.HouseNumber + ", " + wrd.WardName + ", " + dis.DistrictName + ", Đà Nẵng",
-                wrdd = wrd.WardName,
+                address = (cus.WardID != 0) ? (cus.HouseNumber + ", " + wrd.WardName + ", " + dis.DistrictName + ", Đà Nẵng") : "",
+				wrdd = wrd.WardName,
                 diss = dis.DistrictName,
                 housenum = cus.HouseNumber
-            };
+            };          
             return new JsonResult(result);
         }
 

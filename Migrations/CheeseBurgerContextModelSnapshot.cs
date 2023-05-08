@@ -386,6 +386,26 @@ namespace CheeseBurger.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("CheeseBurger.Model.Entities.Revenues", b =>
+                {
+                    b.Property<DateTime>("DateReve")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("Fund")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Income")
+                        .HasColumnType("real");
+
+                    b.Property<int>("NumberIOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOrder")
+                        .HasColumnType("int");
+
+                    b.ToTable("Revenues");
+                });
+
             modelBuilder.Entity("CheeseBurger.Model.Entities.Review", b =>
                 {
                     b.Property<int>("ReviewID")

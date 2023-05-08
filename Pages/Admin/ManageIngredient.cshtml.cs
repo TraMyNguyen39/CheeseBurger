@@ -1,10 +1,11 @@
-using CheeseBurger.DTO;
+﻿using CheeseBurger.DTO;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Globalization;
@@ -34,6 +35,7 @@ namespace CheeseBurger.Pages.Admin
 		public string sortBy { get; set; }
 		public string searchText { get; set; }
 		public List<Ingredients> ingredientes { get; set; }
+		public string ExistError { get; set; }
 
 		public void OnGet(int IngredientID, string IngredientName)
 		{
@@ -61,24 +63,23 @@ namespace CheeseBurger.Pages.Admin
 				ingredients = ingredientService.GetListIngredients(null, true, searchText);
 			}
 		}
-		public IActionResult OnPostCreate(string Name, string combobox_Item, float Price)
-		{
-			if (string.IsNullOrEmpty(combobox_Item))
-			{
-				ModelState.AddModelError("combobox_Item", "Please select a measure.");
-			}
-
+        public IActionResult OnPostCreate(string Name, string combobox_Item, float Price)
+        {
+			//if (string.IsNullOrEmpty(combobox_Item))
+			//{
+			//    ModelState.AddModelError("combobox_Item", "Please select a measure.");
+			//}
 			ingredientService.AddData(Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price);
-			return RedirectToPage("ManageIngredient");
-		}
+            return RedirectToPage("ManageIngredient");
+        }
 
-		public IActionResult OnPostDelete(int IngredientID)
+        public IActionResult OnPostDelete(int IngredientID)
 		{
 			ingredientService.DeleteData(IngredientID);
 			return RedirectToPage("ManageIngredient");
 		}
 
-		public IActionResult OnGetFind(int id)
+        public IActionResult OnGetFind(int id)
 		{
 			var ingre = ingredientService.FindIngredient(id);
 			return new JsonResult(ingre);

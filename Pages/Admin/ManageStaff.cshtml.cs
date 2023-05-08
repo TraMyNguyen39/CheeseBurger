@@ -19,6 +19,9 @@ namespace CheeseBurger.Pages
 		public string roleBy { get; set; }
 		public string sortBy { get; set; }
 		public string searchText { get; set; }
+		[BindProperty(SupportsGet = true, Name = "p")]
+		public int currentPage { get; set; }
+		public string MessageStaff { get; set; }
 		public ManageStaffModel(IStaffService staffService, IRoleService roleService, IWardService wardService,
 								IDistrictService districtService)
         {
@@ -32,8 +35,12 @@ namespace CheeseBurger.Pages
 			this.roleBy = Request.Query["roleBy"];
 			this.sortBy = Request.Query["sortBy"];
 			this.searchText = Request.Query["search"];
-			if (this.searchText != null) this.searchText = this.searchText.Trim();			
-			if (!(sortBy.IsNullOrEmpty()) || sortBy == "all")
+			if (this.searchText != null) this.searchText = this.searchText.Trim();	
+			if (sortBy == "all")
+			{
+				staffs = staffService.GetListStaffs(roleBy, null, true, searchText);
+			}
+			else if (!(sortBy.IsNullOrEmpty()))
 			{
 				string[] values = sortBy.Split('-');
 				string arrange = values[0];
@@ -43,14 +50,23 @@ namespace CheeseBurger.Pages
 			else
 			{
 				staffs = staffService.GetListStaffs(roleBy, null, true, searchText);
-			}			
-        }
+			}
+			if (staffs.Count == 0)
+			{
+				MessageStaff = "Không có nhân viên nào đáp ứng điều kiện!";
+			}
+			else { MessageStaff = null; }
+		}
 
 		public IActionResult OnGetFind(int id)
 		{
-			var sta = staffService.GetStaff(id);			
-			var wrd = wardService.GetWard(sta.WardID);
-			var dis = districtService.GetDistrict(wrd.DistrictID);
+			var sta = staffService.GetStaff(id);
+			var wrd = new Ward(); var dis = new District();
+			if (sta.WardID != 0)
+			{
+				wrd = wardService.GetWard(sta.WardID);
+				dis = districtService.GetDistrict(wrd.DistrictID);
+			}		
 			var result = new
 			{
 				id = sta.StaID,
@@ -59,7 +75,7 @@ namespace CheeseBurger.Pages
 				phone = sta.StaPhone,
 				email = sta.StaEmail,
 				rolnamee = sta.StaRoleName,
-				address = sta.HouseNumber + ", " + wrd.WardName + ", " + dis.DistrictName + ", Đà Nẵng",
+				address = (sta.WardID != 0) ? (sta.HouseNumber + ", " + wrd.WardName + ", " + dis.DistrictName + ", Đà Nẵng") : "",
 				wrdd = wrd.WardName,
 				diss = dis.DistrictName,
 				housenum = sta.HouseNumber

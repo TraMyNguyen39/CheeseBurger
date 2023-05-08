@@ -1,9 +1,11 @@
 ﻿@page
-@model DetailOrderModel
+@model DetailExportOrderModel
 @{
 	ViewData["Title"] = "Detail Order";
 }
-<div class="body container mt-5" style="margin-left: 300px;">
+<link rel="stylesheet" href="~/css/manage-order.css" asp-append-version="true" />
+
+<div class="body container mt-5" style="width: 60%;">
 	<div class="body__manage-account-detail col-12 flex justify-content-center">
 		<div class="row">
 			<label class="body-title ml-4">CHI TIẾT ĐƠN HÀNG</label>
@@ -50,7 +52,7 @@
 			<label class="body-title-detail">Thông tin đầu bếp</label>
 			<hr>
 			<p class="body-detail-txt">
-			@if (Model.order.ChefID != null)
+			@if (Model.chef != null)
 			{
 				@Model.chef.Name
 					<br>
@@ -62,11 +64,11 @@
 			<label class="body-title-detail">Thông tin người giao hàng</label>
 			<hr>
 			<p class="body-detail-txt">
-			@if (Model.order.ShipperID != null)
+			@if (Model.shipper != null)
 			{
 				@Model.shipper.Name
 					<br>
-				@:#@Model.order.ShipperID
+				@:# @Model.order.ShipperID
 					<br>
 				@:Tel: @Model.shipper.PhoneNumber
 			}
@@ -82,10 +84,6 @@
 					<th class="cart__table-col col-2" scope="col">Đơn giá</th>
 					<th class="cart__table-col col-2" scope="col">Số lượng</th>
 					<th class="cart__table-col col-2" scope="col">Tổng Giá</th>
-				@if (Model.order.StatusOdr == (int)Enums.OrderStatus.completed)
-				{
-						<th class="cart__table-col col-2" scope="col">Đánh giá</th>
-				}
 				</tr>
 			</thead>
 			<tbody>
@@ -93,7 +91,7 @@
 				var count = 1;
 				@foreach (var items in Model.lineItems)
 				{
-						<tr>
+						<tr style="background: #fff">
 							<th scope="row" style="font-weight: 500; text-align: center;">@count</th>
 							<td class="d-flex align-items-center">
 								<img src="@items.FoodPic" alt="Ảnh món ăn" class="cart__item-image" />
@@ -104,12 +102,6 @@
 							@items.Quantity
 							</td>
 							<td class="table-money" style="font-weight: 500;">@((items.Price * items.Quantity).ToString("N0"))đ</td>
-						@if (Model.order.StatusOdr == (int)Enums.OrderStatus.completed)
-						{
-								<td>
-									<i class="fa-solid fa-pencil ic-open-modal-review"></i>
-								</td>
-						}
 						</tr>
 					count++;
 				}

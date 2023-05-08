@@ -29,14 +29,14 @@
 			<div class="main__sliderbar">
 				<div class="account">
 					<img class="account-avt" src="~/img/avt.png" />
-					<div class="account-detail categories__item" id="account">
-						<a class="account-name" asp-page="/Admin/ManageAccount">
+					<div class="account-detail categories__item">
+						<p class="account-name">
 							@{
 								var name = Context.Session.GetString("Name");
 								@name
 								;
 							}
-						</a>
+						</p>
 						<p class="account-role">
 							@{
 								var role = Context.Session.GetString("Role");
@@ -50,6 +50,11 @@
 					<li class="categories__item" id="revenue">
 						<a class="nav-link " asp-page="/Admin/SyncRevenue">
 							<i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Thống kê doanh thu</span>
+						</a>
+					</li>
+					<li class="categories__item" id="own-account">
+						<a class="nav-link" asp-page="/Admin/ManageAccount">  
+							<i class="fas fa-solid fa-user"></i><span>Quản lý tài khoản</span>
 						</a>
 					</li>
 					<li class="categories__item" id="customer">
@@ -104,6 +109,7 @@
 					</li>
 				</ul>
 			</div>
+			<div style="width: 20%"></div>
 			@RenderBody()
 		</div>
 	</div>

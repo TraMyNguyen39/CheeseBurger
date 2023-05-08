@@ -53,6 +53,12 @@
 			}
 			else
 			{
+				var pageSize = 6; // Number of rows to show per page
+				var totalPages = (int)Math.Ceiling((double)Model.items.Count / pageSize); // Calculate the total number of pages
+				var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
+				var item = Model.items.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
+				if (Model.currentPage < 1) Model.currentPage = 1;
+				if (Model.currentPage > totalPages) Model.currentPage = totalPages;
 				<div class="list-item my-order">
 					<table class="table text-center">
 						<thead style="background-color: var(--div-color);height: 50px;">
@@ -73,9 +79,9 @@
 									<td>
 										<a class="cart__name-item" asp-page="/User/DetailOrderWait" asp-route-orderId="@i.orderId">@i.orderId</a>
 									</td>
-									<td>@i.customerName</td>
+									<td style="text-align: left;">@i.customerName</td>
 									<td>@i.createDate.ToString("HH:mm dd/MM/yyyy")</td>
-									<td style="text-align:right">@i.houseNumber</td>
+									<td style="text-align:left">@i.houseNumber</td>
 									<td class="table-money" style="font-weight: 500; color: var(--admin-color);">@((i.tempMoney * 103 / 100 + i.shippingMoney).ToString("N0"))đ</td>
 									<td>
 										<div class="btn-xacnhan btn-xacnhan-edit">
@@ -92,18 +98,14 @@
 						</tbody>
 					</table>
 				</div>
-				<div class="page-pagination">
-					<div class="pagination">
-						<a href="#"><i class="fas fa-angle-double-left"></i></a>
-						<a href="#">1</a>
-						<a href="#" class="active">2</a>
-						<a href="#">3</a>
-						<a href="#">4</a>
-						<a href="#">5</a>
-						<a href="#">6</a>
-						<a href="#"><i class="fas fa-angle-double-right"></i></a>
-					</div>
-				</div>
+				var pagingmodel = new CheeseBurger.Helpers.PagingModel()
+				{
+					currentPage = Model.currentPage,
+					countPages = totalPages,
+					generateUrl = (int? p) => Url.Page("/User/Menu", new { p })
+				};
+				
+				<partial name="_Paging" model="pagingmodel" />
 			}
 		</div>
 	</div>
