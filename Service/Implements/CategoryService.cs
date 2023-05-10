@@ -18,7 +18,14 @@ namespace CheeseBurger.Service.Implements
 
 		public List<CategoryDTO> GetCategory()
 		{
-			return categoryRepository.GetCategory();
+			var quantities = categoryRepository.GetQuantities();
+			var category = categoryRepository.GetCategory();
+			return category.Select((p, i) => new CategoryDTO
+			{
+				CategoryID = p.CategoryID,
+				Quantity = quantities.ElementAtOrDefault(i),
+				CategoryName = p.CategoryName
+			}).ToList();
 		}
 		public List<int> GetQuantities()
 		{
@@ -30,17 +37,24 @@ namespace CheeseBurger.Service.Implements
 		}
 		public List<CategoryDTO> GetListCategories(string arrange, bool isDescending)
 		{
-			return categoryRepository.GetListCategories(arrange, isDescending);
+			var quantities = categoryRepository.GetQuantities();
+			return categoryRepository.GetListCategories(arrange, isDescending)
+				.Select((p, i) => new CategoryDTO
+			{
+				CategoryID = p.CategoryID,
+				Quantity = quantities.ElementAtOrDefault(i),
+				CategoryName = p.CategoryName
+			}).ToList();
 		}
 		public void AddData(string Name)
 		{
 			categoryRepository.AddData(Name);
 		}
-        public dynamic FindCategories(int id)
+		public dynamic FindCategories(int id)
 		{
 			return categoryRepository.FindCategories(id);
 		}
-        public void UpdateData(int id, string Name)
+		public void UpdateData(int id, string Name)
 		{
 			categoryRepository.UpdateData(id, Name);
 		}
@@ -49,7 +63,7 @@ namespace CheeseBurger.Service.Implements
 			categoryRepository.DeleteData(id);
 		}
 		public List<Food> GetByCategoryID(int CateId)
-        {
+		{
 			return categoryRepository.GetByCategoryID(CateId);
 		}
 

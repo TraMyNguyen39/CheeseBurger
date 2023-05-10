@@ -1,8 +1,4 @@
 ﻿/* Information */
-.main__information {
-    margin-top: 0;
-}
-
 .button__add button {
     width: 200px;
     height: 40px;
@@ -31,65 +27,6 @@
 }
 
 
-.menu-sort-user-box {
-    width: 50%;
-    height: 36px;
-    font-weight: 400;
-    font-size: 1.6rem;
-    border: 2px solid #c6c6c6;
-    background-color: transparent;
-    border-radius: 6px;
-    padding: 0 10px;
-    outline: none;
-    opacity: 0.7;
-    margin-left: 10px;
-}
-
-.menu-search-user-box {
-    width: 40%;
-    height: 36px;
-    background-color: transparent;
-    border: 2px solid #c6c6c6;
-    border-radius: 6px;
-    position: relative;
-    overflow: hidden;
-    font-size: 1.6rem;
-}
-
-.search-user-box-input {
-    border: 0;
-    outline: none;
-    background-color: transparent;
-    height: 100%;
-    width: 100%;
-    padding: 0px;
-    padding-left: 10px;
-    color: var(--text-color);
-}
-
-    .search-user-box-input::placeholder {
-        font-size: 1.6rem;
-        line-height: 100%;
-        font-weight: 400;
-        transform: translateY(-10%);
-    }
-
-.search-user-box-btn {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 25%;
-    height: 102%;
-    border: none;
-    color: var(--text-color);
-    background-color: #C0C0C0;
-}
-
-.search--user-box-btn:hover {
-    opacity: 0.6;
-}
-
 .search-user-box-btn:focus,
 .search--user-box-btn:focus-visible {
     outline: none;
@@ -97,9 +34,6 @@
 /* End Information */
 
 /* Table */
-td.Option i {
-    margin: 0 5px;
-}
 
 .content-table thead tr {
     background: linear-gradient(to right, #ee4d2d,#ff7337);
@@ -144,12 +78,12 @@ td.Ten_mon {
 
 .content-table tbody tr td.Ten_mon {
     text-align: left;
-    padding-left: 5%;
+    text-transform: capitalize;
 }
 
 .content-table tbody tr td.Number_mon, .content-table tbody tr td.Number_mon {
     text-align: right;
-    padding-right: 5%;
+    padding-right: 10%;
 }
 
 /* End Table */
@@ -184,6 +118,7 @@ td.Ten_mon {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 70px;
 }
 
 .modal__ingredient-add {
@@ -353,6 +288,7 @@ p.label {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 70px;
 }
 
 .categories-read {

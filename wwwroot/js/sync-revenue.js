@@ -3,16 +3,16 @@ const fromDate = document.querySelector('input[name="fromDate"]');
 const toDate = document.querySelector('input[name="toDate"]');
 
 function updateFormFields() {
-	if (selectBox.value === 'day') {
-		fromDate.type = 'date';
-		toDate.type = 'date';
-	} else if (selectBox.value === 'month') {
-		fromDate.type = 'month';
-		toDate.type = 'month';
-	} else if (selectBox.value === 'year') {
-		fromDate.type = 'number';
-		toDate.type = 'number';
-	}
+    if (selectBox.value === 'day') {      
+        fromDate.type = 'date';
+        toDate.type = 'date';
+    } else if (selectBox.value === 'month') {       
+        fromDate.type = 'month';
+        toDate.type = 'month';
+    } else if (selectBox.value === 'year') {      
+        fromDate.type = 'number';
+        toDate.type = 'number';
+    }
 }
 
 updateFormFields();
@@ -63,7 +63,7 @@ var options = {
 
 /* Create the chart */
 var myChart = new Chart(ctx, {
-	type: 'line',
-	data: data,
-	options: options
-});
+    type: 'line',
+    data: data,
+    options: options
+}); 

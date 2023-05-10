@@ -6,6 +6,9 @@
     margin: 0 auto;
     margin-top: 60px;
 }
+.main-table-order {
+    width: 70%;
+}
 
 .main__table-form {
     display: flex;
@@ -59,13 +62,10 @@ label {
         margin-bottom: 10px;
     }
 
-.time-start {
-    transform: translateX(30px);
+label.control-label-edit {
+    margin-bottom: 0;
 }
 
-.time-end {
-    transform: translateY(29%);
-}
 
 .time-start .control-label, .time-end .control-label {
     margin-right: 5px;
@@ -106,6 +106,7 @@ a.Name {
     height: 30px;
     display: block;
     font-size: 16px;
+    margin-bottom: 40px;
 }
 
 .main__status {
@@ -119,10 +120,15 @@ a.Name {
 }
 
     .main__status .main__status-details {
-        font-size: 16px;
+        font-size: 15px;
         list-style-type: none;
-        padding: 5px !important;
         width: fit-content;
+        border-radius: 20px;
+        height: 30px;
+        border: 0;
+        padding: 3px 15px;
+        box-shadow: 1px 2px 9px 0px var(--admin-color);
+        background-color: var(--white-color);
     }
 
     .main__status button:hover {
@@ -134,25 +140,18 @@ a.Name {
         outline: none;
     }
 
-    .main__status .main__status-details:not(.active) button {
-        background-color: var(--pink-color);
-        border-radius: 20px;
-        width: 100%;
-        height: 30px;
-        border: 0;
-        padding: 0 15px;
-        box-shadow: 1px 0px 13px 0px rgba(0,0,0,.4);
+    .main__status .main__status-details:not(.active) a {
+        background-color: var(--white-color);
     }
 
-    .main__status .active button {
-        background-color: var(--admin-color);
-        border-radius: 20px;
-        width: 100%;
-        height: 30px;
-        color: var(--white-color);
-        border: 0;
-        padding: 0 15px
-    }
+.main__status-details.active {
+    background: var(--orange);
+}
+
+a.btn__status {
+    text-decoration: none;
+    color: var(--text-color);
+}
 .main__table-information {
     padding: 20px 15px 0px 15px;
 }
@@ -200,16 +199,15 @@ a.Name {
         }
 
 /* Table */
-/*.content-table {
+.table {
     border-collapse: collapse;
     margin: 25px 0;
     width: 100%;
     border-radius: 5px 5px 0 0;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    transform: translateX(15px);
 }
-*/
+
 .content-table thead tr {
     background: linear-gradient(to right, #ee4d2d,#ff7337);
     text-align: left;
@@ -234,10 +232,71 @@ a.Name {
     text-align: center !important;
 }
 
-.content-table tbody tr td.Status {
-    color: var(--admin-color);
-}
-
 .comboList_menu {
     border-radius: 20px;
+}
+
+.Status {
+    background-color: var(--orange);
+    color: var(--white-color);
+    border: none;
+    outline: none;
+    font-size: 1.6rem;
+    font-weight: 400;
+    border-radius: 20px;
+    text-align: center;
+    width: 90%;
+    margin: 0 auto;
+    height: 30px;
+    line-height: 30px;
+}
+.cart__name-item i {
+    color: var(--text-color);
+}
+.cart__name-item i:hover {
+    color: var(--main-color);
+}
+
+/*detail-export-order*/
+.main__form-detail .main__sliderbar {
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+}
+
+.body-title {
+    font-size: 1.8rem;
+}
+
+.lb-title {
+    font-size: 16px;
+}
+
+img.cart__item-image {
+    width: 90px;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+a.cart__name-item {
+    color: var(--text-color);
+    text-transform: capitalize;
+}
+
+    a.cart__name-item:hover {
+        color: var(--admin-color);
+        text-decoration: none;
+    }
+
+.fs-16 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+button.submit-btn.submit-btn-edit {
+    margin-top: 0;
+}
+
+.table {
+    box-shadow: 1px 1px 12px rgb(0, 0, 0, 0.4);
 }

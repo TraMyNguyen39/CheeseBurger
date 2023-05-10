@@ -1,4 +1,5 @@
-﻿using CheeseBurger.Repository;
+﻿using CheeseBurger.Model.Entities;
+using CheeseBurger.Repository;
 
 namespace CheeseBurger.Service.Implements
 {
@@ -25,6 +26,10 @@ namespace CheeseBurger.Service.Implements
 		public float TotalIncome(DateTime fromDate, DateTime toDate)
 		{
 			return revenueRepository.TotalIncome(fromDate, toDate);
+		}
+		public List<Revenues> GetRevenuesRangeTime(DateTime fromDate, DateTime toDate)
+		{
+			return revenueRepository.GetRevenuesRangeTime(fromDate, toDate);
 		}
 	}
 }

@@ -1,8 +1,8 @@
 ﻿/* Information */
 .main__information {
-    margin-top: 30px;
     width: 70%;
-    padding-top: 0;
+    align-self: center;
+    margin: auto;
 }
 
 .main__information-detail {
@@ -19,10 +19,10 @@ form {
 
 .datetime {
     transform: translateX(10px);
+    transform: translateY(-5px);
 }
 
 .form-group2 {
-    transform: translateY(-5px);
     margin-left: 5px;
 }
 
@@ -73,13 +73,13 @@ form {
 }
 
 
-/*.column__info-details {
+.column__info-details {
     width: 100%;
     display: block;
     margin-top: 20px;
     height: auto;
     padding-right: 10px !important;
-}*/
+}
 .column__info-total .column__total-offer {
     width: 100%;
     height: 120px;
@@ -120,9 +120,7 @@ form {
         }
 
 .column__info-details .columns__chart {
-    width: 97%;
-    /*height: 440px;*/
-    height: 590px;
+    width: 100%;       
     margin-top: 20px;
     background-color: var(--white-color);
     padding-top: 20px;

@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="~/css/manage-categories.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
 
-<div class="main__information">
+<div class="main__information" style="margin-top: 100px">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <form class="menu-sort-user" method="get">
             <label style="margin-left: 2%">Sắp xếp theo: </label>
@@ -20,7 +20,7 @@
         </form>
     </div>
     @{
-        var pageSize = 3; // Number of rows to show per page
+        var pageSize = 5; // Number of rows to show per page
         var totalPages = (int)Math.Ceiling((double)Model.categories.Count / pageSize); // Calculate the total number of pages
         var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
         var categories = Model.categories.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page

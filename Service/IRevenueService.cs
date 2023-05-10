@@ -1,4 +1,6 @@
-﻿namespace CheeseBurger.Service
+﻿using CheeseBurger.Model.Entities;
+
+namespace CheeseBurger.Service
 {
 	public interface IRevenueService
 	{
@@ -6,5 +8,6 @@
 		int NumberIOrder(DateTime fromDate, DateTime toDate);
 		float TotalFund(DateTime fromDate, DateTime toDate);
 		float TotalIncome(DateTime fromDate, DateTime toDate);
+		List<Revenues> GetRevenuesRangeTime(DateTime fromDate, DateTime toDate);
 	}
 }

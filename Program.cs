@@ -58,6 +58,8 @@ service.AddHttpClient<IFeeAPIService, FeeAPIService>(client =>
 
 // Register your service
 service.AddScoped<IFeeAPIService, FeeAPIService>();
+service.AddScoped<IImportOrderService, ImportOrderService>();
+service.AddScoped<IImportOrderRepository, ImportOrderRepository>();
 var app = builder.Build();
 
 

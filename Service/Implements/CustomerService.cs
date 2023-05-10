@@ -33,5 +33,14 @@ namespace CheeseBurger.Service.Implements
 		{
 			customerRespository.DeleteData(id);
 		}
-	}
+		public List<CustomerDTO> GetAllCustomers()
+		{
+			return customerRespository.GetAllCustomers();
+		}
+		public void UpdateInfo(int id, string name, string email, string phone, int gender, string house, int WardID)
+		{
+			customerRespository.UpdateInfo(id, name, email, phone, gender, house, WardID);
+		}
+
+    }
 }

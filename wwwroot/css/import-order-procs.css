@@ -24,17 +24,15 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
-i.fas {
-    transform: scale(2.5);
-}
-
     i.fas.fa-minus-circle {
         padding-right: 30px;
         padding-left: 30px;
+        transform: scale(2.5);
     }
 
     i.fas.fa-plus-circle {
         padding: 15px 0 20px 5px;
+        transform: scale(2.5);
     }
 
 .ingredient__label-specific {

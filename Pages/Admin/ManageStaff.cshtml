@@ -27,6 +27,7 @@
 			<form class="menu-sort-staff" method="get">
 				<label>Sắp xếp theo: </label>
 				<select name="sortBy" class="menu-sort-staff-box" id="sort-select">
+					<option value="all">Tất cả</option>
 					<option value="name-asc">Tăng theo tên</option>
 					<option value="name-desc">Giảm theo tên</option>
 				</select>
@@ -82,7 +83,7 @@
 					}
 				}			
 			</tbody>
-		</table>
+		</table>		
 		@{
 			var pagingmodel = new CheeseBurger.Helpers.PagingModel()
 			{
