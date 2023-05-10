@@ -431,6 +431,9 @@ namespace CheeseBurger.Migrations
                         .HasMaxLength(2147483647)
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("OrderID")
+                        .HasColumnType("int");
+
                     b.Property<int>("Star")
                         .HasColumnType("int");
 
@@ -439,6 +442,8 @@ namespace CheeseBurger.Migrations
                     b.HasIndex("CustomerID");
 
                     b.HasIndex("FoodID");
+
+                    b.HasIndex("OrderID");
 
                     b.ToTable("Reviews");
                 });
@@ -687,9 +692,17 @@ namespace CheeseBurger.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CheeseBurger.Model.Entities.Orders", "Orders")
+                        .WithMany()
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Customer");
 
                     b.Navigation("Food");
+
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Staff", b =>

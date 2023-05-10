@@ -1,25 +1,24 @@
-﻿const ic_open = document.getElementsByClassName('ic-open-modal-review');
-const ic_close = document.getElementById('ic-close-modal-review');
-const btn_close = document.getElementById('btn-close-modal-review');
-
-const modal_container = document.getElementById('modal-container-review');
-const modal_demo = document.getElementById('modal-review');
-
-for (var i = 0; i < ic_open.length; i++) {
-    ic_open[i].addEventListener('click', () => {
-        modal_container.classList.add('show');
-    });
+﻿window.onload = function () {
+    document.querySelector('#star-error').textContent = '';
 }
 
-ic_close.addEventListener('click', () => {
-    modal_container.classList.remove('show');
-});
-btn_close.addEventListener('click', () => {
-    modal_container.classList.remove('show');
-});
+// Xem
+var pencilButtons = document.querySelectorAll("td.Option__pencil");
 
-modal_container.addEventListener('click', (e) => {
-    if (!modal_demo.contains(e.target)) {
-        ic_close.click();
-    }
+for (var i = 0; i < pencilButtons.length; i++) {
+    pencilButtons[i].addEventListener("click", function () {
+        var modal = document.getElementById('modal-container-review');
+        modal.classList.add('show');
+    });
+}
+// End
+
+// Exit
+var ic_close = document.getElementById('ic-close-modal-review');
+
+ic_close.addEventListener('click', function () {
+    var modal = document.getElementById('modal-container-review');
+    modal.classList.remove('show');
+    document.querySelector('#star-error').textContent = '';
 });
+// End

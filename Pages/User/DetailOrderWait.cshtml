@@ -133,11 +133,35 @@
 									<td class="table-money" style="font-weight: 500;">@((items.Price * items.Quantity).ToString("N0"))đ</td>
 									@if (Model.order.StatusOdr == (int)Enums.OrderStatus.completed)
 									{
-										<td>
-											<i class="fa-solid fa-pencil ic-open-modal-review"></i>
-										</td>
+										if (Model.reviewOrder.Count == 0)
+										{
+											<td class="Option__pencil" data-id="@items.FoodId">
+												<i class="fas fa-pencil-alt"></i>
+											</td>
+										}
+										else
+										{
+											var check = true;													
+											@foreach (var foods in Model.reviewOrder)
+											{												
+												if (@foods.FoodID == @items.FoodId)
+												{
+													<td class="Option__pencil__ban">
+														<i class="fas fa-ban"></i>
+													</td>
+													check = false;
+													break;
+												} 
+											}
+											if (check)
+											{
+												<td class="Option__pencil" data-id="@items.FoodId">
+													<i class="fas fa-pencil-alt"></i>
+												</td>
+											}
+										}																				
 									}
-								</tr>
+								</tr> 
 								count++;
 							}
 						}
@@ -212,40 +236,49 @@
 	</div>
 </div>
 
-<div id="modal-container-review">
-	<div id="modal-review">
-		<div class="modal_header">
-			<p>Đánh giá</p>
-			<i class="fas fa-times" id="ic-close-modal-review"></i>
-		</div>
-		<div class="modal_body">
-			<h3>GỬI NHẬN XÉT CỦA BẠN</h3>
-			<br>
-			<span style="font-size: 1.5rem">Sản phẩm: </span><img src="/img/Lipton.jpg" class="review-img" />
-			<br>
-			<div class="rating-star">
-				<label style="font-size: 1.5rem; margin-top: 5px">1. Đánh giá của bạn về sản phẩm này: </label>
-				<div class="rating">
-					<input type="radio" name="star" id="star1"><label for="star1"></label>
-					<input type="radio" name="star" id="star2"><label for="star2"></label>
-					<input type="radio" name="star" id="star3"><label for="star3"></label>
-					<input type="radio" name="star" id="star4"><label for="star4"></label>
-					<input type="radio" name="star" id="star5"><label for="star5"></label>
+<form method="post" enctype="multipart/form-data" asp-page-handler="Review">	
+	<div id="modal-container-review" class="modal-review-show">
+		<div id="modal-review">
+			<div class="modal_header">
+				<p>Đánh giá</p>
+				<i class="fas fa-times" id="ic-close-modal-review"></i>
+			</div>
+			<div class="modal_body">
+				<h3>GỬI NHẬN XÉT CỦA BẠN</h3>
+				<br> 
+				<span style="font-size: 1.5rem">Sản phẩm: </span><img id="image" class="review-img" /> <span style="font-size: 1.5rem" id="name_food_review"></span>
+				<br>
+				<div class="rating-star">
+					<label style="font-size: 1.5rem; margin-top: 5px">1. Đánh giá của bạn về sản phẩm này: </label>
+					<div class="rating">
+						<input type="radio" name="star" id="star1"><label for="star1"></label>
+						<input type="radio" name="star" id="star2"><label for="star2"></label>
+						<input type="radio" name="star" id="star3"><label for="star3"></label>
+						<input type="radio" name="star" id="star4"><label for="star4"></label>
+						<input type="radio" name="star" id="star5"><label for="star5"></label>
+					</div>
+				</div>
+				<small id="star-error" style="color: red; font-size: 1.5rem"></small>
+				<br>
+				<label style="font-size: 1.5rem">2. Viết nhận xét của bạn ở bên dưới:</label>
+				<br> <br>
+				<textarea name="content_review" id="" cols="140" rows="8" required></textarea>
+				<br> <br>
+				<div class="d-flex align-items-center">
+					<label for="myfile" style="font-size: 1.5rem; margin: 0 2% 0 0">Thêm hình ảnh sản phẩm: </label>
+					<input type="file" name="fileupload" id="fileupload" accept=".jpg,.jpeg,.png" style="font-size: 1.5rem" required>				
 				</div>
 			</div>
-			<br>
-			<label style="font-size: 1.5rem">2. Viết nhận xét của bạn ở bên dưới:</label>
-			<br> <br>
-			<textarea name="" id="" cols="140" rows="10"></textarea>
-			<br> <br>
-			<label for="myfile" style="font-size: 1.5rem">Thêm hình ảnh sản phẩm (nếu có): </label>
-			<input type="file" id="myfile" style="font-size: 1.5rem">
-		</div>
-		<div class="modal_footer">
-			<button id="btn-close-modal-review">Gửi nhận xét</button>
+			<div class="modal_footer">				
+				<button class="btn--modal-review" type="submit">Gửi nhận xét</button>
+			</div>
+			<input type="hidden" name="FoodID" value="" />
+			<input type="hidden" name="StarReview" value="" />
+			<input type="hidden" name="_OrderID" value="@Model.orderId" />
 		</div>
 	</div>
-</div>
+</form>
+
 <form method="post" asp-page-handler="Cancel">
 <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
 	<div class="modal-dialog ">
@@ -253,7 +286,6 @@
 			<div class="modal-header">
 				<h4 class="modal-title" id="confirm-label"></h4>
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-
 			</div>
 			<div class="modal-body">
 				<div class="text-center wirningColor">
@@ -287,7 +319,61 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script>
 
+	function validateForm(event) {
+			var rating = document.querySelector('.rating');
+			var stars = rating.querySelectorAll('input');
 
+			var selectedStar = 0;
+			for (var i = 0; i < stars.length; i++) {
+				if (stars[i].checked) {
+					selectedStar = i + 1;
+					break;
+				}
+			}
+			if (selectedStar == 0) {
+				document.querySelector('#star-error').textContent = '* Vui lòng chọn số sao !';
+				event.preventDefault();
+			} 
+			else {
+				document.querySelector('#star-error').textContent = '';
+				selectedStar = 5 - selectedStar + 1;
+				if (selectedStar == 1) $('.modal-review-show input[name="StarReview"]').val(1);
+				else if (selectedStar == 2) $('.modal-review-show input[name="StarReview"]').val(2);
+				else if (selectedStar == 3) $('.modal-review-show input[name="StarReview"]').val(3);
+				else if (selectedStar == 4) $('.modal-review-show input[name="StarReview"]').val(4);
+				else if (selectedStar == 5) $('.modal-review-show input[name="StarReview"]').val(5);
+			}			
+	}
+	
+	document.querySelector('.btn--modal-review').addEventListener('click', validateForm);
+</script>
+<script type="text/javascript">
+	$(document).ready(function () {		
+		$('.Option__pencil').on('click', function () {
+			var id = $(this).data('id');		
+			$.ajax({				
+				type: 'GET',
+				data: { id: id },
+				url: '@Url.Page("DetailOrderWait", "Find")',
+				success: function (result) {
+					var imageSrc = result.imageFood;
+					if (!imageSrc.startsWith("http")) {
+						imageSrc = "/img/" + imageSrc;
+					} 
+					$('.modal-review-show #image').attr('src', imageSrc);
+					$('.modal-review-show #name_food_review').text(result.foodName);
+					$('.modal-review-show input[name="FoodID"]').val(result.foodID);		
+					$('.modal-review-show input[name="StarReview"]').val(result.star);
+				},
+				error: function (xhr, textStatus, errorThrown) {
+					alert('Error loading ingredient: ' + errorThrown);
+				}
+			});
+		});
+	});
+</script>
+
+<script>
 	// Huy don
 	$(function () {
 		(function ($) {

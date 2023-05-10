@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheeseBurger.Migrations
 {
     [DbContext(typeof(CheeseBurgerContext))]
-    [Migration("20230506061544_DBver4")]
+    [Migration("20230510075646_DBver4")]
     partial class DBver4
     {
         /// <inheritdoc />
@@ -389,6 +389,26 @@ namespace CheeseBurger.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("CheeseBurger.Model.Entities.Revenues", b =>
+                {
+                    b.Property<DateTime>("DateReve")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("Fund")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Income")
+                        .HasColumnType("real");
+
+                    b.Property<int>("NumberIOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOrder")
+                        .HasColumnType("int");
+
+                    b.ToTable("Revenues");
+                });
+
             modelBuilder.Entity("CheeseBurger.Model.Entities.Review", b =>
                 {
                     b.Property<int>("ReviewID")
@@ -414,6 +434,9 @@ namespace CheeseBurger.Migrations
                         .HasMaxLength(2147483647)
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("OrderID")
+                        .HasColumnType("int");
+
                     b.Property<int>("Star")
                         .HasColumnType("int");
 
@@ -422,6 +445,8 @@ namespace CheeseBurger.Migrations
                     b.HasIndex("CustomerID");
 
                     b.HasIndex("FoodID");
+
+                    b.HasIndex("OrderID");
 
                     b.ToTable("Reviews");
                 });
@@ -670,9 +695,17 @@ namespace CheeseBurger.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CheeseBurger.Model.Entities.Orders", "Orders")
+                        .WithMany()
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Customer");
 
                     b.Navigation("Food");
+
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Staff", b =>

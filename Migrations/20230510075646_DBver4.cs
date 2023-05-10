@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CheeseBurger.Migrations
 {
     /// <inheritdoc />
-    public partial class DBver3 : Migration
+    public partial class DBver4 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -295,36 +295,6 @@ namespace CheeseBurger.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reviews",
-                columns: table => new
-                {
-                    ReviewID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Star = table.Column<int>(type: "int", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
-                    Img = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
-                    DateReview = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CustomerID = table.Column<int>(type: "int", nullable: false),
-                    FoodID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reviews", x => x.ReviewID);
-                    table.ForeignKey(
-                        name: "FK_Reviews_Customers_CustomerID",
-                        column: x => x.CustomerID,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Reviews_Foods_FoodID",
-                        column: x => x.FoodID,
-                        principalTable: "Foods",
-                        principalColumn: "FoodID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ImportOrders",
                 columns: table => new
                 {
@@ -353,16 +323,18 @@ namespace CheeseBurger.Migrations
                     OrderID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SaleDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ArriveTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CustomerName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Note = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
-                    TotalMoney = table.Column<float>(type: "real", nullable: false),
+                    TempMoney = table.Column<float>(type: "real", nullable: false),
+                    ShippingMoney = table.Column<float>(type: "real", nullable: false),
                     StatusOdr = table.Column<int>(type: "int", nullable: false),
+                    HourseNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WardID = table.Column<int>(type: "int", nullable: false),
                     ChefID = table.Column<int>(type: "int", nullable: true),
                     ShipperID = table.Column<int>(type: "int", nullable: true),
-                    CustomerID = table.Column<int>(type: "int", nullable: false),
-                    HourseNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WardID = table.Column<int>(type: "int", nullable: false)
+                    CustomerID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -411,6 +383,43 @@ namespace CheeseBurger.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Order_Foods_Orders_OrderID",
+                        column: x => x.OrderID,
+                        principalTable: "Orders",
+                        principalColumn: "OrderID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    ReviewID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Star = table.Column<int>(type: "int", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
+                    Img = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
+                    DateReview = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CustomerID = table.Column<int>(type: "int", nullable: false),
+                    FoodID = table.Column<int>(type: "int", nullable: false),
+                    OrderID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.ReviewID);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Customers_CustomerID",
+                        column: x => x.CustomerID,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Foods_FoodID",
+                        column: x => x.FoodID,
+                        principalTable: "Foods",
+                        principalColumn: "FoodID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Orders_OrderID",
                         column: x => x.OrderID,
                         principalTable: "Orders",
                         principalColumn: "OrderID",
@@ -493,6 +502,11 @@ namespace CheeseBurger.Migrations
                 column: "FoodID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reviews_OrderID",
+                table: "Reviews",
+                column: "OrderID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Staffs_AccountID",
                 table: "Staffs",
                 column: "AccountID");
@@ -541,22 +555,22 @@ namespace CheeseBurger.Migrations
                 name: "Ingredients");
 
             migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
                 name: "Foods");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
                 name: "Measures");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "Staffs");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Accounts");

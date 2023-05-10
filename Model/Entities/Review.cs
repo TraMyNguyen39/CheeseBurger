@@ -24,5 +24,8 @@ namespace CheeseBurger.Model.Entities
         public int FoodID { get; set; }
         [ForeignKey("FoodID")]
         public Food Food { get; set; }
-    }
+		public int OrderID { get; set; }
+		[ForeignKey("OrderID")]
+		public Orders Orders { get; set; }
+	}
 }

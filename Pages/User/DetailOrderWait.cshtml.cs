@@ -4,6 +4,7 @@ using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Hosting.Internal;
 using System.Net;
 
 namespace CheeseBurger.Pages
@@ -16,15 +17,20 @@ namespace CheeseBurger.Pages
         private readonly IDistrictService districtService;
         private readonly IStaffService staffService;
         private readonly ICartService cartService;
-        public Orders order { get; set; }
+        private readonly IFoodService foodService;
+        private readonly IReviewService reviewService;
+		private IWebHostEnvironment hostingEnvironment;
+		public Orders order { get; set; }
         public string address { get; set; }
         public StaffOrderDTO chef { get; set; }
         public StaffOrderDTO shipper { get; set; }
         public List<LineItemDTO> lineItems { get; set; }
+        public List<Review> reviewOrder { get; set; }
         [BindProperty (SupportsGet = true)]
         public int orderId { get; set; }
         public DetailOrderWaitModel(IOrderService orderService, IOrder_FoodService order_FoodService, ICartService cartService,
-            IWardService wardService, IDistrictService districtService, IStaffService staffService)
+            IWardService wardService, IDistrictService districtService, IStaffService staffService, IFoodService foodService, 
+            IReviewService reviewService, IWebHostEnvironment hostingEnvironment)
         {
             this.orderService = orderService;
             this.order_FoodService = order_FoodService;
@@ -32,6 +38,9 @@ namespace CheeseBurger.Pages
             this.wardService = wardService;
             this.districtService = districtService;
             this.staffService = staffService;
+            this.foodService = foodService;
+            this.reviewService = reviewService;
+            this.hostingEnvironment = hostingEnvironment;
         }
         public IActionResult OnGet()
         {
@@ -48,6 +57,7 @@ namespace CheeseBurger.Pages
                     chef = order.ChefID != null ? staffService.GetStaffOrder((int)order.ChefID) : null;
                     shipper = order.ShipperID != null ? staffService.GetStaffOrder((int)order.ShipperID) : null;
                     lineItems = order_FoodService.GetAllLine(orderId);
+                    reviewOrder = reviewService.GetReviewByOrderID(orderId);
                     return Page();
                 }
             }
@@ -68,6 +78,39 @@ namespace CheeseBurger.Pages
             }
 			return RedirectToPage("/User/Cart");
 		}
+		public IActionResult OnGetFind(int id)
+		{
+            var food = foodService.GetFoodbyId(id);
+			var result = new
+			{
+				foodID = food.FoodID,
+				foodName = food.FoodName,
+				imageFood = food.ImageFood,
+                star = 5
+			};
+			return new JsonResult(result);			
+		}
+		public async Task<IActionResult> OnPostReviewAsync(int FoodID, int StarReview, string content_review, IFormFile fileupload, int _OrderID)
+		{                
+			var customerID = HttpContext.Session.GetInt32("customerID");
+			DateTime tmp = DateTime.Now;
+			if (fileupload != null && fileupload.Length > 0)
+			{
+				var fileName = Guid.NewGuid().ToString() + Path.GetExtension(fileupload.FileName);
+				var filePath = Path.Combine(hostingEnvironment.WebRootPath, "img", fileName);
 
+				using (var stream = new FileStream(filePath, FileMode.Create))
+				{
+					await fileupload.CopyToAsync(stream);
+				}                
+                reviewService.AddNewReview(FoodID, StarReview, content_review, fileName, tmp, (int)customerID, _OrderID);
+			}
+			else
+			{
+				reviewService.AddNewReview(FoodID, StarReview, content_review, null, tmp, (int)customerID, _OrderID);
+			}
+
+			return RedirectToPage("/User/DetailOrderWait", new { orderId = _OrderID });
+		}
 	}
 }
