@@ -16,12 +16,14 @@
 				<div class="lb-title col-3 d-flex flex-column">
 					<label class="lb-title">Mã đơn hàng</label>
 					<label class="lb-title">Ngày đặt hàng</label>
+					<label class="lb-title">Nhà cung cấp</label>
 					<label class="lb-title">Nhân viên nhập</label>
 				</div>
 				<div class="lb-title col d-flex flex-column">
-					<label class="lb-title">#</label>
+					<label class="lb-title">#@Model.order.ImportOrderID</label>
+					<label class="lb-title">@Model.order.DateIO.ToString("HH:mm dd/MM/yyyy")</label>
+					<label class="lb-title">@Model.order</label>
 					<label class="lb-title"></label>
-					<label class="lb-title" style="font-style: italic"></label>
 				</div>
 			</div>
 		</div>

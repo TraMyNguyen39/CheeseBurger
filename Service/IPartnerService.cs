@@ -10,5 +10,6 @@ namespace CheeseBurger.Service
 		Partner GetPartner(int partnerID);
 		void AddPartner(Partner p);
 		void UpdatePartner(Partner p);
+		List<CBBPartnerDTO> GetPartnerNames();
 	}
 }

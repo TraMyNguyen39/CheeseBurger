@@ -63,6 +63,14 @@
 			</form>
 		</div>
 	</div>
+	@{
+		var pageSize = 5; // Number of rows to show per page
+		var totalPages = (int)Math.Ceiling((double)Model.items.Count / pageSize); // Calculate the total number of pages
+		var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
+		var foods = Model.items.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
+		if (Model.currentPage < 1) Model.currentPage = 1;
+		if (Model.currentPage > totalPages) Model.currentPage = totalPages;
+	}
 	<!-- Table -->
 	<table class="content-table">
 		<thead>
@@ -109,6 +117,15 @@
 			<a href="#"><i class="fas fa-angle-double-right"></i></a>
 		</div>
 	</div>
+	@{
+		var pagingmodel = new CheeseBurger.Helpers.PagingModel()
+			{
+				currentPage = Model.currentPage,
+				countPages = totalPages,
+				//generateUrl = (int? p) => Url.Page("/Admin/ManageExportOrder", new { p, Model.searchText, Model.sortBy, Model.roleBy })
+			};
+	}
+	<partial name="_Paging" model="@pagingmodel" />
 	<!-- End Table -->
 </div>
 

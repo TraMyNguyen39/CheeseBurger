@@ -49,5 +49,10 @@ namespace CheeseBurger.Service.Implements
 		{
 			return staffRespository.GetStaffOrder(id);
 		}
+
+		public string GetStaffRole(int staffID)
+		{
+			return staffRespository.GetStaffRole(staffID);
+		}
 	}
 }

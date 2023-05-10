@@ -51,5 +51,19 @@ namespace CheeseBurger.Repository.Implements
 			//	.Select(o => new ImportOrder { })
 			//	.OrderByDescending(p => p.DateIO).ToList();
 		}
+
+		public dynamic GetImportOrder(int orderID)
+		{
+			var order = context.ImportOrders.Where(p => p.ImportOrderID == orderID)
+											.Select(p => new
+											{
+												DateIO = p.DateIO,
+												ImportOrderID = p.ImportOrderID,
+												PartnerName = p.Partner.PartnerName,
+												TMoneyIO = p.TMoneyIO,
+												StaffName = p.Staff.StaffName
+											});
+			return order.FirstOrDefault();
+		}
 	}
 }

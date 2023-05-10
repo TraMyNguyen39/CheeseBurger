@@ -1,4 +1,5 @@
-﻿using CheeseBurger.Model.Entities;
+﻿using CheeseBurger.DTO;
+using CheeseBurger.Model.Entities;
 using CheeseBurger.Repository;
 using CheeseBurger.Repository.Implements;
 
@@ -20,6 +21,11 @@ namespace CheeseBurger.Service.Implements
 		public void DeleteOrderDetail(int orderID, int ingreID)
 		{
 			importOrders_IngredientsRepository.DeleteOrderDetail(orderID, ingreID);
+		}
+
+		public List<ImportLineDTO> GetAllLines(int orderID)
+		{
+			return importOrders_IngredientsRepository.GetAllLines(orderID);
 		}
 	}
 }

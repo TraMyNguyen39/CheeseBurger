@@ -35,9 +35,9 @@ namespace CheeseBurger.Service.ImplementsGetPrice
 		{
 			return ingredientsRespository.ConvertMeasureNametoMeasureId(Name);
 		}
-		public void AddData(string Name, int measureId, float Price)
+		public void AddData(string Name, int measureId, float Price, int partner)
 		{
-			ingredientsRespository.AddData(Name, measureId, Price);
+			ingredientsRespository.AddData(Name, measureId, Price, partner);
 		}
 		public void DeleteData(int id)
 		{
@@ -48,9 +48,9 @@ namespace CheeseBurger.Service.ImplementsGetPrice
 			return ingredientsRespository.FindIngredient(id);
 		}
 
-		public void UpdateData(int id, string Name, int measureId, float Price)
+		public void UpdateData(int id, string Name, int measureId, float Price, int partner)
 		{
-			ingredientsRespository.UpdateData(id, Name, measureId, Price);
+			ingredientsRespository.UpdateData(id, Name, measureId, Price, partner);
 		}
 
 		public IngredientDTO getEachIngredients(int IngreID)

@@ -89,10 +89,17 @@
 					</div>
 				</div>
 				<input type="hidden" name="foodId" value="@Model.food.FoodID">
-				<button type="submit" class="submit-btn submit-btn__detail">
-					<i class="fas fa-cart-shopping add-cart-icon"></i>
-					Thêm vào giỏ hàng
-				</button>
+				@if(Model.food.IsDeleted == false)
+				{
+					<button type="submit" class="submit-btn submit-btn__detail">
+						<i class="fas fa-cart-shopping add-cart-icon"></i>
+						Thêm vào giỏ hàng
+					</button>
+				}
+				else
+				{
+					<button id="btn-unactive" class="submit-btn submit-btn-edit grey-btn">HỦY ĐƠN HÀNG</button>
+				}
 			</div>
 		</form>
 	</div>

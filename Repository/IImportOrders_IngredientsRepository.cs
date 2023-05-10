@@ -1,4 +1,5 @@
-﻿using CheeseBurger.Model.Entities;
+﻿using CheeseBurger.DTO;
+using CheeseBurger.Model.Entities;
 
 namespace CheeseBurger.Repository
 {
@@ -6,5 +7,6 @@ namespace CheeseBurger.Repository
     {
 		void CreateOrderDetail(int orderID, int ingrID, int qty);
 		void DeleteOrderDetail(int orderID, int ingreID);
+		List<ImportLineDTO> GetAllLines(int orderID);
 	}
 }

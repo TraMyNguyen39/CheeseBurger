@@ -1,5 +1,6 @@
-using CheeseBurger.DTO;
+﻿using CheeseBurger.DTO;
 using CheeseBurger.Enums;
+using CheeseBurger.Middleware;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
@@ -10,6 +11,7 @@ using System;
 
 namespace CheeseBurger.Pages.Admin
 {
+    [Authorize("Quản trị viên","Nhân viên đầu bếp")]
     public class ImportOrderProcModel : PageModel
     {
         private readonly IImportOrderService importOrderService;

@@ -1,4 +1,5 @@
-﻿using CheeseBurger.Model;
+﻿using CheeseBurger.DTO;
+using CheeseBurger.Model;
 using CheeseBurger.Model.Entities;
 
 namespace CheeseBurger.Repository.Implements
@@ -46,6 +47,11 @@ namespace CheeseBurger.Repository.Implements
 		public Partner GetPartner(int partnerID)
 		{
 			return context.Partners.Find(partnerID);
+		}
+
+		public List<CBBPartnerDTO> GetPartnerNames()
+		{
+			return context.Partners.Select(p => new CBBPartnerDTO { PartnerID = p.PartnerID, PartnerName = p.PartnerName}).ToList();
 		}
 
 		public void UpdatePartner(Partner p)

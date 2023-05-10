@@ -8,5 +8,6 @@ namespace CheeseBurger.Service
 		List<ImportOrderDTO> GetAllImport();
 		void CreateOrder(ImportOrder order);
 		void CalculateMoney(int orderID);
+		dynamic GetImportOrder(int orderID);
 	}
 }

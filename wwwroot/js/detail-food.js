@@ -43,3 +43,9 @@ var rating = document.querySelector('.stars-outer input').value;
 const starPercentage = (rating / 5) * 100;
 const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
 document.querySelector(`.stars-inner`).style.width = starPercentageRounded;
+
+// unactive
+var btnUnactive = document.getElementById('btn-unactive');
+btnUnactive.addEventListener('click', function (event) {
+    event.preventDefault();
+});

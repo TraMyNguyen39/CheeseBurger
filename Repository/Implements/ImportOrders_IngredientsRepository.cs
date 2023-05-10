@@ -43,13 +43,16 @@ namespace CheeseBurger.Repository.Implements
 			}
 			context.SaveChanges();
 		}
-		//public List<LineItemDTO> GetAllLine(int orderID)
-		//{
-		//	return context.Order_Foods
-		//			.Where(p => p.OrderID == orderID)
-		//			.Join(context.Foods, c => c.FoodID, f => f.FoodID, (c, f)
-		//			=> new LineItemDTO { FoodId = f.FoodID, FoodPic = f.ImageFood, Name = f.FoodName, Price = c.PriceOF, Quantity = c.QuantityOF })
-		//			.ToList();
-		//}
+		public List<ImportLineDTO> GetAllLine(int orderID)
+		{
+			return context.ImportOrders_Ingredients
+					.Where(p => p.ImportOrderID == orderID)
+					.Select(p => new ImportLineDTO
+					{
+						IngredientName = p.Ingredients.IngredientsName,
+						PriceIO = p.PriceIO,
+						QuantityIO = p.QuantityIO,
+					}).ToList();
+		}
 	}
 }

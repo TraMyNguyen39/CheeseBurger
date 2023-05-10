@@ -1,4 +1,5 @@
 ﻿using CheeseBurger.DTO;
+using CheeseBurger.Middleware;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
@@ -12,9 +13,10 @@ using System.Globalization;
 
 namespace CheeseBurger.Pages.Admin
 {
-	public class ManagePartnerModel : PageModel
+    [Authorize("Quản trị viên")]
+    public class ManagePartnerModel : PageModel
 	{
-		private readonly IPartnerService partnerService;
+        private readonly IPartnerService partnerService;
 
 		[BindProperty(SupportsGet = true)]
 		public List<Partner> partners { get; set; }

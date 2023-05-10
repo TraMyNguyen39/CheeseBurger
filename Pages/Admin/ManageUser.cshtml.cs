@@ -1,4 +1,5 @@
 ﻿using CheeseBurger.DTO;
+using CheeseBurger.Middleware;
 using CheeseBurger.Model;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
@@ -11,6 +12,7 @@ using System.Net.Security;
 
 namespace CheeseBurger.Pages
 {
+    [Authorize("Quản trị viên")]
     public class ManageUserModel : PageModel
     {
         private readonly ICustomerService customerService;

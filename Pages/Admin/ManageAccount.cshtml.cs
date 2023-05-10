@@ -1,4 +1,5 @@
 ﻿using CheeseBurger.DTO;
+using CheeseBurger.Middleware;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CheeseBurger.Pages
 {
+    [Authorize("Quản trị viên","Nhân viên đầu bếp","Nhân viên giao hàng")]
     public class ManageAccountModel : PageModel
     {
 		private readonly IStaffService staffService;

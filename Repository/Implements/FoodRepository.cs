@@ -77,7 +77,8 @@ namespace CheeseBurger.Repository.Implements
 
 		public List<AdminFoodDTO> GetFoodAdmin()
 		{
-			return context.Foods.Select(p => new AdminFoodDTO { FoodID = p.FoodID, FoodName = p.FoodName, FoodInputPrice = p.Price, CategoryName = p.Category.CategoryName }).ToList();
+			return context.Foods.Where(p => p.IsDeleted == false)
+				.Select(p => new AdminFoodDTO { FoodID = p.FoodID, FoodName = p.FoodName, FoodInputPrice = p.Price, CategoryName = p.Category.CategoryName }).ToList();
 		}
 		public int getRowFood()
 		{
@@ -96,7 +97,8 @@ namespace CheeseBurger.Repository.Implements
 							   FoodID = c.FoodID,
 							   FoodName = c.FoodName,
 							   FoodInputPrice = c.Price,
-							   CategoryName = a.CategoryName
+							   CategoryName = a.CategoryName,
+							   isDeleted = c.IsDeleted
 						   };
 
 			if (!string.IsNullOrEmpty(categories) && categories != "All")
@@ -114,7 +116,10 @@ namespace CheeseBurger.Repository.Implements
 					sta_data = isDescending ? sta_data.OrderByDescending(p => p.FoodName) : sta_data.OrderBy(p => p.FoodName);
 					break;
 			}
-			return sta_data.ToList();
+			if (!searchText.IsNullOrEmpty())
+				return sta_data.ToList();
+			else
+				return sta_data.ToList().Where(p => p.isDeleted == false).ToList();
 		}
         public int ConvertCategoryNametoCategoryId(string Name)
         {
@@ -150,20 +155,11 @@ namespace CheeseBurger.Repository.Implements
         }
         public void DeleteData(int id)
         {
-            if (id <= 0)
-            {
-                throw new ArgumentException("Invalid food ID.");
-            }
-
             var food = context.Foods.Find(id);
             if (food != null)
             {
-                context.Foods.Remove(food);
+				food.IsDeleted = true;
                 context.SaveChanges();
-            }
-            else
-            {
-                throw new ArgumentException($"Food not found with ID {id}:");
             }
         }
         public dynamic FindFood(int id)

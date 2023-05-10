@@ -42,5 +42,10 @@ namespace CheeseBurger.Service.Implements
 			}
 			return partners;
 		}
+
+		public List<CBBPartnerDTO> GetPartnerNames()
+		{
+			return partnerRespository.GetPartnerNames();
+		}
 	}
 }

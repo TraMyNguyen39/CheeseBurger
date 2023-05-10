@@ -55,7 +55,7 @@
                     <div class="search__form">
                         <form class="form-inline my-2 my-lg-0" method="get">
                             <div class="input-wrapper">
-                                <input class="form-control" type="search" name="search" placeholder="Tìm kiếm mã, tên sản phẩm" aria-label="Search">
+                                <input class="form-control" type="search" name="search" placeholder="Tìm kiếm tên sản phẩm" aria-label="Search">
                                 <input class="search-staff-box-hidden" name="sortBy" value="@Model.sortBy" type="hidden" />
                                 <input class="search-staff-box-hidden" name="roleBy" value="@Model.roleBy" type="hidden" />
                                 <button type="submit" class="search-staff-box-btn">
@@ -78,7 +78,6 @@
         <table class="content-table">
             <thead>
                 <tr>
-                    <th class="STT col-1">STT</th>
                     <th class="ID_mon col-2">Mã món ăn</th>
                     <th class="Ten_mon col-3">Tên món ăn</th>
                     <th class="Danh_muc col-2">Danh mục</th>
@@ -90,15 +89,22 @@
                 @foreach (var i in foods)
                 {
                     <tr>
-                        <td class="STT">@(++stt)</td>
                         <td class="ID_mon">@i.FoodID</td>
                         <td class="Ten_mon">@i.FoodName</td>
                         <td class="Danh_muc">@i.CategoryName</td>
                         <td class="Trang_thai">@i.FoodInputPrice.ToString("N0")đ</td>
                         <td class="Option">
                             <i class="fas fa-eye" data-id="@i.FoodID" onclick="showFoodDetails(@i.FoodID)"></i>
-                            <i class="fas fa-pencil-alt" data-id="@i.FoodID" onclick="showFoodDetails(@i.FoodID)"></i>
-                            <i class="fas fa-ban" data-id="@i.FoodID"></i>
+                            @if(!i.isDeleted)
+                            {
+                                <i class="fas fa-pencil-alt" data-id="@i.FoodID" onclick="showFoodDetails(@i.FoodID)"></i>
+                                <i class="fas fa-ban" data-id="@i.FoodID"></i>
+                            }
+                            else
+                            {
+                                <i class="fa-regular fa-square-minus"></i>
+                                <i class="fa-regular fa-square-minus"></i>
+                            }
                         </td>
                     </tr>
                 }
@@ -115,7 +121,7 @@
             {
                 currentPage = Model.currentPage,
                 countPages = totalPages,
-                generateUrl = (int? p) => Url.Page("/Admin/ManageFood", new { p })
+                generateUrl = (int? p) => Url.Page("/Admin/ManageFood", new { p, Model.searchText, Model.sortBy, Model.roleBy  })
             };
         }
         <partial name="_Paging" model="@pagingmodel" />
@@ -222,7 +228,7 @@
 <!-- End Modal Update-->
 <!-- Modal Read -->
 <div class="modal__food-read">
-    <div class="modal__read-information">
+    <div class="modal__read-information" style="width: 35%">
         <div class="button__exit d-flex justify-content-end">
             <span class="exit__surround d-flex align-items-center justify-content-center">
                 <i class="fas fa-times"></i>
@@ -232,8 +238,8 @@
             <div class="categories__form-edit">
                 <p class="categories__text-specific">Thông tin món ăn</p>
                 <div class="food-line d-flex">
-                    <label for="image" class="categories__text col-md-4 pl-0">Hình ảnh</label>
-                    <img class="food-img" id="image" />
+                    <label for="image" class="categories__text col-md-4 pl-0">Hình ảnh:</label>
+                    <img class="food-img col-8" style="border: 8px;" id="image" />
                 </div>
                 <div class="food-line d-flex">
                     <label for="name" class="categories__text col-md-4 pl-0">Tên món ăn:</label>
