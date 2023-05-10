@@ -14,8 +14,8 @@ using System;
 
 namespace CheeseBurger.Repository.Implements
 {
-    public class IngredientsRespository : IIngredientsRespository
-    {
+	public class IngredientsRespository : IIngredientsRespository
+	{
 		private readonly CheeseBurgerContext context;
 
 		public IngredientsRespository(CheeseBurgerContext context)
@@ -107,23 +107,20 @@ namespace CheeseBurger.Repository.Implements
 			if (!measureExists)
 			{
 				throw new ArgumentException($"MeasureName no exist.");
-            }
+			}
 
 			if (!ingredientName)
 			{
-                var ingredient = new Ingredients
-                {
-                    IngredientsName = Name,
-                    IngredientsPrice = Price,
-                    MeasureID = measureId,
-                    IsDeleted = new Random().Next(0, 2) == 1
-                };
-                context.Ingredients.Add(ingredient);
-                context.SaveChanges();
-            } else
-			{
-                throw new ArgumentException($"Tên nguyên liệu đã bị trùng. Vui lòng nhập lại!");
-            }
+				var ingredient = new Ingredients
+				{
+					IngredientsName = Name,
+					IngredientsPrice = Price,
+					MeasureID = measureId,
+					IsDeleted = new Random().Next(0, 2) == 1
+				};
+				context.Ingredients.Add(ingredient);
+				context.SaveChanges();
+			}
 		}
 
 		public void DeleteData(int id)
@@ -131,12 +128,8 @@ namespace CheeseBurger.Repository.Implements
 			var ingredient = context.Ingredients.Find(id);
 			if (ingredient != null)
 			{
-				context.Ingredients.Remove(ingredient);
+				ingredient.IsDeleted = true;
 				context.SaveChanges();
-			}
-			else
-			{
-				throw new ArgumentException($"Ingredient not found with {id}:");
 			}
 		}
 		public dynamic FindIngredient(int id)
@@ -146,17 +139,38 @@ namespace CheeseBurger.Repository.Implements
 		public void UpdateData(int id, string Name, int measureId, float Price)
 		{
 			var ingredient = context.Ingredients.Find(id);
-            	ingredient.IngredientsName = Name;
-				ingredient.IngredientsPrice = Price;
-				ingredient.MeasureID = measureId;
-				// bỏ qua trường IsDeleted
-				context.Entry(ingredient).Property(x => x.IsDeleted).IsModified = false;
-				context.SaveChanges();
+			ingredient.IngredientsName = Name;
+			ingredient.IngredientsPrice = Price;
+			ingredient.MeasureID = measureId;
+			// bỏ qua trường IsDeleted
+			context.Entry(ingredient).Property(x => x.IsDeleted).IsModified = false;
+			context.SaveChanges();
 		}
 
 		public List<String> GetNameIngredient()
 		{
 			return context.Ingredients.Select(p => p.IngredientsName).ToList();
+		}
+
+		public List<CBBIngredientDTO> GetIngredientsByPartner(int partnerID)
+		{
+			var list = from c in context.Ingredients
+					   where c.PartnerID == partnerID
+					   join a in context.Measures on c.MeasureID equals a.MeasureID
+					   select new CBBIngredientDTO
+					   {
+						   IngredientID = c.IngredientsId,
+						   IngredientName = c.IngredientsName,
+						   IngredientsPrice = c.IngredientsPrice,
+						   UnitName = a.MeasureName
+					   };
+			return list.ToList();
+		}
+
+		public float GetPrice(int ingre)
+		{
+			var ingredient = context.ImportOrders_Ingredients.Find(ingre);
+			return (ingredient != null) ? ingredient.PriceIO : 0;
 		}
 	}
 }

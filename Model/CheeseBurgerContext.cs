@@ -23,6 +23,8 @@ namespace CheeseBurger.Model
         public DbSet<Orders> Orders { get; set; }
         public DbSet<Review> Reviews { get; set; }
 		public DbSet<Revenues> Revenues { get; set; }
+		public DbSet<Partner> Partners { get; set; }
+
 
 		public CheeseBurgerContext(DbContextOptions<CheeseBurgerContext> options) : base(options)
         {
@@ -31,16 +33,23 @@ namespace CheeseBurger.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Cart>()
+			foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+			{
+				relationship.DeleteBehavior = DeleteBehavior.Restrict;
+			}
+
+			modelBuilder.Entity<Cart>()
            .HasKey(c => new { c.CustomerID, c.FoodID });
 
             modelBuilder.Entity<Food_Ingredients>()
                 .HasKey(fi => new { fi.FoodID, fi.IngredientsId });
+			modelBuilder.Entity<ImportOrders_Ingredients>()
+				.HasKey(fi => new { fi.ImportOrderID, fi.IngredientsID });
 
-            modelBuilder.Entity<Order_Food>()
+			modelBuilder.Entity<Order_Food>()
                 .HasKey(of => new { of.OrderID, of.FoodID });
 
-            modelBuilder.Entity<Orders>()
+			modelBuilder.Entity<Orders>()
                 .HasOne(e => e.Customer)
                 .WithMany()
                 .HasForeignKey(e => e.CustomerID)
