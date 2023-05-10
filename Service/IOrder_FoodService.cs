@@ -1,4 +1,5 @@
 ﻿using CheeseBurger.DTO;
+using CheeseBurger.Helpers;
 using CheeseBurger.Model.Entities;
 
 namespace CheeseBurger.Service
@@ -8,5 +9,5 @@ namespace CheeseBurger.Service
         void CreateOrderDetail(Order_Food orderLine);
 		List<LineItemDTO> GetAllLine(int orderID);
 		List<Order_Food> ReOrder(int orderID);
-	}
+    }
 }

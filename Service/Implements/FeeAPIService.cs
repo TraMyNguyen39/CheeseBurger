@@ -17,10 +17,10 @@ namespace CheeseBurger.Service.Implements
             _httpClient.BaseAddress = new Uri("https://online-gateway.ghn.vn/shiip/public-api/v2/");
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _httpClient.DefaultRequestHeaders.Add("token", "312f0089-ed7a-11ed-8a8c-6e4795e6d902");
+            _httpClient.DefaultRequestHeaders.Add("Token", "312f0089-ed7a-11ed-8a8c-6e4795e6d902");
         }
 
-        public async Task<FeeAPI> GetResult(int fromDistrictId, int serviceId, int toDistrictId, string toWardCode, int height, int length, int weight, int width, int insuranceValue)
+        public async Task<FeeAPIResult> GetResult(int fromDistrictId, int serviceId, int toDistrictId, string toWardCode, int height, int length, int weight, int width, int insuranceValue)
         {
             var query = new Dictionary<string, string>
     {
@@ -38,13 +38,13 @@ namespace CheeseBurger.Service.Implements
             var queryString = string.Join("&", query.Select(x => $"{x.Key}={x.Value}"));
 
             // Use the registered HttpClient instance
-            var response = await _httpClient.GetAsync($"shipping-order/fee?{queryString}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"shipping-order/fee?{queryString}");
 
             if (response.IsSuccessStatusCode)
             {
                 var jsonResult = await response.Content.ReadAsStringAsync();
-                var feeResult = JsonConvert.DeserializeObject<FeeAPI>(jsonResult);
-                return feeResult;
+    var feeResult = FeeAPIResult.FromJson(jsonResult);
+    return feeResult;
             }
 
             // Handle the error response

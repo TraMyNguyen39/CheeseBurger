@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheeseBurger.Migrations
 {
     [DbContext(typeof(CheeseBurgerContext))]
-    [Migration("20230506061544_DBver4")]
-    partial class DBver4
+    [Migration("20230510025615_CreateDatabase")]
+    partial class CreateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -387,6 +387,26 @@ namespace CheeseBurger.Migrations
                     b.HasIndex("WardID");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("CheeseBurger.Model.Entities.Revenues", b =>
+                {
+                    b.Property<DateTime>("DateReve")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("Fund")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Income")
+                        .HasColumnType("real");
+
+                    b.Property<int>("NumberIOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOrder")
+                        .HasColumnType("int");
+
+                    b.ToTable("Revenues");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Review", b =>

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CheeseBurger.Migrations
 {
     /// <inheritdoc />
-    public partial class DBver3 : Migration
+    public partial class CreateDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -353,16 +353,18 @@ namespace CheeseBurger.Migrations
                     OrderID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SaleDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ArriveTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CustomerName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Note = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
-                    TotalMoney = table.Column<float>(type: "real", nullable: false),
+                    TempMoney = table.Column<float>(type: "real", nullable: false),
+                    ShippingMoney = table.Column<float>(type: "real", nullable: false),
                     StatusOdr = table.Column<int>(type: "int", nullable: false),
+                    HourseNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WardID = table.Column<int>(type: "int", nullable: false),
                     ChefID = table.Column<int>(type: "int", nullable: true),
                     ShipperID = table.Column<int>(type: "int", nullable: true),
-                    CustomerID = table.Column<int>(type: "int", nullable: false),
-                    HourseNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WardID = table.Column<int>(type: "int", nullable: false)
+                    CustomerID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
