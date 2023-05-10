@@ -19,10 +19,12 @@ namespace CheeseBurger.Pages
         private readonly ICartService cartService;
         private readonly IFoodService foodService;
         private readonly IReviewService reviewService;
+		private readonly ICustomerService customerService;
 		private IWebHostEnvironment hostingEnvironment;
 		public Orders order { get; set; }
         public string address { get; set; }
-        public StaffOrderDTO chef { get; set; }
+		public CustomerDTO customer { get; set; }
+		public StaffOrderDTO chef { get; set; }
         public StaffOrderDTO shipper { get; set; }
         public List<LineItemDTO> lineItems { get; set; }
         public List<Review> reviewOrder { get; set; }
@@ -30,7 +32,7 @@ namespace CheeseBurger.Pages
         public int orderId { get; set; }
         public DetailOrderWaitModel(IOrderService orderService, IOrder_FoodService order_FoodService, ICartService cartService,
             IWardService wardService, IDistrictService districtService, IStaffService staffService, IFoodService foodService, 
-            IReviewService reviewService, IWebHostEnvironment hostingEnvironment)
+            IReviewService reviewService, IWebHostEnvironment hostingEnvironment, ICustomerService customerService)
         {
             this.orderService = orderService;
             this.order_FoodService = order_FoodService;
@@ -41,13 +43,15 @@ namespace CheeseBurger.Pages
             this.foodService = foodService;
             this.reviewService = reviewService;
             this.hostingEnvironment = hostingEnvironment;
+            this.customerService = customerService;
         }
         public IActionResult OnGet()
         {
             var customerID = HttpContext.Session.GetInt32("customerID");
             if (customerID != null)
             {
-                order = orderService.GetOrderDetail((int)customerID, orderId);
+				customer = customerService.GetCustomer((int)customerID);
+				order = orderService.GetOrderDetail((int)customerID, orderId);
                 if (order != null)
                 {
                     var wrd = wardService.GetWard(order.WardID);

@@ -17,7 +17,7 @@
 			<div class="account">
 				<img class="account-avt" src="~/img/avt.png" />
 				<div class="account-detail">
-					<a class="body__side-bar-item account-name" aria-current="page">@ViewBag.Name</a>
+					<a class="body__side-bar-item account-name" aria-current="page">@Model.customer.CusName</a>
 				</div>
 			</div>
 			<div class="side-bar-box">
@@ -246,7 +246,7 @@
 			<div class="modal_body">
 				<h3>GỬI NHẬN XÉT CỦA BẠN</h3>
 				<br> 
-				<span style="font-size: 1.5rem">Sản phẩm: </span><img id="image" class="review-img" /> <span style="font-size: 1.5rem" id="name_food_review"></span>
+				<span style="font-size: 1.5rem">Sản phẩm: </span><img id="image" class="review-img" /> <span style="font-size: 1.5rem; text-transform: capitalize" id="name_food_review"></span>
 				<br>
 				<div class="rating-star">
 					<label style="font-size: 1.5rem; margin-top: 5px">1. Đánh giá của bạn về sản phẩm này: </label>
