@@ -105,9 +105,6 @@
 						<span>Tổng tiền hàng</span><span>@total.ToString("N0")đ</span>
 					</div>
 					<div class="fee-detail__item fee-detail-item__payment">
-						<span>Phí vận chuyển</span><span>13,000đ</span>
-					</div>
-					<div class="fee-detail__item fee-detail-item__payment">
 						<span>Thuế</span><span></span>
 					</div>
 				</div>
@@ -123,3 +120,27 @@
 	</div>
 </form>
 <script src="~/js/payment.js"></script>
+@section Scripts {
+	<script>
+		async function calculateShippingFee(event) {
+			event.preventDefault();
+			const response = await fetch(`https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee?from_district_id=${document.getElementsByName("fromDistrictId")[0].value}&service_id=${document.getElementsByName("serviceId")[0].value}&to_district_id=${document.getElementsByName("toDistrictId")[0].value}&to_ward_code=${document.getElementsByName("toWardCode")[0].value}&height=${document.getElementsByName("height")[0].value}&length=${document.getElementsByName("length")[0].value}&weight=${document.getElementsByName("weight")[0].value}&width=${document.getElementsByName("width")[0].value}&insurance_value=${document.getElementsByName("insuranceValue")[0].value}`, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					"token": "312f0089-ed7a-11ed-8a8c-6e4795e6d902"
+				}
+			});
+			const data = await response.json();
+			const total = document.getElementById("total");
+			if (response.ok) {
+				total.innerText = data.data.total;
+				event.preventDefault();
+			} else {
+				const errorMessage = document.getElementById("errorMessage");
+				errorMessage.innerText = `Error! ${data.message}`;
+				event.preventDefault();
+			}
+		}
+	</script>
+}
