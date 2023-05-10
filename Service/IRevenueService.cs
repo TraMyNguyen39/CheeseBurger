@@ -8,5 +8,6 @@ namespace CheeseBurger.Service
 		int NumberIOrder(DateTime fromDate, DateTime toDate);
 		float TotalFund(DateTime fromDate, DateTime toDate);
 		float TotalIncome(DateTime fromDate, DateTime toDate);
+		List<Revenues> GetRevenuesRangeTime(DateTime fromDate, DateTime toDate);
 	}
 }

@@ -1,4 +1,5 @@
 using CheeseBurger.DTO;
+using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -22,24 +23,40 @@ namespace CheeseBurger.Pages.Admin
 		[BindProperty(SupportsGet = true)]
 		public float TotalIncome { get; set; }
 
+		public float TotalProfit { get; set; }
+
 		public DateTime fromDate { get; set; }
 		public DateTime toDate { get; set; }
+		public List<Revenues> List_Revenues { get; set; }
 
 		public void OnGet()
 		{
-			if (DateTime.TryParse(Request.Query["fromDate"], out DateTime fromDateResult))
+			string fDate = Request.Query["fromDate"];
+			if (Int32.TryParse(fDate, out int fromNumber))
+			{				
+				fromDate = new DateTime(fromNumber, 1, 1);
+			}
+			else if (DateTime.TryParse(fDate, out DateTime fromDateResult))
 			{
 				fromDate = fromDateResult;
+			} 
+			
+			string tDate = Request.Query["toDate"];
+			if (Int32.TryParse(tDate, out int toNumber))
+			{
+				toDate = new DateTime(toNumber, 1, 1);
 			}
-
-			if (DateTime.TryParse(Request.Query["toDate"], out DateTime toDateResult))
+			else if (DateTime.TryParse(tDate, out DateTime toDateResult))
 			{
 				toDate = toDateResult;
-			}
+			} 
+			
 		    NumberIOrder = revenueService.NumberIOrder(fromDate, toDate);
 			NumberOrder = revenueService.NumberOrder(fromDate, toDate);
 			TotalFund = revenueService.TotalFund(fromDate, toDate);
 			TotalIncome = revenueService.TotalIncome(fromDate, toDate);
+			TotalProfit = TotalIncome - TotalFund;
+			List_Revenues = revenueService.GetRevenuesRangeTime(fromDate, toDate);
 		}
 	}
 }

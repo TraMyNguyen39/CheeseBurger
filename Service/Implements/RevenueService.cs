@@ -27,5 +27,9 @@ namespace CheeseBurger.Service.Implements
 		{
 			return revenueRepository.TotalIncome(fromDate, toDate);
 		}
+		public List<Revenues> GetRevenuesRangeTime(DateTime fromDate, DateTime toDate)
+		{
+			return revenueRepository.GetRevenuesRangeTime(fromDate, toDate);
+		}
 	}
 }
