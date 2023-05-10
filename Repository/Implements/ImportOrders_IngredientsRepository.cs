@@ -34,16 +34,17 @@ namespace CheeseBurger.Repository.Implements
 			}
 			context.SaveChanges();
 		}
-		public void DeleteOrderDetail(int orderID, int ingreID)
+		public void DeleteOrderDetail(int orderID)
 		{
-			var ingre = context.ImportOrders_Ingredients.Where(p => p.ImportOrderID == orderID && p.IngredientsID == ingreID).FirstOrDefault();
+			var ingre = context.ImportOrders_Ingredients.Where(p => p.ImportOrderID == orderID).FirstOrDefault();
 			if (ingre != null)
 			{
-				context.ImportOrders_Ingredients.Remove(ingre);
+				context.ImportOrders_Ingredients.RemoveRange(ingre);
 			}
 			context.SaveChanges();
 		}
-		public List<ImportLineDTO> GetAllLine(int orderID)
+
+		public List<ImportLineDTO> GetAllLines(int orderID)
 		{
 			return context.ImportOrders_Ingredients
 					.Where(p => p.ImportOrderID == orderID)
@@ -52,6 +53,7 @@ namespace CheeseBurger.Repository.Implements
 						IngredientName = p.Ingredients.IngredientsName,
 						PriceIO = p.PriceIO,
 						QuantityIO = p.QuantityIO,
+						Unit = p.Ingredients.Measure.MeasureName
 					}).ToList();
 		}
 	}

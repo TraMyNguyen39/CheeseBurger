@@ -13,6 +13,7 @@ namespace CheeseBurger.Service
         int ConvertCategoryNametoCategoryId(string Name);
         void AddData(string Name, int cateID, float Price, string Describe, string fileupload);
         void DeleteData(int id);
+        void RecycleData(int id);
         dynamic FindFood(int id);
         void UpdateData(int FoodID, string Name, int CategoryID, float Price, string Describe, string fileupload);
         Food GetFoodbyId(int foodId);

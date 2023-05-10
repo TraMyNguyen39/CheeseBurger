@@ -2,7 +2,6 @@
 @model ManageFoodModel
 @{
     ViewData["Title"] = "ManageFood";
-    int stt = 0;
 }
 <link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/manage-food.css" asp-append-version="true" />
@@ -102,7 +101,7 @@
                             }
                             else
                             {
-                                <i class="fa-regular fa-square-minus"></i>
+                                <i class="fa-solid fa-rotate" data-id="@i.FoodID"></i>
                                 <i class="fa-regular fa-square-minus"></i>
                             }
                         </td>
@@ -293,6 +292,35 @@
     </div>
 </form>
 <!-- End Modal Delete -->
+<!-- Modal -->
+<form method="post" asp-page="ManageFood" asp-page-handler="Recycle">
+    <div class="modal fade" id="recycle" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title_1" id="confirm-label"></h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="text-center wirningColor">
+                        <i class="fas fa-exclamation-triangle fa-4x"></i>
+                    </div>
+                    <br />
+                    <center>
+                        <p class="message"></p>
+                        <input type="hidden" name="FoodId" class="modal__food-id" value="" />
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger dismiss" data-dismiss="modal"></button>
+                    <button type="submit" class="btn btn-primary confirm"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- End Modal Recycle -->
 <script src="~/js/manage-food.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -410,6 +438,70 @@
                         message: 'Bạn có muốn xóa món ăn này không?',
                         confirm: 'Delete',
                         dismiss: 'Cancel'
+                    });
+                } else {
+                    alert('Error: Food not found with ID ' + id);
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Error loading food: ' + errorThrown);
+            }
+        });
+    });
+</script>
+<script>
+    $(function () {
+        (function ($) {
+            $.fn.confirm = function (options) {
+                var settings = $.extend({}, $.fn.confirm.defaults, options);
+                return this.each(function () {
+                    var element = this;
+                    $('.modal-title', this).html(settings.title);
+                    $('.message', this).html(settings.message);
+                    $('.confirm', this).html(settings.confirm);
+                    $('.dismiss', this).html(settings.dismiss);
+
+                    $(this).on('click', '.confirm', function (event) {
+                        $(element).data('confirm', true);
+                    });
+
+                    $(this).on('hide.bs.modal', function (event) {
+                        if ($(this).data('confirm')) {
+                            $(this).trigger('confirm', event);
+                            $(this).removeData('confirm');
+                        } else {
+                            $(this).trigger('dismiss', event);
+                        }
+
+                        $(this).off('confirm dismiss');
+                    });
+
+                    $(this).modal('show');
+                });
+            };
+
+            $.fn.confirm.defaults = {
+                title: 'Modal title',
+                message: 'One fine body&hellip;',
+                confirm: 'OK',
+                dismiss: 'Cancel'
+            };
+        })(jQuery);
+    });
+    $(".fa-rotate").click(function () {
+        var id = $(this).data('id');
+        $.ajax({
+            type: 'GET',
+            data: { id: id },
+            url: '@Url.Page("ManageFood", "Find")',
+            success: function (result) {
+                if (result) {
+                    $('#recycle input[name="FoodId"]').val(result.foodID);
+                    $('#recycle').confirm({
+                        title: 'confirmation',
+                        message: 'Bạn có khôi phục món ăn này không?',
+                        confirm: 'Yes',
+                        dismiss: 'No'
                     });
                 } else {
                     alert('Error: Food not found with ID ' + id);

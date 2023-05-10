@@ -15,8 +15,8 @@ namespace CheeseBurger.Pages.Admin
         private readonly IImportOrderService importOrderService;
         private readonly IImportOrders_IngredientsService importOrders_IngredientsService;
 		private readonly IStaffService staffService;
-		public dynamic order { get; set; }
-		public StaffOrderDTO staff { get; set; }
+		public ImportOrderDTO order { get; set; }
+		public StaffDTO staff { get; set; }
 		public List<ImportLineDTO> lineItems { get; set; }
 		[BindProperty(SupportsGet = true)]
 		public int orderId { get; set; }
@@ -34,10 +34,17 @@ namespace CheeseBurger.Pages.Admin
             order = importOrderService.GetImportOrder(orderId);
 			if (order != null)
 			{
+                staff = staffService.GetStaff(order.StaffID);
 				lineItems = importOrders_IngredientsService.GetAllLines(orderId);
 				return Page();
 			}
 			return RedirectToPage("/Error");
 		}
+        public IActionResult OnPostDelete(int orderId)
+        {
+            importOrders_IngredientsService.DeleteOrderDetail(orderId);
+            importOrderService.RemoveOrder(orderId);
+            return RedirectToPage("/Admin/ManageImportOrder");
+        }
     }
 }

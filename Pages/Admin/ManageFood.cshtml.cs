@@ -90,6 +90,11 @@ namespace CheeseBurger.Pages.Admin
             foodService.DeleteData(FoodId);
             return RedirectToPage("ManageFood");
         }
+        public IActionResult OnPostRecycle(int FoodId)
+        {
+            foodService.RecycleData(FoodId);
+            return RedirectToPage("ManageFood");
+        }
         public async Task<IActionResult> OnPostUpdateAsync(int FoodID, string Name, string Cate, float Price, string Describe, IFormFile fileupload)
         {
             if (fileupload != null && fileupload.Length > 0)

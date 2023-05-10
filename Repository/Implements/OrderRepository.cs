@@ -1,6 +1,7 @@
 ﻿using CheeseBurger.DTO;
 using CheeseBurger.Model;
 using CheeseBurger.Model.Entities;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CheeseBurger.Repository.Implements
 {
@@ -44,6 +45,32 @@ namespace CheeseBurger.Repository.Implements
 			if (status != 0)
 				orders = orders.Where(p => p.statusOrder == status);
 
+			return orders.OrderByDescending(p => p.createDate).ToList();
+		}
+
+		public List<OrderItemDTO> GetAllOrderAdmin(int status, DateTime timeStart, DateTime timeEnd, string search)
+		{
+			var orders = context.Orders.Select(p => new OrderItemDTO
+			{
+				orderId = p.OrderID,
+				createDate = p.SaleDate,
+				arriveDate = p.ArriveTime,
+				houseNumber = p.HourseNumber,
+				tempMoney = p.TempMoney,
+				shippingMoney = p.ShippingMoney,
+				statusOrder = p.StatusOdr,
+				customerName = p.CustomerName,
+			});
+			if (status != 0)
+				orders = orders.Where(p => p.statusOrder == status);
+			if (timeStart != default(DateTime) || timeEnd != default(DateTime))
+			{
+				orders = orders.Where(p => p.createDate >= timeStart && p.createDate <= timeEnd);
+			}
+			if (!search.IsNullOrEmpty())
+			{
+				orders = orders.Where(p => p.customerName.Contains(search));
+			}
 			return orders.OrderByDescending(p => p.createDate).ToList();
 		}
 

@@ -5,7 +5,7 @@
 }
 <link rel="stylesheet" href="~/css/detail-order-wait.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/import-order-details.css" asp-append-version="true" />
-<div class="main__information">
+<div class="main__information" style="width: 70%">
 	<div class="main__information-detail">
 		<div class="main__information-packages">
 			<div class="row">
@@ -22,8 +22,8 @@
 				<div class="lb-title col d-flex flex-column">
 					<label class="lb-title">#@Model.order.ImportOrderID</label>
 					<label class="lb-title">@Model.order.DateIO.ToString("HH:mm dd/MM/yyyy")</label>
-					<label class="lb-title">@Model.order</label>
-					<label class="lb-title"></label>
+					<label class="lb-title">@Model.order.PartnerName</label>
+					<label class="lb-title">@Model.staff.StaName</label>
 				</div>
 			</div>
 		</div>
@@ -31,56 +31,44 @@
 			<thead>
 				<tr>
 					<th>STT</th>
-					<th>Mã nguyên liệu</th>
 					<th class="Ingre">Nguyên liệu</th>
-					<th class="Price">Giá</th>
-					<th>Số lượng/Đơn vị</th>
-					<th class="Total">Tổng</th>
+					<th>Số lượng</th>
+					<th class="Price">Đơn giá</th>
+					<th class="Total">Tổng tiền</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>100</td>
-					<td class="Ingre">Salad</td>
-					<td class="Price">5000 VND/g</td>
-					<td>2</td>
-					<td class="Total">10000 VND</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>101</td>
-					<td class="Ingre">Bột mỳ</td>
-					<td class="Price">10000 VND/kg</td>
-					<td>3</td>
-					<td class="Total">30000 VND</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>102</td>
-					<td class="Ingre">Ớt</td>
-					<td class="Price">2000 VND/g</td>
-					<td>4</td>
-					<td class="Total">8000 VND</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>103</td>
-					<td class="Ingre">Cà chua</td>
-					<td class="Price">5000 VND/kg</td>
-					<td>5</td>
-					<td class="Total">25000 VND</td>
-				</tr>
+				@{
+					var stt = 1;
+				}
+				@foreach (var item in Model.lineItems)
+				{
+					<tr>
+						<td>@stt</td>
+						<td class="Ingre" style="text-align: left;padding-left: 5%;">@item.IngredientName</td>
+						<td style="text-align: right;padding-right: 7%;">
+							@item.QuantityIO @item.Unit
+						</td>
+						<td class="Price" style="text-align: right;padding-right: 5%;">
+							@item.PriceIO.ToString("N0")VNĐ
+						</td>
+						<td class="Total">@((item.QuantityIO * item.PriceIO).ToString("N0"))VNĐ</td>
+					</tr>
+					stt++;
+				}
 				<tr class="specific-row">
 					<td></td>
 					<td></td>
 					<td></td>
-					<td></td>
 					<td>Thành tiền:</td>
-					<td class="Total">73 000 VND</td>
+					<td class="Total">@Model.order.TMoneyIO.ToString("N0")VNĐ</td>
 				</tr>
 			</tbody>
 		</table>
+		<form method="post" asp-page-handler="Delete">
+			<input type="hidden" asp-for="orderId" value="@Model.orderId">
+			<button class="submit-btn submit-btn-edit" style="width: 100%">XOÁ ĐƠN HÀNG</button>
+		</form>
 	</div>
 </div>
 

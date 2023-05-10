@@ -176,5 +176,15 @@ namespace CheeseBurger.Repository.Implements
 			food.ImageFood = fileupload;
             context.SaveChanges();
         }
+
+        public void RecycleData(int id)
+        {
+            var food = context.Foods.Find(id);
+			//if (food != null)
+			//{
+				food.IsDeleted = false;
+				context.SaveChanges();
+			//}
+        }
     }
 }

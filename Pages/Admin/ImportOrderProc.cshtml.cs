@@ -76,22 +76,22 @@ namespace CheeseBurger.Pages.Admin
 				TMoneyIO = 0,
 			};
 			importOrderService.CreateOrder(order);
-			if (ingredient_0 != 0)
+			if (ingredient_0 != 0 && qty_0 != null)
 				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_0, (int)qty_0);
 
-			if (ingredient_1 != 0)
+			if (ingredient_1 != 0 && qty_1 != null)
 				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_1, (int)qty_1);
 
-			if (ingredient_2 != 0)
+			if (ingredient_2 != 0 && qty_2 != null)
 				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_2, (int)qty_2);
 
-			if (ingredient_3 != 0)
+			if (ingredient_3 != 0 && qty_3 != null)
 				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_3, (int)qty_4);
 
-			if (ingredient_4 != 0)
+			if (ingredient_4 != 0 && qty_4 != null)
 				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_4, (int)qty_4);
 
-			if (ingredient_5 != 0)
+			if (ingredient_5 != 0 && qty_5 != null)
 				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_5, (int)qty_5);
 			
 			importOrderService.CalculateMoney(order.ImportOrderID);

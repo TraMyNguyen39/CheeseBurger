@@ -27,9 +27,14 @@ namespace CheeseBurger.Service.Implements
 			return importOrderRepository.GetAllImport();
 		}
 
-		public dynamic GetImportOrder(int orderID)
+		public ImportOrderDTO GetImportOrder(int orderID)
 		{
 			return importOrderRepository.GetImportOrder(orderID);
+		}
+
+		public void RemoveOrder(int orderId)
+		{
+			importOrderRepository.RemoveOrder(orderId);
 		}
 	}
 }
