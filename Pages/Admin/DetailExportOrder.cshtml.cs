@@ -1,4 +1,5 @@
 ﻿using CheeseBurger.DTO;
+using CheeseBurger.Middleware;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
@@ -8,6 +9,7 @@ using System.Net;
 
 namespace CheeseBurger.Pages.Admin
 {
+    [Authorize("Quản trị viên","Nhân viên đầu bếp")]
     public class DetailExportOrderModel : PageModel
     {
         private readonly IOrderService orderService;
@@ -52,36 +54,36 @@ namespace CheeseBurger.Pages.Admin
         public IActionResult OnPostCancel()
         {
             orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.canceled);
-            return RedirectToPage("/Order/DetailOrder", new { orderId });
+            return RedirectToPage("/Admin/DetailExportOrder", new { orderId });
         }
         public IActionResult OnPostConfirm()
         {
             var staffID = HttpContext.Session.GetInt32("staffID");
             orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.preparing);
             orderService.UpdateChef(orderId, (int)staffID);
-            return RedirectToPage("/Order/DetailOrder", new { orderId });
+            return RedirectToPage("/Admin/DetailExportOrder", new { orderId });
         }
         public IActionResult OnPostPrepareDone()
         {
             orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.prepareDone);
-            return RedirectToPage("/Order/DetailOrder", new { orderId });
+            return RedirectToPage("/Admin/DetailExportOrder", new { orderId });
         }
         public IActionResult OnPostConfirmShipping()
         {
             var staffID = HttpContext.Session.GetInt32("staffID");
             orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.shipping);
             orderService.UpdateShipper(orderId, (int)staffID);
-            return RedirectToPage("/Order/DetailOrder", new { orderId });
+            return RedirectToPage("/Admin/DetailExportOrder", new { orderId });
         }
         public IActionResult OnPostSuccess()
         {
             orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.completed);
-            return RedirectToPage("/Order/DetailOrder", new { orderId });
+            return RedirectToPage("/Admin/DetailExportOrder", new { orderId });
         }
         public IActionResult OnPostFailed()
         {
             orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.closed);
-            return RedirectToPage("/Order/DetailOrder", new { orderId });
+            return RedirectToPage("/Admin/DetailExportOrder", new { orderId });
         }
     }
 }

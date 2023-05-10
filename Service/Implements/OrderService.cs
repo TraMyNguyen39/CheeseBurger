@@ -27,6 +27,11 @@ namespace CheeseBurger.Service.Implements
 			return orderRepository.GetAllOrder(status);
 		}
 
+		public List<OrderItemDTO> GetAllOrderAdmin(int status, DateTime timeStart, DateTime timeEnd, string search)
+		{
+			return orderRepository.GetAllOrderAdmin(status, timeStart, timeEnd, search);
+		}
+
 		public List<OrderItemDTO> GetListOrderByUser(int customerID, int status)
 		{
 			return orderRepository.GetListOrderByUser(customerID, status);

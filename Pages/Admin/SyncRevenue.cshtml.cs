@@ -1,14 +1,17 @@
-using CheeseBurger.DTO;
+﻿using CheeseBurger.DTO;
+using CheeseBurger.Middleware;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 
 namespace CheeseBurger.Pages.Admin
 {
+    [Authorize("Quản trị viên")]
     public class SyncRevenueModel : PageModel
-    {
-		private readonly IRevenueService revenueService;
+	{
+        private readonly IRevenueService revenueService;
 		public SyncRevenueModel(IRevenueService revenueService)
         {
             this.revenueService = revenueService;

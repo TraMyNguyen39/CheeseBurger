@@ -211,10 +211,8 @@ namespace CheeseBurger.Migrations
                     b.Property<DateTime>("DateIO")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("IOName")
-                        .IsRequired()
-                        .HasMaxLength(2147483647)
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PartnerID")
+                        .HasColumnType("int");
 
                     b.Property<int>("StaffID")
                         .HasColumnType("int");
@@ -224,6 +222,8 @@ namespace CheeseBurger.Migrations
 
                     b.HasKey("ImportOrderID");
 
+                    b.HasIndex("PartnerID");
+
                     b.HasIndex("StaffID");
 
                     b.ToTable("ImportOrders");
@@ -232,10 +232,7 @@ namespace CheeseBurger.Migrations
             modelBuilder.Entity("CheeseBurger.Model.Entities.ImportOrders_Ingredients", b =>
                 {
                     b.Property<int>("ImportOrderID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImportOrderID"));
 
                     b.Property<int>("IngredientsID")
                         .HasColumnType("int");
@@ -246,7 +243,7 @@ namespace CheeseBurger.Migrations
                     b.Property<int>("QuantityIO")
                         .HasColumnType("int");
 
-                    b.HasKey("ImportOrderID");
+                    b.HasKey("ImportOrderID", "IngredientsID");
 
                     b.HasIndex("IngredientsID");
 
@@ -275,9 +272,14 @@ namespace CheeseBurger.Migrations
                     b.Property<int>("MeasureID")
                         .HasColumnType("int");
 
+                    b.Property<int>("PartnerID")
+                        .HasColumnType("int");
+
                     b.HasKey("IngredientsId");
 
                     b.HasIndex("MeasureID");
+
+                    b.HasIndex("PartnerID");
 
                     b.ToTable("Ingredients");
                 });
@@ -384,6 +386,32 @@ namespace CheeseBurger.Migrations
                     b.HasIndex("WardID");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("CheeseBurger.Model.Entities.Partner", b =>
+                {
+                    b.Property<int>("PartnerID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PartnerID"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PartnerName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("PartnerID");
+
+                    b.ToTable("Partners");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Revenues", b =>
@@ -531,13 +559,13 @@ namespace CheeseBurger.Migrations
                     b.HasOne("CheeseBurger.Model.Entities.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CheeseBurger.Model.Entities.Food", "Food")
                         .WithMany()
                         .HasForeignKey("FoodID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -550,12 +578,13 @@ namespace CheeseBurger.Migrations
                     b.HasOne("CheeseBurger.Model.Entities.Account", "Account")
                         .WithMany()
                         .HasForeignKey("AccountID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CheeseBurger.Model.Entities.Ward", "Ward")
                         .WithMany()
-                        .HasForeignKey("WardID");
+                        .HasForeignKey("WardID")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Account");
 
@@ -566,7 +595,8 @@ namespace CheeseBurger.Migrations
                 {
                     b.HasOne("CheeseBurger.Model.Entities.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryID");
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Category");
                 });
@@ -576,13 +606,13 @@ namespace CheeseBurger.Migrations
                     b.HasOne("CheeseBurger.Model.Entities.Food", "Food")
                         .WithMany()
                         .HasForeignKey("FoodID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CheeseBurger.Model.Entities.Ingredients", "Ingredients")
                         .WithMany()
                         .HasForeignKey("IngredientsId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Food");
@@ -592,22 +622,38 @@ namespace CheeseBurger.Migrations
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.ImportOrder", b =>
                 {
+                    b.HasOne("CheeseBurger.Model.Entities.Partner", "Partner")
+                        .WithMany()
+                        .HasForeignKey("PartnerID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("CheeseBurger.Model.Entities.Staff", "Staff")
                         .WithMany()
                         .HasForeignKey("StaffID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Partner");
 
                     b.Navigation("Staff");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.ImportOrders_Ingredients", b =>
                 {
+                    b.HasOne("CheeseBurger.Model.Entities.ImportOrder", "ImportOrder")
+                        .WithMany()
+                        .HasForeignKey("ImportOrderID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("CheeseBurger.Model.Entities.Ingredients", "Ingredients")
                         .WithMany()
                         .HasForeignKey("IngredientsID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("ImportOrder");
 
                     b.Navigation("Ingredients");
                 });
@@ -617,10 +663,18 @@ namespace CheeseBurger.Migrations
                     b.HasOne("CheeseBurger.Model.Entities.Measure", "Measure")
                         .WithMany()
                         .HasForeignKey("MeasureID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CheeseBurger.Model.Entities.Partner", "Partner")
+                        .WithMany()
+                        .HasForeignKey("PartnerID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Measure");
+
+                    b.Navigation("Partner");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Order_Food", b =>
@@ -628,13 +682,13 @@ namespace CheeseBurger.Migrations
                     b.HasOne("CheeseBurger.Model.Entities.Food", "Food")
                         .WithMany()
                         .HasForeignKey("FoodID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CheeseBurger.Model.Entities.Orders", "Orders")
                         .WithMany()
                         .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Food");
@@ -646,7 +700,8 @@ namespace CheeseBurger.Migrations
                 {
                     b.HasOne("CheeseBurger.Model.Entities.Staff", "ChefStaff")
                         .WithMany()
-                        .HasForeignKey("ChefID");
+                        .HasForeignKey("ChefID")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("CheeseBurger.Model.Entities.Customer", "Customer")
                         .WithMany()
@@ -656,7 +711,8 @@ namespace CheeseBurger.Migrations
 
                     b.HasOne("CheeseBurger.Model.Entities.Staff", "ShipperStaff")
                         .WithMany()
-                        .HasForeignKey("ShipperID");
+                        .HasForeignKey("ShipperID")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("CheeseBurger.Model.Entities.Ward", "Ward")
                         .WithMany()
@@ -678,13 +734,13 @@ namespace CheeseBurger.Migrations
                     b.HasOne("CheeseBurger.Model.Entities.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CheeseBurger.Model.Entities.Food", "Food")
                         .WithMany()
                         .HasForeignKey("FoodID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -697,18 +753,19 @@ namespace CheeseBurger.Migrations
                     b.HasOne("CheeseBurger.Model.Entities.Account", "Account")
                         .WithMany()
                         .HasForeignKey("AccountID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CheeseBurger.Model.Entities.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CheeseBurger.Model.Entities.Ward", "Ward")
                         .WithMany()
-                        .HasForeignKey("WardID");
+                        .HasForeignKey("WardID")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Account");
 
@@ -722,7 +779,7 @@ namespace CheeseBurger.Migrations
                     b.HasOne("CheeseBurger.Model.Entities.District", "District")
                         .WithMany()
                         .HasForeignKey("DistrictID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("District");

@@ -9,7 +9,9 @@
     transform: translateX(-20px);
     margin-bottom: 10px;
 }
-
+.page-item.active .page-link {
+    z-index: 0;
+}
 .main__table-text {
     font-size: 18px;
 }
@@ -345,7 +347,6 @@ label.control-label {
     font-size: 1.6rem;
     line-height: 100%;
     font-weight: 400;
-    transform: translateY(-10%);
 }
 .search-user-box-btn {
     position: absolute;

@@ -1,4 +1,5 @@
-﻿using CheeseBurger.Model.Entities;
+﻿using CheeseBurger.DTO;
+using CheeseBurger.Model.Entities;
 using CheeseBurger.Repository;
 
 namespace CheeseBurger.Service.Implements
@@ -11,9 +12,29 @@ namespace CheeseBurger.Service.Implements
             this.importOrderRepository = importOrderRepository;
         }
 
-		public List<ImportOrder> GetAllImport()
+		public void CalculateMoney(int orderID)
+		{
+			importOrderRepository.CalculateMoney(orderID);
+		}
+
+		public void CreateOrder(ImportOrder order)
+		{
+			importOrderRepository.CreateOrder(order);
+		}
+
+		public List<ImportOrderDTO> GetAllImport()
 		{
 			return importOrderRepository.GetAllImport();
+		}
+
+		public ImportOrderDTO GetImportOrder(int orderID)
+		{
+			return importOrderRepository.GetImportOrder(orderID);
+		}
+
+		public void RemoveOrder(int orderId)
+		{
+			importOrderRepository.RemoveOrder(orderId);
 		}
 	}
 }

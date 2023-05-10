@@ -1,4 +1,5 @@
-using CheeseBurger.DTO;
+﻿using CheeseBurger.DTO;
+using CheeseBurger.Middleware;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
@@ -8,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CheeseBurger.Pages.Admin
 {
+    [Authorize("Quản trị viên","Nhân viên đầu bếp")]
     public class ManageFoodModel : PageModel
     {
 		private readonly IFoodService foodService;
@@ -86,6 +88,11 @@ namespace CheeseBurger.Pages.Admin
         public IActionResult OnPostDelete(int FoodId)
         {
             foodService.DeleteData(FoodId);
+            return RedirectToPage("ManageFood");
+        }
+        public IActionResult OnPostRecycle(int FoodId)
+        {
+            foodService.RecycleData(FoodId);
             return RedirectToPage("ManageFood");
         }
         public async Task<IActionResult> OnPostUpdateAsync(int FoodID, string Name, string Cate, float Price, string Describe, IFormFile fileupload)

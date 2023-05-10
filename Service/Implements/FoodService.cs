@@ -58,5 +58,10 @@ namespace CheeseBurger.Service.Implements
 		{
 			foodRepository.UpdateData(FoodID, Name, CategoryID, Price, Describe, fileupload);
 		}
+
+        public void RecycleData(int id)
+        {
+            foodRepository.RecycleData(id);
+        }
     }
 }

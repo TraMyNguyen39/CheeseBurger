@@ -8,6 +8,7 @@ namespace CheeseBurger.Service
 		void CreateOrder(Orders order);
 		List<OrderItemDTO> GetListOrderByUser(int customerID, int status);
 		List<OrderItemDTO> GetAllOrder(int status);
+		List<OrderItemDTO> GetAllOrderAdmin(int status, DateTime timeStart, DateTime timeEnd, string search);
 		Orders GetOrderDetail(int customerID, int orderID);
         int[] GetOrderCount(int customerId);
 		void ChangeStatus(int orderID, int status);

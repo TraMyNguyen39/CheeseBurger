@@ -3,6 +3,7 @@ using CheeseBurger.Repository;
 using CheeseBurger.Repository.Implements;
 using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
+using CheeseBurger.Service.ImplementsGetPrice;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 
@@ -21,6 +22,8 @@ service.AddDbContext<CheeseBurgerContext>(option =>
 service.AddSession();
 service.AddScoped<IIngredientsService, IngredientsService>();
 service.AddScoped<IIngredientsRespository, IngredientsRespository>();
+service.AddScoped<IImportOrders_IngredientsService, ImportOrders_IngredientsService>();
+service.AddScoped<IImportOrders_IngredientsRepository, ImportOrders_IngredientsRepository>();
 service.AddScoped<IAccountService, AccountService>();
 service.AddScoped<IAccountRespository, AccountRespository>();
 service.AddScoped<IFoodService, FoodService>();
@@ -60,6 +63,9 @@ service.AddHttpClient<IFeeAPIService, FeeAPIService>(client =>
 service.AddScoped<IFeeAPIService, FeeAPIService>();
 service.AddScoped<IImportOrderService, ImportOrderService>();
 service.AddScoped<IImportOrderRepository, ImportOrderRepository>();
+service.AddScoped<IPartnerRespository, PartnerRespository>();
+service.AddScoped<IPartnerService, PartnerService>();
+
 var app = builder.Build();
 
 

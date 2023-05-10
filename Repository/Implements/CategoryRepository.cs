@@ -64,10 +64,6 @@ namespace CheeseBurger.Repository.Implements
 				context.Categories.Add(category);
 				context.SaveChanges();
 			}
-			else
-			{
-				throw new ArgumentException($"Tên danh mục đã bị trùng. Vui lòng nhập lại!");
-            }
 		}
         public dynamic FindCategories(int id)
         {
@@ -86,10 +82,6 @@ namespace CheeseBurger.Repository.Implements
             {
                 context.Categories.Remove(categories);
                 context.SaveChanges();
-            }
-            else
-            {
-                throw new ArgumentException($"Category not found with {id}:");
             }
         }
         public List<Food> GetByCategoryID(int CateId)
