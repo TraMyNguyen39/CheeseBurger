@@ -34,7 +34,7 @@
 			var pageSize = 5; // Number of rows to show per page
 			var totalPages = (int)Math.Ceiling((double)Model.partners.Count / pageSize); // Calculate the total number of pages
 			var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
-			var ingredients = Model.partners.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
+			var partners = Model.partners.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
 			if (Model.currentPage < 1) Model.currentPage = 1;
 			if (Model.currentPage > totalPages) Model.currentPage = totalPages;
 		}
@@ -49,7 +49,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var i in Model.partners)
+				@foreach (var i in partners)
 				{
 					<tr>
 						<td class="STT">@(++stt)</td>
