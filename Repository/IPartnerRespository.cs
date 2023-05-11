@@ -1,4 +1,5 @@
-﻿using CheeseBurger.Model.Entities;
+﻿using CheeseBurger.DTO;
+using CheeseBurger.Model.Entities;
 
 namespace CheeseBurger.Repository
 {
@@ -9,5 +10,6 @@ namespace CheeseBurger.Repository
 		Partner GetPartner(int partnerID);
 		void AddPartner(Partner p);
 		void UpdatePartner(Partner p);
+		List<CBBPartnerDTO> GetPartnerNames();
 	}
 }

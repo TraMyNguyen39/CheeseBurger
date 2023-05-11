@@ -26,7 +26,12 @@ namespace CheeseBurger.Service.Implements
 		{
 			return foodRepository.GetFoodAdmin();
 		}
-		public int getRowFood()
+        public List<AdminFoodDTO> GetAllFoodAdmin()
+		{
+            return foodRepository.GetAllFoodAdmin();
+        }
+
+        public int getRowFood()
 		{
 			return foodRepository.getRowFood();
 		}
@@ -58,5 +63,10 @@ namespace CheeseBurger.Service.Implements
 		{
 			foodRepository.UpdateData(FoodID, Name, CategoryID, Price, Describe, fileupload);
 		}
+
+        public void RecycleData(int id)
+        {
+            foodRepository.RecycleData(id);
+        }
     }
 }

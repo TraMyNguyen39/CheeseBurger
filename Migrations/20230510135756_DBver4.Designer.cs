@@ -12,8 +12,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheeseBurger.Migrations
 {
     [DbContext(typeof(CheeseBurgerContext))]
+<<<<<<<< HEAD:Migrations/20230510135756_DBver4.Designer.cs
     [Migration("20230510135756_DBver4")]
     partial class DBver4
+========
+    [Migration("20230510235932_CreateDatabase")]
+    partial class CreateDatabase
+>>>>>>>> e1b974251e7fdeb2e26805ebc66e836ea5ce9fed:Migrations/20230510235932_CreateDatabase.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

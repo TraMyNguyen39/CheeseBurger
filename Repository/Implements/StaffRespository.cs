@@ -177,5 +177,13 @@ namespace CheeseBurger.Repository.Implements
 								 })
 								  .FirstOrDefault();
 		}
+		public string GetStaffRole(int staffID)
+		{
+			var staff= from s in context.Staffs
+					where s.StaffID == staffID
+					join r in context.Roles on s.RoleID equals r.RoleID
+					select r.RoleName;
+			return staff.FirstOrDefault();
+		}
 	}
 }

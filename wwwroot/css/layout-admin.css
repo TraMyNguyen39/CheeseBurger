@@ -415,7 +415,7 @@ a.submit-btn {
     }
 
     .content-table tbody tr {
-        border-bottom: 1px solid var(--black-color);
+        border-bottom: 1px solid var(--border-color);
         text-align: center;
     }
 

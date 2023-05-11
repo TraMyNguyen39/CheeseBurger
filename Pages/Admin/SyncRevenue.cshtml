@@ -202,3 +202,82 @@
 		}		
 	}
 </script>
+<script>
+	// Lắng nghe sự kiện thay đổi ngày và gọi lại hàm vẽ biểu đồ
+	const fromDateInput = document.querySelector('input[name="fromDate"]');
+	const toDateInput = document.querySelector('input[name="toDate"]');
+	fromDateInput.addEventListener('input', drawChart);
+	toDateInput.addEventListener('input', drawChart);
+
+	// Hàm vẽ biểu đồ
+	function drawChart() {
+		// Lấy dữ liệu từ máy chủ
+		const fromDate = fromDateInput.value;
+		const toDate = toDateInput.value;
+		const url = `/api/data?fromDate=${fromDate}&toDate=${toDate}`;
+		fetch(url)
+			.then(response => response.json())
+			.then(data => {
+				// Tính toán các giá trị cho trục x và y của biểu đồ
+				const startDate = new Date(fromDate);
+				const endDate = new Date(toDate);
+				const labels = [];
+				const profitData = [];
+				const fundData = [];
+				let currentDate = startDate;
+				while (currentDate <= endDate) {
+					const dateString = currentDate.toISOString().substring(0, 10);
+					labels.push(dateString);
+					const dataInDateRange = data.filter(item => item.date === dateString);
+					if (dataInDateRange.length > 0) {
+						const profitTotal = dataInDateRange.reduce((acc, item) => acc + item.profit, 0);
+						const profitAvg = profitTotal / dataInDateRange.length;
+						profitData.push(profitAvg);
+						const fundTotal = dataInDateRange.reduce((acc, item) => acc + item.fund, 0);
+						const fundAvg = fundTotal / dataInDateRange.length;
+						fundData.push(fundAvg);
+					} else {
+						profitData.push(null);
+						fundData.push(null);
+					}
+					currentDate.setDate(currentDate.getDate() + 1);
+				}
+
+				// Cập nhật dữ liệu biểu đồ
+				const chartData = {
+					labels: labels,
+					datasets: [
+						{
+							label: 'Profit',
+							borderColor: 'rgba(255, 99, 132, 1)',
+							fill: false,
+							data: profitData,
+							tension: 0.1
+						},
+						{
+							label: 'Funds',
+							borderColor: 'rgba(75, 192, 192, 1)',
+							fill: false,
+							data: fundData,
+							tension: 0.1
+						}
+					]
+				};
+
+				// Cập nhật biểu đồ
+				const ctx = document.getElementById('myChart').getContext('2d');
+				const myChart = new Chart(ctx, {
+					type: 'line',
+					data: chartData,
+					options: options
+				});
+			})
+			.catch(error => console.error(error));
+</script>
+
+
+
+
+
+
+

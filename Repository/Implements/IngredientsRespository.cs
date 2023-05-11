@@ -53,13 +53,17 @@ namespace CheeseBurger.Repository.Implements
 		{
 			var cus_data = from c in context.Ingredients
 						   join a in context.Measures on c.MeasureID equals a.MeasureID
+						   join p in context.Partners on c.PartnerID equals p.PartnerID
 						   select new IngredientDTO
 						   {
 							   IngredientID = c.IngredientsId,
 							   IngredientName = c.IngredientsName,
 							   IngredientInputPrice = c.IngredientsPrice,
-							   MeasureName = a.MeasureName
+							   MeasureName = a.MeasureName,
+							   isDeleted = c.IsDeleted,
+							   PartnerName = p.PartnerName
 						   };
+
 			if (!searchText.IsNullOrEmpty())
 			{
 				cus_data = cus_data.Where(p => p.IngredientName.Contains(searchText)).Select(p => p);
@@ -70,12 +74,22 @@ namespace CheeseBurger.Repository.Implements
 					cus_data = isDescending ? cus_data.OrderByDescending(p => p.IngredientName) : cus_data.OrderBy(p => p.IngredientName);
 					break;
 			}
-			return cus_data.ToList();
+			if (!searchText.IsNullOrEmpty())
+				return cus_data.ToList();
+			else
+				return cus_data.ToList().Where(p => p.isDeleted == false).ToList();
 		}
 		public IngredientDTO getEachIngredient(int ingredientID)
 		{
 			return context.Ingredients.Where(p => p.IngredientsId.Equals(ingredientID))
-				.Select(p => new IngredientDTO { IngredientID = p.IngredientsId, IngredientName = p.IngredientsName, IngredientInputPrice = p.IngredientsPrice, MeasureName = p.Measure.MeasureName })
+				.Select(p => new IngredientDTO
+				{
+					IngredientID = p.IngredientsId,
+					IngredientName = p.IngredientsName,
+					IngredientInputPrice = p.IngredientsPrice,
+					MeasureName = p.Measure.MeasureName,
+					PartnerName = p.Partner.PartnerName,
+				})
 				.FirstOrDefault();
 		}
 
@@ -100,15 +114,11 @@ namespace CheeseBurger.Repository.Implements
 
 			return measure.MeasureID;
 		}
-		public void AddData(string Name, int measureId, float Price)
+		public void AddData(string Name, int measureId, float Price, int partner)
 		{
 			var measureExists = context.Measures.Any(m => m.MeasureID == measureId);
 			var ingredientName = context.Ingredients.Any(m => m.IngredientsName == Name);
-			if (!measureExists)
-			{
-				throw new ArgumentException($"MeasureName no exist.");
-			}
-
+			
 			if (!ingredientName)
 			{
 				var ingredient = new Ingredients
@@ -116,7 +126,8 @@ namespace CheeseBurger.Repository.Implements
 					IngredientsName = Name,
 					IngredientsPrice = Price,
 					MeasureID = measureId,
-					IsDeleted = new Random().Next(0, 2) == 1
+					IsDeleted = false,
+					PartnerID = partner
 				};
 				context.Ingredients.Add(ingredient);
 				context.SaveChanges();
@@ -136,12 +147,13 @@ namespace CheeseBurger.Repository.Implements
 		{
 			return context.Ingredients.Find(id);
 		}
-		public void UpdateData(int id, string Name, int measureId, float Price)
+		public void UpdateData(int id, string Name, int measureId, float Price, int partner)
 		{
 			var ingredient = context.Ingredients.Find(id);
 			ingredient.IngredientsName = Name;
 			ingredient.IngredientsPrice = Price;
 			ingredient.MeasureID = measureId;
+			ingredient.PartnerID = partner;
 			// bỏ qua trường IsDeleted
 			context.Entry(ingredient).Property(x => x.IsDeleted).IsModified = false;
 			context.SaveChanges();

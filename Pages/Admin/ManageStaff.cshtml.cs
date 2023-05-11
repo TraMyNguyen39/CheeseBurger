@@ -1,4 +1,5 @@
 ﻿using CheeseBurger.DTO;
+using CheeseBurger.Middleware;
 using CheeseBurger.Model;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
@@ -9,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CheeseBurger.Pages
 {
+    [Authorize("Quản trị viên")]
     public class ManageStaffModel : PageModel
     {
         private readonly IStaffService staffService;

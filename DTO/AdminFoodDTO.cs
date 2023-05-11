@@ -6,5 +6,6 @@
         public String FoodName { get; set; }
         public string CategoryName { get; set; }
 		public float FoodInputPrice { get; set; }
+        public bool isDeleted { get; set; }
 	}
 }

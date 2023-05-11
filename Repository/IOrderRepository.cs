@@ -13,5 +13,7 @@ namespace CheeseBurger.Repository
         void ChangeStatus(int orderID, int status);
 		void UpdateChef(int orderID, int chefID);
 		void UpdateShipper(int orderID, int shipperID);
+		List<OrderItemDTO> GetAllOrderAdmin(int status, DateTime timeStart, DateTime timeEnd, string search);
+
 	}
 }

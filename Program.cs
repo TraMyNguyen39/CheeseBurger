@@ -5,6 +5,7 @@ using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
 using CheeseBurger.Service.ImplementsGetPrice;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,12 +50,25 @@ service.AddScoped<IOrder_FoodRepository, Order_FoodRepository>();
 service.AddScoped<IOrder_FoodService, Order_FoodService>();
 service.AddScoped<IRevenueRepository, RevenueRepository>();
 service.AddScoped<IRevenueService, RevenueService>();
+
+service.AddHttpClient<IFeeAPIService, FeeAPIService>(client =>
+{
+    client.BaseAddress = new Uri("https://online-gateway.ghn.vn/shiip/public-api/v2/");
+    client.DefaultRequestHeaders.Accept.Clear();
+    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+    client.DefaultRequestHeaders.Add("token", "312f0089-ed7a-11ed-8a8c-6e4795e6d902");
+});
+
+// Register your service
+service.AddScoped<IFeeAPIService, FeeAPIService>();
 service.AddScoped<IImportOrderService, ImportOrderService>();
 service.AddScoped<IImportOrderRepository, ImportOrderRepository>();
 service.AddScoped<IPartnerRespository, PartnerRespository>();
 service.AddScoped<IPartnerService, PartnerService>();
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -63,6 +77,7 @@ if (!app.Environment.IsDevelopment())
 	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

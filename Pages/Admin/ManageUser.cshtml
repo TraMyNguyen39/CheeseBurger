@@ -74,7 +74,7 @@
 			{
 				currentPage = Model.currentPage,
 				countPages = totalPages,
-				generateUrl = (int? p) => Url.Page("/Admin/ManageUser", new { p })
+				generateUrl = (int? p) => Url.Page("/Admin/ManageUser", new { p, Model.searchText, Model.sortBy })
 			};
 		}
 		<partial name="_Paging" model="@pagingmodel" />

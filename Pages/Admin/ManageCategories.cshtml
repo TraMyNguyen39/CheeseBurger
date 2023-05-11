@@ -62,12 +62,13 @@
                     }
                 </tbody>
             </table>
+            <p id="category-error-td" style="color: red" width="100%"></p>
             @{
             var pagingmodel = new CheeseBurger.Helpers.PagingModel()
             {
                 currentPage = Model.currentPage,
                 countPages = totalPages,
-                generateUrl = (int? p) => Url.Page("/Admin/ManageCategories", new { p })
+                generateUrl = (int? p) => Url.Page("/Admin/ManageCategories", new { p, Model.searchText, Model.sortBy })
             };
             }
             <partial name="_Paging" model="@pagingmodel" />
@@ -158,6 +159,7 @@
                     <center>
                         <p class="message"></p>
                         <input type="hidden" name="CategoriesID" class="modal__categories-id" value="" />
+                        <input type="hidden" name="CategoriesQuanity" class="modal__categories-quantity" value="" />
                     </center>
                 </div>
                 <div class="modal-footer">
@@ -259,24 +261,46 @@
             };
         })(jQuery);
     });
-    $(".fa-ban").click(function () {
-        var id = $(this).data('id');
-        $.ajax({
-            type: 'GET',
-            data: { id: id },
-            url: '@Url.Page("ManageCategories", "Find")',
-            success: function (result) {
-                $('#confirm input[name="CategoriesID"]').val(result.categoryID); // Lưu trữ ID vào trường ẩn
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                alert('Error loading categories: ' + errorThrown);
-            }
+
+    function getCategoryQuantity(id) {
+        // Lấy thông tin hàng được chọn
+        var row = $('td.ID_mon').filter(function () {
+            return $(this).text() == id;
+        }).closest('tr');
+        var quantity = row.find('td.Number_mon').text();
+        if (quantity > 0) {
+            var message = 'Bạn không thể xóa khi còn món trong danh mục này.';
+            $('#category-error-td').text(message);
+        } else {
+            $('#category-error-td').empty();
+            $('#confirm').confirm({
+                title: 'confirmation',
+                message: 'Bạn có muốn xóa danh mục này không?',
+                confirm: 'Delete',
+                dismiss: 'Cancel'
+            });
+        }
+    }
+
+    $(document).ready(function () {
+        $(".fa-ban").click(function () {
+            var id = $(this).data('id');
+            $.ajax({
+                type: 'GET',
+                data: { id: id },
+                url: '@Url.Page("ManageCategories", "Find")',
+                success: function (result) {
+                    $('#confirm input[name="CategoriesID"]').val(result.categoryID); // Lưu trữ ID vào trường ẩn
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('Error loading categories: ' + errorThrown);
+                }
+            });
+            getCategoryQuantity(id);
         });
-        $('#confirm').confirm({
-            title: 'confirmation',
-            message: 'Bạn có muốn xóa danh mục này không?',
-            confirm: 'Delete',
-            dismiss: 'Cancel'
+
+        $('#alert .dismiss').click(function () {
+            $('#alert').hide();
         });
     });
 </script>
@@ -329,3 +353,4 @@ function populateFoods(CategoryID) {
         $('#category-error').text('');
     }
 </script>
+

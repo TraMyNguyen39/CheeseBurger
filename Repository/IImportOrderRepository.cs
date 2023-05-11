@@ -7,6 +7,8 @@ namespace CheeseBurger.Repository
     {
         List<ImportOrderDTO> GetAllImport();
 		void CreateOrder(ImportOrder order);
+        void RemoveOrder(int orderId);
         void CalculateMoney(int orderID);
+        ImportOrderDTO GetImportOrder(int orderID);
 	}
 }

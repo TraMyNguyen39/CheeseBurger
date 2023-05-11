@@ -44,6 +44,14 @@
 			</form>
 		</div>
 	</div>
+	@{
+		var pageSize = 5; // Number of rows to show per page
+		var totalPages = (int)Math.Ceiling((double)Model.imports.Count / pageSize); // Calculate the total number of pages
+		var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
+		var foods = Model.imports.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
+		if (Model.currentPage < 1) Model.currentPage = 1;
+		if (Model.currentPage > totalPages) Model.currentPage = totalPages;
+	}
 	<!-- Table -->
 	<table class="content-table">
 		<thead>
@@ -64,7 +72,7 @@
 					<td>@i.DateIO.ToString("HH:mm dd/MM/yyyy")</td>
 					<td>@(i.TMoneyIO.ToString("N0"))đ</td>
 					<td>
-						<a class="cart__name-item" asp-page="/Order/ImportOrderDetail" asp-route-orderId="@i.ImportOrderID">
+						<a class="cart__name-item" asp-page="/Admin/ImportOrderDetail" asp-route-orderId="@i.ImportOrderID">
 							<i class="fas fa-eye"></i>
 						</a>
 					</td>
@@ -72,19 +80,14 @@
 			}
 		</tbody>
 	</table>
-	<div class="page-pagination">
-		<div class="pagination">
-			<a href="#"><i class="fas fa-angle-double-left"></i></a>
-			<a href="#">1</a>
-			<a href="#" class="active">2</a>
-			<a href="#">3</a>
-			<a href="#">4</a>
-			<a href="#">5</a>
-			<a href="#">6</a>
-			<a href="#"><i class="fas fa-angle-double-right"></i></a>
-		</div>
-	</div>
+	 @{
+            var pagingmodel = new CheeseBurger.Helpers.PagingModel()
+            {
+                currentPage = Model.currentPage,
+                countPages = totalPages,
+                //generateUrl = (int? p) => Url.Page("/Admin/ManageFood", new { p, Model.searchText, Model.sortBy, Model.roleBy  })
+            };
+        }
+        <partial name="_Paging" model="@pagingmodel" />
 	<!-- End Table -->
 </div>
-
-<script src="~/js/manage-order.js"></script>

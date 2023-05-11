@@ -45,15 +45,21 @@ namespace CheeseBurger.Pages
                 List_Staffs = staffService.GetAllStaffs();
                 return Page();
             }
-            else
+            else if(user.isDeleted == true)
+			{
+				Message = "* Tài khoản đã bị chặn vì vi phạm tiêu chuẩn cộng đồng!";
+				return Page();
+			}
+			else
             {
-                HttpContext.Session.SetInt32("Id", user.AccountID);
+				HttpContext.Session.SetInt32("Id", user.AccountID);
                 HttpContext.Session.SetString("isStaff", user.isStaff ? "Staff" : "Customer");
                 HttpContext.Session.SetString("Name", accountService.GetNamebyID(user.AccountID, user.isStaff));
                 if (user.isStaff)
                 {
-					HttpContext.Session.SetInt32("staffID", staffService.GetStaffID(user.AccountID));
-					HttpContext.Session.SetString("Role", accountService.GetStaffRole(user.AccountID));
+                    var staffID = staffService.GetStaffID(staffService.GetStaffID(user.AccountID));
+					HttpContext.Session.SetInt32("staffID", staffID);
+					HttpContext.Session.SetString("Role", staffService.GetStaffRole(staffID));
                     return RedirectToPage("/Admin/SyncRevenue");
                 }
                 else

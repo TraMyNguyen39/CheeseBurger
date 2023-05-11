@@ -55,7 +55,7 @@
                     <div class="search__form">
                         <form class="form-inline my-2 my-lg-0" method="get">
                             <div class="input-wrapper">
-                                <input class="form-control" type="search" name="search" placeholder="Tìm kiếm mã, tên sản phẩm" aria-label="Search">
+                                <input class="form-control" type="search" name="search" placeholder="Tìm kiếm tên sản phẩm" aria-label="Search">
                                 <input class="search-staff-box-hidden" name="sortBy" value="@Model.sortBy" type="hidden" />
                                 <input class="search-staff-box-hidden" name="roleBy" value="@Model.roleBy" type="hidden" />
                                 <button type="submit" class="search-staff-box-btn">
@@ -78,7 +78,6 @@
         <table class="content-table">
             <thead>
                 <tr>
-                    <th class="STT col-1">STT</th>
                     <th class="ID_mon col-2">Mã món ăn</th>
                     <th class="Ten_mon col-3">Tên món ăn</th>
                     <th class="Danh_muc col-2">Danh mục</th>
@@ -90,22 +89,29 @@
                 @foreach (var i in foods)
                 {
                     <tr>
-                        <td class="STT">@(++stt)</td>
                         <td class="ID_mon">@i.FoodID</td>
                         <td class="Ten_mon">@i.FoodName</td>
                         <td class="Danh_muc">@i.CategoryName</td>
                         <td class="Trang_thai">@i.FoodInputPrice.ToString("N0")đ</td>
                         <td class="Option">
                             <i class="fas fa-eye" data-id="@i.FoodID" onclick="showFoodDetails(@i.FoodID)"></i>
-                            <i class="fas fa-pencil-alt" data-id="@i.FoodID" onclick="showFoodDetails(@i.FoodID)"></i>
-                            <i class="fas fa-ban" data-id="@i.FoodID"></i>
+                            @if(!i.isDeleted)
+                            {
+                                <i class="fas fa-pencil-alt" data-id="@i.FoodID" onclick="showFoodDetails(@i.FoodID)"></i>
+                                <i class="fas fa-ban" data-id="@i.FoodID"></i>
+                            }
+                            else
+                            {
+                                <i class="fa-solid fa-rotate" data-id="@i.FoodID"></i>
+                                <i class="fa-regular fa-square-minus"></i>
+                            }
                         </td>
                     </tr>
                 }
-                @foreach (var i in Model.foods)
+                @foreach (var i in Model.foodinclude)
                 {
                     <tr>
-                        <td class="Ten_Food_All" style="display: none;">@i.FoodName</td>
+                        <td class="Ten_Food_All" style="display:none">@i.FoodName</td>
                     </tr>
                 }
             </tbody>
@@ -115,7 +121,7 @@
             {
                 currentPage = Model.currentPage,
                 countPages = totalPages,
-                generateUrl = (int? p) => Url.Page("/Admin/ManageFood", new { p })
+                generateUrl = (int? p) => Url.Page("/Admin/ManageFood", new { p, Model.searchText, Model.sortBy, Model.roleBy  })
             };
         }
         <partial name="_Paging" model="@pagingmodel" />
@@ -190,7 +196,6 @@
                         <p class="label">Danh mục</p>
                         <div class="form__comboBoxList">
                             <select name="combobox_Item" required>
-                                <option value="" selected>Tất cả</option>
                                 @foreach (var i in Model.categoryNames)
                                 {
                                     <option value="@i">@i</option>
@@ -222,7 +227,7 @@
 <!-- End Modal Update-->
 <!-- Modal Read -->
 <div class="modal__food-read">
-    <div class="modal__read-information">
+    <div class="modal__read-information" style="width: 35%">
         <div class="button__exit d-flex justify-content-end">
             <span class="exit__surround d-flex align-items-center justify-content-center">
                 <i class="fas fa-times"></i>
@@ -232,8 +237,8 @@
             <div class="categories__form-edit">
                 <p class="categories__text-specific">Thông tin món ăn</p>
                 <div class="food-line d-flex">
-                    <label for="image" class="categories__text col-md-4 pl-0">Hình ảnh</label>
-                    <img class="food-img" id="image" />
+                    <label for="image" class="categories__text col-md-4 pl-0">Hình ảnh:</label>
+                    <img class="food-img col-8" style="border: 8px;" id="image" />
                 </div>
                 <div class="food-line d-flex">
                     <label for="name" class="categories__text col-md-4 pl-0">Tên món ăn:</label>
@@ -287,6 +292,34 @@
     </div>
 </form>
 <!-- End Modal Delete -->
+<!-- Modal -->
+<form method="post" asp-page="ManageFood" asp-page-handler="Recycle">
+    <div class="modal fade" id="recycle" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title_1" id="confirm-label"></h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center wirningColor">
+                        <i class="fas fa-exclamation-triangle fa-4x"></i>
+                    </div>
+                    <br />
+                    <center>
+                        <p class="message"></p>
+                        <input type="hidden" name="FoodId" class="modal__food-id" value="" />
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger dismiss" data-dismiss="modal"></button>
+                    <button type="submit" class="btn btn-primary confirm"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- End Modal Recycle -->
 <script src="~/js/manage-food.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -348,7 +381,11 @@
         var categoryName = row.find('td.Danh_muc').text();
         // Đổ thông tin vào form
         $('#cate').text(categoryName);
-        $('.modal__ingredient-modify input[name="Cate"]').val(categoryName);
+        var select = $('.modal__ingredient-modify select[name="combobox_Item"]');
+        select.val(categoryName);
+        select.find('option').each(function () {
+            $(this).prop('selected', $(this).val() == categoryName);
+        });
     }
 </script>
 <script>
@@ -416,6 +453,70 @@
     });
 </script>
 <script>
+    $(function () {
+        (function ($) {
+            $.fn.confirm = function (options) {
+                var settings = $.extend({}, $.fn.confirm.defaults, options);
+                return this.each(function () {
+                    var element = this;
+                    $('.modal-title', this).html(settings.title);
+                    $('.message', this).html(settings.message);
+                    $('.confirm', this).html(settings.confirm);
+                    $('.dismiss', this).html(settings.dismiss);
+
+                    $(this).on('click', '.confirm', function (event) {
+                        $(element).data('confirm', true);
+                    });
+
+                    $(this).on('hide.bs.modal', function (event) {
+                        if ($(this).data('confirm')) {
+                            $(this).trigger('confirm', event);
+                            $(this).removeData('confirm');
+                        } else {
+                            $(this).trigger('dismiss', event);
+                        }
+
+                        $(this).off('confirm dismiss');
+                    });
+
+                    $(this).modal('show');
+                });
+            };
+
+            $.fn.confirm.defaults = {
+                title: 'Modal title',
+                message: 'One fine body&hellip;',
+                confirm: 'OK',
+                dismiss: 'Cancel'
+            };
+        })(jQuery);
+    });
+    $(".fa-rotate").click(function () {
+        var id = $(this).data('id');
+        $.ajax({
+            type: 'GET',
+            data: { id: id },
+            url: '@Url.Page("ManageFood", "Find")',
+            success: function (result) {
+                if (result) {
+                    $('#recycle input[name="FoodId"]').val(result.foodID);
+                    $('#recycle').confirm({
+                        title: 'confirmation',
+                        message: 'Bạn có khôi phục món ăn này không?',
+                        confirm: 'Yes',
+                        dismiss: 'No'
+                    });
+                } else {
+                    alert('Error: Food not found with ID ' + id);
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Error loading food: ' + errorThrown);
+            }
+        });
+    });
+</script>
+<script>
     $(document).ready(function () {
         var imageSrc = 'result.imageFood'; // Thay đổi địa chỉ hình ảnh trong imageFood tương ứng
         if (!imageSrc.startsWith("http")) {
@@ -432,7 +533,7 @@
     function validateForm(event) {
         var newFoodName = $('input[name="Name"]').val().trim().toUpperCase().replace(/\s+/g, ' ');
         var FoodNames = []; // Khởi tạo một mảng rỗng để lưu các tên món ăn
-
+       
         $('td.Ten_Food_All').each(function () {
             var FoodName = $(this).text().trim().toUpperCase().replace(/\s+/g, ' '); // Lấy nội dung của phần tử td hiện tại và loại bỏ khoảng trắng thừa
             FoodNames.push(FoodName); // Thêm tên món ăn vào mảng

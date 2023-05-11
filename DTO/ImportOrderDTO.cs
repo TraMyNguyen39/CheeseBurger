@@ -10,5 +10,6 @@ namespace CheeseBurger.DTO
 		public DateTime DateIO { get; set; }
 		public float TMoneyIO { get; set; }
 		public string PartnerName { get; set; }
+		public int StaffID { get; set;}
 	}
 }

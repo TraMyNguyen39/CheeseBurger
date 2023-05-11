@@ -45,11 +45,36 @@ namespace CheeseBurger.Repository.Implements
 							 TMoneyIO = c.TMoneyIO,
 							 DateIO = c.DateIO,
 							 PartnerName = a.PartnerName,
+							 StaffID= c.StaffID,
 						 };
-			return import.ToList();
+			return import.OrderByDescending(p => p.DateIO).ToList();
 			//return context.ImportOrders
 			//	.Select(o => new ImportOrder { })
 			//	.OrderByDescending(p => p.DateIO).ToList();
+		}
+
+		public ImportOrderDTO GetImportOrder(int orderID)
+		{
+			var order = context.ImportOrders.Where(p => p.ImportOrderID == orderID)
+											.Select(p => new ImportOrderDTO
+											{
+												DateIO = p.DateIO,
+												ImportOrderID = p.ImportOrderID,
+												PartnerName = p.Partner.PartnerName,
+												TMoneyIO = p.TMoneyIO,
+												StaffID = p.StaffID,
+											});
+			return order.FirstOrDefault();
+		}
+
+		public void RemoveOrder(int orderId)
+		{
+			var order = context.ImportOrders.Find(orderId);
+			if (order != null)
+			{
+				context.ImportOrders.Remove(order);
+				context.SaveChanges();
+			}
 		}
 	}
 }
