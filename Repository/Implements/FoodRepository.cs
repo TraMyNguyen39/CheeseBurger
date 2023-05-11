@@ -80,7 +80,13 @@ namespace CheeseBurger.Repository.Implements
 			return context.Foods.Where(p => p.IsDeleted == false)
 				.Select(p => new AdminFoodDTO { FoodID = p.FoodID, FoodName = p.FoodName, FoodInputPrice = p.Price, CategoryName = p.Category.CategoryName }).ToList();
 		}
-		public int getRowFood()
+
+        public List<AdminFoodDTO> GetAllFoodAdmin()
+        {
+            return context.Foods.Select(p => new AdminFoodDTO { FoodID = p.FoodID, FoodName = p.FoodName, FoodInputPrice = p.Price, CategoryName = p.Category.CategoryName }).ToList();
+        }
+
+        public int getRowFood()
 		{
 			return context.Foods.Count();
 		}

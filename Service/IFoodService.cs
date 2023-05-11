@@ -7,7 +7,9 @@ namespace CheeseBurger.Service
     {
         List<FoodDTO> GetFoodsMenu(int category, int priceRange , string arrange, bool isDescending, string searchText);
 		List<AdminFoodDTO> GetFoodAdmin();
-		int getRowFood();
+        List<AdminFoodDTO> GetAllFoodAdmin();
+
+        int getRowFood();
 		List<String> GetNameCategories();
 		List<AdminFoodDTO> GetListFoods(string categories, string arrange, bool isDescending, string searchText);
         int ConvertCategoryNametoCategoryId(string Name);

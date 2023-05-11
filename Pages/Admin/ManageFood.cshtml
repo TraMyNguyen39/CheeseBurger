@@ -2,6 +2,7 @@
 @model ManageFoodModel
 @{
     ViewData["Title"] = "ManageFood";
+    int stt = 0;
 }
 <link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/manage-food.css" asp-append-version="true" />
@@ -77,6 +78,7 @@
         <table class="content-table">
             <thead>
                 <tr>
+                    <th class="STT col-1">STT</th>
                     <th class="ID_mon col-2">Mã món ăn</th>
                     <th class="Ten_mon col-3">Tên món ăn</th>
                     <th class="Danh_muc col-2">Danh mục</th>
@@ -88,6 +90,7 @@
                 @foreach (var i in foods)
                 {
                     <tr>
+                        <td class="STT">@(++stt)</td>
                         <td class="ID_mon">@i.FoodID</td>
                         <td class="Ten_mon">@i.FoodName</td>
                         <td class="Danh_muc">@i.CategoryName</td>
@@ -107,10 +110,10 @@
                         </td>
                     </tr>
                 }
-                @foreach (var i in Model.foods)
+                @foreach (var i in Model.foodinclude)
                 {
                     <tr>
-                        <td class="Ten_Food_All" style="display: none;">@i.FoodName</td>
+                        <td class="Ten_Food_All" style="display:none">@i.FoodName</td>
                     </tr>
                 }
             </tbody>
@@ -300,7 +303,6 @@
                 <div class="modal-header">
                     <h4 class="modal-title_1" id="confirm-label"></h4>
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-
                 </div>
                 <div class="modal-body">
                     <div class="text-center wirningColor">
@@ -382,7 +384,11 @@
         var categoryName = row.find('td.Danh_muc').text();
         // Đổ thông tin vào form
         $('#cate').text(categoryName);
-        $('.modal__ingredient-modify input[name="Cate"]').val(categoryName);
+        var select = $('.modal__ingredient-modify select[name="combobox_Item"]');
+        select.val(categoryName);
+        select.find('option').each(function () {
+            $(this).prop('selected', $(this).val() == categoryName);
+        });
     }
 </script>
 <script>
@@ -530,7 +536,7 @@
     function validateForm(event) {
         var newFoodName = $('input[name="Name"]').val().trim().toUpperCase().replace(/\s+/g, ' ');
         var FoodNames = []; // Khởi tạo một mảng rỗng để lưu các tên món ăn
-
+       
         $('td.Ten_Food_All').each(function () {
             var FoodName = $(this).text().trim().toUpperCase().replace(/\s+/g, ' '); // Lấy nội dung của phần tử td hiện tại và loại bỏ khoảng trắng thừa
             FoodNames.push(FoodName); // Thêm tên món ăn vào mảng

@@ -6,7 +6,9 @@ namespace CheeseBurger.Repository
     public interface IFoodRepository
     {
 		List<FoodDTO> GetFoodsMenu(int category, int priceRange, string arrange, bool isDescending, string searchText);
-		List<AdminFoodDTO> GetFoodAdmin();
+        List<AdminFoodDTO> GetAllFoodAdmin();
+
+        List<AdminFoodDTO> GetFoodAdmin();
 		int getRowFood();
 		List<String> GetNameCategories();
 		List<AdminFoodDTO> GetListFoods(string categories, string arrange, bool isDescending, string searchText);

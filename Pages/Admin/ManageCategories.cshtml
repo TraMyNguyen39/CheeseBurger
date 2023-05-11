@@ -219,46 +219,46 @@
         populateFoods(categoryID);
     }
 </script>
-<script>
-    $(function () {
-        (function ($) {
-            $.fn.confirm = function (options) {
-                var settings = $.extend({}, $.fn.confirm.defaults, options);
+    <script>
+        $(function () {
+            (function ($) {
+                $.fn.confirm = function (options) {
+                    var settings = $.extend({}, $.fn.confirm.defaults, options);
 
-                return this.each(function () {
-                    var element = this;
-                    $('.modal-title', this).html(settings.title);
-                    $('.message', this).html(settings.message);
-                    $('.confirm', this).html(settings.confirm);
-                    $('.dismiss', this).html(settings.dismiss);
+                    return this.each(function () {
+                        var element = this;
+                        $('.modal-title', this).html(settings.title);
+                        $('.message', this).html(settings.message);
+                        $('.confirm', this).html(settings.confirm);
+                        $('.dismiss', this).html(settings.dismiss);
 
-                    $(this).on('click', '.confirm', function (event) {
-                        $(element).data('confirm', true);
+                        $(this).on('click', '.confirm', function (event) {
+                            $(element).data('confirm', true);
+                        });
+
+                        $(this).on('hide.bs.modal', function (event) {
+                            if ($(this).data('confirm')) {
+                                $(this).trigger('confirm', event);
+                                $(this).removeData('confirm');
+                            } else {
+                                $(this).trigger('dismiss', event);
+                            }
+
+                            $(this).off('confirm dismiss');
+                        });
+
+                        $(this).modal('show');
                     });
+                };
 
-                    $(this).on('hide.bs.modal', function (event) {
-                        if ($(this).data('confirm')) {
-                            $(this).trigger('confirm', event);
-                            $(this).removeData('confirm');
-                        } else {
-                            $(this).trigger('dismiss', event);
-                        }
-
-                        $(this).off('confirm dismiss');
-                    });
-
-                    $(this).modal('show');
-                });
-            };
-
-            $.fn.confirm.defaults = {
-                title: 'Modal title',
-                message: 'One fine body&hellip;',
-                confirm: 'OK',
-                dismiss: 'Cancel'
-            };
-        })(jQuery);
-    });
+                $.fn.confirm.defaults = {
+                    title: 'Modal title',
+                    message: 'One fine body&hellip;',
+                    confirm: 'OK',
+                    dismiss: 'Cancel'
+                };
+            })(jQuery);
+        });
     $(".fa-ban").click(function () {
         var id = $(this).data('id');
         $.ajax({

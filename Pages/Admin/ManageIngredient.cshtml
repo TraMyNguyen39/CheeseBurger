@@ -2,6 +2,7 @@
 @model ManageIngredientModel
 @{
 	ViewData["Title"] = "ManageIngredient";
+	int stt = 0;
 }
 <link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
 
@@ -40,6 +41,7 @@
 		<table class="content-table">
 			<thead>
 				<tr>
+					<th class="STT col-1">STT</th>
 					<th class="Ten_mon">Tên nguyên liệu</th>
 					<th class="Gia col-2">Giá nhập vào</th>
 					<th class="">Nhà cung cấp</th>
@@ -50,6 +52,7 @@
 				@foreach (var i in ingredients)
 				{
 					<tr>
+						<td class="STT">@(++stt)</td>
 						<td class="ID_mon" style="display: none;">@i.IngredientID</td>
 						<td class="Ten_mon" style="padding-left: 5%;">@i.IngredientName</td>
 						<td class="Gia" style="padding-right: 4%;">@i.IngredientInputPrice.ToString("N0")VNĐ</td>

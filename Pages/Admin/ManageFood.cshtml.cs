@@ -18,7 +18,10 @@ namespace CheeseBurger.Pages.Admin
         [BindProperty(SupportsGet = true)]
 		public List<AdminFoodDTO> foods { get; set; }
 
-		[BindProperty(SupportsGet = true, Name = "p")]
+        [BindProperty(SupportsGet = true)]
+        public List<AdminFoodDTO> foodinclude { get; set; }
+
+        [BindProperty(SupportsGet = true, Name = "p")]
 		public int currentPage { get; set; }
 
 		public string roleBy { get; set; }
@@ -34,7 +37,9 @@ namespace CheeseBurger.Pages.Admin
 		public void OnGet(int FoodID)
         {
 			foods = foodService.GetFoodAdmin();
-			int totalRow = foodService.getRowFood();
+            foodinclude = foodService.GetAllFoodAdmin();
+
+            int totalRow = foodService.getRowFood();
 			categoryNames = foodService.GetNameCategories();
 
 			this.roleBy = Request.Query["roleBy"];
