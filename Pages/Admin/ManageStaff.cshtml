@@ -54,8 +54,7 @@
 		}
 		<table class="content-table">
 			<thead>
-				<tr class="tr">
-					<th class="STT col-1">STT</th>
+				<tr class="tr">					
 					<th class="ID col-1">Mã NV</th>
 					<th class="Name col-3">Họ và tên</th>
 					<th class="Role col-2">Chức vụ</th>
@@ -70,8 +69,7 @@
 				{
 					@if (staff.StaIsStaff == true && staff.StaIsDeleted == false)
 					{
-						<tr class="tr">
-							<td class="STT">@(++CntStaff)</td>
+						<tr class="tr">							
 							<td class="ID">@(100 + (@staff.StaID))</td>
 							<td class="Name">@staff.StaName</td>
 							<td class="Role">@staff.StaRoleName</td>

@@ -48,7 +48,9 @@ namespace CheeseBurger.Pages
             else if(user.isDeleted == true)
 			{
 				Message = "* Tài khoản đã bị chặn vì vi phạm tiêu chuẩn cộng đồng!";
-				return Page();
+                List_Customers = customerService.GetAllCustomers();
+                List_Staffs = staffService.GetAllStaffs();
+                return Page();
 			}
 			else
             {
@@ -59,7 +61,12 @@ namespace CheeseBurger.Pages
                 {
                     var staffID = staffService.GetStaffID(staffService.GetStaffID(user.AccountID));
 					HttpContext.Session.SetInt32("staffID", staffID);
-					HttpContext.Session.SetString("Role", staffService.GetStaffRole(staffID));
+                    var staffRole = staffService.GetStaffRole(staffID);                    
+                    HttpContext.Session.SetString("Role", staffRole);
+                    if (staffRole != "Quản trị viên")
+                    {
+                        return RedirectToPage("/Admin/ManageExportOrder");
+                    }
                     return RedirectToPage("/Admin/SyncRevenue");
                 }
                 else

@@ -6,11 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CheeseBurger.Migrations
 {
     /// <inheritdoc />
-<<<<<<<< HEAD:Migrations/20230510135756_DBver4.cs
     public partial class DBver4 : Migration
-========
-    public partial class CreateDatabase : Migration
->>>>>>>> e1b974251e7fdeb2e26805ebc66e836ea5ce9fed:Migrations/20230510235932_CreateDatabase.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

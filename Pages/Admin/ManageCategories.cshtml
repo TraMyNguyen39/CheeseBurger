@@ -31,8 +31,7 @@
         <div class="table__information col-9 pl-0">
             <table class="content-table">
                 <thead>
-                    <tr>
-                        <th class="STT col-1">STT</th>
+                    <tr>                       
                         <th class="ID_mon col-2">Mã DM</th>
                         <th class="Ten_mon col-3">Tên danh mục</th>
                         <th class="Number_mon col-3">Số lượng món</th>
@@ -42,8 +41,7 @@
                 <tbody>
                     @foreach (var i in categories)
                     {
-                        <tr>
-                            <td class="STT">@(++stt)</td>
+                        <tr>                           
                             <td class="ID_mon">@i.CategoryID</td>
                             <td class="Ten_mon">@i.CategoryName</td>
                             <td class="Number_mon">@i.Quantity</td>

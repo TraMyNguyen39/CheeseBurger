@@ -46,7 +46,7 @@ namespace CheeseBurger.Pages
 				orderCount = orderService.GetOrderCount(0);
 				return Page();
             }
-			items = orderService.GetAllOrderAdmin(0, timeStart, timeEnd, searchText);
+			items = orderService.GetAllOrderAdmin(status, timeStart, timeEnd, searchText);
 			orderCount = orderService.GetOrderCount(0);
 			return Page();
 		}

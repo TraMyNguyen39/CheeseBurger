@@ -67,7 +67,7 @@
 		var pageSize = 5; // Number of rows to show per page
 		var totalPages = (int)Math.Ceiling((double)Model.items.Count / pageSize); // Calculate the total number of pages
 		var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
-		var foods = Model.items.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
+		var items = Model.items.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
 		if (Model.currentPage < 1) Model.currentPage = 1;
 		if (Model.currentPage > totalPages) Model.currentPage = totalPages;
 	}
@@ -84,7 +84,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var i in Model.items)
+			@foreach (var i in items)
 			{
 				<tr>
 					<td><a asp-page="/Order/DetailOrder" asp-route-orderId="@i.orderId" class="IDOrder">@i.orderId</a></td>

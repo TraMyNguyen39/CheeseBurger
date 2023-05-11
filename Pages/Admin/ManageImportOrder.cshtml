@@ -48,7 +48,7 @@
 		var pageSize = 5; // Number of rows to show per page
 		var totalPages = (int)Math.Ceiling((double)Model.imports.Count / pageSize); // Calculate the total number of pages
 		var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
-		var foods = Model.imports.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
+		var imports = Model.imports.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
 		if (Model.currentPage < 1) Model.currentPage = 1;
 		if (Model.currentPage > totalPages) Model.currentPage = totalPages;
 	}
@@ -64,7 +64,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var i in Model.imports)
+			@foreach (var i in imports)
 			{
 				<tr>
 					<td><a asp-page="/Order/DetailOrder" asp-route-orderId="@i.ImportOrderID" class="IDOrder">@i.ImportOrderID</a></td>
@@ -85,7 +85,7 @@
             {
                 currentPage = Model.currentPage,
                 countPages = totalPages,
-                //generateUrl = (int? p) => Url.Page("/Admin/ManageFood", new { p, Model.searchText, Model.sortBy, Model.roleBy  })
+                generateUrl = (int? p) => Url.Page("/Admin/ManageImportOrder", new { p })
             };
         }
         <partial name="_Paging" model="@pagingmodel" />

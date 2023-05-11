@@ -40,8 +40,7 @@
 		}
 		<table class="content-table">
 			<thead>
-				<tr class="tr">
-					<th class="STT col-1">STT</th>
+				<tr class="tr">					
 					<th class="ID col-2">Mã KH</th>
 					<th class="Name col-3">Họ và tên</th>
 					<th class="Email col-3">Email</th>
@@ -55,8 +54,7 @@
 				{					
 					@if (customer.CusIsStaff == false && customer.CusIsDeleted == false)
 					{
-						<tr class="tr">
-							<td class="STT">@(++CntCus)</td>
+						<tr class="tr">							
 							<td class="ID">@(100 + @customer.CusID)</td>
 							<td class="Name">@customer.CusName</td>
 							<td class="Email">@customer.CusEmail</td>
