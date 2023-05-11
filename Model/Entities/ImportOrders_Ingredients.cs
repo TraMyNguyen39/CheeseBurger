@@ -5,15 +5,15 @@ namespace CheeseBurger.Model.Entities
 {
     public class ImportOrders_Ingredients
     {
-        [Key]
-        public int ImportOrderID { get; set; }
+		[Key]
+		public int ImportOrderID { get; set; }
+		public ImportOrder ImportOrder { get; set; }
+		[Key]
+		public int IngredientsID { get; set; }
+		public Ingredients Ingredients { get; set; }
 
-        public int IngredientsID { get; set; }
-        [ForeignKey("IngredientsID")]
-        public Ingredients Ingredients { get; set; }
+		public int QuantityIO { get; set; }
 
-        public int QuantityIO { get; set; }
-
-        public float PriceIO { get; set; }
-    }
+		public float PriceIO { get; set; }
+	}
 }

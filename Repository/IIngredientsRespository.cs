@@ -17,6 +17,8 @@ namespace CheeseBurger.Repository
 		IngredientDTO getEachIngredients(int IngreID);
 		List<IngredientDTO> GetListIngredients(string arrange, bool isDescending, string searchText);
 		List<String> GetNameIngredient();
+		List<CBBIngredientDTO> GetIngredientsByPartner(int partnerID);
+		float GetPrice(int ingre);
 
     }
 }

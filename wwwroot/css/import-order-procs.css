@@ -3,68 +3,57 @@
     width: 50%;
     width: 50%;
     margin: 0 auto;
-    margin-top: 80px;
+    margin-top: 60px;
+    margin-bottom: 60px;
 }
 
 .ingredient__form {
     background-color: var(--white-color);
-    height: 500px;
     width: 100%;
     margin: 15px 5px 20px 10px;
     border-radius: 6px;
 }
 
 .ingredient__form-details {
+    font-size: 1.8rem;
+    font-size: 1.8rem;
     color: var(--black-color);
     height: fit-content;
     width: 100%;
     padding: 40px 50px;
-    background: var(--white-color);
+    background: var(--div-color);
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
-    i.fas.fa-minus-circle {
-        padding-right: 30px;
-        padding-left: 30px;
-        transform: scale(2.5);
-    }
-
-    i.fas.fa-plus-circle {
-        padding: 15px 0 20px 5px;
-        transform: scale(2.5);
-    }
-
+.ingredient__label, 
+.ingredient__label-mass
+{
+    font-weight: 500;
+}
 .ingredient__label-specific {
     font-size: 20px;
     color: var(--text-color);
     font-weight: 700;
 }
 
-.ingredient__label {
-    font-size: 16px;
-}
 .ingredient__money {
-    font-size: 16px;
     text-align:end;
-}
-
-.ingredient__label-mass {
-    font-size: 16px;
 }
 .ingredient__label-mass.col-3 {
     text-align: center;
 }
-.ingredient__label-list {
-    padding-bottom: 15px;
-    /* transform: translateX(-5px); */
-}
 
-.form__comboBox select[name="combobox_Item"] {
-    color: var(--text-color);
-    width: 100px;
+.form__comboBox select {
     font-size: 16px;
-    border-radius: 8px;
+    color: var(--text-color);
+    width: 100%;
+    height: 30px;
+    border: 1px solid #495057;
+    border-radius: 6px;
+}
+.form__comboBox select[name="partner"] {
+    width: 60%;
 }
 
 .ingredient__form {
@@ -77,26 +66,28 @@
     margin-bottom: 0 !important;
 }
 
-.input-wrapper input[type="search"] {
+.input-wrapper input {
     padding: 0;
+    height: 30px;
     padding-left: 10px;
-    font-size: 16px;
     border: 1px solid #495057;
-    width: 60%;
+    border-radius: 6px;
+    width: 60% !important;
+    font-size: 16px;
 }
-.input-wrapper input[type="search"]:focus {
+.input-wrapper input:focus {
     box-shadow: none;
+    outline: none;
+    border: 1px solid #495057;
 }
 
 .ingredient__total {
-    font-size: 16px;
     padding-bottom: 20px;
+    text-align: right;
 }
 
 .ingredient__total-label {
-    margin-left: 20px;
     font-weight: 500;
-    font-size: 1.8rem;
 }
 
 .ingredient__button-order button {
@@ -104,7 +95,6 @@
     height: 40px;
     background-color: var(--admin-color);
     color: var(--white-color);
-    font-size: 16px;
     transform: translateX(-14px);
     border: 0;
     padding: 0;
@@ -116,7 +106,6 @@
     height: 40px;
     background-color: var(--white-color);
     color: var(--black-color);
-    font-size: 16px;
     transform: translateX(-14px);
     border-width: 1px;
     padding: 0;
@@ -131,9 +120,5 @@
     .ingredient__button-cancel button:focus, .ingredient__button-order button:focus {
         outline: none;
     }
-
-span.unit {
-    font-size: 1.6rem;
-}
 
 /* End Main */

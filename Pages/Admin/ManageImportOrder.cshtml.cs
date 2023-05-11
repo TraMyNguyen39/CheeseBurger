@@ -9,7 +9,7 @@ namespace CheeseBurger.Pages
 	public class ManageImportOrderModel : PageModel
 	{
 		private readonly IImportOrderService importOrderService;
-		public List<ImportOrder> imports { get; set; }
+		public List<ImportOrderDTO> imports { get; set; }
 		public ManageImportOrderModel(IImportOrderService importOrderService)
 		{
 			this.importOrderService = importOrderService;

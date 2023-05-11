@@ -2,10 +2,10 @@
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Repository;
 
-namespace CheeseBurger.Service.Implements
+namespace CheeseBurger.Service.ImplementsGetPrice
 {
-    public class IngredientsService : IIngredientsService
-    {
+	public class IngredientsService : IIngredientsService
+	{
 		private readonly IIngredientsRespository ingredientsRespository;
 		public IngredientsService(IIngredientsRespository ingredientsRespository)
 		{
@@ -39,7 +39,7 @@ namespace CheeseBurger.Service.Implements
 		{
 			ingredientsRespository.AddData(Name, measureId, Price);
 		}
-        public void DeleteData(int id)
+		public void DeleteData(int id)
 		{
 			ingredientsRespository.DeleteData(id);
 		}
@@ -63,8 +63,18 @@ namespace CheeseBurger.Service.Implements
 			return ingredientsRespository.GetListIngredients(arrange, isDescending, searchText);
 		}
 		public List<String> GetNameIngredient()
-        {
+		{
 			return ingredientsRespository.GetNameIngredient();
+		}
+
+		public List<CBBIngredientDTO> GetIngredientsByPartner(int partnerID)
+		{
+			return ingredientsRespository.GetIngredientsByPartner(partnerID);
+		}
+
+		public float GetPrice(int ingre)
+		{
+			return ingredientsRespository.GetPrice(ingre);
 		}
 	}
 }

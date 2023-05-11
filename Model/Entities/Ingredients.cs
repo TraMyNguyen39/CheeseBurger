@@ -21,6 +21,9 @@ namespace CheeseBurger.Model.Entities
         public int MeasureID { get; set; }
         [ForeignKey("MeasureID")]
         public Measure Measure { get; set; }
+		public int PartnerID { get; set; }
+		[ForeignKey("PartnerID")]
+		public Partner Partner { get; set; }
 
-    }
+	}
 }

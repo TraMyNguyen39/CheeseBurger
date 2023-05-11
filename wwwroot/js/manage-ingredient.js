@@ -20,7 +20,7 @@ for (var i = 0; i < eyeButtons.length; i++) {
 // Cap nhat nguyen lieu
 var pencilButtons = document.querySelectorAll(".fa-pencil-alt");
 
-for (var i = 0; i < eyeButtons.length; i++) {
+for (var i = 0; i < pencilButtons.length; i++) {
     pencilButtons[i].addEventListener("click", function () {
         var modal = document.querySelector(".modal__ingredient-modify");
         modal.classList.add("open");

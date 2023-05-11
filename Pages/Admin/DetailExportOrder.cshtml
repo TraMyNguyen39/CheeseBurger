@@ -23,15 +23,15 @@
 				<label class="lb-title">#@Model.order.OrderID</label>
 				<label class="lb-title"> @Model.order.SaleDate.ToString("HH:mm dd/MM/yyyy")</label>
 				<br />
-			@if (Model.order.ArriveTime != null)
-			{
-				DateTime time = (DateTime)@Model.order.ArriveTime;
+				@if (Model.order.ArriveTime != null)
+				{
+					DateTime time = (DateTime)@Model.order.ArriveTime;
 					<label class="lb-title"> @time.ToString("HH:mm dd/MM/yyyy")</label>
-			}
-			else
-			{
+				}
+				else
+				{
 					<label><br /></label>
-			}
+				}
 				<label class="lb-title" style="font-style: italic"> @(Model.order.Note ?? ("Không có"))</label>
 			</div>
 		</div>
@@ -41,9 +41,9 @@
 			<label class="body-title-detail">Thông tin người nhận</label>
 			<hr>
 			<p class="body-detail-txt">
-			@Model.order.CustomerName
+				@Model.order.CustomerName
 				<br>
-			@Model.address
+				@Model.address
 				<br>
 				Tel: @Model.order.PhoneNumber
 			</p>
@@ -52,26 +52,26 @@
 			<label class="body-title-detail">Thông tin đầu bếp</label>
 			<hr>
 			<p class="body-detail-txt">
-			@if (Model.chef != null)
-			{
-				@Model.chef.Name
+				@if (Model.chef != null)
+				{
+					@Model.chef.Name
 					<br>
-				@:# @Model.order.ChefID
-			}
+					@:# @Model.order.ChefID
+				}
 			</p>
 		</div>
 		<div class="body_detail col-4 flex justify-content-center">
 			<label class="body-title-detail">Thông tin người giao hàng</label>
 			<hr>
 			<p class="body-detail-txt">
-			@if (Model.shipper != null)
-			{
-				@Model.shipper.Name
+				@if (Model.shipper != null)
+				{
+					@Model.shipper.Name
 					<br>
-				@:# @Model.order.ShipperID
+					@:# @Model.order.ShipperID
 					<br>
-				@:Tel: @Model.shipper.PhoneNumber
-			}
+					@:Tel: @Model.shipper.PhoneNumber
+				}
 			</p>
 		</div>
 	</div>
@@ -87,10 +87,10 @@
 				</tr>
 			</thead>
 			<tbody>
-			@{
-				var count = 1;
-				@foreach (var items in Model.lineItems)
-				{
+				@{
+					var count = 1;
+					@foreach (var items in Model.lineItems)
+					{
 						<tr style="background: #fff">
 							<th scope="row" style="font-weight: 500; text-align: center;">@count</th>
 							<td class="d-flex align-items-center">
@@ -99,31 +99,23 @@
 							</td>
 							<td class="table-money">@items.Price.ToString("N0")đ</td>
 							<td style="">
-							@items.Quantity
+								@items.Quantity
 							</td>
 							<td class="table-money" style="font-weight: 500;">@((items.Price * items.Quantity).ToString("N0"))đ</td>
 						</tr>
-					count++;
+						count++;
+					}
 				}
-			}
 				<tr style="border: none; background: var(--div-color);">
 					<td class=""></td>
 					<td class=""></td>
 					<td class=""></td>
-				@if (Model.order.StatusOdr == (int)Enums.OrderStatus.completed)
-				{
-						<td class=""></td>
-				}
 					<td class="fs-16 p-0" style="text-align: left">Tạm tính:</td>
 					<td class="fs-16 table-money">@(Model.order.TempMoney.ToString("N0"))đ</td>
 				</tr>
 				<tr style="border: none; background: var(--div-color);">
 					<td class=""></td>
 					<td class=""></td>
-				@if (Model.order.StatusOdr == (int)Enums.OrderStatus.completed)
-				{
-						<td class=""></td>
-				}
 					<td class=""></td>
 					<td class="fs-16 p-0" style="text-align: left">Phí vận chuyển:</td>
 					<td class="fs-16 table-money">@(Model.order.ShippingMoney.ToString("N0"))đ</td>
@@ -132,10 +124,6 @@
 					<td class=""></td>
 					<td class=""></td>
 					<td class=""></td>
-				@if (Model.order.StatusOdr == (int)Enums.OrderStatus.completed)
-				{
-						<td class=""></td>
-				}
 					<td class="fs-16 p-0" style="text-align: left">
 						Thuế (3%):
 					</td>
@@ -145,43 +133,39 @@
 					<td class=""></td>
 					<td class=""></td>
 					<td class=""></td>
-				@if (Model.order.StatusOdr == (int)Enums.OrderStatus.completed)
-				{
-						<td class=""></td>
-				}
 					<td class="fs-16 p-0" style=" text-align: left">Tổng tiền:</td>
-					<td class="fs-16 table-money" >@((Model.order.TempMoney * 103 / 100 + Model.order.ShippingMoney).ToString("N0"))đ</td>
+					<td class="fs-16 table-money">@((Model.order.TempMoney * 103 / 100 + Model.order.ShippingMoney).ToString("N0"))đ</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<div class="list-item list-item-edit mt-4">
-	@if (Model.order.StatusOdr == (int)Enums.OrderStatus.waiting)
-	{
+		@if (Model.order.StatusOdr == (int)Enums.OrderStatus.waiting)
+		{
 			<button class="submit-btn submit-btn-edit" id="btn-cancel">HỦY ĐƠN HÀNG</button>
 			<form method="post" asp-page-handler="Confirm">
 				<input type="hidden" asp-for="orderId" value="@Model.orderId">
 				<button class="submit-btn submit-btn-edit">XÁC NHẬN</button>
 			</form>
-	}
-	@if (Model.order.StatusOdr == (int)Enums.OrderStatus.preparing)
-	{
+		}
+		@if (Model.order.StatusOdr == (int)Enums.OrderStatus.preparing)
+		{
 			<button class="submit-btn submit-btn-edit" id="btn-cancel">HỦY ĐƠN HÀNG</button>
 			<form method="post" asp-page-handler="PrepareDone">
 				<input type="hidden" asp-for="orderId" value="@Model.orderId">
 				<button class="submit-btn submit-btn-edit">CHUẨN BỊ XONG</button>
 			</form>
-	}
-	@if (Model.order.StatusOdr == (int)Enums.OrderStatus.prepareDone)
-	{
+		}
+		@if (Model.order.StatusOdr == (int)Enums.OrderStatus.prepareDone)
+		{
 			<button class="submit-btn submit-btn-edit" id="btn-cancel">HỦY ĐƠN HÀNG</button>
 			<form method="post" asp-page-handler="ConfirmShipping">
 				<input type="hidden" asp-for="orderId" value="@Model.orderId">
 				<button class="submit-btn submit-btn-edit">XÁC NHẬN GIAO</button>
 			</form>
-	}
-	@if (Model.order.StatusOdr == (int)Enums.OrderStatus.shipping)
-	{
+		}
+		@if (Model.order.StatusOdr == (int)Enums.OrderStatus.shipping)
+		{
 			<button class="submit-btn submit-btn-edit grey-btn">HỦY ĐƠN HÀNG</button>
 			<form method="post" asp-page-handler="Success">
 				<input type="hidden" asp-for="orderId" value="@Model.orderId">
@@ -191,11 +175,11 @@
 				<input type="hidden" asp-for="orderId" value="@Model.orderId">
 				<button class="submit-btn submit-btn-edit">GIAO KHÔNG THÀNH CÔNG</button>
 			</form>
-	}
-	@if (Model.order.StatusOdr > (int)Enums.OrderStatus.shipping)
-	{
+		}
+		@if (Model.order.StatusOdr > (int)Enums.OrderStatus.shipping)
+		{
 			<button class="submit-btn submit-btn-edit grey-btn">HỦY ĐƠN HÀNG</button>
-	}
+		}
 	</div>
 </div>
 
