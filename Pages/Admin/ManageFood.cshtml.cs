@@ -100,7 +100,7 @@ namespace CheeseBurger.Pages.Admin
             foodService.RecycleData(FoodId);
             return RedirectToPage("ManageFood");
         }
-        public async Task<IActionResult> OnPostUpdateAsync(int FoodID, string Name, string Cate, float Price, string Describe, IFormFile fileupload)
+        public async Task<IActionResult> OnPostUpdateAsync(int FoodID, string Name, string combobox_Item, float Price, string Describe, IFormFile fileupload)
         {
             if (fileupload != null && fileupload.Length > 0)
             {
@@ -112,11 +112,11 @@ namespace CheeseBurger.Pages.Admin
                     await fileupload.CopyToAsync(stream);
                 }
 
-                foodService.UpdateData(FoodID, Name, foodService.ConvertCategoryNametoCategoryId(Cate), Price, Describe, fileName);
+                foodService.UpdateData(FoodID, Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), Price, Describe, fileName);
             }
             else
             {
-                foodService.UpdateData(FoodID, Name, foodService.ConvertCategoryNametoCategoryId(Cate), Price, Describe, null);
+                foodService.UpdateData(FoodID, Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), Price, Describe, null);
             }
 
             return RedirectToPage("ManageFood");
