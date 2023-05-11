@@ -78,7 +78,6 @@
         <table class="content-table">
             <thead>
                 <tr>
-                    <th class="STT col-1">STT</th>
                     <th class="ID_mon col-2">Mã món ăn</th>
                     <th class="Ten_mon col-3">Tên món ăn</th>
                     <th class="Danh_muc col-2">Danh mục</th>
@@ -90,7 +89,6 @@
                 @foreach (var i in foods)
                 {
                     <tr>
-                        <td class="STT">@(++stt)</td>
                         <td class="ID_mon">@i.FoodID</td>
                         <td class="Ten_mon">@i.FoodName</td>
                         <td class="Danh_muc">@i.CategoryName</td>

@@ -29,7 +29,7 @@
 		</div>
 		<table class="content-table">
 			<thead>
-				<tr>
+				<tr style=" background: var(--div-color); color: #000">
 					<th>STT</th>
 					<th class="Ingre">Nguyên liệu</th>
 					<th>Số lượng</th>
@@ -60,14 +60,14 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td>Thành tiền:</td>
-					<td class="Total">@Model.order.TMoneyIO.ToString("N0")VNĐ</td>
+					<td style="font-weight: 500">Thành tiền:</td>
+					<td class="Total" style="font-weight: 500">@Model.order.TMoneyIO.ToString("N0")VNĐ</td>
 				</tr>
 			</tbody>
 		</table>
 		<form method="post" asp-page-handler="Delete">
 			<input type="hidden" asp-for="orderId" value="@Model.orderId">
-			<button class="submit-btn submit-btn-edit" style="width: 100%">XOÁ ĐƠN HÀNG</button>
+			<button class="submit-btn submit-btn-edit" style="width: 100%; margin-top: 0">XOÁ ĐƠN HÀNG</button>
 		</form>
 	</div>
 </div>
