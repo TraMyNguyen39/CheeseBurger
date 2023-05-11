@@ -34,5 +34,9 @@ namespace CheeseBurger.Service.Implements
         {
             accountRespository.ChangePassword(idAccount, newPassword);
         }
-	}
+        public void AddNewAccount(string email, string password)
+        {
+            accountRespository.AddNewAccount(email, password);
+        }
+    }
 }

@@ -110,6 +110,7 @@
 				</div>
 			<input type="hidden" value="@Model.tempMoney" asp-for="tempMoney" />
 			<input type="hidden" value="@Model.shippingMoney" asp-for="shippingMoney" />
+			<input type="hidden" value="@((Model.tempMoney + Model.shippingMoney + Model.tempMoney * 3 / 100))" asp-for="totalMoney" />
 			<button type="submit" class="submit-btn submit-btn__payment">
 				Đặt Hàng
 				<i class="fa-solid fa-shopping-cart" style="margin-left: 10px; vertical-align: middle;"></i>

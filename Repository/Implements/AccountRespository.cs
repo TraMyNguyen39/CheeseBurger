@@ -41,5 +41,17 @@ namespace CheeseBurger.Repository.Implements
                 context.SaveChanges();
             }
         }
-	}
+        public void AddNewAccount(string email, string password)
+        {
+            var acc = new Account
+            {
+                Email = email,
+                Password = password,
+                isDeleted = false,
+                isStaff = false
+            };
+            context.Accounts.Add(acc);
+            context.SaveChanges();
+        }
+    }
 }

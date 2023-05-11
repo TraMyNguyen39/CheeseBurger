@@ -31,6 +31,8 @@ namespace CheeseBurger.Pages
 		public float tempMoney { get; set; }
 		[BindProperty]
 		public float shippingMoney { get; set; }
+		[BindProperty]
+		public float totalMoney { get; set; }
 		public PaymenteModel(IWardService wardService, IOrderService orderService, 
 			IDistrictService districtService, ICartService cartService, IOrder_FoodService orderFoodService)
 		{
@@ -74,6 +76,7 @@ namespace CheeseBurger.Pages
 				SaleDate = DateTime.Now,
 				TempMoney = tempMoney,
 				ShippingMoney = shippingMoney,
+				TotalMoney = totalMoney,
 				StatusOdr = (int)OrderStatus.waiting
 			};
 			orderService.CreateOrder(order);

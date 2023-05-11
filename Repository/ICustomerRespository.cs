@@ -12,5 +12,6 @@ namespace CheeseBurger.Repository
         void DeleteData(int id);
         List<CustomerDTO> GetAllCustomers();
         void UpdateInfo(int id, string name, string email, string phone, int gender, string house, int WardID);
+        void AddNewCus(string name, string phone);
     }
 }

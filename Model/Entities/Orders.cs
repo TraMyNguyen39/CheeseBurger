@@ -25,6 +25,8 @@ namespace CheeseBurger.Model.Entities
 		[Required]
 		public float ShippingMoney { get; set; }
 		[Required]
+		public float TotalMoney { get; set; }
+		[Required]
 		public int StatusOdr { get; set; }
 		public string HourseNumber { get; set; }
 		public int WardID { get; set; }

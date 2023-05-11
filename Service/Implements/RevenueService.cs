@@ -26,10 +26,18 @@ namespace CheeseBurger.Service.Implements
 		public float TotalIncome(DateTime fromDate, DateTime toDate)
 		{
 			return revenueRepository.TotalIncome(fromDate, toDate);
-		}
-		public List<Revenues> GetRevenuesRangeTime(DateTime fromDate, DateTime toDate)
+		}		
+		public List<Orders> GetOrdersRangeTime(DateTime fromDate, DateTime toDate)
 		{
-			return revenueRepository.GetRevenuesRangeTime(fromDate, toDate);
+			return revenueRepository.GetOrdersRangeTime(fromDate, toDate);
+		}
+		public List<ImportOrder> GetIOrdersRangeTime(DateTime fromDate, DateTime toDate)
+		{
+			return revenueRepository.GetIOrdersRangeTime(fromDate, toDate);
+		}
+		public List<Food> GetFoodRangeTime(DateTime fromDate, DateTime toDate)
+		{
+			return revenueRepository.GetFoodRangeTime(fromDate, toDate);
 		}
 	}
 }

@@ -1,7 +1,9 @@
-﻿using CheeseBurger.Service;
+﻿using CheeseBurger.DTO;
+using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Microsoft.Identity.Client;
 
 namespace CheeseBurger.Pages
@@ -11,6 +13,8 @@ namespace CheeseBurger.Pages
         private readonly IAccountService accountService;
         private readonly ICustomerService customerService;
         private readonly IStaffService staffService;
+        public List<CustomerDTO> List_Customers { get; set; }
+        public List<StaffDTO> List_Staffs { get; set; }
         [BindProperty]
         public string Email { get; set; }
         [BindProperty]
@@ -25,12 +29,20 @@ namespace CheeseBurger.Pages
             this.staffService = staffService;
         }
 
+        public void OnGet()
+        {
+            List_Customers = customerService.GetAllCustomers();
+            List_Staffs = staffService.GetAllStaffs();
+        }
+
         public IActionResult OnPost()
         {
             var user = accountService.GetAccount(Email, Password);
             if (user == null)
             {
                 Message = "* Tài khoản/ Mật khẩu không đúng!";
+                List_Customers = customerService.GetAllCustomers();
+                List_Staffs = staffService.GetAllStaffs();
                 return Page();
             }
             else
@@ -55,6 +67,14 @@ namespace CheeseBurger.Pages
         public void OnGetLogout ()
         {
             HttpContext.Session.Clear();
+            List_Customers = customerService.GetAllCustomers();
+            List_Staffs = staffService.GetAllStaffs();
+        }
+        public IActionResult OnPostRegister(string name, string email, string phone, string pass) 
+        {
+            accountService.AddNewAccount(email, pass);
+            customerService.AddNewCus(name, phone);
+            return RedirectToPage("/Login/LoginRegister");
         }
     }
 }

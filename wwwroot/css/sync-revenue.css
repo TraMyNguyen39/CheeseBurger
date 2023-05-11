@@ -101,8 +101,9 @@ form {
 
     .infor__details .best__seller-info {
         width: 80%;
-        height: 580px;
+        height: 568px;
         background-color: var(--div-color);
+        margin-top: 20px;
         padding-top: 30px;
         padding-left: 40px;
         border-radius: 6px;

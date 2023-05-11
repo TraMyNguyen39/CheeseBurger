@@ -41,6 +41,9 @@ namespace CheeseBurger.Service.Implements
 		{
 			customerRespository.UpdateInfo(id, name, email, phone, gender, house, WardID);
 		}
-
+		public void AddNewCus(string name, string phone)
+		{
+			customerRespository.AddNewCus(name, phone);
+		}
     }
 }

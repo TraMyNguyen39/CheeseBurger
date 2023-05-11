@@ -138,6 +138,7 @@ p.account-name {
     color: var(--text-color);
     font-size: 1.6rem;
     font-weight: 600;
+    margin: auto;
 }
 
 p.account-role {

@@ -11,13 +11,13 @@
 		<div class="main__table-form d-flex align-items-end">
 			<div class="select__form col-4 ">
 				<div class="form-group d-flex align-items-center mb-0">
-					<label class="control-label"> Thống kê: </label>
+					<label class="control-label" style="padding-bottom: 2px"> Thống kê: </label>
 					<div class="form__comboBox">
 						<form method="post">
-							<select name="combobox_Item">
+							<select name="combobox_Item" id="date-select">
 								<option value="day" selected> Theo ngày</option>
 								<option value="month"> Theo tháng</option>
-								<option value="year"> Theo năm</option>
+								@*<option value="year"> Theo năm</option>*@
 							</select>
 						</form>
 					</div>
@@ -27,13 +27,13 @@
 				<div class="form-group d-flex align-items-center mb-0">
 					<form method="get" action="">
 						<label class="control-label">Từ:</label>
-						<input name="fromDate" onchange="submitForm()">
+						<input name="fromDate" onchange="submitForm()">						
 					</form>
 				</div>
 				<div class="form-group2 d-flex align-items-center mb-0">
 					<form method="get" action="">
 						<label class="control-label">Đến:</label>
-						<input name="toDate" onchange="submitForm()">
+						<input name="toDate" onchange="submitForm()">						
 					</form>
 				</div>
 			</div>
@@ -62,10 +62,13 @@
 			</div>			
 			<div class="best__seller-info col-4">
 				<p class="title"> Bán chạy nhất</p>
-				<p> Cánh gà chiên nước mắm</p>
-				<p> Sườn nướng mật ong</p>
-				<p> Cơm chiên dương châu</p>
-				<p> Others</p>
+				@foreach (var item in Model.List_Food)
+				{
+					<div class="d-flex align-items-center">
+						<img src="@item.ImageFood" style="width: 25%; height: 25%">
+						<p style="margin-left: 3%; text-transform: capitalize; font-size: 1.8rem">@item.FoodName</p>
+					</div>
+				}				
 			</div>
 		</div>
 	</div>
@@ -76,6 +79,30 @@
 	const fromDate = document.querySelector('input[name="fromDate"]');
 	const toDate = document.querySelector('input[name="toDate"]');
 
+	var urlParams = new URLSearchParams(window.location.search);
+	var submittedFromDateValue = urlParams.get("fromDate");
+	var submittedToDateValue = urlParams.get("toDate");
+
+	// Kiểm tra submittedFromDateValue có định dạng ngày hay tháng
+	var submittedFromDateIsDate = /^\d{4}-\d{2}-\d{2}$/.test(submittedFromDateValue);	
+	if (submittedFromDateIsDate) {
+		selectBox.value = 'day';
+		fromDate.type = 'date';
+		toDate.type = 'date';
+		fromDate.value = submittedFromDateValue;
+		toDate.value = submittedToDateValue;
+	} else {
+		// Kiểm tra submittedFromDateValue có định dạng tháng hay không
+		var submittedFromDateIsMonth = /^\d{4}-\d{2}$/.test(submittedFromDateValue);
+		if (submittedFromDateIsMonth) {
+			selectBox.value = 'month';
+			fromDate.type = 'month';
+			toDate.type = 'month';
+			fromDate.value = submittedFromDateValue;
+			toDate.value = submittedToDateValue;
+		}
+	}		
+
 	function updateFormFields() {
 		if (selectBox.value === 'day') {
 			fromDate.type = 'date';
@@ -83,10 +110,11 @@
 		} else if (selectBox.value === 'month') {
 			fromDate.type = 'month';
 			toDate.type = 'month';
-		} else if (selectBox.value === 'year') {
-			fromDate.type = 'number'; 
-			toDate.type = 'number'; 	
-		}		
+		} 
+		//else if (selectBox.value === 'year') {
+		//	fromDate.type = 'number'; 
+		//	toDate.type = 'number'; 	
+		//}		
 	}
 	
 	updateFormFields();
@@ -97,13 +125,15 @@
 	var Profits = [];
 	var Times = [];
 
-	@foreach (var item in Model.List_Revenues)
+	@foreach (var item in Model.List_IO)
 	{		
-		@:Times.push('@item.DateReve.ToString("dd/MM/yyyy")');
-		@:Funds.push(@item.Fund);
-		@:Profits.push(@item.Income);
+		@:Times.push('@item.DateIO.ToString("dd/MM/yyyy")');		
+		@:Funds.push(@item.TMoneyIO);
 	}
-
+	@foreach (var item in Model.List_Ord)
+	{
+		@:Profits.push(@item.TotalMoney);
+	}	
 
 	/* Get the canvas element and context */
 	var ctx = document.getElementById('myChart').getContext('2d');
@@ -166,7 +196,7 @@
 			const url = new URL(window.location.href);
 			url.searchParams.set("fromDate", fromDateValue);
 			url.searchParams.set("toDate", toDateValue);
-
+			
 			// Chuyển hướng trình duyệt đến URL mới
 			window.location.href = url.toString();
 		}		

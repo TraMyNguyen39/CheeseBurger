@@ -146,5 +146,23 @@ namespace CheeseBurger.Repository.Implements
             cus_acc.Email = email;
             context.SaveChanges();
         }
+        public void AddNewCus(string name, string phone)
+		{
+            var lastAccount = context.Accounts.OrderBy(p => p.AccountID).LastOrDefault();
+			if (lastAccount != null)
+			{
+				var cus = new Customer
+				{
+					CustomerName = name,
+					Phone = phone,
+					Gender = true,
+					HouseNumber = null,
+					WardID = null,
+					AccountID = lastAccount.AccountID
+				};
+				context.Customers.Add(cus);
+				context.SaveChanges();
+			}
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace CheeseBurger.Repository
         string GetStaffRole(int idStaff);
         string GetPasswordbyID(int idAccount);
         void ChangePassword(int idAccount, string newPassword);
+        void AddNewAccount(string email, string password);
     }
 }

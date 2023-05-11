@@ -23,15 +23,16 @@ namespace CheeseBurger.Pages.Admin
 		[BindProperty(SupportsGet = true)]
 		public float TotalIncome { get; set; }
 
-		public float TotalProfit { get; set; }
-
-		public DateTime fromDate { get; set; }
+		public float TotalProfit { get; set; }        
+        public DateTime fromDate { get; set; }
 		public DateTime toDate { get; set; }
-		public List<Revenues> List_Revenues { get; set; }
+		public List<Orders> List_Ord { get; set; }
+		public List<ImportOrder> List_IO { get; set; }
+		public List<Food> List_Food { get; set; }
 
 		public void OnGet()
 		{
-			string fDate = Request.Query["fromDate"];
+			string fDate = Request.Query["fromDate"];			
 			if (Int32.TryParse(fDate, out int fromNumber))
 			{				
 				fromDate = new DateTime(fromNumber, 1, 1);
@@ -56,7 +57,9 @@ namespace CheeseBurger.Pages.Admin
 			TotalFund = revenueService.TotalFund(fromDate, toDate);
 			TotalIncome = revenueService.TotalIncome(fromDate, toDate);
 			TotalProfit = TotalIncome - TotalFund;
-			List_Revenues = revenueService.GetRevenuesRangeTime(fromDate, toDate);
+			List_Ord = revenueService.GetOrdersRangeTime(fromDate, toDate);
+			List_IO = revenueService.GetIOrdersRangeTime(fromDate, toDate);
+			List_Food = revenueService.GetFoodRangeTime(fromDate, toDate);
 		}
 	}
 }
