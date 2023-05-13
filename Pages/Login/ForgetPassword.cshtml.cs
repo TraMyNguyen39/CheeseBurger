@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Net.Mail;
+using System.Net;
 
 namespace CheeseBurger.Pages
 {
@@ -12,9 +14,7 @@ namespace CheeseBurger.Pages
             _logger = logger;
         }
 
-        public void OnGet()
-        {
-
+        public void OnGet() { 
         }
     }
 }
