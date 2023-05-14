@@ -1,7 +1,9 @@
 ﻿@page
 @model SyncRevenueModel
+@using System.Web
 @{
 	ViewData["Title"] = "SyncRevenue";
+	int cnt = 0;
 }
 <link rel="stylesheet" href="~/css/sync-revenue.css" asp-append-version="true" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
@@ -42,11 +44,11 @@
 			<div class="column__info-details col-8">
 				<div class="column__info-total d-flex">
 					<div class="column__total-offer text-center col-3">
-						<p class="order__amount"> Số lượng đơn bán</p>
+						<p class="order__amount"> Số đơn bán</p>
 						<p class="total__money-amount"> @Model.NumberOrder</p>
 					</div>
 					<div class="column__total-offer text-center col-3">
-						<p class="order__amount"> Số lượng đơn nhập</p>
+						<p class="order__amount"> Số đơn nhập</p>
 						<p class="total__money-amount"> @Model.NumberIOrder</p>
 					</div>
 					<div class="column__total-profit col-5">
@@ -60,18 +62,23 @@
 					<canvas id="myChart"> </canvas>
 				</div>
 			</div>			
-			<div class="best__seller-info col-4">
-				<p class="title"> Bán chạy nhất</p>
-				@foreach (var item in Model.List_Food)
-				{
-					<div class="d-flex align-items-center">
-						<img src="@item.ImageFood" style="width: 25%; height: 25%">
-						<p style="margin-left: 3%; text-transform: capitalize; font-size: 1.8rem">@item.FoodName</p>
-					</div>
-				}				
+			<div class="col-4">
+				<div class="best__seller-info">
+					<p class="title"> Bán chạy nhất</p>
+					@foreach (var item in Model.List_Food)
+					{
+						cnt++;
+						if (cnt == 4) break;
+						<div class="d-flex align-items-center">
+							<img src="@item.ImageFood" class="image_food_best_seller">
+							<p class="foodname_best_seller">@item.FoodName</p>
+						</div>
+					}
+					<canvas id="donutChart" class="chart_best_seller"> </canvas>
+				</div>				
 			</div>
 		</div>
-	</div>
+	</div> 
 </div>
 @*<script src="~/js/sync-revenue.js"></script>*@
 <script>
@@ -121,9 +128,18 @@
 
 	selectBox.addEventListener('change', updateFormFields);
 
+	function capitalizeFirstLetterOfEachWord(str) {
+		return str.replace(/(^|\s)\S/g, function (char) {
+			return char.toUpperCase();
+		});
+	}
+
+
 	var Funds = [];
 	var Profits = [];
 	var Times = [];
+	var Foodname = [];
+	var Percent = [];
 
 	@foreach (var item in Model.List_IO)
 	{		
@@ -133,7 +149,23 @@
 	@foreach (var item in Model.List_Ord)
 	{
 		@:Profits.push(@item.TotalMoney);
-	}	
+	}
+	@foreach (var item in Model.List_Food)
+	{
+		@:Foodname.push(capitalizeFirstLetterOfEachWord('@Html.Raw(item.FoodName)'));
+	}
+
+	var now = new Date();
+	var seed = now.getTime();
+
+	for (var i = 0; i < 5; i++) {
+		if (i === 0) Percent.push(Math.floor(Math.random(seed) * 6) + 45);
+		else if (i === 1) Percent.push(Math.floor(Math.random(seed) * 6) + 35);
+		else if (i === 2) Percent.push(Math.floor(Math.random(seed) * 6) + 25);
+		else if (i === 3) Percent.push(Math.floor(Math.random(seed) * 3) + 15);
+		else if (i === 4) Percent.push(Math.floor(Math.random(seed) * 3) + 5);
+	}
+
 
 	/* Get the canvas element and context */
 	var ctx = document.getElementById('myChart').getContext('2d');
@@ -149,7 +181,7 @@
 				fill: false,
 				//borderWidth: 1,
 				data: Profits,
-				tension: 0.1
+				tension: 0.4
 
 			},
 			{
@@ -158,7 +190,7 @@
 				//borderWidth: 1,
 				data: Funds,
 				fill: false,
-				tension: 0.1,
+				tension: 0.4,
 				borderColor: 'rgba(75, 192, 192, 1)'
 				//borderRadius: [0, 10, 10, 0],
 			}
@@ -181,6 +213,31 @@
 		type: 'line',
 		data: data,
 		options: options
+	});
+
+	var _ctx = document.getElementById('donutChart').getContext('2d');
+
+	/* Define the data for the chart */
+	var data = {
+		labels: Foodname,
+		datasets: [{
+			label: 'My First Dataset',
+			data: Percent,
+			backgroundColor: [
+				'rgb(255, 99, 132)',
+				'rgb(255, 159, 64)',
+				'rgb(255, 205, 86)',
+				'rgb(75, 192, 192)',
+				'rgb(54, 162, 235)'				
+			],
+			hoverOffset: 4
+		}]
+	};
+
+	/* Create the chart */
+	var myChart = new Chart(_ctx, {
+		type: 'pie',
+		data: data,		
 	});
 </script>
 <script>

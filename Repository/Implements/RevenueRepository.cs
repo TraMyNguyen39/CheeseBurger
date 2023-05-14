@@ -108,7 +108,7 @@ namespace CheeseBurger.Repository.Implements
 					idFood = g.Key,
 					cnt = g.Count()
 				});
-				tsOrder_Food = tsOrder_Food.OrderByDescending(p => p.cnt).Take(3);
+				tsOrder_Food = tsOrder_Food.OrderByDescending(p => p.cnt).Take(5);
 				var res = from p in context.Foods
 						  join q in tsOrder_Food on p.FoodID equals q.idFood
 						  select new Food
@@ -131,7 +131,7 @@ namespace CheeseBurger.Repository.Implements
 				idFood = g.Key,
 				cnt = g.Count()
 			});
-			tsOrder_Food1 = tsOrder_Food1.OrderByDescending(p => p.cnt).Take(3);
+			tsOrder_Food1 = tsOrder_Food1.OrderByDescending(p => p.cnt).Take(5);
 			var res1 = from p in context.Foods
 					  join q in tsOrder_Food1 on p.FoodID equals q.idFood
 					  select new Food
