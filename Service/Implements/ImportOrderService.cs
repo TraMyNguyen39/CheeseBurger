@@ -22,9 +22,9 @@ namespace CheeseBurger.Service.Implements
 			importOrderRepository.CreateOrder(order);
 		}
 
-		public List<ImportOrderDTO> GetAllImport()
+		public List<ImportOrderDTO> GetAllImport(DateTime timeStart, DateTime timeEnd, string searchText)
 		{
-			return importOrderRepository.GetAllImport();
+			return importOrderRepository.GetAllImport(timeStart, timeEnd, searchText);
 		}
 
 		public ImportOrderDTO GetImportOrder(int orderID)

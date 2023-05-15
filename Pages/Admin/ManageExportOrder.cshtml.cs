@@ -37,15 +37,34 @@ namespace CheeseBurger.Pages
 			string tDate = Request.Query["toDate"];
 			if (DateTime.TryParse(tDate, out DateTime toDateResult))
 			{
-				timeEnd = toDateResult;
+				TimeSpan timeSpan = new TimeSpan(23, 59, 59);
+				timeEnd = toDateResult + timeSpan;
 			}
 			var role = HttpContext.Session.GetString("Role");
 			if (role == "Nhân viên giao hàng")
 			{
+				if (status >= (int)Enums.OrderStatus.prepareDone)
+				{
+					items = orderService.GetAllOrderAdmin(status, timeStart, timeEnd, searchText);
+					orderCount = orderService.GetOrderCount(0);
+					return Page();
+				}
 				items = orderService.GetAllOrderAdmin((int)Enums.OrderStatus.prepareDone, timeStart, timeEnd, searchText);
 				orderCount = orderService.GetOrderCount(0);
 				return Page();
-            }
+			}
+			if (role == "Nhân viên đầu bếp")
+			{
+				if (status < (int)Enums.OrderStatus.prepareDone && status > 0)
+				{
+					items = orderService.GetAllOrderAdmin(status, timeStart, timeEnd, searchText);
+					orderCount = orderService.GetOrderCount(0);
+					return Page();
+				}
+				items = orderService.GetAllOrderAdmin((int)Enums.OrderStatus.waiting, timeStart, timeEnd, searchText);
+				orderCount = orderService.GetOrderCount(0);
+				return Page();
+			}
 			items = orderService.GetAllOrderAdmin(status, timeStart, timeEnd, searchText);
 			orderCount = orderService.GetOrderCount(0);
 			return Page();

@@ -2,6 +2,7 @@
 @model ErrorModel
 @{
     ViewData["Title"] = "Error";
+    ViewBag.isAdmin = HttpContext.Session.GetString("isStaff");
 }
 
 <div class="error404">
@@ -59,11 +60,20 @@
         }
         </strong>
     </div>
-    
-    <button class="home-link home-link__error" onclick="window.location.href = 'https://localhost:44344/Index';">
-        <i class="fa-solid fa-chevron-left"></i>
-       Trở về trang chủ
-    </button>
+    @if(ViewBag.isAdmin == "Staff")
+    {
+        <button class="home-link home-link__error" onclick="window.location.href = 'https://localhost:44344/Admin/ManageAccount';">
+            <i class="fa-solid fa-chevron-left"></i>
+            Trở về trang chủ
+        </button>
+    }
+    else
+    {
+        <button class="home-link home-link__error" onclick="window.location.href = 'https://localhost:44344/Index';">
+            <i class="fa-solid fa-chevron-left"></i>
+            Trở về trang chủ
+        </button>
+    } 
 </div>
 
 <link rel="stylesheet" href="~/css/error404.css" asp-append-version="true" />

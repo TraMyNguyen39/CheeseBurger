@@ -9,7 +9,7 @@ using System.Net;
 
 namespace CheeseBurger.Pages.Admin
 {
-    [Authorize("Quản trị viên","Nhân viên đầu bếp")]
+    [Authorize("Quản trị viên","Nhân viên đầu bếp", "Nhân viên giao hàng")]
     public class DetailExportOrderModel : PageModel
     {
         private readonly IOrderService orderService;

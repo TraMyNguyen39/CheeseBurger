@@ -33,7 +33,7 @@
 
 .input-wrapper {
     position: relative;
-    /*    transform: translateX(50px);*/
+    width: 100%;
 }
 
     .input-wrapper input[type="search"] {

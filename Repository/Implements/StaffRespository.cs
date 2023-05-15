@@ -47,7 +47,7 @@ namespace CheeseBurger.Repository.Implements
 			var staff_data = from c in context.Staffs
 							 join a in context.Accounts on c.AccountID equals a.AccountID
 							 join rol in context.Roles on c.RoleID equals rol.RoleID
-							 where a.isStaff == true
+							 where a.isStaff == true && a.isDeleted == false
 							 select new { c, a, rol };
 			var sta_data = from p in staff_data
 						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()

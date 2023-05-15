@@ -16,7 +16,7 @@ namespace CheeseBurger.Pages
 		private readonly ICartService cartService;
         private readonly IFeeAPIService feeService;
         private readonly IConfiguration config;
-        private readonly HttpClient _httpClient;
+        //private readonly HttpClient _httpClient;
         public List<District> List_Districts { get; set; }
 		public List<Ward> List_Wards { get; set; }
 		public List<CartDTO> Carts { get; set; }

@@ -106,10 +106,18 @@
 			var thisNode = event.target;
 			var parentNode = thisNode.parentElement.parentElement.parentElement;
 			parentNode.querySelector('.qty').value = "";
-			parentNode.querySelector('.ingredient__money').innerHTML
-				= parseInt(thisNode.options[thisNode.selectedIndex].getAttribute('data-price')).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')+ 'đ';
-			parentNode.querySelector('.unit').innerHTML
-				= thisNode.options[thisNode.selectedIndex].getAttribute('data-unit');
+			if (thisNode.selectedIndex !== 0)
+			{
+				parentNode.querySelector('.ingredient__money').innerHTML
+					= parseInt(thisNode.options[thisNode.selectedIndex].getAttribute('data-price')).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + 'đ';
+				parentNode.querySelector('.unit').innerHTML
+					= thisNode.options[thisNode.selectedIndex].getAttribute('data-unit');
+			}
+			else
+			{
+				parentNode.querySelector('.ingredient__money').innerHTML = '0đ';
+				parentNode.querySelector('.unit').innerHTML = 'kilogam'
+			}
 		});
 	}
 	var qtys = document.querySelectorAll('.input-wrapper .qty');

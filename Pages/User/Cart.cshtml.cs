@@ -23,7 +23,8 @@ namespace CheeseBurger.Pages
         public IActionResult OnGet()
         {
             var customerID = HttpContext.Session.GetInt32("customerID");
-            if (customerID == null)
+			var accountID = HttpContext.Session.GetInt32("Id");
+			if (accountID == null)
                 return RedirectToPage("/Login/LoginRegister", new { Message = "* Bạn phải đăng nhập/ đăng ký trước khi tương tác với giỏ hàng" });
             //DateTime now = DateTime.Now;
             //DateTime fixedTimeStart = new DateTime(now.Year, now.Month, now.Day, 8, 0, 0);

@@ -36,7 +36,7 @@ namespace CheeseBurger.Repository.Implements
 		}
 		public void DeleteOrderDetail(int orderID)
 		{
-			var ingre = context.ImportOrders_Ingredients.Where(p => p.ImportOrderID == orderID).FirstOrDefault();
+			var ingre = context.ImportOrders_Ingredients.Where(p => p.ImportOrderID == orderID);
 			if (ingre != null)
 			{
 				context.ImportOrders_Ingredients.RemoveRange(ingre);

@@ -140,6 +140,7 @@ namespace CheeseBurger.Repository.Implements
 			if (ingredient != null)
 			{
 				ingredient.IsDeleted = true;
+				ingredient.IngredientsPrice = 0;
 				context.SaveChanges();
 			}
 		}

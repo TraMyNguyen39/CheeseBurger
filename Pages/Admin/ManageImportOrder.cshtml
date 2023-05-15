@@ -20,7 +20,8 @@
 			<div class="form-group d-flex align-items-center mb-0">
 				<label class="control-label control-label-edit">Từ: </label>
 				<form action="action_page.php">
-					<input type="date" name="bday">
+					<input type="date" name="bday" onchange="submitForm()">
+					<input type="hidden" name="search" value="@Model.searchText" />
 				</form>
 			</div>
 		</div>
@@ -29,15 +30,16 @@
 			<div class="form-group d-flex align-items-center mb-0">
 				<label class="control-label control-label-edit">Đến: </label>
 				<form action="action_page.php">
-					<input type="date" name="bday">
+					<input type="date" name="eday" onchange="submitForm()">
+					<input type="hidden" name="search" value="@Model.searchText" />
 				</form>
 			</div>
 		</div>
 		<div class="col-md-7 d-flex justify-content-end align-items-center pr-0">
 			<form class="menu-search-staff-box" method="get" style="width: 60%">
 				<input class="search-staff-box-input" type="text" name="search" placeholder="Nhập tên nhà cung cấp">
-				<input class="search-staff-box-hidden" name="sortBy" value="" type="hidden" />
-				<input class="search-staff-box-hidden" name="roleBy" value="" type="hidden" />
+				<input class="search-staff-box-hidden" name="fromDate" value="@Model.timeStart" type="hidden" />
+				<input class="search-staff-box-hidden" name="toDate" value="@Model.timeEnd" type="hidden" />
 				<button type="submit" class="search-staff-box-btn">
 					<i class="fas fa-magnifying-glass"></i>
 				</button>
@@ -75,19 +77,39 @@
 						<a class="cart__name-item" asp-page="/Admin/ImportOrderDetail" asp-route-orderId="@i.ImportOrderID">
 							<i class="fas fa-eye"></i>
 						</a>
-					</td>					
+					</td>
 				</tr>
 			}
 		</tbody>
 	</table>
-	 @{
-            var pagingmodel = new CheeseBurger.Helpers.PagingModel()
-            {
-                currentPage = Model.currentPage,
-                countPages = totalPages,
-                generateUrl = (int? p) => Url.Page("/Admin/ManageImportOrder", new { p })
-            };
-        }
-        <partial name="_Paging" model="@pagingmodel" />
+	@{
+		var pagingmodel = new CheeseBurger.Helpers.PagingModel()
+			{
+				currentPage = Model.currentPage,
+				countPages = totalPages,
+				generateUrl = (int? p) => Url.Page("/Admin/ManageImportOrder", new { p, Model.searchText, Model.timeStart, Model.timeEnd })
+			};
+	}
+	<partial name="_Paging" model="@pagingmodel" />
 	<!-- End Table -->
 </div>
+
+<script>
+	function submitForm() {
+		const fromDateInput = document.querySelector('input[name="bday"]');
+		const toDateInput = document.querySelector('input[name="eday"]');
+
+		const fromDateValue = fromDateInput.value;
+		const toDateValue = toDateInput.value;
+
+		if (fromDateValue && toDateValue) {
+			// Tạo URL mới với các tham số fromDate và toDate
+			const url = new URL(window.location.href);
+			url.searchParams.set("fromDate", fromDateValue);
+			url.searchParams.set("toDate", toDateValue);
+
+			// Chuyển hướng trình duyệt đến URL mới
+			window.location.href = url.toString();
+		}
+	}
+</script>

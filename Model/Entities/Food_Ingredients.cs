@@ -15,6 +15,6 @@ namespace CheeseBurger.Model.Entities
         public int IngredientsId { get; set; }
         public virtual Ingredients Ingredients { get; set; }
 
-        public int QuantityIG { get; set; }
+        public float QuantityIG { get; set; }
     }
 }

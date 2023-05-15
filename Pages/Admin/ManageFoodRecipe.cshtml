@@ -1,0 +1,123 @@
+﻿@page
+@model ManageFoodRecipeModel
+@{
+    ViewData["Title"] = "ManageFoodRecipe";
+}
+<link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/manage-food.css" asp-append-version="true" />
+
+<div class="main__information">
+    <div class="main__information-detail">
+        <div class="main__table-form">
+            <div class="col-md-3 pl-0">
+                <div class="form-group">
+                    <label class="control-label">Danh mục: </label>
+                    <div class="form__comboBox">
+                        <form class="menu-sort-staff-role" method="get">
+                            <select name="roleBy" class="menu-sort-staff-role-box" id="role-select">
+                                <option value="All" selected>Tất cả</option>
+                                @foreach (var categoryName in Model.categoryNames)
+                                {
+                                    <option value="@categoryName">@categoryName</option>
+                                }
+                            </select>
+                            <input name="sortBy" value="@Model.sortBy" type="hidden" />
+                            <input name="search" value="@Model.searchText" type="hidden" />
+                            <input type="submit" style="visibility: hidden; width:0" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Sắp xếp: </label>
+                    <div class="form__comboBox">
+                        <form class="menu-sort-staff" method="get">
+                            <select name="sortBy" class="menu-sort-staff-box" id="sort-select">
+                                <option value="name-asc">Tất cả</option>
+                                <option value="name-asc" selected>Tên từ A-Z</option>
+                                <option value="name-desc">Tên từ Z-A</option>
+                            </select>
+                            <input name="roleBy" value="@Model.roleBy" type="hidden" />
+                            <input name="search" value="@Model.searchText" type="hidden" />
+                            <input type="submit" style="visibility: hidden; width:0" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 pr-0 mr-0 d-flex justify-content-end">
+                <div class="form-group">
+                    <label class="control-label"></label>
+                    <div class="search__form">
+                        <form class="form-inline my-2 my-lg-0" method="get">
+                            <div class="input-wrapper">
+                                <input class="form-control" type="search" name="search" placeholder="Tìm kiếm tên sản phẩm" aria-label="Search">
+                                <input class="search-staff-box-hidden" name="sortBy" value="@Model.sortBy" type="hidden" />
+                                <input class="search-staff-box-hidden" name="roleBy" value="@Model.roleBy" type="hidden" />
+                                <button type="submit" class="search-staff-box-btn">
+                                    <i class="fas fa-search fa-search-edit "></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @{
+            var pageSize = 5; // Number of rows to show per page
+            var totalPages = (int)Math.Ceiling((double)Model.foods.Count / pageSize); // Calculate the total number of pages
+            var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
+            var foods = Model.foods.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
+            if (Model.currentPage < 1) Model.currentPage = 1;
+            if (Model.currentPage > totalPages) Model.currentPage = totalPages;
+        }
+        <table class="content-table" style="font-size: 18px;">
+            <thead>
+                <tr>
+                    <th class="ID_mon col-2">Mã món ăn</th>
+                    <th class="Ten_mon col-3">Tên món ăn</th>
+                    <th class="Danh_muc col-2">Danh mục</th>
+                    <th class="Option col-2">Cập nhật công thức</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in foods)
+                {
+                    <tr>
+                        <td class="ID_mon">@i.FoodID</td>
+                        <td class="Ten_mon">@i.FoodName</td>
+                        <td class="Danh_muc">@i.CategoryName</td>
+                        <td class="Option">
+                            @if(!i.isDeleted)
+                            {
+                                <a asp-page="/Admin/AddRecipes" asp-route-foodID="@i.FoodID" style="color: red">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <i class="fa-regular fa-square-minus"></i>
+                            }
+                        </td>
+                    </tr>
+                }
+                @foreach (var i in Model.foodinclude)
+                {
+                    <tr>
+                        <td class="Ten_Food_All" style="display:none">@i.FoodName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @{
+            var pagingmodel = new CheeseBurger.Helpers.PagingModel()
+            {
+                currentPage = Model.currentPage,
+                countPages = totalPages,
+                generateUrl = (int? p) => Url.Page("/Admin/ManageFood", new { p, Model.searchText, Model.sortBy, Model.roleBy  })
+            };
+        }
+        <partial name="_Paging" model="@pagingmodel" />
+    </div>
+</div>
+<script src="~/js/manage-food.js"></script>

@@ -75,12 +75,12 @@ namespace CheeseBurger.Pages.Admin
                     await fileupload.CopyToAsync(stream);
                 }
 
-                foodService.AddData(Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), Price, Describe, fileName);
+                foodService.AddData(Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), 0, Describe, fileName);
                 TempData["ErrorMessage"] = $"Category with name already exists in the Categories table. Please enter a different category name.";
             }
             else
             {
-                foodService.AddData(Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), Price, Describe, null);
+                foodService.AddData(Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), 0, Describe, null);
             }
 
             return RedirectToPage("ManageFood");
@@ -100,7 +100,7 @@ namespace CheeseBurger.Pages.Admin
             foodService.RecycleData(FoodId);
             return RedirectToPage("ManageFood");
         }
-        public async Task<IActionResult> OnPostUpdateAsync(int FoodID, string Name, string combobox_Item, float Price, string Describe, IFormFile fileupload)
+        public async Task<IActionResult> OnPostUpdateAsync(int FoodID, string Name, string combobox_Item, int profit_price, string Describe, IFormFile fileupload)
         {
             if (fileupload != null && fileupload.Length > 0)
             {
@@ -112,11 +112,11 @@ namespace CheeseBurger.Pages.Admin
                     await fileupload.CopyToAsync(stream);
                 }
 
-                foodService.UpdateData(FoodID, Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), Price, Describe, fileName);
+                foodService.UpdateData(FoodID, Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), profit_price, Describe, fileName);
             }
             else
             {
-                foodService.UpdateData(FoodID, Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), Price, Describe, null);
+                foodService.UpdateData(FoodID, Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), profit_price, Describe, null);
             }
 
             return RedirectToPage("ManageFood");

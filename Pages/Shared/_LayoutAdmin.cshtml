@@ -53,7 +53,7 @@
 						</a>
 					</li>
 					<li class="categories__item" id="own-account">
-						<a class="nav-link" asp-page="/Admin/ManageAccount">  
+						<a class="nav-link" asp-page="/Admin/ManageAccount">
 							<i class="fas fa-solid fa-user"></i><span>Quản lý tài khoản</span>
 						</a>
 					</li>
@@ -73,7 +73,7 @@
 						</a>
 					</li>
 					<li class="categories__item " id="ingredient">
-						<a class="nav-link" asp-page="/Admin/ManageIngredient"> 
+						<a class="nav-link" asp-page="/Admin/ManageIngredient">
 							<i class="fa-solid fa-lemon"></i><span>Quản lý nguyên liệu</span>
 						</a>
 					</li>
@@ -83,12 +83,25 @@
 						</a>
 					</li>
 					<li class="categories__item " id="food">
-						<a class="nav-link" asp-page="/Admin/ManageFood">
-							<i class="fa-solid fa-burger"></i><span>Quản lý món ăn</span>
+						<a onclick="toggleCollapse('submenu1')" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action nav-link" style="cursor: pointer">
+							<div class="d-flex w-100 justify-content-start align-items-center">
+								<i class="fa-solid fa-burger"></i><span>Quản lý món ăn</span>
+							</div>
 						</a>
+						<!-- Submenu content -->
+						<div id='submenu1' class="collapse sidebar-submenu">
+							<a asp-page="/Admin/ManageFoodRecipe" class="list-group-item list-group-item-action nav-link nav-link-edit">
+								<i class="fa-solid fa-angle-right"></i>
+								<span class="menu-collapsed">Quản lý công thức</span>
+							</a>
+							<a asp-page="/Admin/ManageFood" class="list-group-item list-group-item-action nav-link nav-link-edit">
+								<i class="fa-solid fa-angle-right"></i>
+								<span class="menu-collapsed">Thông tin món ăn</span>
+							</a>
+						</div>
 					</li>
 					<li class="categories__item " id="order">
-						<a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action nav-link">
+						<a onclick="toggleCollapse('submenu2')" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action nav-link" style="cursor: pointer">
 							<div class="d-flex w-100 justify-content-start align-items-center">
 								<i class="fas fa-chart-bar fa-fw me-3"></i><span>Quản lý đơn hàng</span>
 							</div>

@@ -59,14 +59,19 @@ namespace CheeseBurger.Service.Implements
 		{
 			return foodRepository.FindFood(id);
 		}
-        public void UpdateData(int FoodID, string Name, int CategoryID, float Price, string Describe, string fileupload)
+        public void UpdateData(int FoodID, string Name, int CategoryID, int Profit, string Describe, string fileupload)
 		{
-			foodRepository.UpdateData(FoodID, Name, CategoryID, Price, Describe, fileupload);
+			foodRepository.UpdateData(FoodID, Name, CategoryID, Profit, Describe, fileupload);
 		}
 
         public void RecycleData(int id)
         {
             foodRepository.RecycleData(id);
         }
-    }
+
+		public void UpdatePrice(int foodID, int profitPercent)
+		{
+			foodRepository.UpdatePrice(foodID, profitPercent);
+		}
+	}
 }

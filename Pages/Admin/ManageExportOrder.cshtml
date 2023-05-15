@@ -9,7 +9,7 @@
 	<div class="main__table-status">
 		<ul class="main__status">
 			<li class="main__status-details">
-				<a asp-page="/Admin/ManageImportOrder" class="btn__status" id="status-all">Tất cả (@Model.orderCount[0])</a>
+				<a asp-page="/Admin/ManageExportOrder" class="btn__status" id="status-all">Tất cả (@Model.orderCount[0])</a>
 			</li>
 			<li class="main__status-details">
 				<a class="btn__status" asp-route-status="@((int)Enums.OrderStatus.waiting)" id="status-1">Chờ xác nhận (@Model.orderCount[1])</a>
@@ -40,6 +40,7 @@
 				<label class="control-label control-label-edit">Từ: </label>
 				<form action="action_page.php">
 					<input type="date" placeholder="dd-MM-yyyy" name="bday" onchange="submitForm()">
+					<input type="hidden" name="search" value="@Model.searchText"/>
 				</form>
 			</div>
 		</div>
@@ -49,6 +50,7 @@
 				<label class="control-label control-label-edit">Đến: </label>
 				<form action="action_page.php">
 					<input type="date" placeholder="dd-MM-yyyy" name="eday" onchange="submitForm()">
+					<input type="hidden" name="search" value="@Model.searchText" />
 				</form>
 			</div>
 		</div>

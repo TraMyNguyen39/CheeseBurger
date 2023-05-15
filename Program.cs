@@ -48,6 +48,8 @@ service.AddScoped<IOrderService, OrderService>();
 service.AddScoped<IOrderRepository, OrderRepository>();
 service.AddScoped<IOrder_FoodRepository, Order_FoodRepository>();
 service.AddScoped<IOrder_FoodService, Order_FoodService>();
+service.AddScoped<IFood_IngredientsRepository, Food_IngredientsRepository>();
+service.AddScoped<IFood_IngredientsService, Food_IngredientsService>();
 service.AddScoped<IRevenueRepository, RevenueRepository>();
 service.AddScoped<IRevenueService, RevenueService>();
 

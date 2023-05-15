@@ -1,6 +1,7 @@
 ﻿using CheeseBurger.DTO;
 using CheeseBurger.Model;
 using CheeseBurger.Model.Entities;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CheeseBurger.Repository.Implements
 {
@@ -36,7 +37,7 @@ namespace CheeseBurger.Repository.Implements
 			context.SaveChanges();
 		}
 
-		public List<ImportOrderDTO> GetAllImport()
+		public List<ImportOrderDTO> GetAllImport(DateTime timeStart, DateTime timeEnd, string searchText)
 		{
 			var import = from c in context.ImportOrders
 						 join a in context.Partners on c.PartnerID equals a.PartnerID
@@ -47,10 +48,15 @@ namespace CheeseBurger.Repository.Implements
 							 PartnerName = a.PartnerName,
 							 StaffID= c.StaffID,
 						 };
+			if (timeStart != default(DateTime) || timeEnd != default(DateTime))
+			{
+				import = import.Where(p => p.DateIO >= timeStart && p.DateIO <= timeEnd);
+			}
+			if (!searchText.IsNullOrEmpty())
+			{
+				import = import.Where(p => p.PartnerName.Contains(searchText));
+			}
 			return import.OrderByDescending(p => p.DateIO).ToList();
-			//return context.ImportOrders
-			//	.Select(o => new ImportOrder { })
-			//	.OrderByDescending(p => p.DateIO).ToList();
 		}
 
 		public ImportOrderDTO GetImportOrder(int orderID)

@@ -49,7 +49,8 @@ namespace CheeseBurger.Pages.Admin
 
 		public void OnGet()
 		{
-			if (this.searchText != null) this.searchText = this.searchText.Trim();
+			this.searchText = Request.Query["search"];
+			this.sortBy = Request.Query["sortBy"];
 			if (!(sortBy.IsNullOrEmpty()) || sortBy == "all")
 			{
 				string[] values = sortBy.Split('-');

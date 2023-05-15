@@ -51,6 +51,7 @@ namespace CheeseBurger.Repository.Implements
 
 			var customer = from p in cus_data
 						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()
+						   where p.a.isDeleted == false
 						   select new CustomerDTO
 						   {
 							   CusID = p.c.CustomerID,

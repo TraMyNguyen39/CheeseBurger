@@ -131,12 +131,7 @@ namespace CheeseBurger.Repository.Implements
         {
             var category = context.Categories
                           .FirstOrDefault(p => p.CategoryName.Equals(Name));
-            if (category == null)
-            {
-                throw new ArgumentException($"Category with name '{Name}' not found.");
-            }
-
-            return category.CategoryID;
+            return category != null ? category.CategoryID : 0;
         }
         public void AddData(string Name, int cateID, float Price, string Describe, string fileupload)
         {
@@ -154,10 +149,6 @@ namespace CheeseBurger.Repository.Implements
                 context.Foods.Add(food);
                 context.SaveChanges();
             }
-            else
-            {
-                throw new ArgumentException($"Food with name {FoodName} already exist in the Foods table.");
-            }
         }
         public void DeleteData(int id)
         {
@@ -172,12 +163,13 @@ namespace CheeseBurger.Repository.Implements
         {
             return context.Foods.Find(id);
         }
-        public void UpdateData(int FoodID, string Name, int CategoryID, float Price, string Describe, string fileupload)
+        public void UpdateData(int FoodID, string Name, int CategoryID, int Profit, string Describe, string fileupload)
         {
             var food = context.Foods.Find(FoodID);
             food.FoodName = Name;
             food.CategoryID = CategoryID;
-            food.Price = Price;
+            food.ProfitPercent = Profit;
+			food.Price = food.tempPrice + food.tempPrice * Profit / 100;
             food.Description = Describe;
 			food.ImageFood = fileupload;
             context.SaveChanges();
@@ -186,11 +178,25 @@ namespace CheeseBurger.Repository.Implements
         public void RecycleData(int id)
         {
             var food = context.Foods.Find(id);
-			//if (food != null)
-			//{
+			if (food != null)
+			{
 				food.IsDeleted = false;
 				context.SaveChanges();
-			//}
-        }
-    }
+			}
+		}
+
+		public void UpdatePrice(int foodID, int profitPercent)
+		{
+			var food = context.Foods.Find(foodID);
+			var recipes = context.Food_Ingredients.Where(p => p.FoodID == foodID)
+				.Select(p => new {p.QuantityIG, p.Ingredients.IngredientsPrice})
+				.ToList();
+			food.tempPrice = 0;
+			foreach (var recipe in recipes)
+			{
+				food.tempPrice += recipe.QuantityIG * recipe.IngredientsPrice;
+			}
+			context.SaveChanges();
+		}
+	}
 }

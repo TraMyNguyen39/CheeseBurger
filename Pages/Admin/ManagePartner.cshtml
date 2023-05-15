@@ -19,11 +19,11 @@
 					<option value="name-asc">Tăng theo tên</option>
 					<option value="name-desc">Giảm theo tên</option>
 				</select>
-				<input name="searchText" value="@Model.searchText" type="hidden" />
+				<input name="search" value="@Model.searchText" type="hidden" />
 				<input type="submit" style="visibility: hidden; width:0" />
 			</form>
 			<form class="menu-search-user-box" method="get">
-				<input class="search-user-box-input" type="text" name="searchText" placeholder="Nhập tên cần tìm">
+				<input class="search-user-box-input" type="text" name="search" placeholder="Nhập tên cần tìm">
 				<input class="search-user-box-hidden" name="sortBy" value="@Model.sortBy" type="hidden" />
 				<button type="submit" class="search-user-box-btn">
 					<i class="fas fa-magnifying-glass"></i>

@@ -47,7 +47,7 @@ td.Trang_thai {
     /* Modal Add */
 .modal__food-information {
     background-color: var(--white-color);
-    width: 50%;
+    width: 40%;
     height: fit-content;
     position: relative;
     border-radius: 8px;
@@ -97,7 +97,8 @@ td.Trang_thai {
 }
 
 
-.form__comboBoxList select[name="combobox_Item"] {
+.form__comboBoxList select[name="combobox_Item"],
+.form__comboBoxList select[name="profit-price"] {
     height: 40px;
     width: 100%;
 }
