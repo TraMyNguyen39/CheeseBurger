@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheeseBurger.Migrations
 {
     [DbContext(typeof(CheeseBurgerContext))]
-    [Migration("20230511090731_DBver4")]
+    [Migration("20230514022550_DBver4")]
     partial class DBver4
     {
         /// <inheritdoc />

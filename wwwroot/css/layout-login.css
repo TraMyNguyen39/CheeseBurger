@@ -194,6 +194,11 @@ button.button-box__toggle-btn {
     max-height: 450px;
 }
 
+.success-form-forget {
+    height: 60vh;
+    max-height: 450px;
+}
+
 .logo-link .logo-brand-success {
     margin: 0 auto;
     margin-top: 35px;
