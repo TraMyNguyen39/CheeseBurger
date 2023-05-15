@@ -38,8 +38,8 @@
 		<div class="col-md-7 d-flex justify-content-end align-items-center pr-0">
 			<form class="menu-search-staff-box" method="get" style="width: 60%">
 				<input class="search-staff-box-input" type="text" name="search" placeholder="Nhập tên nhà cung cấp">
-				<input class="search-staff-box-hidden" name="fromDate" value="@Model.timeStart" type="hidden" />
-				<input class="search-staff-box-hidden" name="toDate" value="@Model.timeEnd" type="hidden" />
+				<input class="search-staff-box-hidden" name="fromDate" value="@Model.timeStart.ToString("yyyy-MM-dd")" type="hidden" />
+				<input class="search-staff-box-hidden" name="toDate" value="@Model.timeEnd.ToString("yyyy-MM-dd")" type="hidden" />
 				<button type="submit" class="search-staff-box-btn">
 					<i class="fas fa-magnifying-glass"></i>
 				</button>
@@ -95,6 +95,18 @@
 </div>
 
 <script>
+	const fromDate = document.querySelector('input[name="bday"]');
+	const toDate = document.querySelector('input[name="eday"]');
+	const searchInput = document.querySelector('.search-staff-box-input');
+
+	var urlParams = new URLSearchParams(window.location.search);
+	var submittedFromDateValue = urlParams.get("fromDate");
+	var submittedToDateValue = urlParams.get("toDate");
+
+	fromDate.value = submittedFromDateValue;
+	toDate.value = submittedToDateValue;
+	searchInput.value = urlParams.get("search");
+
 	function submitForm() {
 		const fromDateInput = document.querySelector('input[name="bday"]');
 		const toDateInput = document.querySelector('input[name="eday"]');

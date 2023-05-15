@@ -26,6 +26,7 @@ namespace CheeseBurger.Pages
 		{
 			searchText = Request.Query["search"];
 			string fDate = Request.Query["fromDate"];
+
 			if (DateTime.TryParse(fDate, out DateTime fromDateResult))
 			{
 				timeStart = fromDateResult;
