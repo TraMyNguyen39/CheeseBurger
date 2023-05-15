@@ -53,5 +53,10 @@ namespace CheeseBurger.Repository.Implements
             context.Accounts.Add(acc);
             context.SaveChanges();
         }
-    }
+        public List<Account> GetListAccount()
+        {
+            return context.Accounts.Where(p => p.isDeleted == false).Select(p => p).ToList();
+        }
+
+	}
 }

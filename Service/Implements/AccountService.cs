@@ -38,5 +38,10 @@ namespace CheeseBurger.Service.Implements
         {
             accountRespository.AddNewAccount(email, password);
         }
-    }
+        public List<Account> GetListAccount()
+        {
+            return accountRespository.GetListAccount();
+        }
+
+	}
 }
