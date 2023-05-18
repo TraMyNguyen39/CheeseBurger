@@ -349,9 +349,6 @@
 			url: '@Url.Page("ManageFood", "Find")',
 			success: function (result) {
 				var imageSrc = result.imageFood;
-				if (!imageSrc.startsWith("http")) {
-					imageSrc = "/img/" + imageSrc;
-				}
 				$('.modal__food-read #image').attr('src', imageSrc);
 				$('.modal__food-read #name').text(result.foodName); // Cập nhật tên nguyên liệu
 				$('.modal__food-read #price').text(result.price + " VNĐ"); // Cập nhật đơn giá

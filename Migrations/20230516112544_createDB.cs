@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CheeseBurger.Migrations
 {
     /// <inheritdoc />
-    public partial class DBver4 : Migration
+    public partial class createDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -116,6 +116,8 @@ namespace CheeseBurger.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FoodName = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
+                    ProfitPercent = table.Column<int>(type: "int", nullable: false),
+                    tempPrice = table.Column<float>(type: "real", nullable: false),
                     ImageFood = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -254,7 +256,7 @@ namespace CheeseBurger.Migrations
                 {
                     FoodID = table.Column<int>(type: "int", nullable: false),
                     IngredientsId = table.Column<int>(type: "int", nullable: false),
-                    QuantityIG = table.Column<int>(type: "int", nullable: false)
+                    QuantityIG = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -75,7 +75,7 @@ namespace CheeseBurger.Pages.Admin
                     await fileupload.CopyToAsync(stream);
                 }
 
-                foodService.AddData(Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), 0, Describe, fileName);
+                foodService.AddData(Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), 0, Describe, "/img/" + fileName);
                 TempData["ErrorMessage"] = $"Category with name already exists in the Categories table. Please enter a different category name.";
             }
             else
@@ -112,7 +112,7 @@ namespace CheeseBurger.Pages.Admin
                     await fileupload.CopyToAsync(stream);
                 }
 
-                foodService.UpdateData(FoodID, Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), profit_price, Describe, fileName);
+                foodService.UpdateData(FoodID, Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), profit_price, Describe, "/img/" + fileName);
             }
             else
             {
