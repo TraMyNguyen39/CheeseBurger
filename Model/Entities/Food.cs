@@ -12,7 +12,7 @@ namespace CheeseBurger.Model.Entities
 		[StringLength(Int32.MaxValue)]
 		public String FoodName { get; set; } = String.Empty;
 		public float Price { get; set; }
-		public int ProfitPercent { get; set; }
+		//public int ProfitPercent { get; set; }
 		public float tempPrice { get; set; }
 
 

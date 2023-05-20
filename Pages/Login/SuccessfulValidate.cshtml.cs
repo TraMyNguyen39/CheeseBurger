@@ -14,7 +14,7 @@ namespace CheeseBurger.Pages
         public void OnGet()
         {
             string _newPass = "123456A@a";
-            accountService.ChangePassword(2, _newPass);
+            accountService.ChangePassword(15, _newPass);
         }
     }
 }

@@ -14,10 +14,12 @@ namespace CheeseBurger.Pages
 		private readonly IOrderService orderService;
 		private readonly IOrder_FoodService orderFoodService;
 		private readonly ICartService cartService;
-        private readonly IFeeAPIService feeService;
-        private readonly IConfiguration config;
-        //private readonly HttpClient _httpClient;
-        public List<District> List_Districts { get; set; }
+		private readonly IAccountService accountService;
+		private readonly IFeeAPIService feeService;
+		private readonly IConfiguration config;
+		//private readonly HttpClient _httpClient;
+		public List<District> List_Districts { get; set; }
+		public List<Account> List_Account { get; set; }
 		public List<Ward> List_Wards { get; set; }
 		public List<CartDTO> Carts { get; set; }
 		[BindProperty]
@@ -36,8 +38,8 @@ namespace CheeseBurger.Pages
 		public float shippingMoney { get; set; }
 		[BindProperty]
 		public float totalMoney { get; set; }
-		public PaymenteModel(IWardService wardService, IOrderService orderService, 
-			IDistrictService districtService, ICartService cartService, IOrder_FoodService orderFoodService, IFeeAPIService feeService, IConfiguration config)
+		public PaymenteModel(IWardService wardService, IOrderService orderService,
+			IDistrictService districtService, ICartService cartService, IOrder_FoodService orderFoodService, IFeeAPIService feeService, IConfiguration config, IAccountService accountService)
 		{
 			this.wardService = wardService;
 			this.districtService = districtService;
@@ -45,9 +47,10 @@ namespace CheeseBurger.Pages
 			this.cartService = cartService;
 			this.orderFoodService = orderFoodService;
 			this.orderFoodService = orderFoodService;
-            this.config = config;
-            this.feeService = feeService;
-        }
+			this.config = config;
+			this.feeService = feeService;
+			this.accountService = accountService;
+		}
 		public async Task<IActionResult> OnPostCalculateAsync()
 		{
 			var customerId = HttpContext.Session.GetInt32("customerID");
@@ -73,6 +76,7 @@ namespace CheeseBurger.Pages
 				tempMoney = (float)cartService.GetCartTotal(Carts);
 				List_Districts = districtService.GetListDistricts();
 				List_Wards = wardService.GetListWards();
+				List_Account = accountService.GetListAccount();
 			}
 
 			var customerID = (int)HttpContext.Session.GetInt32("customerID");
@@ -106,6 +110,7 @@ namespace CheeseBurger.Pages
 				orderFoodService.CreateOrderDetail(orderLine);
 				cartService.DeleteCart(customerID, cart.FoodId); // Tao don hon chi tiet, dong thoi xoa gio hang
 			}
+
 			return RedirectToPage("/User/MyOrder");
 		}
 
@@ -123,6 +128,7 @@ namespace CheeseBurger.Pages
 				List_Wards = wardService.GetListWards();
 				return Page();
 			}
+			List_Account = accountService.GetListAccount();
 			return RedirectToPage("/Login/LoginRegister");
 		}
 		public IActionResult OnPost()
@@ -161,5 +167,5 @@ namespace CheeseBurger.Pages
 			}
 			return RedirectToPage("/User/MyOrder");
 		}
-    }
+	}
 }
