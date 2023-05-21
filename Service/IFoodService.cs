@@ -17,8 +17,8 @@ namespace CheeseBurger.Service
         void DeleteData(int id);
         void RecycleData(int id);
         dynamic FindFood(int id);
-        void UpdateData(int FoodID, string Name, int CategoryID, int cbb_profit, string Describe, string fileupload);
+        void UpdateData(int FoodID, string Name, int CategoryID, float Price, string Describe, string fileupload);
         Food GetFoodbyId(int foodId);
-		void UpdatePrice(int foodID, int profitPercent);
+		void UpdatePrice(int foodID);
 	}
 }

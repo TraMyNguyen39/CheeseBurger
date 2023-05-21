@@ -144,7 +144,10 @@ namespace CheeseBurger.Repository.Implements
                     Price = Price,
                     Description = Describe,
                     ImageFood = fileupload,
-                    CategoryID = cateID
+                    CategoryID = cateID,
+					originPrice = 0,
+					Quantity = 0,
+					IsDeleted = false,
                 };
                 context.Foods.Add(food);
                 context.SaveChanges();
@@ -163,13 +166,12 @@ namespace CheeseBurger.Repository.Implements
         {
             return context.Foods.Find(id);
         }
-        public void UpdateData(int FoodID, string Name, int CategoryID, int Profit, string Describe, string fileupload)
+        public void UpdateData(int FoodID, string Name, int CategoryID, float Price, string Describe, string fileupload)
         {
             var food = context.Foods.Find(FoodID);
             food.FoodName = Name;
             food.CategoryID = CategoryID;
-            food.ProfitPercent = Profit;
-			food.Price = food.tempPrice + food.tempPrice * Profit / 100;
+			food.Price = Price;
             food.Description = Describe;
 			food.ImageFood = fileupload;
             context.SaveChanges();
@@ -185,16 +187,16 @@ namespace CheeseBurger.Repository.Implements
 			}
 		}
 
-		public void UpdatePrice(int foodID, int profitPercent)
+		public void UpdatePrice(int foodID)
 		{
 			var food = context.Foods.Find(foodID);
 			var recipes = context.Food_Ingredients.Where(p => p.FoodID == foodID)
 				.Select(p => new {p.QuantityIG, p.Ingredients.IngredientsPrice})
 				.ToList();
-			food.tempPrice = 0;
+			food.originPrice = 0;
 			foreach (var recipe in recipes)
 			{
-				food.tempPrice += recipe.QuantityIG * recipe.IngredientsPrice;
+				food.originPrice += recipe.QuantityIG * recipe.IngredientsPrice;
 			}
 			context.SaveChanges();
 		}

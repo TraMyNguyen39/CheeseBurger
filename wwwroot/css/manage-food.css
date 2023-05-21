@@ -93,12 +93,11 @@ td.Trang_thai {
 
 
 .food__price, .food__categories, .food__description {
-    padding: 10px 5px 10px 0px !important;
+    padding: 10px 0 10px 0px !important;
 }
 
 
-.form__comboBoxList select[name="combobox_Item"],
-.form__comboBoxList select[name="profit-price"] {
+.form__comboBoxList select[name="combobox_Item"]{
     height: 40px;
     width: 100%;
 }
@@ -149,9 +148,9 @@ p.image__text {
     margin-bottom: 10px;
 }
 .food-line img {
-    border-style: none;
-    width: 30%;
-    height: fit-content;
+    padding-left: 15px;
+    margin-bottom: 10px;
+    width: 40%;
     border-radius: 8px;
 }
 

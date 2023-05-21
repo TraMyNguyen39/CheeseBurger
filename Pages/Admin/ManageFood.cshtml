@@ -107,7 +107,7 @@
 						</td>
 					</tr>
 				}
-				@foreach (var i in Model.foodinclude)
+				@foreach (var i in Model.foods)
 				{
 					<tr>
 						<td class="Ten_Food_All" style="display:none">@i.FoodName</td>
@@ -172,7 +172,7 @@
 	</div>
 </form>
 <!-- Modal Update -->
-<form method="post" enctype="multipart/form-data" asp-page-handler="Update">
+<form method="post" enctype="multipart/form-data" asp-page-handler="Update" onsubmit="return validateUpdateForm(event)">
 	<div class="modal__ingredient-modify">
 		<div class="modal__ingredient-information">
 			<div class="button__exit d-flex justify-content-end">
@@ -185,6 +185,8 @@
 				<div class="ingredient__name">
 					<p class="label">Tên món ăn</p>
 					<input class="form-control" type="search" placeholder="" aria-label="Search" name="Name" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
+					<span id="food-error-update" style="color: red"></span>
+					<input type="hidden" name="oldName" required="required">
 				</div>
 				<div class="ingredient__price-categories">
 					<div class="ingredient__categories col-12 pr-0 pl-0">
@@ -200,20 +202,14 @@
 					</div>
 				</div>
 				<div class="ingredient__price-categories d-flex justify-content-between">
-					<div class="ingredient__categories col-6 pl-0 pr-2">
-						<p class="label">Lợi nhuận (%)</p>
-						<div class="form__comboBoxList">
-							<select name="profit_price" required>
-								<option value="0" selected>0%</option>
-								<option value="3" selected>3%</option>
-								<option value="3" selected>5%</option>
-								<option value="8" selected>8%</option>
-							</select>
-						</div>
-					</div>
-					<div class="ingredient__price col-6 pr-0 pl-2">
+					<div class="ingredient__categories col-6 mt-3 pl-0 pr-2">
 						<p class="label">Giá vốn</p>
-						<input class="form-control mr-sm-2" type="search" placeholder="" name="Price" readonly>
+						<input class="form-control mr-sm-2 mb-2" type="search" placeholder="" name="originPrice" readonly>
+					</div>
+					<div class="ingredient__categories col-6 mt-3 pr-0 pl-2">
+						<p class="label">Giá bán</p>
+						<input class="form-control mr-sm-2 mb-2" type="search" placeholder="" name="Price" required pattern="^[+]?[0-9]*\.?[0-9]+">
+						<span id="price-error-update" style="color: red"></span>
 					</div>
 				</div>
 				<div class="food__description">
@@ -235,7 +231,7 @@
 <!-- End Modal Update-->
 <!-- Modal Read -->
 <div class="modal__food-read">
-	<div class="modal__read-information" style="width: 35%">
+	<div class="modal__read-information" style="width: 30%">
 		<div class="button__exit d-flex justify-content-end">
 			<span class="exit__surround d-flex align-items-center justify-content-center">
 				<i class="fas fa-times"></i>
@@ -246,7 +242,7 @@
 				<p class="categories__text-specific">Thông tin món ăn</p>
 				<div class="food-line d-flex">
 					<label for="image" class="categories__text col-md-4 pl-0">Hình ảnh:</label>
-					<img class="food-img col-8" style="border: 8px;" id="image" />
+					<img class="food-img" style="border: 8px;" id="image" />
 				</div>
 				<div class="food-line d-flex">
 					<label for="name" class="categories__text col-md-4 pl-0">Tên món ăn:</label>
@@ -257,6 +253,10 @@
 					<p class="categories__text col-8" id="cate"></p>
 				</div>
 				<div class="food-line d-flex">
+					<label class="categories__text col-md-4 pl-0">Giá gốc:</label>
+					<p class="categories__text col-8" id="origin-price"></p>
+				</div>
+				<div class="food-line d-flex">
 					<label for="price" class="categories__text col-md-4 pl-0">Giá bán:</label>
 					<p class="categories__text col-8" id="price"></p>
 				</div>
@@ -264,7 +264,7 @@
 					<label for="description" class="categories__text col-md-4 pl-0">Mô tả:</label>
 					<p class="categories__text col-8" id="description"></p>
 				</div>
-				<button class="submit-btn exit-btn" type="submit">OK</button>
+				<button class="submit-btn exit-btn mt-0" type="submit">OK</button>
 			</div>
 		</div>
 	</div>
@@ -348,13 +348,15 @@
 			data: { id: id },
 			url: '@Url.Page("ManageFood", "Find")',
 			success: function (result) {
+				console.log(result);
 				var imageSrc = result.imageFood;
 				if (!imageSrc.startsWith("http")) {
 					imageSrc = "/img/" + imageSrc;
 				}
 				$('.modal__food-read #image').attr('src', imageSrc);
 				$('.modal__food-read #name').text(result.foodName); // Cập nhật tên nguyên liệu
-				$('.modal__food-read #price').text(result.price + " VNĐ"); // Cập nhật đơn giá
+				$('.modal__food-read #origin-price').text(result.originPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })); // Cập nhật đơn giá
+				$('.modal__food-read #price').text(result.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })); // Cập nhật đơn giá
 				$('.modal__food-read #description').text(result.description);
 			},
 			error: function (xhr, textStatus, errorThrown) {
@@ -372,9 +374,10 @@
 				// Set giá trị của input fileupload khi nhận được giá trị imageFood
 				$('.modal__ingredient-modify input[name="FoodID"]').val(result.foodID); // Save ID to hidden input
 				$('.modal__ingredient-modify input[name="Name"]').val(result.foodName); // Update category name
-				$('.modal__ingredient-modify input[name="Price"]').val(result.tempPrice);
+				$('.modal__ingredient-modify input[name="oldName"]').val(result.foodName); // Update category old name
+				$('.modal__ingredient-modify input[name="originPrice"]').val(result.originPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+				$('.modal__ingredient-modify input[name="Price"]').val(result.price);
 				$('.modal__ingredient-modify input[name="Describe"]').val(result.description);
-				$('.modal__ingredient-modify select[name="profit_price"]').val(result.profitPercent);
 				$('.modal__ingredient-modify').show(); // Show the modal window
 
 			},
@@ -549,7 +552,7 @@
 			FoodNames.push(FoodName); // Thêm tên món ăn vào mảng
 		});
 
-		// Kiểm tra xem tên nguyên liệu mới có trong mảng tên món ăn hay không
+		// Kiểm tra xem tên mon ăn mới có trong mảng tên món ăn hay không
 		if (FoodNames.some(function (name) { return name === newFoodName })) {
 			// Hiển thị thông báo lỗi
 			$('#food-error').text('Đã tồn tại tên món ăn. Vui lòng nhập lại !!!');
@@ -560,5 +563,37 @@
 		}
 		// Nếu không có lỗi, ẩn thông báo lỗi
 		$('#food-error').text('');
+	}
+</script>
+<script>
+	function validateUpdateForm(event) {
+		var newFoodName = $('.modal__ingredient-modify input[name="Name"]').val().trim().toUpperCase().replace(/\s+/g, ' ');
+		var FoodNames = []; // Khởi tạo một mảng rỗng để lưu các tên món ăn
+		var oldName = $('.modal__ingredient-modify input[name="oldName"]').val().toUpperCase().replace(/\s+/g, ' ');
+		$('td.Ten_Food_All').each(function () {
+			var FoodName = $(this).text().trim().toUpperCase().replace(/\s+/g, ' '); // Lấy nội dung của phần tử td hiện tại và loại bỏ khoảng trắng thừa
+			FoodNames.push(FoodName); // Thêm tên món ăn vào mảng
+		});
+		if (newFoodName !== oldName && FoodNames.some(function (name) { return name === newFoodName })) {
+			// Hiển thị thông báo lỗi
+			$('#food-error-update').text('Đã tồn tại tên món ăn. Vui lòng nhập lại!');
+
+			// Ngăn chặn việc submit form khi có lỗi
+			event.preventDefault();
+			return false;
+		}
+		// Nếu không có lỗi, ẩn thông báo lỗi
+		$('#food-error-update').text('');
+
+		var originPriceString = $('.modal__ingredient-modify input[name="originPrice"]').val();
+		var originPrice = parseFloat(originPriceString.replace(/[,.đ]/g, ""));
+		var PriceString = $('.modal__ingredient-modify input[name="Price"]').val();
+		var price = parseFloat(PriceString);
+		if (price <= originPrice) {
+			$('#price-error-update').text('Giá bán phải lớn hơn giá vốn!');
+			event.preventDefault();
+			return false;
+		}
+		$('#price-error-update').text('');
 	}
 </script>
