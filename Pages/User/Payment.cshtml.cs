@@ -16,6 +16,7 @@ namespace CheeseBurger.Pages
 		private readonly ICartService cartService;
 		private readonly IAccountService accountService;
 		private readonly IFeeAPIService feeService;
+		private readonly IFood_IngredientsService foodIngreService;
 		private readonly IConfiguration config;
 		//private readonly HttpClient _httpClient;
 		public List<District> List_Districts { get; set; }
@@ -38,17 +39,18 @@ namespace CheeseBurger.Pages
 		public float shippingMoney { get; set; }
 		[BindProperty]
 		public float totalMoney { get; set; }
-		public PaymenteModel(IWardService wardService, IOrderService orderService,
-			IDistrictService districtService, ICartService cartService, IOrder_FoodService orderFoodService, IFeeAPIService feeService, IConfiguration config, IAccountService accountService)
+		public PaymenteModel(IWardService wardService, IOrderService orderService, 
+			IDistrictService districtService, ICartService cartService, IOrder_FoodService orderFoodService, 
+			IFeeAPIService feeService, IConfiguration config, IAccountService accountService, IFood_IngredientsService foodIngreService )
 		{
 			this.wardService = wardService;
 			this.districtService = districtService;
 			this.orderService = orderService;
 			this.cartService = cartService;
 			this.orderFoodService = orderFoodService;
-			this.orderFoodService = orderFoodService;
-			this.config = config;
-			this.feeService = feeService;
+			this.foodIngreService= foodIngreService;
+            this.config = config;
+            this.feeService = feeService;
 			this.accountService = accountService;
 		}
 		public async Task<IActionResult> OnPostCalculateAsync()
@@ -163,6 +165,7 @@ namespace CheeseBurger.Pages
 					PriceOF = cart.Price
 				};
 				orderFoodService.CreateOrderDetail(orderLine);
+				foodIngreService.DecreaseIngre(cart.FoodId, cart.Quantity);
 				cartService.DeleteCart(customerId, cart.FoodId); // Tao don hon chi tiet, dong thoi xoa gio hang
 			}
 			return RedirectToPage("/User/MyOrder");

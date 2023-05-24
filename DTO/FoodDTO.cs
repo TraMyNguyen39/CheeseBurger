@@ -7,5 +7,6 @@
 		public float PriceFood { get; set;}
 		public string ImgFood { get; set; }
 		public string TotalRating { get; set; }
+		public bool isStocking { get; set; }
 	}
 }

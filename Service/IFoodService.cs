@@ -8,7 +8,6 @@ namespace CheeseBurger.Service
         List<FoodDTO> GetFoodsMenu(int category, int priceRange , string arrange, bool isDescending, string searchText);
 		List<AdminFoodDTO> GetFoodAdmin();
         List<AdminFoodDTO> GetAllFoodAdmin();
-
         int getRowFood();
 		List<String> GetNameCategories();
 		List<AdminFoodDTO> GetListFoods(string categories, string arrange, bool isDescending, string searchText);
@@ -20,5 +19,6 @@ namespace CheeseBurger.Service
         void UpdateData(int FoodID, string Name, int CategoryID, float Price, string Describe, string fileupload);
         Food GetFoodbyId(int foodId);
 		void UpdatePrice(int foodID);
+		int GetMaxQuantityofFood(int foodID);
 	}
 }

@@ -8,9 +8,11 @@ namespace CheeseBurger.Service.Implements
 	public class FoodService : IFoodService
 	{
 		private readonly IFoodRepository foodRepository;
-		public FoodService (IFoodRepository foodRepository)
+		private readonly IFood_IngredientsRepository foodIngreRepo;
+		public FoodService (IFoodRepository foodRepository, IFood_IngredientsRepository foodIngreRepo)
 		{
 			this.foodRepository = foodRepository;
+			this.foodIngreRepo = foodIngreRepo;
 		}
 
 		public Food GetFoodbyId(int foodId)
@@ -20,7 +22,13 @@ namespace CheeseBurger.Service.Implements
 
 		public List<FoodDTO> GetFoodsMenu(int category, int priceRange, string arrange, bool isDescending, string searchText)
 		{
-			return foodRepository.GetFoodsMenu(category, priceRange, arrange, isDescending, searchText);
+			var foods = foodRepository.GetFoodsMenu(category, priceRange, arrange, isDescending, searchText);
+			foreach (var food in foods)
+			{
+				if (GetMaxQuantityofFood(food.IDFood) <= 0)
+					food.isStocking = false;
+			}
+			return foods;
 		}
 		public List<AdminFoodDTO> GetFoodAdmin()
 		{
@@ -72,6 +80,24 @@ namespace CheeseBurger.Service.Implements
 		public void UpdatePrice(int foodID)
 		{
 			foodRepository.UpdatePrice(foodID);
+		}
+
+		public int GetMaxQuantityofFood(int foodID)
+		{
+			var list = foodIngreRepo.GetListIngresogFood(foodID);
+			// Tinh ra so luong toi da co the mua tu luong nguyen lieu
+			if (list.Count > 0)
+			{
+				var firstObject = list[0];
+				int min = Convert.ToInt32(firstObject[2]) / Convert.ToInt32(firstObject[1]);
+				foreach (var ingre in list)
+				{
+					var x = Convert.ToInt32(ingre[2]) / Convert.ToInt32(ingre[1]);
+					if (x < min) min = x;
+				}
+				return min;
+			}
+			return 0;
 		}
 	}
 }

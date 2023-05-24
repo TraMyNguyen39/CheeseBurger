@@ -21,9 +21,10 @@ namespace CheeseBurger.Pages
         public int qty { get; set; }
 		[BindProperty (SupportsGet = true)]
 		public int foodId { get; set; }
-        [BindProperty (SupportsGet = true)]
-        public bool successStatus { get; set; }
-
+		[BindProperty(SupportsGet = true)]
+		public string ProductInfo { get; set; }
+		public int maxQty { get; set; }
+        public int cartQty { get; set; }
         public DetailFoodModel (ICategoryService categoryService, IFoodService foodService, ICartService cartService, IReviewService reviewService)
         {
             this.categoryService = categoryService;
@@ -42,13 +43,14 @@ namespace CheeseBurger.Pages
                     RedirectToPage("/user/menu");
                     return;
                 }
-                category = categoryService.GetCategorybyId((int)food.CategoryID);
+				maxQty = foodService.GetMaxQuantityofFood(foodId);
+				category = categoryService.GetCategorybyId((int)food.CategoryID);
                 // Them ham neu xoa roi thi khong duoc mua
                 reviews = reviewService.GetReviewbyFood(foodId) ?? new List<ReviewDTO>();
             }
             else
             {
-                RedirectToPage("/user/menu");
+                RedirectToPage("/User/Menu");
             }
         }
 
@@ -57,8 +59,20 @@ namespace CheeseBurger.Pages
             var customerId = HttpContext.Session.GetInt32("customerID");
 			if (customerId != null && foodId != 0)
             {
-                cartService.AddCart((int)customerId, foodId, qty);
-				return RedirectToPage("/user/detailfood", new {id = foodId, successStatus = true});
+				var cartQty = cartService.GetQuantityofFood((int)customerId, foodId);
+				var maxFoodQty = foodService.GetMaxQuantityofFood(foodId);
+				if (cartQty + qty <= maxFoodQty)
+				{
+					//Add sản phẩm vào cart
+					cartService.AddCart((int)customerId, foodId, qty);
+					ProductInfo = "Đã thêm món ăn vào giỏ hàng";
+				}
+				else
+				{
+					cartService.AddCart((int)customerId, foodId, maxFoodQty - cartQty);
+					ProductInfo = "Món ăn chỉ còn " + maxFoodQty + " sản phẩm. Đã thêm " + (maxFoodQty - cartQty) + " sản phẩm vào giỏ hàng";
+				}
+				return RedirectToPage("/user/detailfood", new {id = foodId, ProductInfo});
             }
 			else if (customerId == null)
 			{

@@ -11,5 +11,6 @@ namespace CheeseBurger.Service
 		void AddCart(int customerID, int cartProductID, int qty);
 		void UpdateCart(int customerID, int cartProductID, int qty);
 		void DeleteCart(int customerID, int cartProductID);
+		int GetQuantityofFood(int customerID, int cartProductID);
 	}
 }

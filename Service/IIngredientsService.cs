@@ -13,7 +13,7 @@ namespace CheeseBurger.Service
 		void AddData(string Name, int measureId, float Price, int partner);
 		void DeleteData(int id);
 		dynamic FindIngredient(int id);
-		void UpdateData(int id, string Name, int measureId, float Price, int partner);
+		void UpdateData(int id, string Name, int measureId, float Price, int partner, float nlHong = 0);
 		public IngredientDTO getEachIngredients(int IngreID);
 		List<IngredientDTO> GetListIngredients(string arrange, bool isDescending, string searchText);
 		List<String> GetNameIngredient();

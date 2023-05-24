@@ -16,6 +16,11 @@ namespace CheeseBurger.Service.Implements
 			Food_IngredientsRepository.AddFoodRecipe(foodIngre);
 		}
 
+		public void DecreaseIngre(int foodID, int qty)
+		{
+			Food_IngredientsRepository.DecreaseIngre(foodID, qty);
+		}
+
 		public void DeleteFoodRecipe(int foodID)
 		{
 			Food_IngredientsRepository.DeleteFoodRecipe(foodID);

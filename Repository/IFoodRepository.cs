@@ -20,5 +20,5 @@ namespace CheeseBurger.Repository
         void UpdateData(int FoodID, string Name, int CategoryID, float Price, string Describe, string fileupload);
         Food GetFoodbyId(int foodId);
         void UpdatePrice(int foodID);
-    }
+	}
 }

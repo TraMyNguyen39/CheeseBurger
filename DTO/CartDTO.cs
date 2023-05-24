@@ -7,5 +7,6 @@
 		public string FoodPic { get; set;}
 		public float Price { get; set;}
 		public int Quantity { get; set;}
+		public int MaxQty { get; set;}
 	}
 }

@@ -71,10 +71,10 @@ namespace CheeseBurger.Repository.Implements
 										NameFood = p.food.FoodName,
 										ImgFood = p.food.ImageFood,
 										PriceFood = p.food.Price,
-										TotalRating = q.Star.ToString()
+										TotalRating = q.Star.ToString(),
+										isStocking = true
 									}).ToList();
 		}
-
 		public List<AdminFoodDTO> GetFoodAdmin()
 		{
 			return context.Foods.Where(p => p.IsDeleted == false)

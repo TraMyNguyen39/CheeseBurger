@@ -115,13 +115,13 @@
 .product-cart .quantity {
     display: flex;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .input-group__detail {
     display: flex;
     justify-content: center;
-    width: 60%;
+    width: 70%;
     height: 36px;
     border: 2px solid #c6c6c6;
     border-radius: 8px;
@@ -295,11 +295,11 @@
 /* End rating */
 
 /* Custom style to set icon size */
-.alert.alert-success {
+.alert.alert-dismissible {
     position: absolute;
     bottom: 30%;
     right: 70px;
-    left: 0px;
+    left: -49px;
     padding: 10px 15px;
     border-radius: 5px
 }
@@ -319,10 +319,10 @@ button.btn-close:focus,
 button.btn-close:focus-within{
     outline: none;
 }
-.alert i[class^="bi-"] {
-    font-size: 1.5em;
+.alert i {
+    font-size: 1.2em;
     line-height: 1;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 .fa-solid.fa-xmark {
     font-size: 2rem;

@@ -444,18 +444,13 @@ td.Option i {
     opacity: 0.6;
 }
 
-/*
-    <a class="nav-link" aria-expanded="false" data-toggle="collapse" href="#type">
-							<i class="fas fa-chart-bar fa-fw me-3"></i><span>Quản lý đơn hàng</span>
-						</a>
-						<div class="collapse" id="type">
-							<div class="category-order">
-								<i class="fa-solid fa-angle-right"></i>
-								<a class="nav-link nav-link-edit" asp-page="/Admin/ManageOrder">  Quản lý đơn nhập</a>
-							</div>
-							<div class="category-order">
-								<i class="fa-solid fa-angle-right"></i>
-								<a class="nav-link nav-link-edit" asp-page="/Admin/ManageOrder">  Quản lý đơn xuất</a>
-							</div>
-						</div>
-*/
+/* icon */
+.fa-ban, .fa-pencil-alt, .fa-eye {
+    font-size: 20px;
+}
+i.fas.fa-ban {
+    color: red;
+}
+i.fas.fa-pencil-alt {
+    color: dodgerblue;
+}

@@ -208,7 +208,7 @@
 					</div>
 					<div class="ingredient__categories col-6 mt-3 pr-0 pl-2">
 						<p class="label">Giá bán</p>
-						<input class="form-control mr-sm-2 mb-2" type="search" placeholder="" name="Price" required pattern="^[+]?[0-9]*\.?[0-9]+">
+						<input class="form-control mr-sm-2 mb-2" type="search" placeholder="" name="Price" required pattern="^[+]?[0-9]*\.?[0-9]+" title="Vui lòng nhập đúng giá tiền">
 						<span id="price-error-update" style="color: red"></span>
 					</div>
 				</div>
@@ -218,7 +218,7 @@
 				</div>
 				<div class="file__image d-flex align-items-center">
 					<p class="image__text">Hình ảnh:</p>
-					<input type="file" name="fileupload" id="fileupload" accept=".jpg,.jpeg,.png" required>
+					<input type="file" name="fileupload" id="fileupload" accept=".jpg,.jpeg,.png">
 				</div>
 				<div class="button__ingredient-modify">
 					<button class="" type="submit">Cập nhật món ăn</button>
@@ -350,9 +350,6 @@
 			success: function (result) {
 				console.log(result);
 				var imageSrc = result.imageFood;
-				if (!imageSrc.startsWith("http")) {
-					imageSrc = "/img/" + imageSrc;
-				}
 				$('.modal__food-read #image').attr('src', imageSrc);
 				$('.modal__food-read #name').text(result.foodName); // Cập nhật tên nguyên liệu
 				$('.modal__food-read #origin-price').text(result.originPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })); // Cập nhật đơn giá
@@ -371,6 +368,7 @@
 			data: { id: id },
 			url: '@Url.Page("ManageFood", "Find")',
 			success: function (result) {
+				console.log(result);
 				// Set giá trị của input fileupload khi nhận được giá trị imageFood
 				$('.modal__ingredient-modify input[name="FoodID"]').val(result.foodID); // Save ID to hidden input
 				$('.modal__ingredient-modify input[name="Name"]').val(result.foodName); // Update category name
@@ -379,7 +377,6 @@
 				$('.modal__ingredient-modify input[name="Price"]').val(result.price);
 				$('.modal__ingredient-modify input[name="Describe"]').val(result.description);
 				$('.modal__ingredient-modify').show(); // Show the modal window
-
 			},
 			error: function (xhr, textStatus, errorThrown) {
 				alert('Error loading categories: ' + errorThrown);
