@@ -8,7 +8,6 @@ namespace CheeseBurger.Service
         List<FoodDTO> GetFoodsMenu(int category, int priceRange , string arrange, bool isDescending, string searchText);
 		List<AdminFoodDTO> GetFoodAdmin();
         List<AdminFoodDTO> GetAllFoodAdmin();
-
         int getRowFood();
 		List<String> GetNameCategories();
 		List<AdminFoodDTO> GetListFoods(string categories, string arrange, bool isDescending, string searchText);
@@ -17,8 +16,9 @@ namespace CheeseBurger.Service
         void DeleteData(int id);
         void RecycleData(int id);
         dynamic FindFood(int id);
-        void UpdateData(int FoodID, string Name, int CategoryID, int cbb_profit, string Describe, string fileupload);
+        void UpdateData(int FoodID, string Name, int CategoryID, float Price, string Describe, string fileupload);
         Food GetFoodbyId(int foodId);
-		void UpdatePrice(int foodID, int profitPercent);
+		void UpdatePrice(int foodID);
+		int GetMaxQuantityofFood(int foodID);
 	}
 }

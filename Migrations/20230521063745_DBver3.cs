@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CheeseBurger.Migrations
 {
     /// <inheritdoc />
-    public partial class createDB : Migration
+    public partial class DBver3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -116,8 +116,8 @@ namespace CheeseBurger.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FoodName = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
-                    ProfitPercent = table.Column<int>(type: "int", nullable: false),
-                    tempPrice = table.Column<float>(type: "real", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    originPrice = table.Column<float>(type: "real", nullable: false),
                     ImageFood = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -162,6 +162,7 @@ namespace CheeseBurger.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IngredientsName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     IngredientsPrice = table.Column<float>(type: "real", nullable: false),
+                    IngredientsQty = table.Column<float>(type: "real", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     MeasureID = table.Column<int>(type: "int", nullable: false),
                     PartnerID = table.Column<int>(type: "int", nullable: false)

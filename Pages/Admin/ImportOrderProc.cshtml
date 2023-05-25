@@ -60,16 +60,55 @@
 			</div>
 			<div class="ingredient__button-order col-md-6 pr-0">
 				<button type="submit">Đặt đơn</button>
+				<input type="submit" id="submit" style="display: none">
 			</div>
 		</div>
 	</form>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="confirm-label"></h4>
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+			</div>
+			<div class="modal-body">
+				<div class="text-center wirningColor">
+					<i class="fas fa-exclamation-triangle fa-4x"></i>
+				</div>
+				<br />
+				<center>
+					<p class="message"></p>
+				</center>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-danger dismiss" data-dismiss="modal"></button>
+				<button type="submit" class="btn btn-primary confirm"></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="~/js/import__order-procs.js"></script>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script>
 	// Thay đổi nhà cung cấp
 	var partner = document.querySelector('select[name="partner"]');
+	var ingreItems = document.querySelectorAll('.ingredient-name');
+
 	partner.addEventListener("change", function () {
 		// Lấy ra ID của partner được chọn
 		var partnerID = partner.options[partner.selectedIndex].getAttribute("data-id_partner");
@@ -87,10 +126,17 @@
 
 					var ingredientOption = document.getElementsByClassName('ingredient-name');
 
-					for(var i=0; i < ingredientOption.length; i++)
-					{
+					for (var i = 0; i < ingredientOption.length; i++) {
 						ingredientOption[i].innerHTML = '<option value="0">Chọn nguyên liệu</option> ';
 						ingredientOption[i].innerHTML += options.join('');
+					}
+					for (var i = 0; i < ingreItems.length; i++) {
+
+						var parentNode = ingreItems[i].parentElement.parentElement.parentElement;
+						parentNode.querySelector('.qty').value = "";
+						parentNode.querySelector('.ingredient__money').innerHTML = '0đ';
+						parentNode.querySelector('.unit').innerHTML = 'kilogam';
+						document.getElementById('tempMoney').innerHTML = '0đ';
 					}
 				}
 			},
@@ -99,22 +145,19 @@
 			}
 		});
 	});
-	
-	var ingreItems = document.querySelectorAll('.ingredient-name');
-	for(var i=0; i < ingreItems.length; i++) {
-		ingreItems[i].addEventListener('change', function(event) {
+
+	for (var i = 0; i < ingreItems.length; i++) {
+		ingreItems[i].addEventListener('change', function (event) {
 			var thisNode = event.target;
 			var parentNode = thisNode.parentElement.parentElement.parentElement;
 			parentNode.querySelector('.qty').value = "";
-			if (thisNode.selectedIndex !== 0)
-			{
+			if (thisNode.selectedIndex !== 0) {
 				parentNode.querySelector('.ingredient__money').innerHTML
 					= parseInt(thisNode.options[thisNode.selectedIndex].getAttribute('data-price')).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + 'đ';
 				parentNode.querySelector('.unit').innerHTML
 					= thisNode.options[thisNode.selectedIndex].getAttribute('data-unit');
 			}
-			else
-			{
+			else {
 				parentNode.querySelector('.ingredient__money').innerHTML = '0đ';
 				parentNode.querySelector('.unit').innerHTML = 'kilogam'
 			}
@@ -124,13 +167,11 @@
 	for (var i = 0; i < qtys.length; i++) {
 		qtys[i].addEventListener('change', function (event) {
 			var totalMoney = 0;
-			for (var i = 0; i < qtys.length; i++)
-			{
+			for (var i = 0; i < qtys.length; i++) {
 				var money = Number(qtys[i].value);
-				if (!isNaN(money))
-				{
+				if (!isNaN(money)) {
 					var price = ingreItems[i].options[ingreItems[i].selectedIndex].getAttribute('data-price');
-					totalMoney += money*price;
+					totalMoney += money * price;
 				}
 			}
 			document.getElementById('tempMoney').innerHTML = totalMoney.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + 'đ';
@@ -138,48 +179,69 @@
 	}
 
 	var btnSubmit = document.querySelector('.ingredient__button-order button');
-	btnSubmit.addEventListener('click', function(){
-		for (var i = 0; i < ingreItems.length; i++)
-		{
+	btnSubmit.addEventListener('click', function () {
+		if (partner.selectedIndex === 0) {
+			event.preventDefault();
+			return false;
+		}
+		var count = 0;
+		for (var i = 0; i < ingreItems.length; i++) {
 			var thisNode = ingreItems[i];
 			var thisQty = Number(qtys[i].value);
-			if (thisNode.selectedIndex > 0 && (thisQty == 0 || isNaN(thisQty)))
-			{
+			if (thisNode.selectedIndex > 0 && (thisQty == 0 || isNaN(thisQty))) {
 				qtys[i].value = 'Nhập số lượng!';
 				event.preventDefault();
+				return false;
 			}
+			if (thisNode.selectedIndex !== 0) count++;
 		}
+		if (count === 0) {
+			event.preventDefault();
+			return false;
+		}
+		$('#confirm').confirm({
+			title: 'confirmation',
+			message: 'Bạn có muốn đặt đơn hàng này không?',
+			confirm: 'Xác nhận',
+			dismiss: 'Huỷ'
+		});
+		event.preventDefault();
 	});
-		//var ingre = [];
-		//var ingreQty = [];
-		//for (var i = 0; i < ingreItems.length; i++) {
-		//	var thisNode = ingreItems[i];
-		//	var thisQty = Number(qtys[i].value);
-		//	if (thisNode.selectedIndex > 0){
-		//		ingre.push(thisNode.options[thisNode.selectedIndex].value);
-		//		ingreQty.push(thisQty);
-		//	}
-		//}
-		//$.ajax({
-		//	type: 'GET',
-		//	data: { partnerID: partnerID },
-		//	url: '@Url.Page("ImportOrderProc", "ABC")',
-		//	success: function (result) {
-		//		if (result) {
-		//			var options = result.map(function (option) {
-		//				return '<option value="' + option.ingredientID + '" data-price="'
-		//					+ option.ingredientsPrice + '">' + option.ingredientName + '</option>';
-		//			});
-		//			var ingredientOption = document.getElementsByClassName('ingredient-name');
 
-		//			for(var i=0; i < ingredientOption.length; i++)
-		//			{
-		//				ingredientOption[i].innerHTML += options.join('');
-		//			}
-		//		}
-		//	},
-		//	error: function (xhr, textStatus, errorThrown) {
-		//		alert('Error loading ingredient: ' + errorThrown);
-		//	}
-		//});
+	$(function () {
+		(function ($) {
+			$.fn.confirm = function (options) {
+				var settings = $.extend({}, $.fn.confirm.defaults, options);
+				return this.each(function () {
+					var element = this;
+					$('.modal-title', this).html(settings.title);
+					$('.message', this).html(settings.message);
+					$('.confirm', this).html(settings.confirm);
+					$('.dismiss', this).html(settings.dismiss);
+
+					$(this).on('click', '.confirm', function (event) {
+						$('#submit').click();
+					});
+
+					$(this).on('hide.bs.modal', function (event) {
+						if ($(this).data('confirm')) {
+							$(this).trigger('confirm', event);
+							$(this).removeData('confirm');
+						} else {
+							$(this).trigger('dismiss', event);
+						}
+						$(this).off('confirm dismiss');
+					});
+					$(this).modal('show');
+				});
+			};
+
+			$.fn.confirm.defaults = {
+				title: 'Modal title',
+				message: 'One fine body&hellip;',
+				confirm: 'OK',
+				dismiss: 'Cancel'
+			};
+		})(jQuery);
+	});
 </script>

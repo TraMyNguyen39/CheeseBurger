@@ -65,14 +65,11 @@
 				</tr>
 			</tbody>
 		</table>
-		<form method="post" asp-page-handler="Delete">
-			<input type="hidden" asp-for="orderId" value="@Model.orderId">
-			<button class="submit-btn submit-btn-edit" style="width: 100%; margin-top: 0">XOÁ ĐƠN HÀNG</button>
-		</form>
+		<button class="submit-btn submit-btn-edit" id="btn-cancel" style="width: 100%; margin-top: 0">XOÁ ĐƠN HÀNG</button>
 	</div>
 </div>
 
-<form method="post" asp-page-handler="Cancel">
+<form method="post" asp-page-handler="Delete">
 	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
 		<div class="modal-dialog ">
 			<div class="modal-content">
@@ -88,7 +85,7 @@
 					<br />
 					<center>
 						<p class="message"></p>
-						<input type="hidden" name="orderId" value="" />
+						<input type="hidden" name="orderId" value="@Model.orderId" />
 					</center>
 				</div>
 				<div class="modal-footer">
@@ -99,7 +96,6 @@
 		</div>
 	</div>
 </form>
-<script src="~/js/detail-order-done.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -155,7 +151,6 @@
 		})(jQuery);
 	});
 	$("#btn-cancel").click(function () {
-		$('#confirm input[name="orderId"]').val();
 		$('#confirm').confirm({
 			title: 'confirmation',
 			message: 'Bạn có chắc chắn muốn huỷ đơn hàng này không?',

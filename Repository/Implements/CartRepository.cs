@@ -62,10 +62,17 @@ namespace CheeseBurger.Repository.Implements
 				context.SaveChanges();
 			}
 		}
-        //public float GetCartChange(int customerID, int cartProductID, int qty)
-        //{
-        //	var cart = UpdateCart(customerID, cartProductID, qty);
-        //	return cart.Quantity * cart.Price;
-        //}
-    }
+
+		public int GetQuantityofFood(int customerID, int cartProductID)
+		{
+			return context.Carts.Where(p => p.CustomerID == customerID && p.FoodID == cartProductID)
+								.Select(p => p.Quantity)
+								.FirstOrDefault();
+		}
+		//public float GetCartChange(int customerID, int cartProductID, int qty)
+		//{
+		//	var cart = UpdateCart(customerID, cartProductID, qty);
+		//	return cart.Quantity * cart.Price;
+		//}
+	}
 }

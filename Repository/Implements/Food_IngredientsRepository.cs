@@ -26,9 +26,27 @@ namespace CheeseBurger.Repository.Implements
 			}
 		}
 
+		public void DecreaseIngre(int foodID, int qty)
+		{
+			var recipes = GetAllFoodRecipes(foodID);
+			foreach (var item in recipes)
+			{
+				var ingre = context.Ingredients.Where(p => p.IngredientsId == item.IngredientsId).FirstOrDefault();
+				ingre.IngredientsQty -= item.QuantityIG * qty;
+				context.SaveChanges();
+			}
+		}
+
 		public List<Food_Ingredients> GetAllFoodRecipes(int foodID)
 		{
 			return context.Food_Ingredients.Where(p => p.FoodID == foodID).ToList();
+		}
+
+		public List<object[]> GetListIngresogFood(int foodID)
+		{
+			return context.Food_Ingredients.Where(p => p.FoodID == foodID)
+											.Select(p => new object[] { p.IngredientsId, p.QuantityIG, p.Ingredients.IngredientsQty })
+											.ToList();
 		}
 	}
 }
