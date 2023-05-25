@@ -1,6 +1,7 @@
 ﻿using CheeseBurger.DTO;
 using CheeseBurger.Enums;
 using CheeseBurger.Model.Entities;
+using CheeseBurger.Pages.User;
 using CheeseBurger.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -111,7 +112,10 @@ namespace CheeseBurger.Pages
 				cartService.DeleteCart(customerID, cart.FoodId); // Tao don hon chi tiet, dong thoi xoa gio hang
 			}
 
-			return RedirectToPage("/User/MyOrder");
+            var model = new EmailModel(); // Create a new instance of the EmailModel
+            model.TenNguoiNhan = Name;
+
+            return RedirectToPage("/User/MyAlternateOrder");
 		}
 
 		public IActionResult OnGet()

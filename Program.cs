@@ -1,16 +1,30 @@
 ﻿using CheeseBurger;
 using CheeseBurger.Helpers;
 using CheeseBurger.Model;
+using CheeseBurger.Pages;
+using CheeseBurger.Pages.User;
 using CheeseBurger.Repository;
 using CheeseBurger.Repository.Implements;
 using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
 using CheeseBurger.Service.ImplementsGetPrice;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using RazorLight;
+using System;
+using System.Dynamic;
 using System.Net.Http.Headers;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +34,8 @@ builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof
 var service = builder.Services;
 service.AddDbContext<CheeseBurgerContext>(option =>
 {
-	var connectionString = builder.Configuration.GetConnectionString("Default");              
-    option.UseSqlServer(connectionString);
+	var connectionString = builder.Configuration.GetConnectionString("Default");
+	option.UseSqlServer(connectionString);
 	//option.UseSqlServer(connectionString);
 });
 
@@ -61,10 +75,10 @@ service.AddScoped<IRevenueService, RevenueService>();
 
 service.AddHttpClient<IFeeAPIService, FeeAPIService>(client =>
 {
-    client.BaseAddress = new Uri("https://online-gateway.ghn.vn/shiip/public-api/v2/");
-    client.DefaultRequestHeaders.Accept.Clear();
-    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-    client.DefaultRequestHeaders.Add("token", "312f0089-ed7a-11ed-8a8c-6e4795e6d902");
+	client.BaseAddress = new Uri("https://online-gateway.ghn.vn/shiip/public-api/v2/");
+	client.DefaultRequestHeaders.Accept.Clear();
+	client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+	client.DefaultRequestHeaders.Add("token", "312f0089-ed7a-11ed-8a8c-6e4795e6d902");
 });
 
 // Register your service
@@ -74,6 +88,9 @@ service.AddScoped<IImportOrderRepository, ImportOrderRepository>();
 service.AddScoped<IPartnerRespository, PartnerRespository>();
 service.AddScoped<IPartnerService, PartnerService>();
 service.AddScoped<ISendMailService, SendMailService>();
+service.AddScoped<IViewRenderService, ViewRenderService>();
+service.AddSingleton<ICompositeViewEngine, CompositeViewEngine>();
+service.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
 var app = builder.Build();
 
@@ -94,36 +111,76 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.UseSession();
 app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/Login/SuccessfulValidate1", async context => {
-                    // Lấy dịch vụ sendmailservice
-                    var sendmailservice = context.RequestServices.GetService<ISendMailService>();
-
-                    MailContent content = new MailContent
-                    {
-                        To = "dong.huynhquang21503@gmail.com",
-                        Subject = "Test",
-                        Body = "Mật khẩu của bạn được đặt lại thành: 123456A@a"
-                    };
-
-                    await sendmailservice.SendMail(content);					
-					context.Response.Redirect("/Login/SuccessfulValidate");
-					//await context.Response.WriteAsync("Send mail");
-				});
-				endpoints.MapGet("/User/MyOrder", async context => {
+			{
+				endpoints.MapGet("/Login/SuccessfulValidate1", async context =>
+				{
 					// Lấy dịch vụ sendmailservice
 					var sendmailservice = context.RequestServices.GetService<ISendMailService>();
 
 					MailContent content = new MailContent
 					{
 						To = "vothedatdavid@gmail.com",
-						Subject = "Thư cảm ơn quý khách",
-						Body = "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>Cảm ơn quý khách đã mua hàng của chúng tôi</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            margin: 0;\r\n            padding: 20px;\r\n        }\r\n\r\n        h1 {\r\n            color: #333;\r\n        }\r\n\r\n        p {\r\n            color: #666;\r\n            line-height: 1.5;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n    <h1>Cảm ơn quý khách đã mua hàng của chúng tôi</h1>\r\n    <p>Xin chào,</p>\r\n    <p>Chúng tôi xin gửi lời cảm ơn chân thành đến quý khách đã mua hàng tại cửa hàng của chúng tôi. Đây là một email tự động để xác nhận đơn hàng của quý khách.</p>\r\n    <p>Chúng tôi đã nhận được đơn hàng của quý khách và đang tiến hành xử lý. Chúng tôi sẽ gửi thông tin về việc giao hàng đến quý khách trong thời gian sớm nhất.</p>\r\n    <p>Nếu quý khách có bất kỳ câu hỏi nào về đơn hàng hoặc dịch vụ của chúng tôi, xin vui lòng liên hệ với chúng tôi qua địa chỉ email hoặc số điện thoại được cung cấp bên dưới.</p>\r\n    <p>Chúng tôi rất trân trọng sự tin tưởng và ủng hộ của quý khách.</p>\r\n    <p>Trân trọng,</p>\r\n    <p>Cửa hàng của chúng tôi</p>\r\n</body>\r\n</html>"
+						Subject = "Test",
+						Body = "Mật khẩu của bạn được đặt lại thành: 123456A@a"
 					};
 
 					await sendmailservice.SendMail(content);
-					context.Response.Redirect("/User/Menu");
+					context.Response.Redirect("/Login/SuccessfulValidate");
 					//await context.Response.WriteAsync("Send mail");
 				});
-			});
+                endpoints.MapGet("/User/MyAlternateOrder", async context =>
+                {
+                    // Inside your method or class constructor
+                    var serviceProvider = context.RequestServices;
+
+                    var orderService = serviceProvider.GetService<IOrderService>();
+                    var order_FoodService = serviceProvider.GetService<IOrder_FoodService>();
+                    var cartService = serviceProvider.GetService<ICartService>();
+                    var wardService = serviceProvider.GetService<IWardService>();
+                    var districtService = serviceProvider.GetService<IDistrictService>();
+                    var staffService = serviceProvider.GetService<IStaffService>();
+                    var foodService = serviceProvider.GetService<IFoodService>();
+                    var reviewService = serviceProvider.GetService<IReviewService>();
+                    var hostingEnvironment = serviceProvider.GetService<IWebHostEnvironment>();
+                    var customerService = serviceProvider.GetService<ICustomerService>();
+                    var categoryService = serviceProvider.GetService<ICategoryService>();
+
+                    var model = new EmailModel();
+
+                    // Retrieve the required services
+                    var sendMailService = context.RequestServices.GetService<ISendMailService>();
+                    var viewRenderService = context.RequestServices.GetService<IViewRenderService>();
+
+
+                    model.MaDH = "#123";
+                    model.TenNguoiNhan = "KKKK"; // Retrieve the value from the session
+                    model.TongTien = "69.000đ";
+                    model.NgayDatHang = "24/5/2020";
+                    model.DiaChiGiaoHang = "23 Nguyễn Văn Cừ";
+
+                    // Retrieve the view content
+                    string viewFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Pages", "User", "Email.cshtml");
+                    string emailBody = await File.ReadAllTextAsync(viewFilePath);
+
+                    // Replace the placeholders with actual values
+                    emailBody = emailBody.Replace("@Model.MaDH", model.MaDH)
+                                         .Replace("@Model.TenNguoiNhan", model.TenNguoiNhan)
+                                         .Replace("@Model.TongTien", model.TongTien)
+                                         .Replace("@Model.NgayDatHang", model.NgayDatHang)
+                                         .Replace("@Model.DiaChiGiaoHang", model.DiaChiGiaoHang);
+
+                    MailContent content = new MailContent
+                    {
+                        To = "vothedatdavid@gmail.com",
+                        Subject = "Thư cảm ơn quý khách",
+                        Body = emailBody
+                    };
+
+                    // Send the email
+                    await sendMailService.SendMail(content);
+
+                    context.Response.Redirect("/User/MyOrder");
+                });
+                
+            });
 app.Run();

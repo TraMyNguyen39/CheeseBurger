@@ -1,0 +1,83 @@
+﻿@page
+@model EmailModel
+@{
+    ViewData["Title"] = "Email";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .order-details {
+            margin-bottom: 20px;
+        }
+
+            .order-details table {
+                width: 100%;
+            }
+
+                .order-details table td {
+                    padding: 10px;
+                    border-bottom: 1px solid #dddddd;
+                }
+
+        .footer {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1>Thông báo đặt hàng thành công</h1>
+        </div>
+        <div class='order-details'>
+            <table>
+                <tr>
+                    <td><strong>Mã đơn hàng:</strong></td>
+                    <td>@Model.MaDH</td>
+                </tr>
+                <tr>
+                    <td><strong>Tên người nhận:</strong></td>
+                    <td>@Model.TenNguoiNhan</td>
+                </tr>
+                <tr>
+                    <td><strong>Tổng tiền:</strong></td>
+                    <td>@Model.TongTien</td>
+                </tr>
+                <tr>
+                    <td><strong>Ngày đặt hàng:</strong></td>
+                    <td>@Model.NgayDatHang</td>
+                </tr>
+                <tr>
+                    <td><strong>Địa chỉ giao hàng:</strong></td>
+                    <td>@Model.DiaChiGiaoHang</td>
+                </tr>
+            </table>
+        </div>
+        <div class='footer'>
+            <p>Cảm ơn bạn đã mua hàng từ CheeseBurger!</p>
+        </div>
+    </div>
+</body>
+</html>
