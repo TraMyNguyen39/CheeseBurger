@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CheeseBurger.Migrations
 {
     /// <inheritdoc />
-    public partial class createDB : Migration
+    public partial class DBver4 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,6 +54,19 @@ namespace CheeseBurger.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "IdenCodes",
+                columns: table => new
+                {
+                    IcodeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ICodeName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IdenCodes", x => x.IcodeId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Measures",
                 columns: table => new
                 {
@@ -64,6 +77,19 @@ namespace CheeseBurger.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Measures", x => x.MeasureID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NewPasses",
+                columns: table => new
+                {
+                    NewPassID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NewPassName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NewPasses", x => x.NewPassID);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,6 +132,19 @@ namespace CheeseBurger.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.RoleID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TPasses",
+                columns: table => new
+                {
+                    TPassID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TPassName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TPasses", x => x.TPassID);
                 });
 
             migrationBuilder.CreateTable(
@@ -588,7 +627,13 @@ namespace CheeseBurger.Migrations
                 name: "Food_Ingredients");
 
             migrationBuilder.DropTable(
+                name: "IdenCodes");
+
+            migrationBuilder.DropTable(
                 name: "ImportOrders_Ingredients");
+
+            migrationBuilder.DropTable(
+                name: "NewPasses");
 
             migrationBuilder.DropTable(
                 name: "Order_Foods");
@@ -598,6 +643,9 @@ namespace CheeseBurger.Migrations
 
             migrationBuilder.DropTable(
                 name: "Reviews");
+
+            migrationBuilder.DropTable(
+                name: "TPasses");
 
             migrationBuilder.DropTable(
                 name: "ImportOrders");

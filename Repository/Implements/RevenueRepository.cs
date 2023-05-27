@@ -94,7 +94,7 @@ namespace CheeseBurger.Repository.Implements
 						TMoneyIO = cl.Sum(c => c.TMoneyIO)
 					}).ToList();
 		}
-		public List<Food> GetFoodRangeTime(DateTime fromDate, DateTime toDate)
+		public List<FoodRevenueDTO> GetFoodRangeTime(DateTime fromDate, DateTime toDate)
 		{
 			var successOrder = context.Orders.Where(p => p.StatusOdr == 5).Select(p => p);
 			if (fromDate != default(DateTime) && toDate != default(DateTime))
@@ -111,15 +111,12 @@ namespace CheeseBurger.Repository.Implements
 				tsOrder_Food = tsOrder_Food.OrderByDescending(p => p.cnt).Take(5);
 				var res = from p in context.Foods
 						  join q in tsOrder_Food on p.FoodID equals q.idFood
-						  select new Food
+						  select new FoodRevenueDTO
 						  {
-							  FoodID = p.FoodID,
-							  FoodName = p.FoodName,
-							  Price = p.Price,
-							  ImageFood = p.ImageFood,
-							  Description = p.Description,
-							  IsDeleted = p.IsDeleted,
-							  CategoryID = p.CategoryID
+							  IDFoodRevenue = p.FoodID,
+							  NameFoodRevenue = p.FoodName,							  
+							  ImgFoodRevenue = p.ImageFood,
+							  CntFoodRevenue = q.cnt
 						  };
 				return res.ToList();
 			}
@@ -134,16 +131,49 @@ namespace CheeseBurger.Repository.Implements
 			tsOrder_Food1 = tsOrder_Food1.OrderByDescending(p => p.cnt).Take(5);
 			var res1 = from p in context.Foods
 					  join q in tsOrder_Food1 on p.FoodID equals q.idFood
-					  select new Food
-					  {
-						  FoodID = p.FoodID,
-						  FoodName = p.FoodName,
-						  Price = p.Price,
-						  ImageFood = p.ImageFood,
-						  Description = p.Description,
-						  IsDeleted = p.IsDeleted,
-						  CategoryID = p.CategoryID
-					  };
+					   select new FoodRevenueDTO
+					   {
+						   IDFoodRevenue = p.FoodID,
+						   NameFoodRevenue = p.FoodName,
+						   ImgFoodRevenue = p.ImageFood,
+						   CntFoodRevenue = q.cnt
+					   };
+			return res1.ToList();
+		}
+		public List<CustomerRevenueDTO> GetCustomerRangeTime(DateTime fromDate, DateTime toDate)
+		{
+			var successOrder = context.Orders.Where(p => p.StatusOdr == 5).Select(p => p);
+			if (fromDate != default(DateTime) && toDate != default(DateTime))
+			{
+				successOrder = successOrder.Where(p => p.SaleDate >= fromDate && p.SaleDate <= toDate);
+				var tsuccessOrder = successOrder.GroupBy(o => o.CustomerID).Select(g => new
+				{
+					cusId = g.Key,
+					TMoney = g.Sum(o => o.TotalMoney)
+				}).OrderByDescending(g => g.TMoney).Take(5);
+				var res = from p in context.Customers
+						   join q in tsuccessOrder on p.CustomerID equals q.cusId
+						   select new CustomerRevenueDTO
+						   {
+							   CusRevenueID = p.CustomerID,
+							   CusRevenueName = p.CustomerName,
+							   CusRevenueTMoney = q.TMoney,							 
+						   };
+				return res.ToList();
+			}
+			var tsuccessOrder1 = successOrder.GroupBy(o => o.CustomerID).Select(g => new
+			{
+				cusId = g.Key,
+				TMoney = g.Sum(o => o.TotalMoney)
+			}).OrderByDescending(g => g.TMoney).Take(5);
+				var res1 = from p in context.Customers
+						   join q in tsuccessOrder1 on p.CustomerID equals q.cusId
+						   select new CustomerRevenueDTO
+						   {
+							   CusRevenueID = p.CustomerID,
+							   CusRevenueName = p.CustomerName,
+							   CusRevenueTMoney = q.TMoney,
+						   };
 			return res1.ToList();
 		}
 	}

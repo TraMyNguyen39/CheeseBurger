@@ -199,6 +199,10 @@ button.button-box__toggle-btn {
     max-height: 450px;
 }
 
+.success-form-change-new-pass {
+    height: 66vh;    
+}
+
 .logo-link .logo-brand-success {
     margin: 0 auto;
     margin-top: 35px;

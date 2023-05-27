@@ -31,7 +31,8 @@ namespace CheeseBurger.Pages.Admin
 		public DateTime toDate { get; set; }
 		public List<Orders> List_Ord { get; set; }
 		public List<ImportOrder> List_IO { get; set; }
-		public List<Food> List_Food { get; set; }
+		public List<FoodRevenueDTO> List_Food { get; set; }
+		public List<CustomerRevenueDTO> List_CusRevenue { get; set; }
 
 		public void OnGet()
 		{
@@ -63,6 +64,7 @@ namespace CheeseBurger.Pages.Admin
 			List_Ord = revenueService.GetOrdersRangeTime(fromDate, toDate);
 			List_IO = revenueService.GetIOrdersRangeTime(fromDate, toDate);
 			List_Food = revenueService.GetFoodRangeTime(fromDate, toDate);
+			List_CusRevenue = revenueService.GetCustomerRangeTime(fromDate, toDate);
 		}
 	}
 }

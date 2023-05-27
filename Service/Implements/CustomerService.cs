@@ -45,5 +45,9 @@ namespace CheeseBurger.Service.Implements
 		{
 			customerRespository.AddNewCus(name, phone);
 		}
+		public int GetCusIDByPhone(string phone)
+		{
+			return customerRespository.GetCusIDByPhone(phone);
+		}
     }
 }

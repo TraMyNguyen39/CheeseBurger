@@ -24,9 +24,10 @@ namespace CheeseBurger.Model
         public DbSet<Review> Reviews { get; set; }
 		public DbSet<Revenues> Revenues { get; set; }
 		public DbSet<Partner> Partners { get; set; }
-
-
-		public CheeseBurgerContext(DbContextOptions<CheeseBurgerContext> options) : base(options)
+        public DbSet<NewPass> NewPasses { get; set; }
+        public DbSet<TPass> TPasses { get; set; }
+        public DbSet<IdenCode> IdenCodes { get; set; }
+        public CheeseBurgerContext(DbContextOptions<CheeseBurgerContext> options) : base(options)
         {
 
         }

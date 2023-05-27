@@ -57,6 +57,11 @@ namespace CheeseBurger.Repository.Implements
         {
             return context.Accounts.Where(p => p.isDeleted == false).Select(p => p).ToList();
         }
+        public int GetIDAccountByMail(string email)
+        {
+            var acc = context.Accounts.Where(p => p.Email.Equals(email)).FirstOrDefault();
+            return acc.AccountID;
+        }
 
-	}
+    }
 }

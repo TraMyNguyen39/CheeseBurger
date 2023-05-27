@@ -7,10 +7,12 @@ using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
 using CheeseBurger.Service.ImplementsGetPrice;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http.Headers;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +60,12 @@ service.AddScoped<IFood_IngredientsRepository, Food_IngredientsRepository>();
 service.AddScoped<IFood_IngredientsService, Food_IngredientsService>();
 service.AddScoped<IRevenueRepository, RevenueRepository>();
 service.AddScoped<IRevenueService, RevenueService>();
+service.AddScoped<INewPassRespository, NewPassRespository>();
+service.AddScoped<INewPassService, NewPassService>();
+service.AddScoped<ITPassRespository, TPassRespository>();
+service.AddScoped<ITPassService, TPassService>();
+service.AddScoped<IIdenCodeRespository, IdenCodeRespository>();
+service.AddScoped<IIdenCodeService, IdenCodeService>();
 
 service.AddHttpClient<IFeeAPIService, FeeAPIService>(client =>
 {
@@ -95,22 +103,87 @@ app.MapRazorPages();
 app.UseSession();
 app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/Login/SuccessfulValidate1", async context => {
+                endpoints.MapPost("/Login/SuccessfulValidate1", async context => {
                     // Lấy dịch vụ sendmailservice
                     var sendmailservice = context.RequestServices.GetService<ISendMailService>();
 
+					var email = context.Request.Form["email"].ToString();
+
+                    //int seed = DateTime.Now.Millisecond;
+                    //Random rnd = new Random(seed);
+                    //var newpassservice = context.RequestServices.GetService<INewPassService>();
+                    //var listP = newpassservice.GetListNewPass();
+                    //var idx = rnd.Next(0, listP.Count);
+                    //var np_name = listP[idx].NewPassName;
+                    //var np_id = listP[idx].NewPassID;
+
+                    int seed = DateTime.Now.Millisecond;
+                    Random rnd = new Random(seed);
+                    var idcodeservice = context.RequestServices.GetService<IIdenCodeService>();
+                    var listIc = idcodeservice.GetListIdenCode();
+                    var idx = rnd.Next(0, listIc.Count);
+                    var ic_name = listIc[idx].ICodeName;
+                    var ic_id = listIc[idx].IcodeId;
+
                     MailContent content = new MailContent
                     {
-                        To = "dong.huynhquang21503@gmail.com",
-                        Subject = "Test",
-                        Body = "Mật khẩu của bạn được đặt lại thành: 123456A@a"
+                        To = email,
+                        Subject = "Quên mật khẩu",
+                        Body = "Mã xác thực của bạn là: " + ic_name + ". Mã xác thực này chỉ có hiệu lực trong vòng 1 phút !"
                     };
 
-                    await sendmailservice.SendMail(content);					
-					context.Response.Redirect("/Login/SuccessfulValidate");
-					//await context.Response.WriteAsync("Send mail");
-				});
-				endpoints.MapGet("/User/MyOrder", async context => {
+                    await sendmailservice.SendMail(content);
+                    var accservice = context.RequestServices.GetService<IAccountService>();
+                    var id = accservice.GetIDAccountByMail(email);
+                    context.Session.SetInt32("IdAccCP", id);
+                    context.Session.SetString("NameICodeFP", ic_name);
+                    //context.Session.SetInt32("IdNP", np_id);
+                    //var redirectUrl = "/Login/SuccessfulValidate?id=" + id.ToString() + "&ps=" + np_id.ToString();
+                    var redirectUrl = "/Login/EnterIdenCodeFP";
+
+                    DateTime sendTime = DateTime.Now;
+                    context.Session.SetString("SendTime", sendTime.ToString());
+
+                    context.Response.Redirect(redirectUrl);
+                });
+                endpoints.MapPost("/Login/SendMailIden", async context => {
+                    // Lấy dịch vụ sendmailservice
+                    var sendmailservice = context.RequestServices.GetService<ISendMailService>();
+
+                    var email = context.Request.Form["email"].ToString();
+                    var name = context.Request.Form["name"].ToString();
+                    var phone = context.Request.Form["phone"].ToString();
+                    var pass = context.Request.Form["pass"].ToString();
+
+                    int seed = DateTime.Now.Millisecond;
+                    Random rnd = new Random(seed);
+                    var idcodeservice = context.RequestServices.GetService<IIdenCodeService>();
+                    var listIc = idcodeservice.GetListIdenCode();
+                    var idx = rnd.Next(0, listIc.Count);
+                    var ic_name = listIc[idx].ICodeName;
+                    var ic_id = listIc[idx].IcodeId;
+
+                    MailContent content = new MailContent
+                    {
+                        To = email,
+                        Subject = "Đăng ký tài khoản",
+                        Body = "Mã xác thực của bạn là: " + ic_name + ". Mã xác thực này chỉ có hiệu lực trong vòng 1 phút !"
+                    };
+                                 
+                    await sendmailservice.SendMail(content);
+                    context.Session.SetString("NewAccICode", ic_name);                    
+                    context.Session.SetString("NewAccEmail", email);
+                    context.Session.SetString("NewAccName", name);
+                    context.Session.SetString("NewAccPhone", phone);
+                    context.Session.SetString("NewAccPass", pass);
+                    //var redirectUrl = "/Login/EnterIdenCode?t=" + ic_id.ToString() + "&d=" + idacc.ToString() + "&c=" + idcus.ToString();
+                    var redirectUrl = "/Login/EnterIdenCode";
+
+                    DateTime sendTime = DateTime.Now;
+                    context.Session.SetString("SendTimeCode", sendTime.ToString());                    
+                    context.Response.Redirect(redirectUrl);
+                });
+                endpoints.MapGet("/User/MyOrder", async context => {
 					// Lấy dịch vụ sendmailservice
 					var sendmailservice = context.RequestServices.GetService<ISendMailService>();
 
