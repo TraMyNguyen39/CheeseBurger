@@ -4,8 +4,10 @@ namespace CheeseBurger.Repository
 {
     public interface IFood_IngredientsRepository
     {
-        public void AddFoodRecipe(Food_Ingredients foodIngre);
-        public void DeleteFoodRecipe(int foodID);
-        public List<Food_Ingredients> GetAllFoodRecipes(int foodID);
+       void AddFoodRecipe(Food_Ingredients foodIngre);
+        void DeleteFoodRecipe(int foodID);
+		List<object[]> GetListIngresogFood (int foodID); 
+        List<Food_Ingredients> GetAllFoodRecipes(int foodID);
+		void DecreaseIngre(int foodID, int qty);
 	}
 }

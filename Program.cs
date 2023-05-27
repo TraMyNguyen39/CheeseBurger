@@ -187,16 +187,20 @@ app.UseEndpoints(endpoints =>
 					// Lấy dịch vụ sendmailservice
 					var sendmailservice = context.RequestServices.GetService<ISendMailService>();
 
-					MailContent content = new MailContent
-					{
-						To = "vothedatdavid@gmail.com",
-						Subject = "Thư cảm ơn quý khách",
-						Body = "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>Cảm ơn quý khách đã mua hàng của chúng tôi</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            margin: 0;\r\n            padding: 20px;\r\n        }\r\n\r\n        h1 {\r\n            color: #333;\r\n        }\r\n\r\n        p {\r\n            color: #666;\r\n            line-height: 1.5;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n    <h1>Cảm ơn quý khách đã mua hàng của chúng tôi</h1>\r\n    <p>Xin chào,</p>\r\n    <p>Chúng tôi xin gửi lời cảm ơn chân thành đến quý khách đã mua hàng tại cửa hàng của chúng tôi. Đây là một email tự động để xác nhận đơn hàng của quý khách.</p>\r\n    <p>Chúng tôi đã nhận được đơn hàng của quý khách và đang tiến hành xử lý. Chúng tôi sẽ gửi thông tin về việc giao hàng đến quý khách trong thời gian sớm nhất.</p>\r\n    <p>Nếu quý khách có bất kỳ câu hỏi nào về đơn hàng hoặc dịch vụ của chúng tôi, xin vui lòng liên hệ với chúng tôi qua địa chỉ email hoặc số điện thoại được cung cấp bên dưới.</p>\r\n    <p>Chúng tôi rất trân trọng sự tin tưởng và ủng hộ của quý khách.</p>\r\n    <p>Trân trọng,</p>\r\n    <p>Cửa hàng của chúng tôi</p>\r\n</body>\r\n</html>"
-					};
+				//endpoints.MapGet("/User/MyOrder", async context => {
+				//	// Lấy dịch vụ sendmailservice
+				//	var sendmailservice = context.RequestServices.GetService<ISendMailService>();
 
-					await sendmailservice.SendMail(content);
-					context.Response.Redirect("/User/Menu");
-					//await context.Response.WriteAsync("Send mail");
-				});
+				//	MailContent content = new MailContent
+				//	{
+				//		To = "nguyentramy19112003@gmail.com",
+				//		Subject = "CheeseBurger",
+				//		Body = "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>Cảm ơn quý khách đã mua hàng của chúng tôi</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            margin: 0;\r\n            padding: 20px;\r\n        }\r\n\r\n        h1 {\r\n            color: #333;\r\n        }\r\n\r\n        p {\r\n            color: #666;\r\n            line-height: 1.5;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n    <h1>Cảm ơn quý khách đã mua hàng của chúng tôi</h1>\r\n    <p>Xin chào,</p>\r\n    <p>Chúng tôi xin gửi lời cảm ơn chân thành đến quý khách đã mua hàng tại cửa hàng của chúng tôi. Đây là một email tự động để xác nhận đơn hàng của quý khách.</p>\r\n    <p>Chúng tôi đã nhận được đơn hàng của quý khách và đang tiến hành xử lý. Chúng tôi sẽ gửi thông tin về việc giao hàng đến quý khách trong thời gian sớm nhất.</p>\r\n    <p>Nếu quý khách có bất kỳ câu hỏi nào về đơn hàng hoặc dịch vụ của chúng tôi, xin vui lòng liên hệ với chúng tôi qua địa chỉ email hoặc số điện thoại được cung cấp bên dưới.</p>\r\n    <p>Chúng tôi rất trân trọng sự tin tưởng và ủng hộ của quý khách.</p>\r\n    <p>Trân trọng,</p>\r\n    <p>Cửa hàng của chúng tôi</p>\r\n</body>\r\n</html>"
+				//	};
+
+				//	await sendmailservice.SendMail(content);
+				//	context.Response.Redirect("/User/MyOrder");
+				//	//await context.Response.WriteAsync("Send mail");
+				//});
 			});
 app.Run();

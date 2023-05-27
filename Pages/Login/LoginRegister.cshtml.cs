@@ -163,7 +163,7 @@ namespace CheeseBurger.Pages
                 {
                     var customerID = customerService.GetCustomerID(user.AccountID);
                     HttpContext.Session.SetInt32("customerID", customerID);
-                    return RedirectToPage("/User/Menu");
+                    return RedirectToPage("/User/Menu", new { Message = "Vui lòng đăng nhập lại tài khoản" });
                 }
             }
         }

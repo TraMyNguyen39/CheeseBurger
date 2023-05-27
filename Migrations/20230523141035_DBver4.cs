@@ -6,7 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CheeseBurger.Migrations
 {
     /// <inheritdoc />
+<<<<<<<< HEAD:Migrations/20230523141035_DBver4.cs
     public partial class DBver4 : Migration
+========
+    public partial class DBver3 : Migration
+>>>>>>>> 4d31aef923da9a40cfcfc62f8e14f984717196ee:Migrations/20230521063745_DBver3.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -155,8 +159,8 @@ namespace CheeseBurger.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FoodName = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
-                    ProfitPercent = table.Column<int>(type: "int", nullable: false),
-                    tempPrice = table.Column<float>(type: "real", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    originPrice = table.Column<float>(type: "real", nullable: false),
                     ImageFood = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -201,6 +205,7 @@ namespace CheeseBurger.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IngredientsName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     IngredientsPrice = table.Column<float>(type: "real", nullable: false),
+                    IngredientsQty = table.Column<float>(type: "real", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     MeasureID = table.Column<int>(type: "int", nullable: false),
                     PartnerID = table.Column<int>(type: "int", nullable: false)

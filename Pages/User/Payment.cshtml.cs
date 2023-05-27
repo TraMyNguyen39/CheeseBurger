@@ -16,9 +16,10 @@ namespace CheeseBurger.Pages
 		private readonly ICartService cartService;
 		private readonly IAccountService accountService;
 		private readonly IFeeAPIService feeService;
-        private readonly IConfiguration config;
-        //private readonly HttpClient _httpClient;
-        public List<District> List_Districts { get; set; }
+		private readonly IFood_IngredientsService foodIngreService;
+		private readonly IConfiguration config;
+		//private readonly HttpClient _httpClient;
+		public List<District> List_Districts { get; set; }
 		public List<Account> List_Account { get; set; }
 		public List<Ward> List_Wards { get; set; }
 		public List<CartDTO> Carts { get; set; }
@@ -39,14 +40,15 @@ namespace CheeseBurger.Pages
 		[BindProperty]
 		public float totalMoney { get; set; }
 		public PaymenteModel(IWardService wardService, IOrderService orderService, 
-			IDistrictService districtService, ICartService cartService, IOrder_FoodService orderFoodService, IFeeAPIService feeService, IConfiguration config, IAccountService accountService)
+			IDistrictService districtService, ICartService cartService, IOrder_FoodService orderFoodService, 
+			IFeeAPIService feeService, IConfiguration config, IAccountService accountService, IFood_IngredientsService foodIngreService )
 		{
 			this.wardService = wardService;
 			this.districtService = districtService;
 			this.orderService = orderService;
 			this.cartService = cartService;
 			this.orderFoodService = orderFoodService;
-			this.orderFoodService = orderFoodService;
+			this.foodIngreService= foodIngreService;
             this.config = config;
             this.feeService = feeService;
 			this.accountService = accountService;
@@ -163,9 +165,10 @@ namespace CheeseBurger.Pages
 					PriceOF = cart.Price
 				};
 				orderFoodService.CreateOrderDetail(orderLine);
+				foodIngreService.DecreaseIngre(cart.FoodId, cart.Quantity);
 				cartService.DeleteCart(customerId, cart.FoodId); // Tao don hon chi tiet, dong thoi xoa gio hang
 			}
 			return RedirectToPage("/User/MyOrder");
 		}
-    }
+	}
 }

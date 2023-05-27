@@ -88,10 +88,10 @@ form.addEventListener("submit", function (event) {
 	form.submit();
 });
 
-var alert = document.querySelector(".alert-success");
+var alert = document.querySelector(".alert-dismissible");
 var hideTimeout = setTimeout(function () {
 	alert.classList.remove('show');
-}, 3000);
+}, 2000);
 
 // Ngoi sao
 var list = document.querySelectorAll('.stars-outer input');
@@ -100,4 +100,11 @@ for (var i = 0; i < list.length; i++) {
 	const starPercentage = (rating / 5) * 100;
 	const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
 	list[i].parentElement.children[0].style.width = starPercentageRounded;
+}
+
+var hethangbtns = document.querySelectorAll('.grey-btn');
+for (var i = 0; i < hethangbtns.length; i++) {
+	hethangbtns[i].addEventListener('click', function () {
+		event.preventDefault();
+	});
 }

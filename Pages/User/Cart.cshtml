@@ -39,11 +39,13 @@
 							<form class="input-group" method="post">
 								<div class="minus minus-plus-button">-</div>
 								<input type="text" value="@i.Quantity" class="input-field"
-							   	onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="quantity">
+							   	onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 08" name="quantity">
 								<div class="plus minus-plus-button">+</div>
 								<input type="hidden" value="@i.FoodId" name="foodId" />
+								<input type="hidden" value="@i.MaxQty" name="maxQty" />
 								<input type="submit" style="width: 0; height: 0; display: none" />
 							</form>
+							<span class="error-message" style="color: red"></span>
 						</td>
 						<td style="font-weight: 500">@((i.Quantity * i.Price).ToString("N0"))đ</td>
 						<td>
@@ -81,7 +83,7 @@
 					</div>
 				</div>
 		</div>
-		<button class="submit-btn" onclick="window.location.href = 'https://localhost:44344/User/Payment';">Mua Hàng</button>
+		<button class="submit-btn" onclick="return ValidateForm(event)">Mua Hàng</button>
 	</div>
 </div>
 

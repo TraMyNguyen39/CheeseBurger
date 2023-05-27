@@ -15,6 +15,7 @@ namespace CheeseBurger.Model.Entities
         public String IngredientsName { get; set; } = String.Empty;
 		[Required]
 		public float IngredientsPrice { get; set; }
+		public float IngredientsQty { get; set; }
 		[Required]
 		public bool IsDeleted { get; set; }
 

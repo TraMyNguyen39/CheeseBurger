@@ -173,10 +173,10 @@ namespace CheeseBurger.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<int>("ProfitPercent")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<float>("tempPrice")
+                    b.Property<float>("originPrice")
                         .HasColumnType("real");
 
                     b.HasKey("FoodID");
@@ -287,6 +287,9 @@ namespace CheeseBurger.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<float>("IngredientsPrice")
+                        .HasColumnType("real");
+
+                    b.Property<float>("IngredientsQty")
                         .HasColumnType("real");
 
                     b.Property<bool>("IsDeleted")

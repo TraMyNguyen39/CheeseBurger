@@ -72,7 +72,7 @@ namespace CheeseBurger.Pages.Admin
 						QuantityIG = qty[i]
 					});
 				}
-				food_Service.UpdatePrice(foodID, 0);
+				food_Service.UpdatePrice(foodID);
 			}
 			return RedirectToPage("/Admin/ManageFoodRecipe");
 		}

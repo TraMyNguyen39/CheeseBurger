@@ -71,12 +71,21 @@
 				<strong>@Model.Message</strong>
 			</div>
 		}
-		@if (Model.successfulStatus)
+		@if (Model.ProductInfo == "Thanhcong")
 		{
 			<!-- Success Alert -->
 			<div class="alert alert-success alert-menu-edit alert-dismissible d-flex align-items-center fade show">
 				<i class="bi-check-circle-fill"></i>
 				<strong class="mx-1 mr-4">Thành công!</strong> Đã thêm sản phẩm vào giỏ hàng!
+				<button type="button" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+			</div>
+		}
+		else if (Model.ProductInfo != null)
+		{
+			<!-- Failed Alert -->
+			<div class="alert alert-danger alert-menu-edit alert-dismissible d-flex align-items-center fade show">
+				<i class="fa-solid fa-circle-xmark" style="color: red"></i>
+				<strong class="mx-1 mr-4">Thất bại!</strong> @Model.ProductInfo
 				<button type="button" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
 			</div>
 		}
@@ -104,7 +113,14 @@
 							</div>
 						}
 						<input type="hidden" name="cartProductID" value="@i.IDFood" />
-						<button type="submit" class="submit-btn card-btn"><i class="fas fa-cart-shopping"></i>Thêm vào giỏ hàng</button>
+						@if(i.isStocking)
+						{
+							<button type="submit" class="submit-btn card-btn"><i class="fas fa-cart-shopping"></i>Thêm vào giỏ hàng</button>
+						}
+						else
+						{
+							<button class="submit-btn card-btn grey-btn"><i class="fas fa-cart-shopping"></i>Hết hàng</button>
+						}
 					</form>
 				</div>
 			}
