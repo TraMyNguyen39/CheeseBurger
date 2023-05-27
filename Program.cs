@@ -182,11 +182,7 @@ app.UseEndpoints(endpoints =>
                     DateTime sendTime = DateTime.Now;
                     context.Session.SetString("SendTimeCode", sendTime.ToString());                    
                     context.Response.Redirect(redirectUrl);
-                });
-                endpoints.MapGet("/User/MyOrder", async context => {
-					// Lấy dịch vụ sendmailservice
-					var sendmailservice = context.RequestServices.GetService<ISendMailService>();
-
+                });               
 				//endpoints.MapGet("/User/MyOrder", async context => {
 				//	// Lấy dịch vụ sendmailservice
 				//	var sendmailservice = context.RequestServices.GetService<ISendMailService>();
@@ -202,5 +198,5 @@ app.UseEndpoints(endpoints =>
 				//	context.Response.Redirect("/User/MyOrder");
 				//	//await context.Response.WriteAsync("Send mail");
 				//});
-			});
+			   });
 app.Run();
