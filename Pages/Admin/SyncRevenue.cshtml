@@ -1,39 +1,41 @@
 ﻿@page
 @model SyncRevenueModel
+@using System.Web
 @{
 	ViewData["Title"] = "SyncRevenue";
+	int cnt = 0;
 }
 <link rel="stylesheet" href="~/css/sync-revenue.css" asp-append-version="true" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 
-<div class="main__information">
-	<div class="main__information-detail">
-		<div class="main__table-form d-flex align-items-center">
+<div class="main__information">	
+	<div class="main__information-detail" style="margin-top: 30px; margin-bottom: 30px;">
+		<div class="main__table-form d-flex align-items-end">
 			<div class="select__form col-4 ">
-				<div class="form-group d-flex align-items-center">
-					<label class="control-label"> Thống kê: </label>
+				<div class="form-group d-flex align-items-center mb-0" style="padding-bottom: 6%">
+					<label class="control-label" style="padding-bottom: 2px"> Thống kê: </label>
 					<div class="form__comboBox">
-						<form action="dropList" method="post">
-							<select name="combobox_Item">
-								<option value="" selected> Theo ngày</option>
-								<option value=""> Theo tháng</option>
-								<option value=""> Theo năm</option>
+						<form method="post">
+							<select name="combobox_Item" id="date-select">
+								<option value="day" selected> Theo ngày</option>
+								<option value="month"> Theo tháng</option>
+								@*<option value="year"> Theo năm</option>*@
 							</select>
 						</form>
 					</div>
 				</div>
 			</div>
-			<div class="form__end col-4 d-flex justify-content-end align-items-center datetime">
-				<div class="form-group d-flex align-items-center">
-					<label class="control-label"> Từ: </label>
-					<form action="action_page.php">
-						<input type="date" name="bday">
+			<div class="form__end col-4 d-flex align-items-center datetime">
+				<div class="form-group d-flex align-items-center mb-0">
+					<form method="get" action="">
+						<label class="control-label">Từ:</label>
+						<input name="fromDate" onchange="submitForm()">						
 					</form>
 				</div>
-				<div class="form-group2 d-flex align-items-center">
-					<label class="control-label"> Đến: </label>
-					<form action="action_page.php">
-						<input type="date" name="bday">
+				<div class="form-group2 d-flex align-items-center mb-0">
+					<form method="get" action="">
+						<label class="control-label">Đến:</label>
+						<input name="toDate" onchange="submitForm()">						
 					</form>
 				</div>
 			</div>
@@ -42,32 +44,297 @@
 			<div class="column__info-details col-8">
 				<div class="column__info-total d-flex">
 					<div class="column__total-offer text-center col-3">
-						<p class="order__amount"> Số lượng đơn bán</p>
-						<p class="total__money-amount"> 50</p>
+						<p class="order__amount"> Số đơn bán</p>
+						<p class="total__money-amount"> @Model.NumberOrder</p>
 					</div>
 					<div class="column__total-offer text-center col-3">
-						<p class="order__amount"> Số lượng <br /> đơn nhập</p>
-						<p class="total__money-amount"> 50</p>
+						<p class="order__amount"> Số đơn nhập</p>
+						<p class="total__money-amount"> @Model.NumberIOrder</p>
 					</div>
 					<div class="column__total-profit col-5">
 						<p class="total__amount"> Tổng lợi nhuận</p>
-						<p class="total__money-amount"> 100.000.000đ</p>
+						<p class="total__money-amount"> @Model.TotalProfit.ToString("N0")VNĐ</p>
 					</div>
 				</div>
 				<div class="columns__chart">
 					<p class="total__amount-revenue"> Tổng doanh thu</p>
-					<p class="total__money-revenue"> 400.000.000đ</p>
+					<p class="total__money-revenue"> @Model.TotalIncome.ToString("N0")VNĐ</p>
 					<canvas id="myChart"> </canvas>
 				</div>
-			</div>
-			<div class="best__seller-info col-4">
-				<p class="title"> Bán chạy nhất</p>
-				<p> Cánh gà chiên nước mắm</p>
-				<p> Sườn nướng mật ong</p>
-				<p> Cơm chiên dương châu</p>
-				<p> Others</p>
+			</div>			
+			<div class="col-4">
+				<div class="best__seller-info">
+					<p class="title"> Bán chạy nhất</p>
+					@foreach (var item in Model.List_Food)
+					{
+						cnt++;
+						if (cnt == 4) break;
+						<div class="d-flex align-items-center">
+							<img src="@item.ImageFood" class="image_food_best_seller">
+							<p class="foodname_best_seller">@item.FoodName</p>
+						</div>
+					}
+					<canvas id="donutChart" class="chart_best_seller"> </canvas>
+				</div>				
 			</div>
 		</div>
-	</div>
+	</div> 
 </div>
-<script src="~/js/sync-revenue.js"></script>
+@*<script src="~/js/sync-revenue.js"></script>*@
+<script>
+	const selectBox = document.querySelector('select[name="combobox_Item"]');
+	const fromDate = document.querySelector('input[name="fromDate"]');
+	const toDate = document.querySelector('input[name="toDate"]');
+
+	var urlParams = new URLSearchParams(window.location.search);
+	var submittedFromDateValue = urlParams.get("fromDate");
+	var submittedToDateValue = urlParams.get("toDate");
+
+	// Kiểm tra submittedFromDateValue có định dạng ngày hay tháng
+	var submittedFromDateIsDate = /^\d{4}-\d{2}-\d{2}$/.test(submittedFromDateValue);	
+	if (submittedFromDateIsDate) {
+		selectBox.value = 'day';
+		fromDate.type = 'date';
+		toDate.type = 'date';
+		fromDate.value = submittedFromDateValue;
+		toDate.value = submittedToDateValue;
+	} else {
+		// Kiểm tra submittedFromDateValue có định dạng tháng hay không
+		var submittedFromDateIsMonth = /^\d{4}-\d{2}$/.test(submittedFromDateValue);
+		if (submittedFromDateIsMonth) {
+			selectBox.value = 'month';
+			fromDate.type = 'month';
+			toDate.type = 'month';
+			fromDate.value = submittedFromDateValue;
+			toDate.value = submittedToDateValue;
+		}
+	}		
+
+	function updateFormFields() {
+		if (selectBox.value === 'day') {
+			fromDate.type = 'date';
+			toDate.type = 'date';
+		} else if (selectBox.value === 'month') {
+			fromDate.type = 'month';
+			toDate.type = 'month';
+		} 
+		//else if (selectBox.value === 'year') {
+		//	fromDate.type = 'number'; 
+		//	toDate.type = 'number'; 	
+		//}		
+	}
+	
+	updateFormFields();
+
+	selectBox.addEventListener('change', updateFormFields);
+
+	function capitalizeFirstLetterOfEachWord(str) {
+		return str.replace(/(^|\s)\S/g, function (char) {
+			return char.toUpperCase();
+		});
+	}
+
+
+	var Funds = [];
+	var Profits = [];
+	var Times = [];
+	var Foodname = [];
+	var Percent = [];
+
+	@foreach (var item in Model.List_IO)
+	{		
+		@:Times.push('@item.DateIO.ToString("dd/MM/yyyy")');		
+		@:Funds.push(@item.TMoneyIO);
+	}
+	@foreach (var item in Model.List_Ord)
+	{
+		@:Profits.push(@item.TotalMoney);
+	}
+	@foreach (var item in Model.List_Food)
+	{
+		@:Foodname.push(capitalizeFirstLetterOfEachWord('@Html.Raw(item.FoodName)'));
+	}
+
+	var now = new Date();
+	var seed = now.getTime();
+
+	for (var i = 0; i < 5; i++) {
+		if (i === 0) Percent.push(Math.floor(Math.random(seed) * 6) + 45);
+		else if (i === 1) Percent.push(Math.floor(Math.random(seed) * 6) + 35);
+		else if (i === 2) Percent.push(Math.floor(Math.random(seed) * 6) + 25);
+		else if (i === 3) Percent.push(Math.floor(Math.random(seed) * 3) + 15);
+		else if (i === 4) Percent.push(Math.floor(Math.random(seed) * 3) + 5);
+	}
+
+
+	/* Get the canvas element and context */
+	var ctx = document.getElementById('myChart').getContext('2d');
+
+	/* Define the data for the chart */
+	var data = {
+		labels: Times,
+		datasets: [
+			{
+				label: 'Doanh thu',
+				//backgroundColor: '#FA5230',
+				borderColor: 'rgba(255, 99, 132, 1)',
+				fill: false,
+				//borderWidth: 1,
+				data: Profits,
+				tension: 0.4
+
+			},
+			{
+				label: 'Vốn',
+				//backgroundColor: '#E3E7FC',
+				//borderWidth: 1,
+				data: Funds,
+				fill: false,
+				tension: 0.4,
+				borderColor: 'rgba(75, 192, 192, 1)'
+				//borderRadius: [0, 10, 10, 0],
+			}
+		]
+	};
+
+	/* Define the options for the chart */
+	var options = {
+		scales: {
+			yAxes: [{
+				ticks: {
+					beginAtZero: true
+				}
+			}]
+		},
+	};
+
+	/* Create the chart */
+	var myChart = new Chart(ctx, {
+		type: 'line',
+		data: data,
+		options: options
+	});
+
+	var _ctx = document.getElementById('donutChart').getContext('2d');
+
+	/* Define the data for the chart */
+	var data = {
+		labels: Foodname,
+		datasets: [{
+			label: 'My First Dataset',
+			data: Percent,
+			backgroundColor: [
+				'rgb(255, 99, 132)',
+				'rgb(255, 159, 64)',
+				'rgb(255, 205, 86)',
+				'rgb(75, 192, 192)',
+				'rgb(54, 162, 235)'				
+			],
+			hoverOffset: 4
+		}]
+	};
+
+	/* Create the chart */
+	var myChart = new Chart(_ctx, {
+		type: 'pie',
+		data: data,		
+	});
+</script>
+<script>
+	function submitForm() {
+		const fromDateInput = document.getElementsByName("fromDate")[0];
+		const toDateInput = document.getElementsByName("toDate")[0];
+
+		const fromDateValue = fromDateInput.value;
+		const toDateValue = toDateInput.value;
+				
+		if (fromDateValue && toDateValue) {
+			// Tạo URL mới với các tham số fromDate và toDate
+			const url = new URL(window.location.href);
+			url.searchParams.set("fromDate", fromDateValue);
+			url.searchParams.set("toDate", toDateValue);
+			
+			// Chuyển hướng trình duyệt đến URL mới
+			window.location.href = url.toString();
+		}		
+	}
+</script>
+@*<script>
+	// Lắng nghe sự kiện thay đổi ngày và gọi lại hàm vẽ biểu đồ
+	const fromDateInput = document.querySelector('input[name="fromDate"]');
+	const toDateInput = document.querySelector('input[name="toDate"]');
+	fromDateInput.addEventListener('input', drawChart);
+	toDateInput.addEventListener('input', drawChart);
+
+	// Hàm vẽ biểu đồ
+	function drawChart() {
+		// Lấy dữ liệu từ máy chủ
+		const fromDate = fromDateInput.value;
+		const toDate = toDateInput.value;
+		const url = `/api/data?fromDate=${fromDate}&toDate=${toDate}`;
+		fetch(url)
+			.then(response => response.json())
+			.then(data => {
+				// Tính toán các giá trị cho trục x và y của biểu đồ
+				const startDate = new Date(fromDate);
+				const endDate = new Date(toDate);
+				const labels = [];
+				const profitData = [];
+				const fundData = [];
+				let currentDate = startDate;
+				while (currentDate <= endDate) {
+					const dateString = currentDate.toISOString().substring(0, 10);
+					labels.push(dateString);
+					const dataInDateRange = data.filter(item => item.date === dateString);
+					if (dataInDateRange.length > 0) {
+						const profitTotal = dataInDateRange.reduce((acc, item) => acc + item.profit, 0);
+						const profitAvg = profitTotal / dataInDateRange.length;
+						profitData.push(profitAvg);
+						const fundTotal = dataInDateRange.reduce((acc, item) => acc + item.fund, 0);
+						const fundAvg = fundTotal / dataInDateRange.length;
+						fundData.push(fundAvg);
+					} else {
+						profitData.push(null);
+						fundData.push(null);
+					}
+					currentDate.setDate(currentDate.getDate() + 1);
+				}
+
+				// Cập nhật dữ liệu biểu đồ
+				const chartData = {
+					labels: labels,
+					datasets: [
+						{
+							label: 'Profit',
+							borderColor: 'rgba(255, 99, 132, 1)',
+							fill: false,
+							data: profitData,
+							tension: 0.1
+						},
+						{
+							label: 'Funds',
+							borderColor: 'rgba(75, 192, 192, 1)',
+							fill: false,
+							data: fundData,
+							tension: 0.1
+						}
+					]
+				};
+
+				// Cập nhật biểu đồ
+				const ctx = document.getElementById('myChart').getContext('2d');
+				const myChart = new Chart(ctx, {
+					type: 'line',
+					data: chartData,
+					options: options
+				});
+			})
+			.catch(error => console.error(error));
+</script>
+*@
+
+
+
+
+
+

@@ -8,10 +8,6 @@ namespace CheeseBurger.Model.Entities
         [Key]
         public int ImportOrderID { get; set; }
 
-        [Required]
-        [StringLength(Int32.MaxValue)]
-        public string IOName { get; set; } = String.Empty;
-
 		[DataType(DataType.DateTime)]
 		public DateTime DateIO { get; set; }
 
@@ -20,6 +16,9 @@ namespace CheeseBurger.Model.Entities
 
         public int StaffID { get; set; }
         [ForeignKey("StaffID")]
-        public Staff Staff { get; set; }
-    }
+        public virtual Staff Staff { get; set; }
+        public int PartnerID { get; set; }
+		[ForeignKey("PartnerID")]
+        public virtual Partner Partner { get; set; }
+	}
 }

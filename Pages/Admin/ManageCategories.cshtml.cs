@@ -1,13 +1,16 @@
-using CheeseBurger.DTO;
+﻿using CheeseBurger.DTO;
+using CheeseBurger.Middleware;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 
 namespace CheeseBurger.Pages.Admin
 {
+    [Authorize("Quản trị viên","Nhân viên đầu bếp")]
     public class ManageCategoriesModel : PageModel
     {
 		private readonly ICategoryService categoryService;
@@ -20,7 +23,8 @@ namespace CheeseBurger.Pages.Admin
 		public int currentPage { get; set; }
 		public string sortBy { get; set; }
 		public string searchText { get; set; }
-		public ManageCategoriesModel(ICategoryService categoryService)
+        public string ModalAddName { get; set; }
+        public ManageCategoriesModel(ICategoryService categoryService)
 		{
 			this.categoryService = categoryService;
 		}
@@ -42,11 +46,12 @@ namespace CheeseBurger.Pages.Admin
 				categories = categoryService.GetListCategories(null, true);
 			}
         }
-		public IActionResult OnPostCreate(string Name)
-		{
-			categoryService.AddData(Name);
-			return RedirectToPage("ManageCategories");
-		}
+        public IActionResult OnPostCreate(string Name)
+        {
+            
+            categoryService.AddData(Name);
+            return RedirectToPage("ManageCategories");
+        }
         public IActionResult OnGetFind(int id)
         {
             var ingre = categoryService.FindCategories(id);

@@ -1,4 +1,5 @@
-﻿using CheeseBurger.Model;
+﻿using CheeseBurger.DTO;
+using CheeseBurger.Model;
 using CheeseBurger.Model.Entities;
 
 namespace CheeseBurger.Repository.Implements
@@ -15,6 +16,19 @@ namespace CheeseBurger.Repository.Implements
 		{
 			context.Order_Foods.Add(orderLine);
             context.SaveChanges();
+		}
+		public List<LineItemDTO> GetAllLine(int orderID)
+		{
+			return context.Order_Foods
+					.Where(p => p.OrderID == orderID)
+					.Join(context.Foods, c => c.FoodID, f => f.FoodID, (c, f)
+					=> new LineItemDTO { FoodId = f.FoodID, FoodPic = f.ImageFood, Name = f.FoodName, Price = c.PriceOF, Quantity = c.QuantityOF })
+					.ToList();
+		}
+
+		public List<Order_Food> CartReOrder(int orderID)
+		{
+			return context.Order_Foods.Where(p => p.OrderID == orderID).Select(p => p).ToList();
 		}
 	}
 }

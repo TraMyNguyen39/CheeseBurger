@@ -4,6 +4,7 @@ using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.IdentityModel.Tokens;
 using System;
 
@@ -16,8 +17,9 @@ namespace CheeseBurger.Pages
 		private readonly ICartService cartService;
 		public List<Category> categories { get; set; }
 		public List<FoodDTO> foods { get; set; }
-
-        public string categoryID { get; set; }
+		[BindProperty(SupportsGet = true, Name = "p")]
+		public int currentPage { get; set; }
+		public string categoryID { get; set; }
 		public string priceRange { get; set; }
 		public string sortBy { get; set; }
 		public string searchText { get; set; }
@@ -25,8 +27,8 @@ namespace CheeseBurger.Pages
         [BindProperty]
         public int cartProductID { get; set; }
 		public string Message { get; set; }
-		[BindProperty (SupportsGet = true)]
-		public bool successfulStatus { get; set; }
+		[BindProperty(SupportsGet = true)]
+		public string ProductInfo { get; set; }
 		public MenuModel (IFoodService foodService, ICategoryService categoryService, ICartService cartService)
         {
             this.foodService = foodService;
@@ -71,9 +73,19 @@ namespace CheeseBurger.Pages
 			var customerID = HttpContext.Session.GetInt32("customerID");
 			if (customerID != null)
 			{
-				//Add sản phẩm vào cart
-				cartService.AddCart((int)customerID, cartProductID, 1);
-				return RedirectToPage("/User/Menu", new { successfulStatus = true });
+				var cartQty = cartService.GetQuantityofFood((int)customerID, cartProductID);
+				var maxFoodQty = foodService.GetMaxQuantityofFood(cartProductID);
+				if (cartQty < maxFoodQty)
+				{
+					//Add sản phẩm vào cart
+					cartService.AddCart((int)customerID, cartProductID, 1);
+					ProductInfo = "Thanhcong";
+				}
+				else
+				{
+					ProductInfo = "Món ăn chỉ còn " + maxFoodQty + " sản phẩm";
+				}
+				return RedirectToPage("/User/Menu", new { ProductInfo });
 			}
 			else
 			{

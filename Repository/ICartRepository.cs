@@ -10,6 +10,6 @@ namespace CheeseBurger.Repository
 		void AddCart(int customerID, int cartProductID, int qty);
 		void UpdateCart(int customerID, int cartProductID, int qty);
 		void DeleteCart(int customerID, int cartProductID);
-		//float GetCartChange(int customerID, int cartProductID, int qty);
+		int GetQuantityofFood(int customerID, int cartProductID);
 	}
 }

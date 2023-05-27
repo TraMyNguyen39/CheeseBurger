@@ -3,18 +3,51 @@
     position: relative;
     transform: translateY(12px);
 }
-/* Table */
 
+.input-wrapper i.fa-search-edit{
+    position: relative;
+    top: 0; 
+     right: 0; 
+    transform: translateY(0);
+}
+
+.input-wrapper i:hover {
+    color: var(--black-color);
+}
+    /* Table */
 .content-table tbody tr td.Danh_muc {
     text-align: left;
-    padding-left: 5%;
 }
-/* End Table */
 
-/* Modal Add */
+.content-table tbody tr td.ID_mon{
+    font-weight: normal;
+}
+
+.content-table {
+    margin-top: 0;
+}
+
+.form-group, .button__add button {
+    margin-bottom: 0 !important;
+}
+
+.main__table-form button {
+    background-color: #C0C0C0;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+td.Trang_thai {
+    text-align: right !important;
+    padding-right: 5%;
+}
+.main__table-form button:hover{
+    cursor: pointer;
+}
+    /* End Table */
+    /* Modal Add */
 .modal__food-information {
     background-color: var(--white-color);
-    width: 50%;
+    width: 40%;
     height: fit-content;
     position: relative;
     border-radius: 8px;
@@ -43,15 +76,15 @@
 }
 
 
-.food__name input, .food__categories input, .food__description input, .search__weight input, .form__comboBoxList select {
+.food__name input, .food__categories .form__comboBoxList select, .food__description input, .search__weight input, .ingredient__price input, .food__categories input{
     height: 40px;
     font-size: 1.6rem;
     border: 1px solid #495057;
     padding: 0 10px;
 }
 
-    .food__name input:focus, .food__categories input:focus, .food__description input:focus, .search__weight input:focus, .form__comboBoxList select:focus,
-    .food__name input:focus-visible, .food__categories input:focus-visible, .food__description input:focus-visible, .search__weight input:focus-visible, .form__comboBoxList select:focus-visible {
+    .food__name input:focus, .food__categories input:focus, .food__description input:focus, .search__weight input:focus, .ingredient__price input:focus,
+    .food__name input:focus-visible, .food__categories input:focus-visible, .food__description input:focus-visible, .search__weight input:focus-visible, .ingredient__price input:focus-visible {
         outline: none;
         box-shadow: none;
         border: 1px solid #495057;
@@ -60,11 +93,11 @@
 
 
 .food__price, .food__categories, .food__description {
-    padding: 10px 5px 10px 0px !important;
+    padding: 10px 0 10px 0px !important;
 }
 
 
-.form__comboBoxList select[name="combobox_Item"] {
+.form__comboBoxList select[name="combobox_Item"]{
     height: 40px;
     width: 100%;
 }
@@ -89,22 +122,35 @@
 }
 
     .button__food-add button:hover {
-        cursor: pointer;
-        opacity: 0.8;
-    }
+    cursor: pointer;
+    opacity: 0.8;
+}
 
     .button__food-add button:focus {
         outline: none;
     }
+
+select#role-select, select#sort-select {
+    margin: 0;
+    width: 150%;
+}
+
+p.image__text {
+    width: 25%;
+    font-weight: 600;
+    font-size: 1.8rem;
+}
 /* End Modal Add */
 .categories__text {
     font-size: 1.8rem;
 }
-
+.food-line {
+    margin-bottom: 10px;
+}
 .food-line img {
-    border-style: none;
-    width: 50%;
-    height: fit-content;
+    padding-left: 15px;
+    margin-bottom: 10px;
+    width: 40%;
     border-radius: 8px;
 }
 

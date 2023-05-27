@@ -2,17 +2,15 @@
 @model ManageCategoriesModel
 @{
     ViewData["Title"] = "ManageCategories";
-    int stt = 0;
 }
 <link rel="stylesheet" href="~/css/manage-categories.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
 
-<div class="main__information">
+<div class="main__information" style="margin-top: 100px">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <form class="menu-sort-user" method="get">
             <label style="margin-left: 2%">Sắp xếp theo: </label>
             <select name="sortBy" class="menu-sort-user-box" id="sort-select">
-                <option value="all">Sắp xếp</option>
                 <option value="name-asc">Tăng theo tên</option>
                 <option value="name-desc">Giảm theo tên</option>
             </select>
@@ -21,7 +19,7 @@
         </form>
     </div>
     @{
-        var pageSize = 3; // Number of rows to show per page
+        var pageSize = 5; // Number of rows to show per page
         var totalPages = (int)Math.Ceiling((double)Model.categories.Count / pageSize); // Calculate the total number of pages
         var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
         var categories = Model.categories.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
@@ -32,8 +30,7 @@
         <div class="table__information col-9 pl-0">
             <table class="content-table">
                 <thead>
-                    <tr>
-                        <th class="STT col-1">STT</th>
+                    <tr>                       
                         <th class="ID_mon col-2">Mã DM</th>
                         <th class="Ten_mon col-3">Tên danh mục</th>
                         <th class="Number_mon col-3">Số lượng món</th>
@@ -43,8 +40,7 @@
                 <tbody>
                     @foreach (var i in categories)
                     {
-                        <tr>
-                            <td class="STT">@(++stt)</td>
+                        <tr>                           
                             <td class="ID_mon">@i.CategoryID</td>
                             <td class="Ten_mon">@i.CategoryName</td>
                             <td class="Number_mon">@i.Quantity</td>
@@ -55,23 +51,33 @@
                             </td>
                         </tr>
                     }
+                    @foreach (var i in Model.categories)
+                    {
+                        <tr>
+                            <td class="Ten_DM_All" style="display: none;">@i.CategoryName</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
+            <p id="category-error-td" style="color: red" width="100%"></p>
             @{
-                var pagingmodel = new CheeseBurger.Helpers.PagingModel()
+            var pagingmodel = new CheeseBurger.Helpers.PagingModel()
             {
                 currentPage = Model.currentPage,
                 countPages = totalPages,
-                generateUrl = (int? p) => Url.Page("/Admin/ManageCategories", new { p })
+                generateUrl = (int? p) => Url.Page("/Admin/ManageCategories", new { p, Model.searchText, Model.sortBy })
             };
             }
             <partial name="_Paging" model="@pagingmodel" />
         </div>
         <div class="categories-add col-3">
-            <form class="categories__form-add" method="post" asp-page="ManageCategories" asp-page-handler="Create">
+            <form class="categories__form-add" method="post" asp-page="ManageCategories" asp-page-handler="Create" onsubmit="return validateForm(event)">
                 <p class="categories__text-specific">Thêm danh mục</p>
                 <p class="categories__text">Tạo danh mục mới:</p>
-                <div class="info__form"><input class="form-control mr-sm-2" type="search" placeholder="" name="Name" required="required"></div>
+                <div class="info__form">
+                     <input class="form-control mr-sm-2" type="search" placeholder="" name="Name" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
+                     <span id="category-error" style="color: red"></span>
+                </div>
                 <button class="submit-btn add-category-btn" type="submit" name="p">Thêm danh mục +</button>
             </form>
         </div>
@@ -90,7 +96,7 @@
                 <div class="categories__form-edit">
                     <p class="categories__text-specific">Cập nhật danh mục</p>
                     <p class="categories__text">Nhập tên mới:</p>
-                    <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Name" required="required">
+                    <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Name" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
                     <button class="submit-btn update-cate-btn" type="submit">Cập nhật danh mục</button>
                 </div>
                 <input type="hidden" name="CategoriesID" class="modal__categories-id" value="" />
@@ -141,7 +147,6 @@
                 <div class="modal-header">
                     <h4 class="modal-title" id="confirm-label"></h4>
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-
                 </div>
                 <div class="modal-body">
                     <div class="text-center wirningColor">
@@ -151,6 +156,7 @@
                     <center>
                         <p class="message"></p>
                         <input type="hidden" name="CategoriesID" class="modal__categories-id" value="" />
+                        <input type="hidden" name="CategoriesQuanity" class="modal__categories-quantity" value="" />
                     </center>
                 </div>
                 <div class="modal-footer">
@@ -252,24 +258,46 @@
             };
         })(jQuery);
     });
-    $(".fa-ban").click(function () {
-        var id = $(this).data('id');
-        $.ajax({
-            type: 'GET',
-            data: { id: id },
-            url: '@Url.Page("ManageCategories", "Find")',
-            success: function (result) {
-                $('#confirm input[name="CategoriesID"]').val(result.categoryID); // Lưu trữ ID vào trường ẩn
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                alert('Error loading categories: ' + errorThrown);
-            }
+
+    function getCategoryQuantity(id) {
+        // Lấy thông tin hàng được chọn
+        var row = $('td.ID_mon').filter(function () {
+            return $(this).text() == id;
+        }).closest('tr');
+        var quantity = row.find('td.Number_mon').text();
+        if (quantity > 0) {
+            var message = 'Bạn không thể xóa khi còn món trong danh mục này.';
+            $('#category-error-td').text(message);
+        } else {
+            $('#category-error-td').empty();
+            $('#confirm').confirm({
+                title: 'confirmation',
+                message: 'Bạn có muốn xóa danh mục này không?',
+                confirm: 'Delete',
+                dismiss: 'Cancel'
+            });
+        }
+    }
+
+    $(document).ready(function () {
+        $(".fa-ban").click(function () {
+            var id = $(this).data('id');
+            $.ajax({
+                type: 'GET',
+                data: { id: id },
+                url: '@Url.Page("ManageCategories", "Find")',
+                success: function (result) {
+                    $('#confirm input[name="CategoriesID"]').val(result.categoryID); // Lưu trữ ID vào trường ẩn
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('Error loading categories: ' + errorThrown);
+                }
+            });
+            getCategoryQuantity(id);
         });
-        $('#confirm').confirm({
-            title: 'confirmation',
-            message: 'Bạn có muốn xóa danh mục này không?',
-            confirm: 'Delete',
-            dismiss: 'Cancel'
+
+        $('#alert .dismiss').click(function () {
+            $('#alert').hide();
         });
     });
 </script>
@@ -299,3 +327,27 @@ function populateFoods(CategoryID) {
     });
 }
 </script>
+<script>
+    function validateForm(event) {
+        var newCategoryName = $('input[name="Name"]').val().trim().toUpperCase().replace(/\s+/g, ' ');
+        var categoryNames = []; // Khởi tạo một mảng rỗng để lưu các tên danh mục
+
+        $('td.Ten_DM_All').each(function () {
+            var categoryName = $(this).text().trim().toUpperCase().replace(/\s+/g, ' '); // Lấy nội dung của phần tử td hiện tại và loại bỏ khoảng trắng thừa
+            categoryNames.push(categoryName); // Thêm tên danh mục vào mảng
+        });
+
+        // Kiểm tra xem tên nguyên liệu mới có trong mảng tên danh mục hay không
+        if (categoryNames.some(function (name) { return name === newCategoryName })) {
+            // Hiển thị thông báo lỗi
+            $('#category-error').text('Đã tồn tại tên danh mục. Vui lòng nhập lại !!!');
+
+            // Ngăn chặn việc submit form khi có lỗi
+            event.preventDefault();
+            return false;
+        }
+        // Nếu không có lỗi, ẩn thông báo lỗi
+        $('#category-error').text('');
+    }
+</script>
+

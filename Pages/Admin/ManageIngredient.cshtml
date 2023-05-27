@@ -1,12 +1,11 @@
-﻿@page 
+﻿@page
 @model ManageIngredientModel
 @{
 	ViewData["Title"] = "ManageIngredient";
-	int stt = 0;
 }
 <link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
 
-<div class="main__information">
+<div class="main__information" style="width: 70%">
 	<div class="main__information-detail">
 		<div class="main__information-add d-flex justify-content-end align-items-center">
 			<div class="button__add"><button class="" type="submit">Thêm nguyên liệu +</button></div>
@@ -15,7 +14,6 @@
 			<form class="menu-sort-user" method="get">
 				<label style="margin-left: 2%">Sắp xếp theo: </label>
 				<select name="sortBy" class="menu-sort-user-box" id="sort-select">
-					<option value="all">Sắp xếp</option>
 					<option value="name-asc">Tăng theo tên</option>
 					<option value="name-desc">Giảm theo tên</option>
 				</select>
@@ -29,12 +27,12 @@
 					<i class="fas fa-magnifying-glass"></i>
 				</button>
 			</form>
-		</div>	
+		</div>
 		@{
 			var pageSize = 5; // Number of rows to show per page
 			var totalPages = (int)Math.Ceiling((double)Model.ingredients.Count / pageSize); // Calculate the total number of pages
 			var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
-			var ingredients = Model.ingredients.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page 
+			var ingredients = Model.ingredients.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
 			if (Model.currentPage < 1) Model.currentPage = 1;
 			if (Model.currentPage > totalPages) Model.currentPage = totalPages;
 		}
@@ -42,27 +40,41 @@
 		<table class="content-table">
 			<thead>
 				<tr>
-					<th class="STT col-1">STT</th>
-					<th class="Ten_mon col-3">Tên nguyên liệu</th>
-					<th class="Gia col-3">Giá nhập vào</th>
-					<th class="Number_mon col-3">Số lượng còn lại</th>
-					<th class="Option col-2">Tùy chọn</th>
+					<th class="Ten_mon">Tên nguyên liệu</th>
+					<th class="Gia">Giá nhập vào</th>
+					<th class="">Nhà cung cấp</th>
+					<th class="Khoiluong">Khối lượng còn lại</th>
+					<th class="Option">Tùy chọn</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach (var i in ingredients)
 				{
 					<tr>
-						<td class="STT">@(++stt)</td>
 						<td class="ID_mon" style="display: none;">@i.IngredientID</td>
-						<td class="Ten_mon">@i.IngredientName</td>
-						<td class="Gia">@i.IngredientInputPrice.ToString("N0")VNĐ</td>
-						<td class="Number_mon">10 @i.MeasureName</td>
+						<td class="Ten_mon" style="padding-left: 5%;">@i.IngredientName</td>
+						<td class="Gia" style="text-align: right">@i.IngredientInputPrice.ToString("N0")VNĐ</td>
+						<td style="text-align: left">@i.PartnerName</td>
+						<td style="text-align: right; padding-right: 3%;">@i.IngreQty @i.MeasureName</td>
 						<td class="Option">
 							<i class="fas fa-eye" data-id="@i.IngredientID"></i>
-							<i class="fas fa-pencil-alt" data-id="@i.IngredientID" onclick="showCategoryDetails('@i.IngredientID')"></i>
-							<i class="fas fa-ban" data-id="@i.IngredientID"></i>
+							@if (!i.isDeleted)
+							{
+								<i class="fas fa-pencil-alt" data-id="@i.IngredientID" onclick="showCategoryDetails('@i.IngredientID')"></i>
+								<i class="fas fa-ban" data-id="@i.IngredientID"></i>
+							}
+							else
+							{
+								<i class="fa-regular fa-square-minus"></i>
+								<i class="fa-regular fa-square-minus"></i>
+							}
 						</td>
+					</tr>
+				}
+				@foreach (var i in Model.ingredients)
+				{
+					<tr>
+						<td class="Ten_mon_All" style="display: none;">@i.IngredientName</td>
 					</tr>
 				}
 			</tbody>
@@ -72,15 +84,16 @@
 			{
 				currentPage = Model.currentPage,
 				countPages = totalPages,
-				generateUrl = (int? p) => Url.Page("/Admin/ManageIngredient", new {p})
+				generateUrl = (int? p) => Url.Page("/Admin/ManageIngredient", new { p, Model.searchText, Model.sortBy })
 			};
 		}
 		<partial name="_Paging" model="@pagingmodel" />
 	</div>
 </div>
 <!-- Modal Add -->
-<form method="post" asp-page="ManageIngredient" asp-page-handler="Create">
-	<div class="modal__ingredient-add">
+
+<form method="post" asp-page="ManageIngredient" asp-page-handler="Create" onsubmit="return validateForm(event)">
+	<div class="modal__ingredient-add" id="create-form">
 		<div class="modal__ingredient-information">
 			<div class="button__exit d-flex justify-content-end">
 				<span class="exit__surround d-flex align-items-center justify-content-center">
@@ -91,26 +104,37 @@
 				<p class="modal__label-main">Thêm nguyên liệu</p>
 				<div class="ingredient__name">
 					<p class="label">Tên nguyên liệu</p>
-					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Name" required="required">
+					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Name" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
+					<span id="ingredient-error" style="color: red"></span>
 				</div>
 				<div class="ingredient__price-categories d-flex justify-content-between">
 					<div class="ingredient__price col-6 pl-0 pr-2">
 						<p class="label">Đơn vị</p>
 						<div class="form__comboBoxList">
-							<form method="post">
-								<select name="combobox_Item" required="required">
-									<option value="" selected>Tất cả</option>
-									@foreach (var measureName in Model.measureName)
-									{
-										<option value="@measureName">@measureName</option>
-									}
-								</select>
-							</form>
+							<select name="combobox_Item" required="required">
+								<option value="" selected>Tất cả</option>
+								@foreach (var measureName in Model.measureName)
+								{
+									<option value="@measureName">@measureName</option>
+								}
+							</select>
 						</div>
 					</div>
 					<div class="ingredient__categories col-6 pl-2 pr-0">
 						<p class="label">Đơn giá</p>
-						<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Price" required="required">
+						<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Price" required="required" pattern="[0-9,.]+" title="Vui lòng chỉ nhập số và dấu chấm hoặc dấu phẩy">
+					</div>
+				</div>
+				<div class="ingredient__name">
+					<p class="label">Nhà cung cấp</p>
+					<div class="form__comboBoxList ingredient__price">
+						<select name="ncc" required="required">
+							<option value="" selected>Tất cả</option>
+							@foreach (var i in Model.partner)
+							{
+								<option value="@i.PartnerID">@i.PartnerName</option>
+							}
+						</select>
 					</div>
 				</div>
 				<div class="button__ingredient-add">
@@ -120,11 +144,12 @@
 		</div>
 	</div>
 </form>
+
 <!-- End Modal Add -->
 <!-- Modal Update -->
-<form method="post" asp-page="ManageIngredient" asp-page-handler="Update">
-<div class="modal__ingredient-modify">
-	<div class="modal__ingredient-information">
+<form method="post" asp-page="ManageIngredient" asp-page-handler="Update" onsubmit="return validateUpdateForm(event)">
+	<div class="modal__ingredient-modify">
+		<div class="modal__ingredient-information">
 			<div class="button__exit d-flex justify-content-end">
 				<span class="exit__surround d-flex align-items-center justify-content-center">
 					<i class="fas fa-times"></i>
@@ -134,10 +159,11 @@
 				<p class="modal__label-main">Thông tin nguyên liệu</p>
 				<div class="ingredient__name">
 					<p class="label">Tên nguyên liệu</p>
-					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Name" required="required">
+					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Name" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
+					<span id="ingredient-error-update" style="color: red"></span>
 				</div>
 				<div class="ingredient__price-categories d-flex justify-content-between">
-					<div class="ingredient__price col-6 pl-0 pr-2">
+					<div class="ingredient__price col-6 mb-3 pl-0 pr-2">
 						<p class="label">Đơn vị</p>
 						<div class="form__comboBoxList">
 							<form method="post">
@@ -150,9 +176,28 @@
 							</form>
 						</div>
 					</div>
-					<div class="ingredient__categories col-6 pl-2 pr-0">
+					<div class="ingredient__categories col-6 mb-3 pl-2 pr-0">
 						<p class="label">Đơn giá</p>
-						<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" required="required" name="Price">
+						<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" required="required" name="Price" pattern="[0-9,.]+" title="Vui lòng chỉ nhập số và dấu chấm hoặc dấu phẩy">
+					</div>
+				</div>
+				<div class="ingredient__name mb-3">
+					<p class="label">Nhà cung cấp</p>
+					<div class="form__comboBoxList ingredient__price">
+						<select name="ncc" required="required">
+							@foreach (var i in Model.partner)
+							{
+								<option value="@i.PartnerID">@i.PartnerName</option>
+							}
+						</select>
+					</div>
+				</div>
+				<div class="ingredient__name">
+					<p class="label">Số lượng nguyên liệu hỏng</p>
+					<div class="form__comboBoxList ingredient__price">
+						<input class="form-control mr-sm-2" type="search" aria-label="Search" name="nlHong" pattern="[0-9,.]+" title="Vui lòng chỉ nhập số và dấu chấm hoặc dấu phẩy" />
+						<input type="hidden" name="ingre" value="" />
+						<span id="nlHong" style="color: red"></span>
 					</div>
 				</div>
 				<div class="button__ingredient-modify">
@@ -160,12 +205,12 @@
 				</div>
 			</div>
 			<input type="hidden" name="IngredientID" class="modal__ingredient-id" value="" />
+			<input type="hidden" name="oldName" value="">
+		</div>
 	</div>
-</div>
 </form>
 <!-- End Modal Update-->
 <!-- Modal Read -->
-<form method="post" asp-page="ManageIngredient">
 <div class="modal__food-read">
 	<div class="modal__read-information">
 		<div class="button__exit d-flex justify-content-end">
@@ -176,53 +221,55 @@
 		<div class="categories-read">
 			<div class="categories__form-edit">
 				<p class="categories__text-specific">Thông tin nguyên liệu</p>
-				<div class="categories__information-label d-flex align-items-center">
-					<div class="categories__information-key col-md-6">
+				<div class="categories__information-label d-flex align-items-start">
+					<div class="categories__information-key">
 						<label for="name" class="categories__text">Tên nguyên liệu:</label>
 						<label for="id" class="categories__text">Mã nguyên liệu:</label>
 						<label for="price" class="categories__text">Giá nhập:</label>
+						<label for="unit" class="categories__text">Đơn vị:</label>
+						<label for="partner" class="categories__text">Nhà cung cấp:</label>
 					</div>
-					<div class="categories__information-element col-md-6">
+					<div class="categories__information-element col-md-8">
 						<p class="categories__text" id="name"></p>
 						<p class="categories__text" id="id"></p>
-			 	        <p class="categories__text" id="price"></p>
+						<p class="categories__text" id="price"></p>
+						<p class="categories__text" id="unit"></p>
+						<p class="categories__text" id="partner"></p>
 					</div>
 				</div>
 			</div>
-				<button class="submit-btn exit-btn" type="submit">OK</button>
+			<button class="submit-btn exit-btn" type="submit">OK</button>
 		</div>
 	</div>
 </div>
-</form>
 <!-- End Modal Read -->
 <!-- Modal Delete -->
 <!-- Modal -->
 <form method="post" asp-page="ManageIngredient" asp-page-handler="Delete">
-<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
-	<div class="modal-dialog ">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="confirm-label"></h4>
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-
-			</div>
-			<div class="modal-body">
-				<div class="text-center wirningColor">
-					<i class="fas fa-exclamation-triangle fa-4x"></i>
+	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="confirm-label"></h4>
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 				</div>
-				<br />
-				<center>
-					<p class="message"></p>
-					<input type="hidden" name="IngredientID" class="modal__ingredient-id" value="" />
-				</center>
-			</div>
-			<div class="modal-footer">
-				<button type="submit" class="btn btn-danger dismiss" data-dismiss="modal"></button>
-				<button type="submit" class="btn btn-primary confirm"></button>
+				<div class="modal-body">
+					<div class="text-center wirningColor">
+						<i class="fas fa-exclamation-triangle fa-4x"></i>
+					</div>
+					<br />
+					<center>
+						<p class="message"></p>
+						<input type="hidden" name="IngredientID" class="modal__ingredient-id" value="" />
+					</center>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-danger dismiss" data-dismiss="modal"></button>
+					<button type="submit" class="btn btn-primary confirm"></button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </form>
 <!-- End Modal Delete -->
 <script src="~/js/manage-ingredient.js"></script>
@@ -247,10 +294,12 @@
 			data: { id: id },
 			url: '@Url.Page("ManageIngredient", "Find")',
 			success: function (result) {
-				$('.modal__food-read #name').text(result.ingredientsName); // Cập nhật tên nguyên liệu
-				$('.modal__food-read #id').text(result.ingredientsId); // Cập nhật đơn vị
-				$('.modal__food-read #price').text(result.ingredientsPrice + " VNĐ"); // Cập nhật đơn giá
-				
+				console.log(result);
+				$('.modal__food-read #name').text(result.ingredientName); // Cập nhật tên nguyên liệu
+				$('.modal__food-read #id').text("#" + result.ingredientID); // Cập nhật mã
+				$('.modal__food-read #price').text(result.ingredientInputPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })); // Cập nhật đơn giá
+				$('.modal__food-read #unit').text(result.measureName); // Cập nhật đơn giá
+				$('.modal__food-read #partner').text(result.partnerName); // Cập nhật đơn giá
 			},
 			error: function (xhr, textStatus, errorThrown) {
 				alert('Error loading ingredient: ' + errorThrown);
@@ -264,9 +313,16 @@
 			data: { id: id },
 			url: '@Url.Page("ManageIngredient", "Find")',
 			success: function (result) {
-				$('.modal__ingredient-modify input[name="IngredientID"]').val(result.ingredientsId); // Lưu trữ ID vào trường ẩn
-				$('.modal__ingredient-modify input[name="Name"]').val(result.ingredientsName); // Cập nhật tên nguyên liệu
-				$('.modal__ingredient-modify input[name="Price"]').val(result.ingredientsPrice); // Cập nhật đơn giá
+				$('.modal__ingredient-modify input[name="IngredientID"]').val(result.ingredientID); // Lưu trữ ID vào trường ẩn
+				$('.modal__ingredient-modify input[name="Name"]').val(result.ingredientName); // Cập nhật tên nguyên liệu
+				$('.modal__ingredient-modify input[name="Price"]').val(result.ingredientInputPrice); // Cập nhật đơn giá
+				$('.modal__ingredient-modify input[name="oldName"]').val(result.ingredientName);
+				$('.modal__ingredient-modify input[name="ncc"]').val(result.partnerName);
+				$('.modal__ingredient-modify input[name="ingre"]').val(result.ingreQty);
+				$(".ingredient__price-categories select[name='combobox_Item']").val(result.measureName);
+				$('.modal__ingredient-modify input[name="nlHong"]').val('');
+				$('#nlHong').text('');
+				$('#ingredient-error-update').text('');
 				// Mở modal ở đây
 			},
 			error: function (xhr, textStatus, errorThrown) {
@@ -322,7 +378,7 @@
 			data: { id: id },
 			url: '@Url.Page("ManageIngredient", "Find")',
 			success: function (result) {
-				$('#confirm input[name="IngredientID"]').val(result.ingredientsId); // Lưu trữ ID vào trường ẩn
+				$('#confirm input[name="IngredientID"]').val(result.ingredientIDy); // Lưu trữ ID vào trường ẩn
 			},
 			error: function (xhr, textStatus, errorThrown) {
 				alert('Error loading ingredient: ' + errorThrown);
@@ -345,14 +401,68 @@
 		var wholeName = row.find('td.Number_mon').text().trim();
 		var subString = wholeName.split(" ");
 		var measureName = subString[1];
-
 		// Đổ thông tin vào form
 		var select = $('.modal__ingredient-modify select[name="combobox_Item"]');
 		select.find('option').each(function () {
 			$(this).prop('selected', $(this).text().indexOf(measureName) > -1);
 		});
+		var select = $('.modal__ingredient-modify select[name="ncc"]');
+		select.find('option').each(function () {
+			$(this).prop('selected', $(this).text().indexOf(measureName) > -1);
+		});
 	}
 </script>
+<script>
+	function validateForm(event) {
+		var newIngredientName = $('input[name="Name"]').val().trim().toUpperCase().replace(/\s+/g, ' ');
+		var ingredientNames = []; // Khởi tạo một mảng rỗng để lưu các tên nguyên liệu
 
+		$('td.Ten_mon_All').each(function () {
+			var ingredientName = $(this).text().trim().toUpperCase().replace(/\s+/g, ' '); // Lấy nội dung của phần tử td hiện tại và loại bỏ khoảng trắng thừa
+			ingredientNames.push(ingredientName); // Thêm tên nguyên liệu vào mảng
+		});
+
+		// Kiểm tra xem tên nguyên liệu mới có trong mảng tên nguyên liệu hay không
+		if (ingredientNames.some(function (name) { return name === newIngredientName })) {
+			// Hiển thị thông báo lỗi
+			$('#ingredient-error').text('Đã tồn tại tên nguyên liệu. Vui lòng nhập lại !!!');
+
+			// Ngăn chặn việc submit form khi có lỗi
+			event.preventDefault();
+			return false;
+		}
+		// Nếu không có lỗi, ẩn thông báo lỗi
+		$('#ingredient-error').text('');
+	}
+</script>
+<script>
+	function validateUpdateForm(event) {
+		var newIngredientName = $('.modal__ingredient-modify input[name="Name"]').val().trim().toUpperCase().replace(/\s+/g, ' ');
+		var ingredientNames = []; // Khởi tạo một mảng rỗng để lưu các tên nguyên liệu
+		var oldName = $('.modal__ingredient-modify input[name="oldName"]').val().toUpperCase().replace(/\s+/g, ' ');
+		$('td.Ten_mon_All').each(function () {
+			var ingredientName = $(this).text().trim().toUpperCase().replace(/\s+/g, ' '); // Lấy nội dung của phần tử td hiện tại và loại bỏ khoảng trắng thừa
+			ingredientNames.push(ingredientName); // Thêm tên nguyên liệu vào mảng
+		});
+		if (newIngredientName !== oldName && ingredientNames.some(function (name) { return name === newIngredientName })) {
+			// Hiển thị thông báo lỗi
+			$('#ingredient-error-update').text('Đã tồn tại tên nguyên liệu. Vui lòng nhập lại !!!');
+
+			// Ngăn chặn việc submit form khi có lỗi
+			event.preventDefault();
+			return false;
+		}
+		// Nếu không có lỗi, ẩn thông báo lỗi
+		$('#ingredient-error-update').text('');
+		var ingreQty = $('.modal__ingredient-modify input[name="ingre"]').val();
+		var nlHong = $('.modal__ingredient-modify input[name="nlHong"]').val();
+		var unit = $('.modal__food-read #unit').val();
+		if (parseFloat(ingreQty) < parseFloat(nlHong)) {
+			$('#nlHong').text('Kho chỉ còn ' + ingreQty + " " + unit + 'nguyên liệu. Vui lòng nhập đúng khối lượng hỏng');
+			event.preventDefault();
+			return false;
+		}
+	}
+</script>
 
 

@@ -1,7 +1,9 @@
-﻿using CheeseBurger.Service;
+﻿using CheeseBurger.DTO;
+using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Microsoft.Identity.Client;
 
 namespace CheeseBurger.Pages
@@ -11,6 +13,8 @@ namespace CheeseBurger.Pages
         private readonly IAccountService accountService;
         private readonly ICustomerService customerService;
         private readonly IStaffService staffService;
+        public List<CustomerDTO> List_Customers { get; set; }
+        public List<StaffDTO> List_Staffs { get; set; }
         [BindProperty]
         public string Email { get; set; }
         [BindProperty]
@@ -25,36 +29,65 @@ namespace CheeseBurger.Pages
             this.staffService = staffService;
         }
 
+        public void OnGet()
+        {
+            List_Customers = customerService.GetAllCustomers();
+            List_Staffs = staffService.GetAllStaffs();
+        }
+
         public IActionResult OnPost()
         {
             var user = accountService.GetAccount(Email, Password);
             if (user == null)
             {
                 Message = "* Tài khoản/ Mật khẩu không đúng!";
+                List_Customers = customerService.GetAllCustomers();
+                List_Staffs = staffService.GetAllStaffs();
                 return Page();
             }
-            else
+            else if(user.isDeleted == true)
+			{
+				Message = "* Tài khoản đã bị chặn vì vi phạm tiêu chuẩn cộng đồng!";
+                List_Customers = customerService.GetAllCustomers();
+                List_Staffs = staffService.GetAllStaffs();
+                return Page();
+			}
+			else
             {
-                HttpContext.Session.SetInt32("Id", user.AccountID);
+				HttpContext.Session.SetInt32("Id", user.AccountID);
                 HttpContext.Session.SetString("isStaff", user.isStaff ? "Staff" : "Customer");
                 HttpContext.Session.SetString("Name", accountService.GetNamebyID(user.AccountID, user.isStaff));
                 if (user.isStaff)
                 {
-					HttpContext.Session.SetInt32("staffID", staffService.GetStaffID(user.AccountID));
-					HttpContext.Session.SetString("Role", accountService.GetStaffRole(user.AccountID));
+                    var staffID = staffService.GetStaffID(staffService.GetStaffID(user.AccountID));
+					HttpContext.Session.SetInt32("staffID", staffID);
+                    var staffRole = staffService.GetStaffRole(staffID);                    
+                    HttpContext.Session.SetString("Role", staffRole);
+                    if (staffRole != "Quản trị viên")
+                    {
+                        return RedirectToPage("/Admin/ManageExportOrder");
+                    }
                     return RedirectToPage("/Admin/SyncRevenue");
                 }
                 else
                 {
                     var customerID = customerService.GetCustomerID(user.AccountID);
                     HttpContext.Session.SetInt32("customerID", customerID);
-                    return RedirectToPage("/User/Menu");
+                    return RedirectToPage("/User/Menu", new { Message = "Vui lòng đăng nhập lại tài khoản" });
                 }
             }
         }
         public void OnGetLogout ()
         {
             HttpContext.Session.Clear();
+            List_Customers = customerService.GetAllCustomers();
+            List_Staffs = staffService.GetAllStaffs();
+        }
+        public IActionResult OnPostRegister(string name, string email, string phone, string pass) 
+        {
+            accountService.AddNewAccount(email, pass);
+            customerService.AddNewCus(name, phone);
+            return RedirectToPage("/Login/LoginRegister");
         }
     }
 }

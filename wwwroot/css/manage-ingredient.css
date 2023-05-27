@@ -1,8 +1,4 @@
 ﻿/* Information */
-.main__information {
-    margin-top: 0;
-}
-
 .button__add button {
     width: 200px;
     height: 40px;
@@ -13,11 +9,18 @@
     border: 0px;
     margin-bottom: 20px;
 }
-
-    .button__add button:hover {
-        cursor: pointer;
-        opacity: 0.8;
-    }
+.categories__information-key {
+    display: flex;
+    flex-direction: column;
+}
+.button__add button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+i.fa-regular.fa-square-minus {
+    cursor: unset !important;
+    opacity: unset !important;
+}
 
     .button__add button:focus {
         outline: none;
@@ -31,65 +34,6 @@
 }
 
 
-.menu-sort-user-box {
-    width: 50%;
-    height: 36px;
-    font-weight: 400;
-    font-size: 1.6rem;
-    border: 2px solid #c6c6c6;
-    background-color: transparent;
-    border-radius: 6px;
-    padding: 0 10px;
-    outline: none;
-    opacity: 0.7;
-    margin-left: 10px;
-}
-
-.menu-search-user-box {
-    width: 40%;
-    height: 36px;
-    background-color: transparent;
-    border: 2px solid #c6c6c6;
-    border-radius: 6px;
-    position: relative;
-    overflow: hidden;
-    font-size: 1.6rem;
-}
-
-.search-user-box-input {
-    border: 0;
-    outline: none;
-    background-color: transparent;
-    height: 100%;
-    width: 100%;
-    padding: 0px;
-    padding-left: 10px;
-    color: var(--text-color);
-}
-
-    .search-user-box-input::placeholder {
-        font-size: 1.6rem;
-        line-height: 100%;
-        font-weight: 400;
-        transform: translateY(-10%);
-    }
-
-.search-user-box-btn {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 25%;
-    height: 102%;
-    border: none;
-    color: var(--text-color);
-    background-color: #C0C0C0;
-}
-
-.search--user-box-btn:hover {
-    opacity: 0.6;
-}
-
 .search-user-box-btn:focus,
 .search--user-box-btn:focus-visible {
     outline: none;
@@ -97,9 +41,6 @@
 /* End Information */
 
 /* Table */
-td.Option i {
-    margin: 0 5px;
-}
 
 .content-table thead tr {
     background: linear-gradient(to right, #ee4d2d,#ff7337);
@@ -125,6 +66,10 @@ td.Ten_mon {
     border-radius: 20px;
 }
 
+.content-table tbody tr .Option {
+    font-size: 20px;
+}
+
 .content-table tbody tr .Option i:hover {
     cursor: pointer;
     opacity: 0.6;
@@ -144,12 +89,12 @@ td.Ten_mon {
 
 .content-table tbody tr td.Ten_mon {
     text-align: left;
-    padding-left: 5%;
+    text-transform: capitalize;
 }
 
 .content-table tbody tr td.Number_mon, .content-table tbody tr td.Number_mon {
     text-align: right;
-    padding-right: 5%;
+    padding-right: 10%;
 }
 
 /* End Table */
@@ -184,6 +129,7 @@ td.Ten_mon {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 70px;
 }
 
 .modal__ingredient-add {
@@ -218,12 +164,12 @@ td.Ten_mon {
     margin-bottom: 10px;
 }
 
-    .ingredient__name input[type="search"]:focus, .ingredient__categories input[type="search"]:focus {
+    .ingredient__name input:focus, .ingredient__categories select:focus {
         outline: none;
         box-shadow: none;
     }
 
-.ingredient__price .form__comboBoxList select[name="combobox_Item"]:focus-visible {
+.ingredient__price select:focus-visible {
     outline: none;
     box-shadow: none;
 }
@@ -232,9 +178,9 @@ td.Ten_mon {
     padding-bottom: 70px;
 }
 
-.ingredient__price .form__comboBoxList select[name="combobox_Item"], .ingredient__producer .form__comboBoxList select[name="combobox_Item"] {
+.ingredient__price select, .ingredient__producer .form__comboBoxList select {
     height: 40px;
-    width: 200px;
+    width: 100%;
     padding: 0 5px;
     margin-top: 5px;
 }
@@ -264,7 +210,7 @@ td.Ten_mon {
 .modal__ingredient-information {
     background-color: var(--white-color);
     margin: 40px;
-    border-radius: 8px;
+    border-radius: 9px;
     position: relative;
 }
 
@@ -337,8 +283,8 @@ td.Ten_mon {
         outline: none;
     }
 
-p.categories__text {
-    margin: 0 0 4px;
+.categories__text {
+    margin: 0 0 10px;
 }
 
 p.label {
@@ -353,6 +299,7 @@ p.label {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 70px;
 }
 
 .categories-read {
@@ -374,11 +321,12 @@ p.label {
     background-color: var(--white-color);
     padding: 30px 40px;
     margin: 40px;
-    width: 30%;
+    width: 40%;
     height: auto;
     border-radius: 8px;
     position: relative;
 }
+
 
 .categories__text-specific {
     font-size: 20px;

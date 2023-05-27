@@ -1,4 +1,13 @@
-﻿var path = window.location.pathname;
+﻿// Nếu không tìm thấy liên kết, chọn liên kết đầu tiên làm mặc định
+if (!document.querySelector('.categories__item.active')) {
+    document.querySelector('.categories__item:first-child').classList.add('active');
+}
+
+if (currentPage === "ChangePasswordAdmin") {
+    setActiveMenuElement(manageFunction[1].parentElement);
+}
+
+var path = window.location.pathname;
 var currentPage = path.split('/').pop(); // Lấy phần tử cuối cùng trong mảng
 
 var setActiveMenuElement = function (menuElement) {
@@ -9,15 +18,35 @@ var setActiveMenuElement = function (menuElement) {
     menuElement.classList.add('active');
 }
 
-var manageFunction = document.querySelectorAll('.categories__item a');
+var manageFunction = document.querySelectorAll('.categories__item > a');
 for (var i = 0; i < manageFunction.length; i++) {
-    if (manageFunction[i].getAttribute("href").indexOf(currentPage) !== -1) {
-        setActiveMenuElement(manageFunction[i].parentElement);
-        break;
+    var href = manageFunction[i].getAttribute("href");
+    if (href != null) {
+        if (href.indexOf(currentPage) !== -1) {
+            setActiveMenuElement(manageFunction[i].parentElement);
+            break;
+        }
     }
+}
+if (currentPage === 'ManageFood' || currentPage === 'ManageFoodRecipe') {
+    var food = document.getElementById('food');
+    setActiveMenuElement(food);
+}
+
+if (currentPage === 'ManageImportOrder' || currentPage === 'ManageExportOrder') {
+    var order = document.getElementById('order');
+    setActiveMenuElement(order);
 }
 
 // Nếu không tìm thấy liên kết, chọn liên kết đầu tiên làm mặc định
-if (!document.querySelector('.categories__item.active')) {
-    document.querySelector('.categories__item:first-child').classList.add('active');
+//if (!document.querySelector('.categories__item.active')) {
+//    document.querySelector('.categories__item:first-child').classList.add('active');
+//}
+function toggleCollapse(id) {
+    var content = document.getElementById(id);
+    if (content.style.display === "none") {
+        content.style.display = "block";
+    } else {
+        content.style.display = "none";
+    }
 }

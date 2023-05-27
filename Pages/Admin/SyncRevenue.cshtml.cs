@@ -1,20 +1,68 @@
+﻿using CheeseBurger.DTO;
+using CheeseBurger.Middleware;
+using CheeseBurger.Model.Entities;
+using CheeseBurger.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 
-namespace CheeseBurger
+namespace CheeseBurger.Pages.Admin
 {
+    [Authorize("Quản trị viên")]
     public class SyncRevenueModel : PageModel
-    {
-        private readonly ILogger<SyncRevenueModel> _logger;
-
-        public SyncRevenueModel(ILogger<SyncRevenueModel> logger)
+	{
+        private readonly IRevenueService revenueService;
+		public SyncRevenueModel(IRevenueService revenueService)
         {
-            _logger = logger;
+            this.revenueService = revenueService;
         }
 
-        public void OnGet()
-        {
+		[BindProperty(SupportsGet = true)]
+		public int NumberOrder { get; set; }
+		[BindProperty(SupportsGet = true)]
+		public int NumberIOrder { get; set; }
+		[BindProperty(SupportsGet = true)]
+		public float TotalFund { get; set; }
+		[BindProperty(SupportsGet = true)]
+		public float TotalIncome { get; set; }
 
-        }
-    }
+		public float TotalProfit { get; set; }        
+        public DateTime fromDate { get; set; }
+		public DateTime toDate { get; set; }
+		public List<Orders> List_Ord { get; set; }
+		public List<ImportOrder> List_IO { get; set; }
+		public List<Food> List_Food { get; set; }
+
+		public void OnGet()
+		{
+			string fDate = Request.Query["fromDate"];			
+			if (Int32.TryParse(fDate, out int fromNumber))
+			{				
+				fromDate = new DateTime(fromNumber, 1, 1);
+			}
+			else if (DateTime.TryParse(fDate, out DateTime fromDateResult))
+			{
+				fromDate = fromDateResult;
+			} 
+			
+			string tDate = Request.Query["toDate"];
+			if (Int32.TryParse(tDate, out int toNumber))
+			{
+				toDate = new DateTime(toNumber, 1, 1);
+			}
+			else if (DateTime.TryParse(tDate, out DateTime toDateResult))
+			{
+				toDate = toDateResult;
+			} 
+			
+		    NumberIOrder = revenueService.NumberIOrder(fromDate, toDate);
+			NumberOrder = revenueService.NumberOrder(fromDate, toDate);
+			TotalFund = revenueService.TotalFund(fromDate, toDate);
+			TotalIncome = revenueService.TotalIncome(fromDate, toDate);
+			TotalProfit = TotalIncome - TotalFund;
+			List_Ord = revenueService.GetOrdersRangeTime(fromDate, toDate);
+			List_IO = revenueService.GetIOrdersRangeTime(fromDate, toDate);
+			List_Food = revenueService.GetFoodRangeTime(fromDate, toDate);
+		}
+	}
 }

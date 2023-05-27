@@ -17,13 +17,11 @@ namespace CheeseBurger.Repository.Implements
 		public List<CartDTO> GetAllCarts(int customerID)
 		{
 			return context.Carts
-					.Where(p => p.CustomerID == customerID & p.Quantity > 0)
+					.Where(p => p.CustomerID == customerID)
 				    .Join(context.Foods, c => c.FoodID, f => f.FoodID, (c, f) 
 					=> new CartDTO { FoodId = f.FoodID, FoodPic = f.ImageFood, Name = f.FoodName, Price = f.Price, Quantity = c.Quantity })
 					.ToList();
 		}
-
-
 		public Cart GetCartProdById(int customerID, int cartProductID)
 		{
 			return context.Carts.Where(p => p.CustomerID == customerID && p.FoodID == cartProductID).FirstOrDefault();
@@ -63,6 +61,13 @@ namespace CheeseBurger.Repository.Implements
 				context.Carts.Remove(cartProd);
 				context.SaveChanges();
 			}
+		}
+
+		public int GetQuantityofFood(int customerID, int cartProductID)
+		{
+			return context.Carts.Where(p => p.CustomerID == customerID && p.FoodID == cartProductID)
+								.Select(p => p.Quantity)
+								.FirstOrDefault();
 		}
 		//public float GetCartChange(int customerID, int cartProductID, int qty)
 		//{

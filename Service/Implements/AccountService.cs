@@ -25,6 +25,23 @@ namespace CheeseBurger.Service.Implements
         public string GetStaffRole(int idStaff)
         {
            return accountRespository.GetStaffRole(idStaff);
+        }       
+        public string GetPasswordbyID(int idAccount)
+        {
+            return accountRespository.GetPasswordbyID(idAccount);
         }
-    }
+        public void ChangePassword(int idAccount, string newPassword)
+        {
+            accountRespository.ChangePassword(idAccount, newPassword);
+        }
+        public void AddNewAccount(string email, string password)
+        {
+            accountRespository.AddNewAccount(email, password);
+        }
+        public List<Account> GetListAccount()
+        {
+            return accountRespository.GetListAccount();
+        }
+
+	}
 }

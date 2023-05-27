@@ -7,9 +7,11 @@ namespace CheeseBurger.Service.Implements
 	public class CartService : ICartService
 	{
 		private readonly ICartRepository cartRepository;
-		public CartService(ICartRepository cartRepository)
+		private readonly IFoodService foodService;
+		public CartService(ICartRepository cartRepository, IFoodService foodService)
 		{
 			this.cartRepository = cartRepository;
+			this.foodService = foodService;
 		}
 		public Cart GetCartProdById(int customerID, int cartProductID)
 		{
@@ -22,7 +24,12 @@ namespace CheeseBurger.Service.Implements
 
 		public List<CartDTO> GetAllCarts(int customerID)
 		{
-			return cartRepository.GetAllCarts(customerID);
+			var carts = cartRepository.GetAllCarts(customerID);
+			foreach (var cart in carts)
+			{
+				cart.MaxQty = foodService.GetMaxQuantityofFood(cart.FoodId);
+			}
+			return carts;
 		}
 
 		public void UpdateCart(int customerID, int cartProductID, int qty)
@@ -33,6 +40,21 @@ namespace CheeseBurger.Service.Implements
 		public void DeleteCart(int customerID, int cartProductID)
 		{
 			cartRepository.DeleteCart(customerID, cartProductID);
+		}
+
+        public double GetCartTotal(List<CartDTO> carts)
+        {
+            double total = 0;
+            foreach (var cart in carts)
+            {
+                total += cart.Price * cart.Quantity;
+            }
+            return total;
+        }
+
+		public int GetQuantityofFood(int customerID, int cartProductID)
+		{
+			return cartRepository.GetQuantityofFood(customerID, cartProductID);
 		}
 	}
 }

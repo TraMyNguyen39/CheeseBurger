@@ -1,0 +1,350 @@
+﻿@page
+@model ManagePartnerModel
+@{
+	ViewData["Title"] = "ManagePartner";
+	int stt = 0;
+}
+<link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
+
+
+<div class="main__information" style="width: 60%">
+	<div class="main__information-detail">
+		<div class="main__information-add d-flex justify-content-end align-items-center">
+			<div class="button__add"><button class="" type="submit">Thêm nhà cung cấp +</button></div>
+		</div>
+		<div class="d-flex justify-content-between align-items-center mb-5">
+			<form class="menu-sort-user" method="get">
+				<label style="margin-left: 2%">Sắp xếp theo: </label>
+				<select name="sortBy" class="menu-sort-user-box" id="sort-select">
+					<option value="name-asc">Tăng theo tên</option>
+					<option value="name-desc">Giảm theo tên</option>
+				</select>
+				<input name="search" value="@Model.searchText" type="hidden" />
+				<input type="submit" style="visibility: hidden; width:0" />
+			</form>
+			<form class="menu-search-user-box" method="get">
+				<input class="search-user-box-input" type="text" name="search" placeholder="Nhập tên cần tìm">
+				<input class="search-user-box-hidden" name="sortBy" value="@Model.sortBy" type="hidden" />
+				<button type="submit" class="search-user-box-btn">
+					<i class="fas fa-magnifying-glass"></i>
+				</button>
+			</form>
+		</div>
+		@{
+			var pageSize = 5; // Number of rows to show per page
+			var totalPages = (int)Math.Ceiling((double)Model.partners.Count / pageSize); // Calculate the total number of pages
+			var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
+			var partners = Model.partners.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
+			if (Model.currentPage < 1) Model.currentPage = 1;
+			if (Model.currentPage > totalPages) Model.currentPage = totalPages;
+		}
+
+		<table class="content-table">
+			<thead>
+				<tr>
+					<th class="STT">STT</th>
+					<th class="Ten_mon">Tên nhà cung cấp</th>
+					<th class="Email">Địa chỉ email</th>
+					<th class="Option">Tùy chọn</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var i in partners)
+				{
+					<tr>
+						<td class="STT">@(++stt)</td>
+						<td class="ID_mon" name="@i.PartnerID" style="display: none;">@i.PartnerID</td>
+						<td class="Ten_mon">@i.PartnerName</td>
+						<td class="Email">@i.Email</td>
+						<td class="Option">
+							<i class="fas fa-pencil-alt" data-id="@i.PartnerID" onclick="showCategoryDetails('@i.PartnerID')"></i>
+							<i class="fas fa-ban" data-id="@i.PartnerID"></i>
+						</td>
+					</tr>
+				}
+				@foreach (var i in Model.partners)
+				{
+					<tr>
+						<td class="Ten_mon_All" style="display: none;">@i.PartnerName</td>
+					</tr>
+				}
+				@foreach (var i in Model.partners)
+				{
+					<tr>
+						<td class="Email_All" style="display: none;">@i.Email</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		@{
+			var pagingmodel = new CheeseBurger.Helpers.PagingModel()
+			{
+				currentPage = Model.currentPage,
+				countPages = totalPages,
+				generateUrl = (int? p) => Url.Page("/Admin/ManagePartner", new { p })
+			};
+		}
+		<partial name="_Paging" model="@pagingmodel" />
+	</div>
+</div>
+<!-- Modal Add -->
+
+<form method="post" asp-page="ManagePartner" asp-page-handler="Create" onsubmit="return validateForm(event)">
+	<div class="modal__ingredient-add" id="create-form">
+		<div class="modal__ingredient-information" style="width: 40%">
+			<div class="button__exit d-flex justify-content-end">
+				<span class="exit__surround d-flex align-items-center justify-content-center">
+					<i class="fas fa-times"></i>
+				</span>
+			</div>
+			<div class="modal__ingredient-details">
+				<p class="modal__label-main">Thêm nhà cung cấp</p>
+				<div class="ingredient__name">
+					<p class="label">Tên nhà cung cấp</p>
+					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="partnerName" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
+					<span id="partner-error" style="color: red"></span>
+				</div>
+				<div class="ingredient__name">
+					<p class="label">Địa chỉ email</p>
+					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="email" required="required" pattern="^[a-zA-Z0-9._+-]+&#64;[a-zA-Z0-9.-]+\.[a-zA-Z]{2,9}$" title="Vui lòng nhập email hợp lệ">
+					<span id="email-error" style="color: red"></span>
+				</div>
+				<div class="button__ingredient-add">
+					<button class="" type="submit" name="p">Thêm nhà cung cấp</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!-- End Modal Add -->
+<!-- Modal Update -->
+<form method="post" asp-page="ManagePartner" asp-page-handler="Update" onsubmit="return validateUpdateForm(event)">
+	<div class="modal__ingredient-modify">
+		<div class="modal__ingredient-information" style="width: 40%">
+			<div class="button__exit d-flex justify-content-end">
+				<span class="exit__surround d-flex align-items-center justify-content-center">
+					<i class="fas fa-times"></i>
+				</span>
+			</div>
+			<div class="modal__ingredient-details">
+				<p class="modal__label-main">Cập nhật nhà cung cấp</p>
+				<div class="ingredient__name">
+					<p class="label">Tên nhà cung cấp</p>
+					<input class="form-control mr-sm-2" type="search" aria-label="Search" name="partnerName" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
+					<span id="partner-error-update" style="color: red"></span>
+				</div>
+				<div class="ingredient__name">
+					<p class="label">Địa chỉ email</p>
+					<input class="form-control mr-sm-2" type="search" id="partnerEmail" aria-label="Search" name="email" required="required" pattern="^[a-zA-Z0-9._+-]+&#64;[a-zA-Z0-9.-]+\.[a-zA-Z]{2,9}$" title="Vui lòng nhập email hợp lệ">
+					<span id="email-error-update" style="color: red"></span>
+				</div>
+				<div class="button__ingredient-modify">
+					<button class="" type="submit">Cập nhật nhà cung cấp</button>
+				</div>
+			</div>
+			<input type="hidden" name="partnerID" class="modal__ingredient-id" value="" />
+			<input type="hidden" name="oldPartnerName" class="modal__ingredient-id" value="" />
+			<input type="hidden" name="oldPartnerEmail" class="modal__ingredient-id" value="" />
+		</div>
+	</div>
+</form>
+<!-- End Modal Update-->
+<!-- Modal Delete -->
+<!-- Modal -->
+<form method="post" asp-page="ManagePartner" asp-page-handler="Delete">
+	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="confirm-label"></h4>
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				</div>
+				<div class="modal-body">
+					<div class="text-center wirningColor">
+						<i class="fas fa-exclamation-triangle fa-4x"></i>
+					</div>
+					<br />
+					<center>
+						<p class="message"></p>
+						<input type="hidden" name="partnerID" class="modal__ingredient-id" value="" />
+					</center>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-danger dismiss" data-dismiss="modal"></button>
+					<button type="submit" class="btn btn-primary confirm"></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<!-- End Modal Delete -->
+<script src="~/js/manage-ingredient.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+	$(function () {
+		(function ($) {
+			$.fn.confirm = function (options) {
+				var settings = $.extend({}, $.fn.confirm.defaults, options);
+
+				return this.each(function () {
+					var element = this;
+					$('.modal-title', this).html(settings.title);
+					$('.message', this).html(settings.message);
+					$('.confirm', this).html(settings.confirm);
+					$('.dismiss', this).html(settings.dismiss);
+
+					$(this).on('click', '.confirm', function (event) {
+						$(element).data('confirm', true);
+					});
+
+					$(this).on('hide.bs.modal', function (event) {
+						if ($(this).data('confirm')) {
+							$(this).trigger('confirm', event);
+							$(this).removeData('confirm');
+						} else {
+							$(this).trigger('dismiss', event);
+						}
+
+						$(this).off('confirm dismiss');
+					});
+
+					$(this).modal('show');
+				});
+			};
+
+			$.fn.confirm.defaults = {
+				title: 'Modal title',
+				message: 'One fine body&hellip;',
+				confirm: 'OK',
+				dismiss: 'Cancel'
+			};
+		})(jQuery);
+	});
+	$(".fa-ban").click(function () {
+		var id = $(this).data('id');
+		$.ajax({
+			type: 'GET',
+			data: { partnerID: id },
+			url: '@Url.Page("ManagePartner", "Find")',
+			success: function (result) {
+				$('#confirm input[name="partnerID"]').val(result.partnerID); // Lưu trữ ID vào trường ẩn
+			},
+			error: function (xhr, textStatus, errorThrown) {
+				alert('Error loading ingredient: ' + errorThrown);
+			}
+		});
+		$('#confirm').confirm({
+			title: 'confirmation',
+			message: 'Bạn có muốn xóa nguyên liệu này không?',
+			confirm: 'Delete',
+			dismiss: 'Cancel'
+		});
+	});
+</script>
+<script>
+	function showCategoryDetails(id) {
+		// Lấy thông tin hàng được chọn
+		var row = $('td.ID_mon').filter(function () {
+			return $(this).text() == id;
+		}).closest('tr');
+		var wholeName = row.find('td.Ten_mon').text().trim();
+		var email = row.find('td.Email').text().trim();
+		$('.modal__ingredient-modify input[name="partnerName"]').val(wholeName);
+		$('.modal__ingredient-modify input[name="email"]').val(email);
+		$('.modal__ingredient-modify input[name="partnerID"]').val(id);
+		$('.modal__ingredient-modify input[name="oldPartnerName"]').val(wholeName);
+		$('.modal__ingredient-modify input[name="oldPartnerEmail"]').val(email);
+	}
+</script>
+<script>
+	function validateForm(event) {
+		var newPartnerName = $('input[name="partnerName"]').val().trim().toUpperCase().replace(/\s+/g, ' ');
+		var partnerNames = []; // Khởi tạo một mảng rỗng để lưu các tên nguyên liệu
+
+		$('td.Ten_mon_All').each(function () {
+			var partnerName = $(this).text().trim().toUpperCase().replace(/\s+/g, ' '); // Lấy nội dung của phần tử td hiện tại và loại bỏ khoảng trắng thừa
+			partnerNames.push(partnerName); // Thêm tên nguyên liệu vào mảng
+		});
+
+		// Kiểm tra xem tên nguyên liệu mới có trong mảng tên nguyên liệu hay không
+		if (partnerNames.some(function (name) { return name === newPartnerName })) {
+			// Hiển thị thông báo lỗi
+			$('#partner-error').text('Đã tồn tại tên nhà cung cấp. Vui lòng nhập lại !!!');
+			// Ngăn chặn việc submit form khi có lỗi
+			event.preventDefault();
+			return false;
+		}
+		// Nếu không có lỗi, ẩn thông báo lỗi
+		$('#partner-error').text('');
+
+		var newEmailName = $('input[name="email"]').val().trim().toUpperCase().replace(/\s+/g, ' ');
+		var emailNames = []; // Khởi tạo một mảng rỗng để lưu các tên nguyên liệu
+
+		$('td.Email_All').each(function () {
+			var emailName = $(this).text().trim().toUpperCase().replace(/\s+/g, ' '); // Lấy nội dung của phần tử td hiện tại và loại bỏ khoảng trắng thừa
+			emailNames.push(emailName); // Thêm tên nguyên liệu vào mảng
+		});
+
+		// Kiểm tra xem tên nguyên liệu mới có trong mảng tên nguyên liệu hay không
+		if (emailNames.some(function (name) { return name === newEmailName })) {
+			// Hiển thị thông báo lỗi
+			$('#email-error').text('Đã tồn tại tên nguyên liệu. Vui lòng nhập lại !!!');
+			// Ngăn chặn việc submit form khi có lỗi
+			event.preventDefault();
+			return false;
+		}
+		// Nếu không có lỗi, ẩn thông báo lỗi
+		$('#email-error').text('');
+	}
+</script>
+<script>
+	function validateUpdateForm(event) {
+		var newPartnerName = $('.modal__ingredient-modify input[name="partnerName"]').val().trim().toUpperCase().replace(/\s+/g, ' ');
+		var partnerNames = []; // Khởi tạo một mảng rỗng để lưu các tên nguyên liệu
+		var oldPartnerName = $('input[name="oldPartnerName"]').val().toUpperCase().replace(/\s+/g, ' ');
+
+		$('td.Ten_mon_All').each(function () {
+			var partnerName = $(this).text().trim().toUpperCase().replace(/\s+/g, ' '); // Lấy nội dung của phần tử td hiện tại và loại bỏ khoảng trắng thừa
+			partnerNames.push(partnerName); // Thêm tên nguyên liệu vào mảng
+		});
+		if (newPartnerName !== oldPartnerName && partnerNames.some(function (name) { return name === newPartnerName })) {
+			// Hiển thị thông báo lỗi
+			$('#partner-error-update').text('Đã tồn tại tên nhà cung cấp. Vui lòng nhập lại !!!');
+			// Ngăn chặn việc submit form khi có lỗi
+			event.preventDefault();
+			return false;
+		}
+		// Nếu không có lỗi, ẩn thông báo lỗi
+		$('#partner-error').text('');
+
+		var newEmailName = $('.modal__ingredient-modify input[name="email"]').val().trim().toUpperCase().replace(/\s+/g, ' ');
+		var emailNames = []; // Khởi tạo một mảng rỗng để lưu các tên nguyên liệu
+		var oldEmail = $('input[name="oldPartnerEmail"]').val().toUpperCase();
+
+		$('td.Email_All').each(function () {
+			var emailName = $(this).text().trim().toUpperCase().replace(/\s+/g, ' '); // Lấy nội dung của phần tử td hiện tại và loại bỏ khoảng trắng thừa
+			emailNames.push(emailName); // Thêm tên nguyên liệu vào mảng
+		});
+		if (emailNames.some(function (name) { return name === newEmailName }) && newEmailName !== oldEmail) {
+			// Hiển thị thông báo lỗi
+			$('#email-error-update').text('Đã tồn tại email. Vui lòng nhập lại !!!');
+
+			// Ngăn chặn việc submit form khi có lỗi
+			event.preventDefault();
+			return false;
+		}
+		// Nếu không có lỗi, ẩn thông báo lỗi
+		$('#email-error').text('');
+	}
+</script>

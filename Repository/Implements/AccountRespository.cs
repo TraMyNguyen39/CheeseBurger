@@ -27,6 +27,36 @@ namespace CheeseBurger.Repository.Implements
         {
             var idRole = context.Staffs.Where(p => p.AccountID == idAccount).Select(p => p.RoleID).FirstOrDefault();
             return context.Roles.Where(p => p.RoleID == idRole).Select(p => p.RoleName).FirstOrDefault();
+        }       
+        public string GetPasswordbyID(int idAccount)
+        {
+            return context.Accounts.Where(p => p.AccountID == idAccount).Select(p => p.Password).FirstOrDefault();
         }
-    }
+        public void ChangePassword(int idAccount, string newPassword)
+		{
+            var _acc = context.Accounts.FirstOrDefault(p => p.AccountID == idAccount);
+            if (_acc != null)
+            {
+                _acc.Password = newPassword;
+                context.SaveChanges();
+            }
+        }
+        public void AddNewAccount(string email, string password)
+        {
+            var acc = new Account
+            {
+                Email = email,
+                Password = password,
+                isDeleted = false,
+                isStaff = false
+            };
+            context.Accounts.Add(acc);
+            context.SaveChanges();
+        }
+        public List<Account> GetListAccount()
+        {
+            return context.Accounts.Where(p => p.isDeleted == false).Select(p => p).ToList();
+        }
+
+	}
 }

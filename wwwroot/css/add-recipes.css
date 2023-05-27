@@ -1,0 +1,106 @@
+﻿.add-recipes {
+    width: 80%;
+    margin: 0;
+    /*    background: #fff;*/
+    background-size: contain;
+    background-image: linear-gradient( rgba(0,0,0,0), rgb(0, 0,0, 0.2)),url('https://img.freepik.com/free-photo/ingredients-cabbage-carrot-pie-cabbage-carrots-eggs-flour-milk-butter-spices-white-background_127032-2866.jpg?w=996&t=st=1683966919~exp=1683967519~hmac=49c0940ae79dad2b0ee5bf4b12a695d401ddb0436bb52cf17cdf30e83655fb04');
+    padding: 30px 40px;
+    font-size: 16px;
+    height: fit-content;
+}
+
+.add-recipes table thead {
+    text-align: center;
+}
+
+.recipes {
+    border-bottom: 1px solid var(--text-color);
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.modal__label-main {
+    text-align: center;
+    color: var(--admin-color);
+    font-size: 2.4rem;
+}
+.recipes .food-name {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.recipes .text-danger {
+    margin: 0 auto;
+    padding: 5px;
+    border-radius: 8px;
+    color: #fff;
+}
+.table {
+    background: #fff;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.recipes .table {
+    width: 60%;
+    margin: 0 auto;
+}
+.indexInput {
+    text-align: left;
+}
+.recipes .table input {
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--text-color);
+}
+.recipes .table input:focus, .recipes .table input:focus-visible{
+    outline: none;
+}
+#submit-recipe {
+    background: var(--div-color);
+    color: var(--text-color);
+    font-size: 1.8rem;
+    margin-top: 0;
+}
+.icon-btn {
+    background: transparent;
+    border: none;
+    margin: auto;
+}
+.fa-trash-can
+{
+    color: red;
+}
+.fa-square-plus {
+    color: var(--admin-color);
+    font-size: 20px;
+}
+.icon-btn:focus,
+.icon-btn:focus-visible {
+    border: none;
+    outline: none;
+}
+
+.ingre-recipes {
+    margin-top: 20px;
+}
+.ingre-recipes .modal__label-main {
+    margin-bottom: 20px;
+}
+.ingre-recipes .table {
+    width: 90%;
+    margin: 0 auto;
+    border: none;
+}
+.table td {
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top: none;
+}
+.table thead th {
+    background: var(--div-color);
+    border: none;
+    border-radius: 8px;
+}

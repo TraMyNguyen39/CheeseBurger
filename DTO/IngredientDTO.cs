@@ -8,7 +8,10 @@ namespace CheeseBurger.DTO
     {
         public int IngredientID { get; set; }
         public String IngredientName { get; set; }
+        public float IngreQty { get; set; }
         public float IngredientInputPrice { get; set; }
         public string MeasureName { get; set; }
+        public bool isDeleted { get; set; }
+        public string PartnerName { get; set; }
     }
 }

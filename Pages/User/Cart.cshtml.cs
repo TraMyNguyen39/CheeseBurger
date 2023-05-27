@@ -10,12 +10,12 @@ namespace CheeseBurger.Pages
     {
         private readonly ICartService cartService;
         public List<CartDTO> carts { get; set; }
-
         [BindProperty]
         public int foodId { get; set; }
         [BindProperty]
         public int quantity { get; set; }
-        public string Message { get; set; }
+        public double totalMoney { get; set; }
+        public string message { get; set; }
         public CartModel(ICartService cartService)
         {
             this.cartService = cartService;
@@ -23,7 +23,8 @@ namespace CheeseBurger.Pages
         public IActionResult OnGet()
         {
             var customerID = HttpContext.Session.GetInt32("customerID");
-            if (customerID == null)
+			var accountID = HttpContext.Session.GetInt32("Id");
+			if (accountID == null)
                 return RedirectToPage("/Login/LoginRegister", new { Message = "* Bạn phải đăng nhập/ đăng ký trước khi tương tác với giỏ hàng" });
             //DateTime now = DateTime.Now;
             //DateTime fixedTimeStart = new DateTime(now.Year, now.Month, now.Day, 8, 0, 0);
@@ -37,7 +38,10 @@ namespace CheeseBurger.Pages
             if (carts.Count == 0)
                 return RedirectToPage("/User/EmptyCart");
             else
+            {
+                totalMoney = cartService.GetCartTotal(carts);
                 return Page();
+            }
         }
         public IActionResult OnPost([FromForm] int foodId, [FromForm] int quantity)
         {

@@ -10,11 +10,15 @@ namespace CheeseBurger.Repository
 		int getRowIngredient();
 		List<string> getIngredientName();
 		int ConvertMeasureNametoMeasureId(string Name);
-		void AddData(string Name, int measureId, float Price);
+		void AddData(string Name, int measureId, float Price, int partner);
 		void DeleteData(int id);
 		dynamic FindIngredient(int id);
-		void UpdateData(int id, string Name, int measureId, float Price);
+		void UpdateData(int id, string Name, int measureId, float Price, int partner, float nlHong = 0);
 		IngredientDTO getEachIngredients(int IngreID);
 		List<IngredientDTO> GetListIngredients(string arrange, bool isDescending, string searchText);
-	}
+		List<String> GetNameIngredient();
+		List<CBBIngredientDTO> GetIngredientsByPartner(int partnerID);
+		float GetPrice(int ingre);
+
+    }
 }
