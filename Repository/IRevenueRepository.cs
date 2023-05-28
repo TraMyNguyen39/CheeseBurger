@@ -1,4 +1,5 @@
-﻿using CheeseBurger.Model.Entities;
+﻿using CheeseBurger.DTO;
+using CheeseBurger.Model.Entities;
 
 namespace CheeseBurger.Repository
 {
@@ -10,6 +11,7 @@ namespace CheeseBurger.Repository
 		float TotalIncome(DateTime fromDate, DateTime toDate);
 		List<Orders> GetOrdersRangeTime(DateTime fromDate, DateTime toDate);
 		List<ImportOrder> GetIOrdersRangeTime(DateTime fromDate, DateTime toDate);
-		List<Food> GetFoodRangeTime(DateTime fromDate, DateTime toDate);
+		List<FoodRevenueDTO> GetFoodRangeTime(DateTime fromDate, DateTime toDate);
+		List<CustomerRevenueDTO> GetCustomerRangeTime(DateTime fromDate, DateTime toDate);
 	}
 }

@@ -1,0 +1,36 @@
+﻿@page
+@model ChangeNewPassModel
+@{
+    ViewData["Title"] = "Change New Password";
+}
+
+<div class="login-wrapper">
+    <div class="form-box success-form-change-new-pass">
+        <!-- Ke thua success page -->
+        <a asp-page="/Index" class="logo-link">
+            <img src="~/img/logo.png" alt="" class="logo-brand logo-brand-success">
+        </a>    
+        <form id="change-password-staff-form" class="ChangeNewPass" asp-page-handler="Update">
+            <div class="login-form">
+                <h2 class="text success-text">Thay đổi mật khẩu</h2>
+                <p class="text">
+                    Vui lòng nhập mật khẩu mới và xác nhận mật khẩu
+                </p>
+                <div class="unsuccessful-message" id="error"></div>                
+                <div class="input-item forget-password__input">                
+                    <i class="fa-solid fa-key"></i>
+                    <input type="password" name="newpass" id="newpasss" class="input-field" placeholder="Nhập mật khẩu mới" required>
+                </div>
+                <div class="input-item forget-password__input">
+                    <i class="fa-solid fa-square-check"></i>
+                    <input type="password" name="confirmpass" id="confirmpasss" class="input-field" placeholder="Xác nhận mật khẩu mới" required>
+                </div>
+                <button class="home-btn btn-confirm-change-pass" type="submit">Xác nhận</button>   
+                <input type="hidden" name="idAcc" value="@Model._idMailChangePass" />
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/js/change-new-pass.js"></script>
+
+

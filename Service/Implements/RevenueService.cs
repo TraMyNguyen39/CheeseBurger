@@ -1,4 +1,5 @@
-﻿using CheeseBurger.Model.Entities;
+﻿using CheeseBurger.DTO;
+using CheeseBurger.Model.Entities;
 using CheeseBurger.Repository;
 
 namespace CheeseBurger.Service.Implements
@@ -35,9 +36,13 @@ namespace CheeseBurger.Service.Implements
 		{
 			return revenueRepository.GetIOrdersRangeTime(fromDate, toDate);
 		}
-		public List<Food> GetFoodRangeTime(DateTime fromDate, DateTime toDate)
+		public List<FoodRevenueDTO> GetFoodRangeTime(DateTime fromDate, DateTime toDate)
 		{
 			return revenueRepository.GetFoodRangeTime(fromDate, toDate);
+		}
+		public List<CustomerRevenueDTO> GetCustomerRangeTime(DateTime fromDate, DateTime toDate)
+		{
+			return revenueRepository.GetCustomerRangeTime(fromDate, toDate);
 		}
 	}
 }
