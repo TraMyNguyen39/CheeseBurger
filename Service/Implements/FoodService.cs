@@ -89,10 +89,10 @@ namespace CheeseBurger.Service.Implements
 			if (list.Count > 0)
 			{
 				var firstObject = list[0];
-				int min = Convert.ToInt32(firstObject[2]) / Convert.ToInt32(firstObject[1]);
+				int min = (int)(Convert.ToDouble(firstObject[2]) / Convert.ToDouble(firstObject[1]));
 				foreach (var ingre in list)
 				{
-					var x = Convert.ToInt32(ingre[2]) / Convert.ToInt32(ingre[1]);
+					var x = (int)(Convert.ToDouble(ingre[2]) / Convert.ToDouble(ingre[1]));
 					if (x < min) min = x;
 				}
 				return min;

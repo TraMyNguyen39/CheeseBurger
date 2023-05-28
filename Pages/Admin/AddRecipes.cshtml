@@ -136,7 +136,7 @@
 		for (var i = 0; i < qty.length; i++)
 		{
 			var floatNum = parseFloat(qty[i].value);
-			if (isNaN(floatNum)) {
+			if (isNaN(floatNum) || floatNum === 0) {
 				qty[i].value = "Nhập số lượng!";
 				check = false;
 			}
