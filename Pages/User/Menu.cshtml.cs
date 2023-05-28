@@ -15,10 +15,12 @@ namespace CheeseBurger.Pages
         private readonly IFoodService foodService;
         private readonly ICategoryService categoryService;
 		private readonly ICartService cartService;
+		
 		public List<Category> categories { get; set; }
 		public List<FoodDTO> foods { get; set; }
 		[BindProperty(SupportsGet = true, Name = "p")]
 		public int currentPage { get; set; }
+		public string CustomUrl { get; set; }
 		public string categoryID { get; set; }
 		public string priceRange { get; set; }
 		public string sortBy { get; set; }
@@ -27,6 +29,9 @@ namespace CheeseBurger.Pages
         [BindProperty]
         public int cartProductID { get; set; }
 		public string Message { get; set; }
+		[BindProperty (SupportsGet = true)]
+		public bool successfulStatus { get; set; }
+
 		[BindProperty(SupportsGet = true)]
 		public string ProductInfo { get; set; }
 		public MenuModel (IFoodService foodService, ICategoryService categoryService, ICartService cartService)
@@ -35,7 +40,7 @@ namespace CheeseBurger.Pages
             this.categoryService = categoryService;
 			this.cartService = cartService;
         }
-
+		
         public void OnGet()
         {
 			this.categories = categoryService.GetAllCategory();

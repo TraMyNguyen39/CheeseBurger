@@ -1,9 +1,13 @@
 ﻿using CheeseBurger.DTO;
 using CheeseBurger.Enums;
 using CheeseBurger.Model.Entities;
+using CheeseBurger.Pages.User;
 using CheeseBurger.Service;
+using CheeseBurger.Service.Implements;
+using MailKit.Search;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 
 namespace CheeseBurger.Pages
 {
@@ -17,7 +21,11 @@ namespace CheeseBurger.Pages
 		private readonly IAccountService accountService;
 		private readonly IFeeAPIService feeService;
 		private readonly IFood_IngredientsService foodIngreService;
+		private readonly ICustomerService customerService;
 		private readonly IConfiguration config;
+		private readonly IStaffService staffService;
+		private readonly IFoodService foodService;
+		private readonly IReviewService reviewService;
 		//private readonly HttpClient _httpClient;
 		public List<District> List_Districts { get; set; }
 		public List<Account> List_Account { get; set; }
@@ -39,9 +47,13 @@ namespace CheeseBurger.Pages
 		public float shippingMoney { get; set; }
 		[BindProperty]
 		public float totalMoney { get; set; }
+		public int orderId { get; set; }
+		public string saleDate { get; set; }
 		public PaymenteModel(IWardService wardService, IOrderService orderService, 
 			IDistrictService districtService, ICartService cartService, IOrder_FoodService orderFoodService, 
-			IFeeAPIService feeService, IConfiguration config, IAccountService accountService, IFood_IngredientsService foodIngreService )
+			IFeeAPIService feeService, IConfiguration config, IAccountService accountService, IFood_IngredientsService foodIngreService, ICustomerService customerService,
+			IStaffService staffService, IFoodService foodService,
+			IReviewService reviewService)
 		{
 			this.wardService = wardService;
 			this.districtService = districtService;
@@ -52,6 +64,10 @@ namespace CheeseBurger.Pages
             this.config = config;
             this.feeService = feeService;
 			this.accountService = accountService;
+			this.customerService = customerService;
+			this.staffService = staffService;
+			this.foodService = foodService;
+			this.reviewService = reviewService;
 		}
 		public async Task<IActionResult> OnPostCalculateAsync()
 		{
@@ -110,10 +126,29 @@ namespace CheeseBurger.Pages
 					PriceOF = cart.Price
 				};
 				orderFoodService.CreateOrderDetail(orderLine);
+				foodIngreService.DecreaseIngre(cart.FoodId, cart.Quantity);
 				cartService.DeleteCart(customerID, cart.FoodId); // Tao don hon chi tiet, dong thoi xoa gio hang
 			}
-
-			return RedirectToPage("/User/MyOrder");
+			string name = Request.Form["Name"]; // Retrieve the value of the 'Name' input
+			string total = Request.Form["totalhidden"];
+			string wardId = Request.Form["WardId"];
+			int wardIdInt = Convert.ToInt32(wardId);
+			Ward temp = wardService.GetWard(wardIdInt);
+			string wardName = null;
+			if (temp != null)
+			{
+				wardName = temp.WardName;
+			}
+			string address = Request.Form["HouseNumber"] + "," + wardName + "," + Request.Form["combobox_Item_District"] + "," + "Đà Nẵng";
+			string dateTime = DateTime.Now.ToString("HH:mm dd/MM/yyyy");
+			string id = (orderService.NewestOrderID()).ToString();
+			var model = new EmailModel(); // Create a new instance of the EmailModel
+			model.TenNguoiNhan = name;
+			model.TongTien = total;
+			model.DiaChiGiaoHang = address;
+			model.NgayDatHang = dateTime;
+			model.MaDH = id;
+			return RedirectToPage("/User/MyAlternateOrder", new { id = id, name = name, total = total, address = address, dateTime = dateTime });
 		}
 
 		public IActionResult OnGet()
@@ -131,6 +166,7 @@ namespace CheeseBurger.Pages
 				return Page();
 			}
 			List_Account = accountService.GetListAccount();
+			orderId = orderService.NewestOrderID();
 			return RedirectToPage("/Login/LoginRegister");
 		}
 		public IActionResult OnPost()
@@ -168,7 +204,26 @@ namespace CheeseBurger.Pages
 				foodIngreService.DecreaseIngre(cart.FoodId, cart.Quantity);
 				cartService.DeleteCart(customerId, cart.FoodId); // Tao don hon chi tiet, dong thoi xoa gio hang
 			}
-			return RedirectToPage("/User/MyOrder");
+			string name = Request.Form["Name"]; // Retrieve the value of the 'Name' input
+			string total = Request.Form["totalhidden"];
+			string wardId = Request.Form["WardId"];
+			int wardIdInt = Convert.ToInt32(wardId);
+			Ward temp = wardService.GetWard(wardIdInt);
+			string wardName = null;
+			if (temp != null)
+			{
+				wardName = temp.WardName;
+			}
+			string address = Request.Form["HouseNumber"] + "," + wardName + "," + Request.Form["combobox_Item_District"] + "," + "Đà Nẵng";
+			string dateTime = DateTime.Now.ToString("HH:mm dd/MM/yyyy");
+			string id = (orderService.NewestOrderID()).ToString();
+			var model = new EmailModel(); // Create a new instance of the EmailModel
+			model.TenNguoiNhan = name;
+			model.TongTien = total;
+			model.DiaChiGiaoHang = address;
+			model.NgayDatHang = dateTime;
+			model.MaDH = id;
+			return RedirectToPage("/User/MyAlternateOrder", new { id = id, name = name, total = total, address = address, dateTime = dateTime });
 		}
 	}
 }

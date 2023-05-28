@@ -134,5 +134,14 @@ namespace CheeseBurger.Repository.Implements
 			order.ShipperID = shipperID;
 			context.SaveChanges();
 		}
+		public int NewestOrderID()
+		{
+			var newestOrder = context.Orders.OrderByDescending(p => p.OrderID).FirstOrDefault();
+			if (newestOrder != null)
+			{
+				return newestOrder.OrderID;
+			}
+			return 0; // or any other appropriate default value if there are no orders
+		}
 	}
 }

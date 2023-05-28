@@ -11,5 +11,6 @@ namespace CheeseBurger.Repository
         void ChangePassword(int idAccount, string newPassword);
         void AddNewAccount(string email, string password);
         List<Account> GetListAccount();
+        int GetIDAccountByMail(string email);
     }
 }

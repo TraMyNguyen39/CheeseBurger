@@ -56,5 +56,10 @@ namespace CheeseBurger.Service.Implements
 		{
 			orderRepository.UpdateShipper(orderID, shipperID);
 		}
+
+		public int NewestOrderID()
+		{
+			return orderRepository.NewestOrderID();
+		}
 	}
 }

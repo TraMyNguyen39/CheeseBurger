@@ -1,7 +1,7 @@
 ﻿@page
-@model SuccesfulValideModel
+@model SuccesfulValidateModel
 @{
-    ViewData["Title"] = "Login/Register";
+    ViewData["Title"] = "Successful Validate";
 }
 
 <div class="login-wrapper">
@@ -16,7 +16,11 @@
                 Thư đã được gửi đến email của bạn.
                 <br>Vui lòng kiểm tra hộp thư và làm theo hướng dẫn để lấy lại mật khẩu.
             </p>
-            <button class="home-btn" onclick="window.location.href = 'https://localhost:44344/Index';">Về trang chủ</button>
+            <form method="post">
+                <button class="home-btn btn-back-login">Về trang đăng nhập</button>
+                @*<input type="hidden" name="idnp" value="@Model._idNPass" />
+                <input type="hidden" name="ida" value="@Model._idValidate" />*@
+            </form>
         </div>
     </div>
 </div>

@@ -98,26 +98,34 @@ namespace CheeseBurger.Pages.Admin
             foodService.RecycleData(FoodId);
             return RedirectToPage("ManageFood");
         }
-        public async Task<IActionResult> OnPostUpdateAsync(int FoodID, string Name, string combobox_Item, float Price, string Describe, IFormFile fileupload)
-        {
-            if (fileupload != null && fileupload.Length > 0)
-            {
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(fileupload.FileName);
-                var filePath = Path.Combine(hostingEnvironment.WebRootPath, "img", fileName);
+		public async Task<IActionResult> OnPostUpdateAsync(int FoodID, string Name, string combobox_Item, float Price, string Describe, IFormFile fileupload)
+		{
+			string imagePath = null; // Default image path is null
 
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await fileupload.CopyToAsync(stream);
-                }
+			if (fileupload != null && fileupload.Length > 0)
+			{
+				var fileName = Guid.NewGuid().ToString() + Path.GetExtension(fileupload.FileName);
+				var filePath = Path.Combine(hostingEnvironment.WebRootPath, "img", fileName);
 
-                foodService.UpdateData(FoodID, Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), Price , Describe, "/img/" + fileName);
-            }
-            else
-            {
-                foodService.UpdateData(FoodID, Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), Price, Describe, null);
-            }
+				using (var stream = new FileStream(filePath, FileMode.Create))
+				{
+					await fileupload.CopyToAsync(stream);
+				}
 
-            return RedirectToPage("ManageFood");
-        }
-    }
+				imagePath = "/img/" + fileName; // Update with the new image path
+			}
+			else
+			{
+				var existingFood = foodService.GetFoodbyId(FoodID); // Retrieve the existing food record
+				if (existingFood != null)
+				{
+					imagePath = existingFood.ImageFood; // Use the existing image path
+				}
+			}
+
+			foodService.UpdateData(FoodID, Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), Price, Describe, imagePath);
+
+			return RedirectToPage("ManageFood");
+		}
+	}
 }

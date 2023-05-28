@@ -42,6 +42,10 @@ namespace CheeseBurger.Service.Implements
         {
             return accountRespository.GetListAccount();
         }
+        public int GetIDAccountByMail(string email)
+        {
+            return accountRespository.GetIDAccountByMail(email);   
+        }
 
-	}
+    }
 }

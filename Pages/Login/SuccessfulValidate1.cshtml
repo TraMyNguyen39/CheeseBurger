@@ -1,5 +1,5 @@
 ﻿@page
-@model SuccesfulValideModel
+@model SuccesfulValidate1Model
 @{
     ViewData["Title"] = "Login/Register";
 }
@@ -15,8 +15,10 @@
             <p class="text">
                 Thư đã được gửi đến email của bạn.
                 <br>Vui lòng kiểm tra hộp thư và làm theo hướng dẫn để lấy lại mật khẩu.
-            </p>
+            </p> 
+            <input type="hidden" name="email" id="emaill" value="@Model.EmailValidate" />
             <button class="home-btn" onclick="window.location.href = 'https://localhost:44344/Index';">Về trang chủ</button>
         </div>
     </div>
 </div>
+@*<script src="~/js/successful-validate1.js"></script>*@

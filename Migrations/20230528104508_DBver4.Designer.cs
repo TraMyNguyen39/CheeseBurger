@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheeseBurger.Migrations
 {
     [DbContext(typeof(CheeseBurgerContext))]
-    [Migration("20230521063745_DBver3")]
-    partial class DBver3
+    [Migration("20230528104508_DBver4")]
+    partial class DBver4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,8 +40,8 @@ namespace CheeseBurger.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("isDeleted")
                         .HasColumnType("bit");
@@ -209,6 +209,23 @@ namespace CheeseBurger.Migrations
                     b.ToTable("Food_Ingredients");
                 });
 
+            modelBuilder.Entity("CheeseBurger.Model.Entities.IdenCode", b =>
+                {
+                    b.Property<int>("IcodeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IcodeId"));
+
+                    b.Property<string>("ICodeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IcodeId");
+
+                    b.ToTable("IdenCodes");
+                });
+
             modelBuilder.Entity("CheeseBurger.Model.Entities.ImportOrder", b =>
                 {
                     b.Property<int>("ImportOrderID")
@@ -312,6 +329,23 @@ namespace CheeseBurger.Migrations
                     b.HasKey("MeasureID");
 
                     b.ToTable("Measures");
+                });
+
+            modelBuilder.Entity("CheeseBurger.Model.Entities.NewPass", b =>
+                {
+                    b.Property<int>("NewPassID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NewPassID"));
+
+                    b.Property<string>("NewPassName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NewPassID");
+
+                    b.ToTable("NewPasses");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Order_Food", b =>
@@ -549,6 +583,23 @@ namespace CheeseBurger.Migrations
                     b.HasIndex("WardID");
 
                     b.ToTable("Staffs");
+                });
+
+            modelBuilder.Entity("CheeseBurger.Model.Entities.TPass", b =>
+                {
+                    b.Property<int>("TPassID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TPassID"));
+
+                    b.Property<string>("TPassName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TPassID");
+
+                    b.ToTable("TPasses");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Ward", b =>

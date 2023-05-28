@@ -71,8 +71,12 @@
 			var totalPages = (int)Math.Ceiling((double)Model.foods.Count / pageSize); // Calculate the total number of pages
 			var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
 			var foods = Model.foods.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
-			if (Model.currentPage < 1) Model.currentPage = 1;
-			if (Model.currentPage > totalPages) Model.currentPage = totalPages;
+			if (Model.currentPage < 1){
+		          Model.currentPage = 1;
+		    }
+			if (Model.currentPage > totalPages) {
+		          Model.currentPage = totalPages;
+		    }
 		}
 		<table class="content-table">
 			<thead>
@@ -593,4 +597,8 @@
 		}
 		$('#price-error-update').text('');
 	}
+	
+
+	
 </script>
+

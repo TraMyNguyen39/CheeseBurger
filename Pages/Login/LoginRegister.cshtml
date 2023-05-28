@@ -41,13 +41,15 @@
                 <i class="fa-solid fa-user"></i><input asp-for="@Model.Email" type="text" class="input-field" placeholder="Email" required>
             </div>
             <div class="input-item">
-                <i class="fa-solid fa-key"></i><input asp-for="@Model.Password" type="password" class="input-field" placeholder="Mật khẩu" required>
+                <i class="fa-solid fa-key"></i><input asp-for="@Model.Password" id="password" type="password" class="input-field" placeholder="Mật khẩu" required>
             </div>
+           @* <input asp-for="@Model.IdNewPass" type="hidden" value="@Model._IdNewPass"/>
+            <input asp-for="@Model.IdAcc" type="hidden" value="@Model._IdAcc" />*@
             <button type="submit" class="submit-btn">Đăng nhập</button>
             <a asp-page="/Login/ForgetPassword" class="input-group__forget">Quên mật khẩu</a>
         </form>
 
-        <form method="post" asp-page-handler="Register" id="register" class="input-group RegisterAcc">
+        <div id="register" class="input-group RegisterAcc">
             <div class="unsuccessful-message" id="error"></div>         
             <div class="input-item">
                 <i class="fa-solid fa-user"></i><input type="text" name="name" id="namee" class="input-field" placeholder="Nhập Họ và tên" required>                
@@ -62,7 +64,7 @@
                 <i class="fa-solid fa-key"></i><input type="password" name="pass" id="passs" class="input-field" placeholder="Nhập mật khẩu" required>               
             </div>            
             <button type="submit" class="submit-btn submit-btn-register">Đăng ký</button>
-        </form>
+        </div>
         <a asp-area="" asp-page="/Index" class="home-link"><i class="fa-solid fa-chevron-left"></i>Về trang chủ</a>
     </div>
 </div>

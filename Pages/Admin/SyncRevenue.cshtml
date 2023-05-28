@@ -62,7 +62,7 @@
 					<canvas id="myChart"> </canvas>
 				</div>
 			</div>			
-			<div class="col-4">
+			@*<div class="col-4">
 				<div class="best__seller-info">
 					<p class="title"> Bán chạy nhất</p>
 					@foreach (var item in Model.List_Food)
@@ -76,12 +76,63 @@
 					}
 					<canvas id="donutChart" class="chart_best_seller"> </canvas>
 				</div>				
+			</div>*@
+			<div class="form-box-revenue">
+				<div class="button-box-revenue">
+					<div id="switch-btn-revenue"></div>
+					<div class="toggle-btn-revenue">
+						<button type="button" class="button-box__toggle-btn-revenue" id="best-seller-state" onclick="best()">Bán chạy nhất</button>
+						<button type="button" class="button-box__toggle-btn-revenue" id="customer-vip-state" onclick="vip()">Khách hàng VIP</button>
+					</div>
+				</div>				
+				<div id="best_seller" class="input-group-revenue">
+					<div class="best__seller-info">						
+						@foreach (var item in Model.List_Food)
+						{
+							cnt++;
+							if (cnt == 4) break;
+							<div class="d-flex align-items-center">
+								<img src="@item.ImgFoodRevenue" class="image_food_best_seller">
+								<p class="foodname_best_seller">@item.NameFoodRevenue</p>
+							</div>
+						}
+						<canvas id="donutChart" class="chart_best_seller"> </canvas>
+					</div>
+				</div>
+
+				<div id="cus_vip" class="input-group-revenue">
+					<div class="best__seller-info">
+						@foreach (var item in Model.List_CusRevenue)
+						{							
+							<div class="d-flex align-items-center" style="margin-top: 1%">
+								<img src="~/img/user.png" class="image_cus_vip">
+								<p class="foodname_best_seller">#@item.CusRevenueID @item.CusRevenueName</p>
+							</div>
+						}
+						<canvas id="barChart" class="chart_cus_vip"> </canvas>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div> 
 </div>
 @*<script src="~/js/sync-revenue.js"></script>*@
 <script>
+	var x = document.getElementById("best_seller");
+	var y = document.getElementById("cus_vip");
+	var z = document.getElementById("switch-btn-revenue");
+
+	function vip() {		
+		x.style.left = "-450px";
+		y.style.left = "0px";
+		z.style.left = "50%"
+	}
+	function best() {
+		x.style.left = "0px"
+		y.style.left = "450px";
+		z.style.left = "0"
+	}
+
 	const selectBox = document.querySelector('select[name="combobox_Item"]');
 	const fromDate = document.querySelector('input[name="fromDate"]');
 	const toDate = document.querySelector('input[name="toDate"]');
@@ -140,6 +191,8 @@
 	var Times = [];
 	var Foodname = [];
 	var Percent = [];
+	var Cusname = [];
+	var TMoney = [];
 
 	@foreach (var item in Model.List_IO)
 	{		
@@ -152,21 +205,15 @@
 	}
 	@foreach (var item in Model.List_Food)
 	{
-		@:Foodname.push(capitalizeFirstLetterOfEachWord('@Html.Raw(item.FoodName)'));
+		@:Foodname.push(capitalizeFirstLetterOfEachWord('@Html.Raw(item.NameFoodRevenue)'));
+		@:Percent.push(@item.CntFoodRevenue);
 	}
-
-	var now = new Date();
-	var seed = now.getTime();
-
-	for (var i = 0; i < 5; i++) {
-		if (i === 0) Percent.push(Math.floor(Math.random(seed) * 6) + 45);
-		else if (i === 1) Percent.push(Math.floor(Math.random(seed) * 6) + 35);
-		else if (i === 2) Percent.push(Math.floor(Math.random(seed) * 6) + 25);
-		else if (i === 3) Percent.push(Math.floor(Math.random(seed) * 3) + 15);
-		else if (i === 4) Percent.push(Math.floor(Math.random(seed) * 3) + 5);
+	@foreach (var item in Model.List_CusRevenue)
+	{
+		@:Cusname.push('#' + @item.CusRevenueID.ToString());
+		@:TMoney.push(@item.CusRevenueTMoney);
 	}
-
-
+	
 	/* Get the canvas element and context */
 	var ctx = document.getElementById('myChart').getContext('2d');
 
@@ -218,7 +265,7 @@
 	var _ctx = document.getElementById('donutChart').getContext('2d');
 
 	/* Define the data for the chart */
-	var data = {
+	var _data = {
 		labels: Foodname,
 		datasets: [{
 			label: 'My First Dataset',
@@ -237,7 +284,46 @@
 	/* Create the chart */
 	var myChart = new Chart(_ctx, {
 		type: 'pie',
-		data: data,		
+		data: _data,		
+	});
+
+	var __ctx = document.getElementById('barChart').getContext('2d');
+
+	/* Define the data for the chart */
+	var __data = {
+		labels: Cusname,
+		datasets: [{
+			label: 'Tổng tiền',
+			data: TMoney,
+			backgroundColor: [
+				'rgba(255, 99, 132)',
+				'rgba(255, 159, 64)',
+				'rgba(255, 205, 86)',
+				'rgba(75, 192, 192)',
+				'rgba(54, 162, 235)'
+			],
+			borderColor: [
+				'rgb(255, 99, 132)',
+				'rgb(255, 159, 64)',
+				'rgb(255, 205, 86)',
+				'rgb(75, 192, 192)',
+				'rgb(54, 162, 235)'
+			],
+			borderWidth: 1
+		}]
+	};
+
+	/* Create the chart */
+	var myChart = new Chart(__ctx, {
+		type: 'bar',
+		data: __data,
+		options: {
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			}
+		},
 	});
 </script>
 <script>

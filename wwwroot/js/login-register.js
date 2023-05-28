@@ -138,7 +138,49 @@ function checkValidate() {
 function validateForm(event) {
 	let isValid = checkValidate();
 	if (isValid) {
-		document.querySelector('.RegisterAcc').submit();
+		
+		event.preventDefault();
+		// Lấy các giá trị từ input fields
+		var email = document.getElementById("emaill").value;
+		var name = document.getElementById("namee").value;
+		var phone = document.getElementById("phonee").value;
+		var pass = document.getElementById("passs").value;
+
+		// Tạo form ẩn
+		var hiddenForm = document.createElement("form");
+		hiddenForm.setAttribute("method", "post");
+		hiddenForm.setAttribute("action", "https://localhost:44344/Login/SendMailIden");
+
+		// Tạo input fields ẩn và gắn các giá trị
+		var emailInput = document.createElement("input");
+		emailInput.setAttribute("type", "hidden");
+		emailInput.setAttribute("name", "email");
+		emailInput.setAttribute("value", email);
+		hiddenForm.appendChild(emailInput);
+
+		var nameInput = document.createElement("input");
+		nameInput.setAttribute("type", "hidden");
+		nameInput.setAttribute("name", "name");
+		nameInput.setAttribute("value", name);
+		hiddenForm.appendChild(nameInput);
+
+		var phoneInput = document.createElement("input");
+		phoneInput.setAttribute("type", "hidden");
+		phoneInput.setAttribute("name", "phone");
+		phoneInput.setAttribute("value", phone);
+		hiddenForm.appendChild(phoneInput);
+
+		var passInput = document.createElement("input");
+		passInput.setAttribute("type", "hidden");
+		passInput.setAttribute("name", "pass");
+		passInput.setAttribute("value", pass);
+		hiddenForm.appendChild(passInput);
+
+		// Thêm form ẩn vào body của document
+		document.body.appendChild(hiddenForm);
+
+		// Submit form ẩn
+		hiddenForm.submit();
 	}
 	else {
 		event.preventDefault();

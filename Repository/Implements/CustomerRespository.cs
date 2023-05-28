@@ -46,7 +46,7 @@ namespace CheeseBurger.Repository.Implements
 		{
 			var cus_data = from c in context.Customers
 						   join a in context.Accounts on c.AccountID equals a.AccountID
-						   where a.isStaff == false
+						   where a.isStaff == false && a.isDeleted == false
 						   select new { c, a };
 
 			var customer = from p in cus_data
@@ -165,5 +165,14 @@ namespace CheeseBurger.Repository.Implements
 				context.SaveChanges();
 			}
         }
+		public int GetCusIDByPhone(string phone)
+		{
+			var cus_data = context.Customers.Where(p => p.Phone == phone).FirstOrDefault();
+			if (cus_data != null)
+			{
+				return cus_data.CustomerID;
+			}
+			return -1;
+		}
     }
 }

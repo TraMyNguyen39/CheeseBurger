@@ -46,7 +46,20 @@ function checkValidate() {
 function validateForm(event) {
 	let isValid = checkValidate();
 	if (isValid) {
-		window.location.href = 'https://localhost:44344/Login/SuccessfulValidate1';
+		var email = document.getElementById("emaill").value;
+		var url = 'https://localhost:44344/Login/SuccessfulValidate1';
+		var form = document.createElement("form");
+		form.action = url;
+		form.method = "POST";
+
+		var emailInput = document.createElement("input");
+		emailInput.type = "text";
+		emailInput.name = "email";
+		emailInput.value = email;
+		form.appendChild(emailInput);
+
+		document.body.appendChild(form);
+		form.submit();
 	}
 	else {
 		event.preventDefault();
