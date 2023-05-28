@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheeseBurger.Migrations
 {
     [DbContext(typeof(CheeseBurgerContext))]
-    [Migration("20230527132627_DBver4")]
+    [Migration("20230528104508_DBver4")]
     partial class DBver4
     {
         /// <inheritdoc />
@@ -40,8 +40,8 @@ namespace CheeseBurger.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("isDeleted")
                         .HasColumnType("bit");

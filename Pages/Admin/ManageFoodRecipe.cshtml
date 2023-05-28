@@ -114,7 +114,7 @@
 			{
 				currentPage = Model.currentPage,
 				countPages = totalPages,
-				generateUrl = (int? p) => Url.Page("/Admin/ManageFood", new { p, Model.searchText, Model.sortBy, Model.roleBy })
+				generateUrl = (int? p) => Url.Page("/Admin/ManageFoodRecipe", new { p, Model.searchText, Model.sortBy, Model.roleBy })
 			};
 		}
 		<partial name="_Paging" model="@pagingmodel" />

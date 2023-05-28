@@ -18,7 +18,7 @@ namespace CheeseBurger.Migrations
                     AccountID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     isDeleted = table.Column<bool>(type: "bit", nullable: false),
                     isStaff = table.Column<bool>(type: "bit", nullable: false)
                 },

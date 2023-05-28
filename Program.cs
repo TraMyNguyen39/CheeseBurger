@@ -126,15 +126,7 @@ app.UseEndpoints(endpoints =>
                     var sendmailservice = context.RequestServices.GetService<ISendMailService>();
 
 					var email = context.Request.Form["email"].ToString();
-
-                    //int seed = DateTime.Now.Millisecond;
-                    //Random rnd = new Random(seed);
-                    //var newpassservice = context.RequestServices.GetService<INewPassService>();
-                    //var listP = newpassservice.GetListNewPass();
-                    //var idx = rnd.Next(0, listP.Count);
-                    //var np_name = listP[idx].NewPassName;
-                    //var np_id = listP[idx].NewPassID;
-
+                    
                     int seed = DateTime.Now.Millisecond;
                     Random rnd = new Random(seed);
                     var idcodeservice = context.RequestServices.GetService<IIdenCodeService>();
@@ -248,10 +240,11 @@ app.UseEndpoints(endpoints =>
                                          .Replace("@page", "")
                                          .Replace("@model EmailModel", "")
                                          .Replace("@{\r\n    ViewData[\"Title\"] = \"Email\";\r\n}", "");
+                    var email = context.Session.GetString("EmailUser");
 
                     MailContent content = new MailContent
                     {
-                        To = "vothedatdavid@gmail.com",
+                        To = email,
                         Subject = "Thư cảm ơn quý khách",
                         Body = emailBody
                     };

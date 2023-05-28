@@ -34,7 +34,8 @@ namespace CheeseBurger.Pages
         {
             if (typebtn == "1")
             {
-                accountService.AddNewAccount(newmail, newpassw);
+				string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newpassw);
+				accountService.AddNewAccount(newmail, hashedPassword);
                 customerService.AddNewCus(newname, newphone);
                 return RedirectToPage("/Login/SuccessfulRegister");
             }
