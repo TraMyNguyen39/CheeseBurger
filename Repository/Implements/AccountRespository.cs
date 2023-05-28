@@ -12,7 +12,16 @@ namespace CheeseBurger.Repository.Implements
         }
         public Account GetAccount(string email, string password)
         {
-            return context.Accounts.Where(p => p.Email == email && p.Password == password).FirstOrDefault();
+            var user = context.Accounts.FirstOrDefault(p => p.Email == email);
+            if (user != null)
+            {
+                bool isPasswordCorrect = BCrypt.Net.BCrypt.Verify(password, user.Password);
+                if (isPasswordCorrect)
+                {
+                    return user;
+                }
+            }
+            return null;
         }
 
         public string GetNamebyID(int idAccount, bool isStaff)

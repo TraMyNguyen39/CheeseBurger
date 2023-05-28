@@ -14,5 +14,6 @@ namespace CheeseBurger.Service
 		void ChangeStatus(int orderID, int status);
 		void UpdateChef(int orderID, int chefID);
 		void UpdateShipper(int orderID, int shipperID);
+		int NewestOrderID();
 	}
 }

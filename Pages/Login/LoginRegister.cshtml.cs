@@ -21,8 +21,10 @@ namespace CheeseBurger.Pages
         public string Password { get; set; }
 		[BindProperty(SupportsGet = true)]
 		public string Message { get; set; }
+        public string hashedPassword { get; set; }
 
-        public LoginRegisterModel(IAccountService accountService, ICustomerService customerService, IStaffService staffService)
+
+		public LoginRegisterModel(IAccountService accountService, ICustomerService customerService, IStaffService staffService)
         {
             this.accountService = accountService;
             this.customerService = customerService;
@@ -34,7 +36,6 @@ namespace CheeseBurger.Pages
             List_Customers = customerService.GetAllCustomers();
             List_Staffs = staffService.GetAllStaffs();
         }
-
         public IActionResult OnPost()
         {
             var user = accountService.GetAccount(Email, Password);
@@ -45,23 +46,23 @@ namespace CheeseBurger.Pages
                 List_Staffs = staffService.GetAllStaffs();
                 return Page();
             }
-            else if(user.isDeleted == true)
-			{
-				Message = "* Tài khoản đã bị chặn vì vi phạm tiêu chuẩn cộng đồng!";
+            else if (user.isDeleted == true)
+            {
+                Message = "* Tài khoản đã bị chặn vì vi phạm tiêu chuẩn cộng đồng!";
                 List_Customers = customerService.GetAllCustomers();
                 List_Staffs = staffService.GetAllStaffs();
                 return Page();
-			}
-			else
+            }
+            else
             {
-				HttpContext.Session.SetInt32("Id", user.AccountID);
+                HttpContext.Session.SetInt32("Id", user.AccountID);
                 HttpContext.Session.SetString("isStaff", user.isStaff ? "Staff" : "Customer");
                 HttpContext.Session.SetString("Name", accountService.GetNamebyID(user.AccountID, user.isStaff));
                 if (user.isStaff)
                 {
                     var staffID = staffService.GetStaffID(staffService.GetStaffID(user.AccountID));
-					HttpContext.Session.SetInt32("staffID", staffID);
-                    var staffRole = staffService.GetStaffRole(staffID);                    
+                    HttpContext.Session.SetInt32("staffID", staffID);
+                    var staffRole = staffService.GetStaffRole(staffID);
                     HttpContext.Session.SetString("Role", staffRole);
                     if (staffRole != "Quản trị viên")
                     {
@@ -85,8 +86,9 @@ namespace CheeseBurger.Pages
         }
         public IActionResult OnPostRegister(string name, string email, string phone, string pass) 
         {
-            accountService.AddNewAccount(email, pass);
-            customerService.AddNewCus(name, phone);
+			hashedPassword = BCrypt.Net.BCrypt.HashPassword(pass);
+			accountService.AddNewAccount(email, hashedPassword);
+			customerService.AddNewCus(name, phone);
             return RedirectToPage("/Login/LoginRegister");
         }
     }

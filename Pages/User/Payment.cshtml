@@ -18,7 +18,7 @@
 			<div class="list-receiver-item">
 				<div class="receiver-item">
 					<label>Tên người nhận <span style="color: red">&lowast;</span></label><br>
-					<input class="receiver-item-input" type="text" name="Name" required>
+					<input class="receiver-item-input" type="text" name="Name" required id="receiverName">				
 				</div>
 			</div>
 			<div class="list-receiver-item justify-content-between">
@@ -118,7 +118,7 @@
 				</div>
 			<input type="hidden" value="@Model.tempMoney" asp-for="tempMoney" />
 			<input type="hidden" value="@Model.shippingMoney" asp-for="shippingMoney" />
-			<input type="hidden" value="@((Model.tempMoney + Model.shippingMoney + Model.tempMoney * 3 / 100))" asp-for="totalMoney" />
+			<input type="hidden" id="totalhidden" name="totalhidden" value="@(Model.tempMoney + Model.shippingMoney + Model.tempMoney * 3 / 100)" asp-for="totalMoney" />
 			<div id="successMessage" style="display:none">@ViewData["SuccessMessage"]</div>
 			<div id="errorMessage" style="display:none">@ViewData["ErrorMessage"]</div>
 			<button type="submit" class="submit-btn submit-btn__payment">
@@ -148,9 +148,11 @@
 			const data = await response.json();
 			const ship = document.getElementById("ship");
 			const total = document.getElementById("total");
+			const totalData = document.getElementById("totalhidden");
 			if (response.ok) {
 				ship.innerText = data.data.total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 				total.innerText = (parseInt(total.getAttribute("value")) + data.data.total).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+				totalData.value = total.innerText;
 				const successMessage = document.getElementById("successMessage");
 				successMessage.innerText = `Success! Response status code: ${response.status}`;
 			} else {
@@ -282,3 +284,11 @@
 		wardDropdown.addEventListener("change", getWardCode);
 	</script>
 }
+
+<script>
+	function captureReceiverName() {
+		var receiverName = document.getElementById("receiverName").value;
+		return receiverName;
+	}
+</script>
+

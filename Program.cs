@@ -92,6 +92,7 @@ service.AddScoped<IViewRenderService, ViewRenderService>();
 service.AddSingleton<ICompositeViewEngine, CompositeViewEngine>();
 service.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -128,59 +129,65 @@ app.UseEndpoints(endpoints =>
 					context.Response.Redirect("/Login/SuccessfulValidate");
 					//await context.Response.WriteAsync("Send mail");
 				});
-                endpoints.MapGet("/User/MyAlternateOrder", async context =>
-                {
-                    // Inside your method or class constructor
-                    var serviceProvider = context.RequestServices;
 
-                    var orderService = serviceProvider.GetService<IOrderService>();
-                    var order_FoodService = serviceProvider.GetService<IOrder_FoodService>();
-                    var cartService = serviceProvider.GetService<ICartService>();
-                    var wardService = serviceProvider.GetService<IWardService>();
-                    var districtService = serviceProvider.GetService<IDistrictService>();
-                    var staffService = serviceProvider.GetService<IStaffService>();
-                    var foodService = serviceProvider.GetService<IFoodService>();
-                    var reviewService = serviceProvider.GetService<IReviewService>();
-                    var hostingEnvironment = serviceProvider.GetService<IWebHostEnvironment>();
-                    var customerService = serviceProvider.GetService<ICustomerService>();
-                    var categoryService = serviceProvider.GetService<ICategoryService>();
+				endpoints.MapGet("/User/MyAlternateOrder", async context =>
+				{
+					// Inside your method or class constructor
+					var serviceProvider = context.RequestServices;
 
-                    var model = new EmailModel();
+					var orderService = serviceProvider.GetService<IOrderService>();
+					var order_FoodService = serviceProvider.GetService<IOrder_FoodService>();
+					var cartService = serviceProvider.GetService<ICartService>();
+					var wardService = serviceProvider.GetService<IWardService>();
+					var districtService = serviceProvider.GetService<IDistrictService>();
+					var staffService = serviceProvider.GetService<IStaffService>();
+					var foodService = serviceProvider.GetService<IFoodService>();
+					var reviewService = serviceProvider.GetService<IReviewService>();
+					var hostingEnvironment = serviceProvider.GetService<IWebHostEnvironment>();
+					var customerService = serviceProvider.GetService<ICustomerService>();
+					var categoryService = serviceProvider.GetService<ICategoryService>();
 
-                    // Retrieve the required services
-                    var sendMailService = context.RequestServices.GetService<ISendMailService>();
-                    var viewRenderService = context.RequestServices.GetService<IViewRenderService>();
+					var model = new EmailModel();
+					// Retrieve the required services
+					var sendMailService = context.RequestServices.GetService<ISendMailService>();
+					var viewRenderService = context.RequestServices.GetService<IViewRenderService>();
+					var name = context.Request.Query["name"].ToString(); // Retrieve the 'name' value from the route parameters
+					var total = context.Request.Query["total"].ToString();
+					var address = context.Request.Query["address"].ToString();
+					var dateTime = context.Request.Query["dateTime"].ToString();
+					var id = context.Request.Query["id"].ToString();
+					// Set the 'TenNguoiNhan' property of the 'model' instance
+					model.TenNguoiNhan = name;
+					model.MaDH = id;
+					model.TongTien = total;
+					model.NgayDatHang = dateTime;
+					model.DiaChiGiaoHang = address;
 
+					// Retrieve the view content
+					string viewFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Pages", "User", "Email.cshtml");
+					string emailBody = await File.ReadAllTextAsync(viewFilePath);
 
-                    model.MaDH = "#123";
-                    model.TenNguoiNhan = "KKKK"; // Retrieve the value from the session
-                    model.TongTien = "69.000đ";
-                    model.NgayDatHang = "24/5/2020";
-                    model.DiaChiGiaoHang = "23 Nguyễn Văn Cừ";
+					// Replace the placeholders with actual values
+					emailBody = emailBody.Replace("@Model.MaDH", model.MaDH)
+										 .Replace("@Model.TenNguoiNhan", model.TenNguoiNhan)
+										 .Replace("@Model.TongTien", model.TongTien)
+										 .Replace("@Model.NgayDatHang", model.NgayDatHang)
+										 .Replace("@Model.DiaChiGiaoHang", model.DiaChiGiaoHang)
+										 .Replace("@page", "")
+										 .Replace("@model EmailModel", "")
+										 .Replace("@{\r\n    ViewData[\"Title\"] = \"Email\";\r\n}", "");
 
-                    // Retrieve the view content
-                    string viewFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Pages", "User", "Email.cshtml");
-                    string emailBody = await File.ReadAllTextAsync(viewFilePath);
+					MailContent content = new MailContent
+					{
+						To = "vothedatdavid@gmail.com",
+						Subject = "Thư cảm ơn quý khách",
+						Body = emailBody
+					};
 
-                    // Replace the placeholders with actual values
-                    emailBody = emailBody.Replace("@Model.MaDH", model.MaDH)
-                                         .Replace("@Model.TenNguoiNhan", model.TenNguoiNhan)
-                                         .Replace("@Model.TongTien", model.TongTien)
-                                         .Replace("@Model.NgayDatHang", model.NgayDatHang)
-                                         .Replace("@Model.DiaChiGiaoHang", model.DiaChiGiaoHang);
+					// Send the email
+					await sendMailService.SendMail(content);
 
-                    MailContent content = new MailContent
-                    {
-                        To = "vothedatdavid@gmail.com",
-                        Subject = "Thư cảm ơn quý khách",
-                        Body = emailBody
-                    };
-
-                    // Send the email
-                    await sendMailService.SendMail(content);
-
-                    context.Response.Redirect("/User/MyOrder");
-                });
-                
-            });
+					context.Response.Redirect("/User/MyOrder");
+				});
+			});
 app.Run();

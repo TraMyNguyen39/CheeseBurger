@@ -41,7 +41,7 @@
                 <i class="fa-solid fa-user"></i><input asp-for="@Model.Email" type="text" class="input-field" placeholder="Email" required>
             </div>
             <div class="input-item">
-                <i class="fa-solid fa-key"></i><input asp-for="@Model.Password" type="password" class="input-field" placeholder="Mật khẩu" required>
+                <i class="fa-solid fa-key"></i><input asp-for="@Model.Password" id="password" type="password" class="input-field" placeholder="Mật khẩu" required>
             </div>
             <button type="submit" class="submit-btn">Đăng nhập</button>
             <a asp-page="/Login/ForgetPassword" class="input-group__forget">Quên mật khẩu</a>

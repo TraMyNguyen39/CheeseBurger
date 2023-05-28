@@ -14,7 +14,8 @@ namespace CheeseBurger.Pages.User
         public string TongTien { get; set; }
         public string NgayDatHang { get; set; }
         public string DiaChiGiaoHang { get; set; }
-		public EmailModel()
+        public List<CartDTO> Carts { get; set; }
+        public EmailModel()
         {
 
         }
