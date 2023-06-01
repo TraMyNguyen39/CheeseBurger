@@ -36,17 +36,17 @@ namespace CheeseBurger.Pages.Admin
 		[BindProperty(SupportsGet = true)]
 		public int ingredient_5 { get; set; }
 		[BindProperty(SupportsGet = true)]
-		public int? qty_0 { get; set; }
+		public float? qty_0 { get; set; }
 		[BindProperty(SupportsGet = true)]
-		public int? qty_1 { get; set; }
+		public float? qty_1 { get; set; }
 		[BindProperty(SupportsGet = true)]
-		public int? qty_2 { get; set; }
+		public float? qty_2 { get; set; }
 		[BindProperty(SupportsGet = true)]
-		public int? qty_3 { get; set; }
+		public float? qty_3 { get; set; }
 		[BindProperty(SupportsGet = true)]
-		public int? qty_4 { get; set; }
+		public float? qty_4 { get; set; }
 		[BindProperty(SupportsGet = true)]
-		public int? qty_5 { get; set; }
+		public float? qty_5 { get; set; }
 
 		public ImportOrderProcModel (IImportOrderService importOrderService, IPartnerService partnerService, IIngredientsService ingredientsService, IImportOrders_IngredientsService importOrders_IngredientsService)
         {
@@ -77,23 +77,40 @@ namespace CheeseBurger.Pages.Admin
 			};
 			importOrderService.CreateOrder(order);
 			if (ingredient_0 != 0 && qty_0 != null)
-				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_0, (int)qty_0);
+			{
+				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_0, (float)qty_0);
+				ingredientsService.UpdateQty(ingredient_0, (float)qty_0, true);
+			}
 
 			if (ingredient_1 != 0 && qty_1 != null)
-				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_1, (int)qty_1);
+			{
+				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_1, (float)qty_1);
+				ingredientsService.UpdateQty(ingredient_1, (float)qty_1, true);
+			}
 
 			if (ingredient_2 != 0 && qty_2 != null)
-				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_2, (int)qty_2);
+			{
+				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_2, (float)qty_2);
+				ingredientsService.UpdateQty(ingredient_2, (float)qty_2, true);
+			}
 
 			if (ingredient_3 != 0 && qty_3 != null)
-				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_3, (int)qty_4);
+			{
+				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_3, (float)qty_3);
+				ingredientsService.UpdateQty(ingredient_3, (float)qty_3, true);
+			}
 
 			if (ingredient_4 != 0 && qty_4 != null)
-				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_4, (int)qty_4);
+			{
+				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_4, (float)qty_4);
+				ingredientsService.UpdateQty(ingredient_4, (float)qty_4, true);
+			}
 
 			if (ingredient_5 != 0 && qty_5 != null)
-				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_5, (int)qty_5);
-			
+			{
+				importOrders_IngredientsService.CreateOrderDetail(order.ImportOrderID, ingredient_5, (float)qty_5);
+				ingredientsService.UpdateQty(ingredient_5, (float)qty_5, true);
+			}
 			importOrderService.CalculateMoney(order.ImportOrderID);
 			return RedirectToPage("/Admin/ManageImportOrder");
 		}

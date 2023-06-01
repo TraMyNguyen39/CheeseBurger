@@ -19,5 +19,6 @@ namespace CheeseBurger.Service
 		List<String> GetNameIngredient();
 		List<CBBIngredientDTO> GetIngredientsByPartner(int partnerID);
 		float GetPrice(int ingre);
+		void UpdateQty(int ingredientID, float qty, bool isIncre);
 	}
 }

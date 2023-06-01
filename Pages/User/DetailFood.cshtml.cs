@@ -21,7 +21,7 @@ namespace CheeseBurger.Pages
         public int qty { get; set; }
 		[BindProperty (SupportsGet = true)]
 		public int foodId { get; set; }
-		[BindProperty(SupportsGet = true)]
+        [TempData]		
 		public string ProductInfo { get; set; }
 		public int maxQty { get; set; }
         public int cartQty { get; set; }
@@ -72,7 +72,7 @@ namespace CheeseBurger.Pages
 					cartService.AddCart((int)customerId, foodId, maxFoodQty - cartQty);
 					ProductInfo = "Món ăn chỉ còn " + maxFoodQty + " sản phẩm. Đã thêm " + (maxFoodQty - cartQty) + " sản phẩm vào giỏ hàng";
 				}
-				return RedirectToPage("/user/detailfood", new {id = foodId, ProductInfo});
+				return RedirectToPage("/user/detailfood", new {id = foodId});
             }
 			else if (customerId == null)
 			{

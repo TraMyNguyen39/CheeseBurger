@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CheeseBurger.Pages.Admin
 {
-    [Authorize("Quản trị viên","Nhân viên đầu bếp")]
+    [Authorize("Quản trị viên")]
     public class ManageFoodModel : PageModel
     {
 		private readonly IFoodService foodService;

@@ -27,8 +27,8 @@
 					</li>
 				</ul>
 
-				<form class="header__navbar-searchbox header__navbar-item">
-					<input class="header__navbar--searchbox-input" type="text" placeholder="Nhập món ăn cần tìm">
+				<form class="header__navbar-searchbox header__navbar-item" asp-page="/User/Menu" method="get">
+					<input class="header__navbar--searchbox-input" type="text" placeholder="Nhập món ăn cần tìm" name="search">
 					<button type="submit" class="header__navbar--searchbox-btn">
 						<i style="color: black;" class="header__navbar-icon fas fa-magnifying-glass"></i>
 					</button>
