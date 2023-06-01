@@ -82,7 +82,7 @@ namespace CheeseBurger.Repository.Implements
 
 			if (!searchText.IsNullOrEmpty())
 			{
-				cus_data = cus_data.Where(p => p.IngredientName.Contains(searchText)).Select(p => p);
+				cus_data = cus_data.Where(p => p.IngredientName.Contains(searchText) || p.PartnerName.Contains(searchText)).Select(p => p);
 			}
 			switch (arrange)
 			{
@@ -168,6 +168,17 @@ namespace CheeseBurger.Repository.Implements
 		public void UpdateData(int id, string Name, int measureId, float Price, int partner, float nlHong = 0)
 		{
 			var ingredient = context.Ingredients.Find(id);
+			if (ingredient.IngredientsPrice != Price)
+			{
+				var foods = from p in context.Foods
+							join f in context.Food_Ingredients on p.FoodID equals f.FoodID
+							where f.IngredientsId == id
+							select new { p, f };
+				foreach (var i in foods)
+				{
+					i.p.originPrice += (Price - ingredient.IngredientsPrice) * i.f.QuantityIG;	
+				}
+			}	
 			ingredient.IngredientsName = Name;
 			ingredient.IngredientsPrice = Price;
 			ingredient.MeasureID = measureId;
@@ -203,6 +214,19 @@ namespace CheeseBurger.Repository.Implements
 		{
 			var ingredient = context.ImportOrders_Ingredients.Find(ingre);
 			return (ingredient != null) ? ingredient.PriceIO : 0;
+		}
+
+		public void UpdateQty(int ingredientID, float qty, bool isIncre)
+		{
+			var ingre = context.Ingredients.Find(ingredientID);
+			if (ingre != null)
+			{
+				if (isIncre)
+					ingre.IngredientsQty += qty;
+				else
+					ingre.IngredientsQty -= qty;
+				context.SaveChanges();
+			}
 		}
 	}
 }

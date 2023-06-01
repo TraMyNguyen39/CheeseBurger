@@ -13,7 +13,7 @@ namespace CheeseBurger.Service.Implements
 			this.importOrders_IngredientsRepository = importOrders_IngredientsRepository;
 		}
 
-		public void CreateOrderDetail(int orderID, int ingrID, int qty)
+		public void CreateOrderDetail(int orderID, int ingrID, float qty)
 		{
 			importOrders_IngredientsRepository.CreateOrderDetail(orderID, ingrID, qty);
 		}

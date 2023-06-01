@@ -8,12 +8,12 @@
 <link rel="stylesheet" href="~/css/sync-revenue.css" asp-append-version="true" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 
-<div class="main__information">	
-	<div class="main__information-detail" style="margin-top: 30px; margin-bottom: 30px;">
+<div class="main__information row">	
+	<div class="main__information-detail col-8" style="margin-top: 30px; margin-bottom: 30px;">
 		<div class="main__table-form d-flex align-items-end">
-			<div class="select__form col-4 ">
-				<div class="form-group d-flex align-items-center mb-0" style="padding-bottom: 6%">
-					<label class="control-label" style="padding-bottom: 2px"> Thống kê: </label>
+			<div class="select__form col-6 ">
+				<div class="form-group d-flex align-items-center mb-0 pl-0">
+					<label class="control-label"> Thống kê: </label>
 					<div class="form__comboBox">
 						<form method="post">
 							<select name="combobox_Item" id="date-select">
@@ -25,7 +25,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="form__end col-4 d-flex align-items-center datetime">
+			<div class="form__end col-6 d-flex align-items-center datetime">
 				<div class="form-group d-flex align-items-center mb-0">
 					<form method="get" action="">
 						<label class="control-label">Từ:</label>
@@ -40,8 +40,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="infor__details d-flex">
-			<div class="column__info-details col-8">
+		<div class="infor__details">
+			<div class="column__info-details">
 				<div class="column__info-total d-flex">
 					<div class="column__total-offer text-center col-3">
 						<p class="order__amount"> Số đơn bán</p>
@@ -77,44 +77,44 @@
 					<canvas id="donutChart" class="chart_best_seller"> </canvas>
 				</div>				
 			</div>*@
-			<div class="form-box-revenue">
-				<div class="button-box-revenue">
-					<div id="switch-btn-revenue"></div>
-					<div class="toggle-btn-revenue">
-						<button type="button" class="button-box__toggle-btn-revenue" id="best-seller-state" onclick="best()">Bán chạy nhất</button>
-						<button type="button" class="button-box__toggle-btn-revenue" id="customer-vip-state" onclick="vip()">Khách hàng VIP</button>
-					</div>
-				</div>				
-				<div id="best_seller" class="input-group-revenue">
-					<div class="best__seller-info">						
-						@foreach (var item in Model.List_Food)
-						{
-							cnt++;
-							if (cnt == 4) break;
-							<div class="d-flex align-items-center">
-								<img src="@item.ImgFoodRevenue" class="image_food_best_seller">
-								<p class="foodname_best_seller">@item.NameFoodRevenue</p>
-							</div>
-						}
-						<canvas id="donutChart" class="chart_best_seller"> </canvas>
-					</div>
-				</div>
-
-				<div id="cus_vip" class="input-group-revenue">
-					<div class="best__seller-info">
-						@foreach (var item in Model.List_CusRevenue)
-						{							
-							<div class="d-flex align-items-center" style="margin-top: 1%">
-								<img src="~/img/user.png" class="image_cus_vip">
-								<p class="foodname_best_seller">#@item.CusRevenueID @item.CusRevenueName</p>
-							</div>
-						}
-						<canvas id="barChart" class="chart_cus_vip"> </canvas>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div> 
+	<div class="form-box-revenue col-4">
+		<div class="button-box-revenue">
+			<div id="switch-btn-revenue"></div>
+			<div class="toggle-btn-revenue">
+				<button type="button" class="button-box__toggle-btn-revenue" id="best-seller-state" onclick="best()">Bán chạy nhất</button>
+				<button type="button" class="button-box__toggle-btn-revenue" id="customer-vip-state" onclick="vip()">Khách hàng VIP</button>
+			</div>
+		</div>
+		<div id="best_seller" class="input-group-revenue">
+			<div class="best__seller-info">
+				@foreach (var item in Model.List_Food)
+				{
+					cnt++;
+					if (cnt == 4) break;
+					<div class="d-flex align-items-center">
+						<img src="@item.ImgFoodRevenue" class="image_food_best_seller">
+						<p class="foodname_best_seller">@item.NameFoodRevenue</p>
+					</div>
+				}
+				<canvas id="donutChart" class="chart_best_seller"> </canvas>
+			</div>
+		</div>
+
+		<div id="cus_vip" class="input-group-revenue">
+			<div class="best__seller-info">
+				@foreach (var item in Model.List_CusRevenue)
+				{
+					<div class="d-flex align-items-center" style="margin-top: 1%">
+						<img src="~/img/user.png" class="image_cus_vip">
+						<p class="foodname_best_seller">#@item.CusRevenueID @item.CusRevenueName</p>
+					</div>
+				}
+				<canvas id="barChart" class="chart_cus_vip"> </canvas>
+			</div>
+		</div>
+	</div>
 </div>
 @*<script src="~/js/sync-revenue.js"></script>*@
 <script>

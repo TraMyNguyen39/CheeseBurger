@@ -14,6 +14,7 @@ namespace CheeseBurger.Pages.Admin
     {
         private readonly IImportOrderService importOrderService;
         private readonly IImportOrders_IngredientsService importOrders_IngredientsService;
+        private readonly IIngredientsService ingredientsService;
 		private readonly IStaffService staffService;
 		public ImportOrderDTO order { get; set; }
 		public StaffDTO staff { get; set; }
@@ -22,10 +23,11 @@ namespace CheeseBurger.Pages.Admin
 		public int orderId { get; set; }
 		public ImportOrderDetailModel(IImportOrderService importOrderService,
             IImportOrders_IngredientsService importOrders_IngredientsService,
-            IStaffService staffService)
+            IStaffService staffService, IIngredientsService ingredientsService)
         {
             this.importOrderService = importOrderService;
             this.importOrders_IngredientsService= importOrders_IngredientsService;
+            this.ingredientsService = ingredientsService;
             this.staffService = staffService;
         }
 
@@ -42,7 +44,12 @@ namespace CheeseBurger.Pages.Admin
 		}
         public IActionResult OnPostDelete(int orderId)
         {
-            importOrders_IngredientsService.DeleteOrderDetail(orderId);
+			lineItems = importOrders_IngredientsService.GetAllLines(orderId);
+            foreach (var i in lineItems)
+            {
+                ingredientsService.UpdateQty(i.IngreID, i.QuantityIO, false);
+            }
+			importOrders_IngredientsService.DeleteOrderDetail(orderId);
             importOrderService.RemoveOrder(orderId);
             return RedirectToPage("/Admin/ManageImportOrder");
         }

@@ -21,7 +21,7 @@
 				<input type="submit" style="visibility: hidden; width:0" />
 			</form>
 			<form class="menu-search-user-box" method="get">
-				<input class="search-user-box-input" type="text" name="search" placeholder="Nhập tên cần tìm">
+				<input class="search-user-box-input" type="text" name="search" placeholder="Nhập tên nguyên liệu, nhà cung cấp">
 				<input class="search-user-box-hidden" name="sortBy" value="@Model.sortBy" type="hidden" />
 				<button type="submit" class="search-user-box-btn">
 					<i class="fas fa-magnifying-glass"></i>
@@ -84,7 +84,7 @@
 			{
 				currentPage = Model.currentPage,
 				countPages = totalPages,
-				generateUrl = (int? p) => Url.Page("/Admin/ManageIngredient", new { p, Model.searchText, Model.sortBy })
+				generateUrl = (int? p) => Url.Page("/Admin/ManageIngredient", new { p, search = Model.searchText, Model.sortBy })
 			};
 		}
 		<partial name="_Paging" model="@pagingmodel" />

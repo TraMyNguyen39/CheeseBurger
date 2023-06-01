@@ -12,7 +12,7 @@ namespace CheeseBurger.Repository.Implements
 			this.context = context;
 		}
 
-		public void CreateOrderDetail(int orderID, int ingrID, int qty)
+		public void CreateOrderDetail(int orderID, int ingrID, float qty)
 		{
 			var price = context.Ingredients.Find(ingrID);
 			var oldDetail = context.ImportOrders_Ingredients
@@ -36,10 +36,10 @@ namespace CheeseBurger.Repository.Implements
 		}
 		public void DeleteOrderDetail(int orderID)
 		{
-			var ingre = context.ImportOrders_Ingredients.Where(p => p.ImportOrderID == orderID);
-			if (ingre != null)
+			var ingreOrder = context.ImportOrders_Ingredients.Where(p => p.ImportOrderID == orderID);
+			if (ingreOrder != null)
 			{
-				context.ImportOrders_Ingredients.RemoveRange(ingre);
+				context.ImportOrders_Ingredients.RemoveRange(ingreOrder);
 			}
 			context.SaveChanges();
 		}
@@ -50,9 +50,10 @@ namespace CheeseBurger.Repository.Implements
 					.Where(p => p.ImportOrderID == orderID)
 					.Select(p => new ImportLineDTO
 					{
+						IngreID = p.IngredientsID,
 						IngredientName = p.Ingredients.IngredientsName,
 						PriceIO = p.PriceIO,
-						QuantityIO = p.QuantityIO,
+						QuantityIO = (int)p.QuantityIO,
 						Unit = p.Ingredients.Measure.MeasureName
 					}).ToList();
 		}

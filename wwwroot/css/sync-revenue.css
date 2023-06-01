@@ -14,7 +14,7 @@
 }*/
 
 form {
-    margin: 0;
+    margin-left: 10px;
 }
 
 .datetime {
@@ -35,7 +35,7 @@ form {
 .form__comboBox select[name="combobox_Item"] {
     color: var(--text-color);
     border: 1px solid var(--text-color);
-    border-radius: 8px;
+    border-radius: 4px;
     width: 120px;
     height: 30px;
     font-size: 1.6rem;
@@ -44,7 +44,7 @@ form {
 .form-group input[type="date"], .form-group2 input[type="date"] {
     border-radius: 4px;
     border: 1px solid var(--text-color);
-    width: 90%;
+    width: 100%;
     font-size: 1.6rem;
     height: 30px;
     padding-left: 5px;
@@ -80,6 +80,10 @@ form {
     height: auto;
     padding-right: 10px !important;
 }
+.best__seller-info {
+    margin-top: 20px;
+/*    margin-left: 20px;*/
+}
 .column__info-total .column__total-offer {
     width: 100%;
     height: 120px;
@@ -101,6 +105,8 @@ form {
 
 .infor__details {
     font-size: 1.8rem;
+    display: flex;
+    justify-content: space-between;
 }
 
     .infor__details .best__seller-info {
@@ -152,9 +158,9 @@ form {
 }
 
 .image_cus_vip {
-    width: 20%;
-    height: 25%;
-    padding-left: 22px;
+    width: 60px;
+    height: fit-content;
+    padding-left: 20px;
 }
 
 .foodname_best_seller {
@@ -165,13 +171,13 @@ form {
 }
 
 .chart_best_seller {
-    margin-top: 14px;
-    margin-left: 8px;
+    margin: auto;
+/*    position: absolute;
+    bottom: -230%;*/
 }
 
 .chart_cus_vip {
-    margin-top: 50px;
-    margin-left: 8px;
+    margin-top: 20%;
 }
 
 /* End Information */
@@ -179,8 +185,6 @@ form {
 .form-box-revenue {
     font-size: 1.6rem;
     width: 400px;
-    height: 574px;
-    max-height: 85vh;
     padding: 5px;
     position: relative;
     background: var(--white-color);
@@ -188,6 +192,8 @@ form {
     border-radius: 6px;
     text-align: center;
     overflow: hidden;
+    margin-top: 64px;
+    margin-bottom: 30px;
 }
 
 .form-box-revenue .button-box-revenue {
@@ -236,11 +242,25 @@ button.button-box__toggle-btn-revenue {
     width: 96%;
     transition: .5s;
 }
-
+/*
 #best_seller {
     left: 0px;
-}
+}*/
 
 #cus_vip {
     left: 450px;
+    margin-left: 10px;
 }
+#donutChart {
+    width: 90% !important;
+    height: fit-content !important;
+    transform: none !important;
+    margin-top: 15%;
+}
+/*.chart_best_seller {
+    display: block;
+    width: 90%;
+    position: absolute;
+    bottom: -190%;
+    left: 5%;
+}*/

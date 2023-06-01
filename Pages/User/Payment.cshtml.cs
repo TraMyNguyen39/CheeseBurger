@@ -126,13 +126,19 @@ namespace CheeseBurger.Pages
 					PriceOF = cart.Price
 				};
 				orderFoodService.CreateOrderDetail(orderLine);
+				foodIngreService.DecreaseIngre(cart.FoodId, cart.Quantity);
 				cartService.DeleteCart(customerID, cart.FoodId); // Tao don hon chi tiet, dong thoi xoa gio hang
 			}
-
 			string name = Request.Form["Name"]; // Retrieve the value of the 'Name' input
 			string total = Request.Form["totalhidden"];
 			string wardId = Request.Form["WardId"];
-			string wardName = List_Wards.FirstOrDefault(w => w.WardId.ToString() == wardId)?.WardName;
+			int wardIdInt = Convert.ToInt32(wardId);
+			Ward temp = wardService.GetWard(wardIdInt);
+			string wardName = null;
+			if (temp != null)
+			{
+				wardName = temp.WardName;
+			}
 			string address = Request.Form["HouseNumber"] + "," + wardName + "," + Request.Form["combobox_Item_District"] + "," + "Đà Nẵng";
 			string dateTime = DateTime.Now.ToString("HH:mm dd/MM/yyyy");
 			string id = (orderService.NewestOrderID()).ToString();
@@ -142,7 +148,7 @@ namespace CheeseBurger.Pages
 			model.DiaChiGiaoHang = address;
 			model.NgayDatHang = dateTime;
 			model.MaDH = id;
-			return RedirectToPage("/User/MyAlternateOrder", new { id = id ,name = name, total = total, address = address, dateTime = dateTime});
+			return RedirectToPage("/User/MyAlternateOrder", new { id = id, name = name, total = total, address = address, dateTime = dateTime });
 		}
 
 		public IActionResult OnGet()
@@ -198,7 +204,26 @@ namespace CheeseBurger.Pages
 				foodIngreService.DecreaseIngre(cart.FoodId, cart.Quantity);
 				cartService.DeleteCart(customerId, cart.FoodId); // Tao don hon chi tiet, dong thoi xoa gio hang
 			}
-			return RedirectToPage("/User/MyOrder");
+			string name = Request.Form["Name"]; // Retrieve the value of the 'Name' input
+			string total = Request.Form["totalhidden"];
+			string wardId = Request.Form["WardId"];
+			int wardIdInt = Convert.ToInt32(wardId);
+			Ward temp = wardService.GetWard(wardIdInt);
+			string wardName = null;
+			if (temp != null)
+			{
+				wardName = temp.WardName;
+			}
+			string address = Request.Form["HouseNumber"] + "," + wardName + "," + Request.Form["combobox_Item_District"] + "," + "Đà Nẵng";
+			string dateTime = DateTime.Now.ToString("HH:mm dd/MM/yyyy");
+			string id = (orderService.NewestOrderID()).ToString();
+			var model = new EmailModel(); // Create a new instance of the EmailModel
+			model.TenNguoiNhan = name;
+			model.TongTien = total;
+			model.DiaChiGiaoHang = address;
+			model.NgayDatHang = dateTime;
+			model.MaDH = id;
+			return RedirectToPage("/User/MyAlternateOrder", new { id = id, name = name, total = total, address = address, dateTime = dateTime });
 		}
 	}
 }
