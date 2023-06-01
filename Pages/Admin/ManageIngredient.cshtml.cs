@@ -60,7 +60,6 @@ namespace CheeseBurger.Pages.Admin
 			if (this.searchText != null)
 			{
 				this.searchText = this.searchText.Trim();
-				searchText.Replace("%20", " ");
 			}
 			if (!(sortBy.IsNullOrEmpty()) || sortBy == "all")
 			{
