@@ -6,36 +6,38 @@
 <link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
 
 <div class="main__information" style="width: 70%">
-    <div class="main__information-detail">
-        <div class="main__information-add d-flex justify-content-end align-items-center">
-            <div class="button__add"><button class="" type="submit">Thêm nguyên liệu +</button></div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center mb-5">
-            <form class="menu-sort-user" method="get">
-                <label style="margin-left: 2%">Sắp xếp theo: </label>
-                <select name="sortBy" class="menu-sort-user-box" id="sort-select">
-                    <option value="name-asc">Tăng theo tên</option>
-                    <option value="name-desc">Giảm theo tên</option>
-                </select>
-                <input name="search" value="@Model.searchText" type="hidden" />
-                <input type="submit" style="visibility: hidden; width:0" />
-            </form>
-            <form class="menu-search-user-box" method="get">
-                <input class="search-user-box-input" type="text" name="search" placeholder="Nhập tên nguyên liệu, nhà cung cấp">
-                <input class="search-user-box-hidden" name="sortBy" value="@Model.sortBy" type="hidden" />
-                <button type="submit" class="search-user-box-btn">
-                    <i class="fas fa-magnifying-glass"></i>
-                </button>
-            </form>
-        </div>
-        @{
-            var pageSize = 5; // Number of rows to show per page
-            var totalPages = (int)Math.Ceiling((double)Model.ingredients.Count / pageSize); // Calculate the total number of pages
-            var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
-            var ingredients = Model.ingredients.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
-            if (Model.currentPage < 1) Model.currentPage = 1;
-            if (Model.currentPage > totalPages) Model.currentPage = totalPages;
-        }
+	<div class="main__information-detail">
+		<div class="main__information-add d-flex justify-content-end align-items-center">
+			<div class="button__add"><button class="" type="submit">Thêm nguyên liệu +</button></div>
+		</div>
+		<div class="d-flex justify-content-between align-items-center mb-5">
+			<form class="menu-sort-user" method="get">
+				<label style="margin-left: 2%">Sắp xếp theo: </label>
+				<select name="sortBy" class="menu-sort-user-box" id="sort-select">
+					<option value="price-asc">Tăng theo giá</option>
+					<option value="price-desc">Giảm theo giá</option>
+					<option value="name-asc">Tăng theo tên</option>
+					<option value="name-desc">Giảm theo tên</option>
+				</select>
+				<input name="search" value="@Model.searchText" type="hidden" />
+				<input type="submit" style="visibility: hidden; width:0" />
+			</form>
+			<form class="menu-search-user-box" method="get">
+				<input class="search-user-box-input" type="text" name="search" placeholder="Nhập tên nguyên liệu, nhà cung cấp">
+				<input class="search-user-box-hidden" name="sortBy" value="@Model.sortBy" type="hidden" />
+				<button type="submit" class="search-user-box-btn">
+					<i class="fas fa-magnifying-glass"></i>
+				</button>
+			</form>
+		</div>
+		@{
+			var pageSize = 5; // Number of rows to show per page
+			var totalPages = (int)Math.Ceiling((double)Model.ingredients.Count / pageSize); // Calculate the total number of pages
+			var startIndex = (Model.currentPage - 1) * pageSize; // Calculate the start index of the rows to display
+			var ingredients = Model.ingredients.Skip(startIndex).Take(pageSize).ToList(); // Get the rows to display on the current page
+			if (Model.currentPage < 1) Model.currentPage = 1;
+			if (Model.currentPage > totalPages) Model.currentPage = totalPages;
+		}
 
         <table class="content-table">
             <thead>

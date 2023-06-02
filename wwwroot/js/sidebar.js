@@ -28,12 +28,13 @@ for (var i = 0; i < manageFunction.length; i++) {
         }
     }
 }
-if (currentPage === 'ManageFood' || currentPage === 'ManageFoodRecipe') {
+if (currentPage === 'ManageFood' || currentPage === 'ManageFoodRecipe' || currentPage === 'AddRecipes') {
     var food = document.getElementById('food');
     setActiveMenuElement(food);
 }
 
-if (currentPage === 'ManageImportOrder' || currentPage === 'ManageExportOrder') {
+if (currentPage === 'ManageImportOrder' || currentPage === 'ManageExportOrder' || currentPage === 'DetailExportOrder'
+    || currentPage === 'ImportOrderDetail' || currentPage === 'ImportOrderProc') {
     var order = document.getElementById('order');
     setActiveMenuElement(order);
 }

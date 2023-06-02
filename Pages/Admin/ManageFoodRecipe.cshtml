@@ -34,7 +34,7 @@
 					<div class="form__comboBox">
 						<form class="menu-sort-staff" method="get">
 							<select name="sortBy" class="menu-sort-staff-box" id="sort-select">
-								<option value="name-asc">Tất cả</option>
+								<option value="all">Tất cả</option>
 								<option value="name-asc" selected>Tên từ A-Z</option>
 								<option value="name-desc">Tên từ Z-A</option>
 							</select>
@@ -114,10 +114,10 @@
 			{
 				currentPage = Model.currentPage,
 				countPages = totalPages,
-				generateUrl = (int? p) => Url.Page("/Admin/ManageFoodRecipe", new { p, Model.searchText, Model.sortBy, Model.roleBy })
+				generateUrl = (int? p) => Url.Page("/Admin/ManageFoodRecipe", new { p, search = Model.searchText, Model.sortBy, Model.roleBy })
 			};
 		}
 		<partial name="_Paging" model="@pagingmodel" />
 	</div>
 </div>
-<script src="~/js/manage-food.js"></script>
+<script src="~/js/manage-food-recipe.js"></script>
