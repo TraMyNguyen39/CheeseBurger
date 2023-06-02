@@ -131,7 +131,18 @@ namespace CheeseBurger.Repository.Implements
 
 			return measure.MeasureID;
 		}
-		public void AddData(string Name, int measureId, float Price, int partner)
+
+        public int ConvertParnerNametoParnerId(string Name)
+        {
+			var partner = context.Partners.FirstOrDefault(p => p.PartnerName.Equals(Name));
+            if (partner == null)
+            {
+                throw new ArgumentException($"Parner with name '{Name}' not found.");
+            }
+
+			return partner.PartnerID;
+        }
+        public void AddData(string Name, int measureId, float Price, int partner)
 		{
 			var measureExists = context.Measures.Any(m => m.MeasureID == measureId);
 			var ingredientName = context.Ingredients.Any(m => m.IngredientsName == Name);

@@ -96,16 +96,16 @@ namespace CheeseBurger.Pages.Admin
 			return new JsonResult(ingre);
 		}
 
-		public IActionResult OnPostUpdate(int IngredientID, string Name, string combobox_Item, float Price, int ncc, float nlHong)
+		public IActionResult OnPostUpdate(int IngredientID, string Name, string combobox_Item, float Price, string ncc, float nlHong)
 		{
 			if (string.IsNullOrEmpty(combobox_Item))
 			{
 				ModelState.AddModelError("combobox_Item", "Please select a measure.");
 			}
 			if (nlHong != 0)
-				ingredientService.UpdateData(IngredientID, Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price, ncc, nlHong);
+				ingredientService.UpdateData(IngredientID, Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price, ingredientService.ConvertParnerNametoParnerId(ncc), nlHong);
 			else
-				ingredientService.UpdateData(IngredientID, Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price, ncc);
+				ingredientService.UpdateData(IngredientID, Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price, ingredientService.ConvertParnerNametoParnerId(ncc));
 			return RedirectToPage("ManageIngredient");
 		}
 	}
