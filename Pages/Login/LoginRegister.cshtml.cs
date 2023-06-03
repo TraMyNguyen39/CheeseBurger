@@ -12,9 +12,7 @@ namespace CheeseBurger.Pages
     {
         private readonly IAccountService accountService;
         private readonly ICustomerService customerService;
-        private readonly IStaffService staffService;
-        private readonly INewPassService newPassService;
-        private readonly ITPassService tPassService;
+        private readonly IStaffService staffService;        
         public List<CustomerDTO> List_Customers { get; set; }
         public List<StaffDTO> List_Staffs { get; set; }
         
@@ -28,14 +26,11 @@ namespace CheeseBurger.Pages
         public int IdAcc { get; set; }
         [BindProperty(SupportsGet = true)]
 		public string Message { get; set; }        
-        public LoginRegisterModel(IAccountService accountService, ICustomerService customerService, IStaffService staffService,
-                                    INewPassService newPassService, ITPassService tPassService)
+        public LoginRegisterModel(IAccountService accountService, ICustomerService customerService, IStaffService staffService)
         {
             this.accountService = accountService;
             this.customerService = customerService;
-            this.staffService = staffService;
-            this.newPassService = newPassService;
-            this.tPassService = tPassService;
+            this.staffService = staffService;           
         }
 
         public void OnGet()

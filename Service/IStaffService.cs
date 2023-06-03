@@ -15,5 +15,6 @@ namespace CheeseBurger.Service
 		void UpdateInfo(int id, string name, string email, string phone, int gender, string house, int WardID);
 		List<StaffDTO> GetAllStaffs();
 		string GetStaffRole(int staffID);
+		void RecycleData(int id);
 	}
 }

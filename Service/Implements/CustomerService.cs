@@ -49,5 +49,9 @@ namespace CheeseBurger.Service.Implements
 		{
 			return customerRespository.GetCusIDByPhone(phone);
 		}
-    }
+		public void RecycleData(int id)
+		{
+			customerRespository.RecycleData(id);
+		}
+	}
 }

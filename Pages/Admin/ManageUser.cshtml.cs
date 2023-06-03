@@ -101,5 +101,10 @@ namespace CheeseBurger.Pages
             customerService.DeleteData(CusID);
             return RedirectToPage("ManageUser");
         }
-    }
+		public IActionResult OnPostRecycle(int CusID)
+		{
+			customerService.RecycleData(CusID);
+			return RedirectToPage("ManageUser");
+		}
+	}
 }

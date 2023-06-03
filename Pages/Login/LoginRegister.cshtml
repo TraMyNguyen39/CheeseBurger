@@ -45,7 +45,7 @@
             </div>
            @* <input asp-for="@Model.IdNewPass" type="hidden" value="@Model._IdNewPass"/>
             <input asp-for="@Model.IdAcc" type="hidden" value="@Model._IdAcc" />*@
-            <button type="submit" class="submit-btn">Đăng nhập</button>
+            <button type="submit" class="submit-btn-log">Đăng nhập</button>
             <a asp-page="/Login/ForgetPassword" class="input-group__forget">Quên mật khẩu</a>
         </form>
 
@@ -62,7 +62,10 @@
             </div>
             <div class="input-item">
                 <i class="fa-solid fa-key"></i><input type="password" name="pass" id="passs" class="input-field" placeholder="Nhập mật khẩu" required>               
-            </div>            
+            </div>  
+            <div class="input-item">
+                <i class="fa-solid fa-square-check"></i><input type="password" name="confirmpassRG" id="confirmpasssRG" class="input-field" placeholder="Nhập lại mật khẩu" required>
+            </div>
             <button type="submit" class="submit-btn submit-btn-register">Đăng ký</button>
         </div>
         <a asp-area="" asp-page="/Index" class="home-link"><i class="fa-solid fa-chevron-left"></i>Về trang chủ</a>

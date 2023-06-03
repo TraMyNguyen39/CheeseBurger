@@ -92,7 +92,7 @@ if (submittedValue1) {
 }
 
 // thay doi thong tin tai khoan
-var eyeButtons = document.querySelectorAll("td.Option__eye");
+var eyeButtons = document.querySelectorAll(".fa-eye");
 
 for (var i = 0; i < eyeButtons.length; i++) {
   eyeButtons[i].addEventListener("click", function() {
@@ -103,7 +103,7 @@ for (var i = 0; i < eyeButtons.length; i++) {
 // end
 
 // Xem
-var pencilButtons = document.querySelectorAll("td.Option__pencil");
+var pencilButtons = document.querySelectorAll(".fa-pencil-alt");
 
 for (var i = 0; i < pencilButtons.length; i++) {
   pencilButtons[i].addEventListener("click", function() {

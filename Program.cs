@@ -27,6 +27,7 @@ using System.Dynamic;
 using System.Net.Http.Headers;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using System.Text;
+using CheeseBurger.Model.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,10 +75,6 @@ service.AddScoped<IFood_IngredientsRepository, Food_IngredientsRepository>();
 service.AddScoped<IFood_IngredientsService, Food_IngredientsService>();
 service.AddScoped<IRevenueRepository, RevenueRepository>();
 service.AddScoped<IRevenueService, RevenueService>();
-service.AddScoped<INewPassRespository, NewPassRespository>();
-service.AddScoped<INewPassService, NewPassService>();
-service.AddScoped<ITPassRespository, TPassRespository>();
-service.AddScoped<ITPassService, TPassService>();
 service.AddScoped<IIdenCodeRespository, IdenCodeRespository>();
 service.AddScoped<IIdenCodeService, IdenCodeService>();
 
@@ -211,21 +208,38 @@ app.UseEndpoints(endpoints =>
                     var customerService = serviceProvider.GetService<ICustomerService>();
                     var categoryService = serviceProvider.GetService<ICategoryService>();
 
-                    var model = new EmailModel();
+                    var model = new EmailModel(order_FoodService);
                     // Retrieve the required services
                     var sendMailService = context.RequestServices.GetService<ISendMailService>();
                     var viewRenderService = context.RequestServices.GetService<IViewRenderService>();
                     var name = context.Request.Query["name"].ToString(); // Retrieve the 'name' value from the route parameters
                     var total = context.Request.Query["total"].ToString();
+                    total = total.Replace("&nbsp;", "");
                     var address = context.Request.Query["address"].ToString();
                     var dateTime = context.Request.Query["dateTime"].ToString();
                     var id = context.Request.Query["id"].ToString();
+                    
+                    int _idord = Convert.ToInt32(id);
+                    int _idcusord = context.Session.GetInt32("customerID") ?? -1;
+                    var li_item_email = order_FoodService.GetAllLine(_idord);
+                    var item_order_email = orderService.GetOrderDetail(_idcusord, _idord);
                     // Set the 'TenNguoiNhan' property of the 'model' instance
                     model.TenNguoiNhan = name;
                     model.MaDH = id;
                     model.TongTien = total;
                     model.NgayDatHang = dateTime;
                     model.DiaChiGiaoHang = address;
+                    model.TienShip = item_order_email.ShippingMoney.ToString() + "đ";
+
+                    var List_LineItems_Email = li_item_email;
+
+                    string lineItemsHtml = "";
+                    foreach (var item in List_LineItems_Email)
+                    {					
+                        lineItemsHtml += $"<li><div style='display: flex'><p style='text-transform: capitalize; margin-right: 3%'>{item.Name}</p><p> {item.Price:N0}đ x {item.Quantity}</p></div></li>";
+                    }
+
+                    model.LineItemsHtml = lineItemsHtml;
 
                     // Retrieve the view content
                     string viewFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Pages", "User", "Email.cshtml");
@@ -237,6 +251,8 @@ app.UseEndpoints(endpoints =>
                                          .Replace("@Model.TongTien", model.TongTien)
                                          .Replace("@Model.NgayDatHang", model.NgayDatHang)
                                          .Replace("@Model.DiaChiGiaoHang", model.DiaChiGiaoHang)
+                                         .Replace("@Model.LineItemsHtml", model.LineItemsHtml)
+                                         .Replace("@Model.TienShip", model.TienShip)
                                          .Replace("@page", "")
                                          .Replace("@model EmailModel", "")
                                          .Replace("@{\r\n    ViewData[\"Title\"] = \"Email\";\r\n}", "");

@@ -21,8 +21,9 @@ namespace CheeseBurger.Pages
            _idMailChangePass = HttpContext.Session.GetInt32("IdAccCP") ?? -1; 
         }
         public IActionResult OnPostUpdate(int idAcc, string newpass, string confirmpass)
-        {                          
-            accountService.ChangePassword(idAcc, newpass);
+        {
+			string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newpass);
+			accountService.ChangePassword(idAcc, hashedPassword);
             return RedirectToPage("SuccessfulChangePass");
         }
     }

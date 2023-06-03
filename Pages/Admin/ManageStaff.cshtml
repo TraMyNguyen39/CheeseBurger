@@ -5,10 +5,6 @@
 }
 <link rel="stylesheet" href="~/css/manage-user.css" asp-append-version="true" />
 
-@{
-	int CntStaff = 0;
-}
-
 <div class="main__information">
 	<div class="main__information-detail">
 		<div class="d-flex justify-content-between align-items-center mb-5">
@@ -55,30 +51,35 @@
 		<table class="content-table">
 			<thead>
 				<tr class="tr">					
-					<th class="ID col-1">Mã NV</th>
+					<th class="ID col-2">Mã NV</th>
 					<th class="Name col-3">Họ và tên</th>
-					<th class="Role col-2">Chức vụ</th>
+					<th class="Role col-3">Chức vụ</th>
 					<th class="SDT col-2">Số điện thoại</th>
-					<th class="Option__eye col-1">Xem</th>
-					<th class="Option__pencil col-1">Sửa</th>
-					<th class="Option__ban col-1">Xoá</th>
+					<th class="Option col-2">Tùy chọn</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach (var staff in staffs)
-				{
-					@if (staff.StaIsStaff == true && staff.StaIsDeleted == false)
-					{
-						<tr class="tr">							
-							<td class="ID">@(100 + (@staff.StaID))</td>
-							<td class="Name">@staff.StaName</td>
-							<td class="Role">@staff.StaRoleName</td>
-							<td class="SDT">@staff.StaPhone</td>
-							<td class="Option__eye" data-id="@staff.StaID"> <i class="fas fa-eye"></i></td>
-							<td class="Option__pencil" data-id="@staff.StaID"> <i class="fas fa-pencil-alt"></i></td>
-							<td class="Option__ban" data-id="@staff.StaID">  <i class="fas fa-ban"></i></td>
-						</tr>
-					}
+				{					
+					<tr class="tr">							
+						<td class="ID">@staff.StaID</td>
+						<td class="Name">@staff.StaName</td>
+						<td class="Role">@staff.StaRoleName</td>
+						<td class="SDT">@staff.StaPhone</td>
+						<td class="Option">
+							<i class="fas fa-eye" data-id="@staff.StaID"></i>
+							@if (!staff.StaIsDeleted)
+							{
+								<i class="fas fa-pencil-alt" data-id="@staff.StaID"></i>
+								<i class="fas fa-ban" data-id="@staff.StaID"></i>
+							}
+							else
+							{
+								<i class="fa-solid fa-rotate" data-id="@staff.StaID"></i>
+								<i class="fa-regular fa-square-minus"></i>
+							}
+						</td>						
+					</tr>					
 				}			
 			</tbody>
 		</table>		
@@ -235,6 +236,34 @@
 		</div>
 	</div>
 </form>
+<!-- Modal -->
+<form method="post" asp-page="ManageStaff" asp-page-handler="Recycle">
+	<div class="modal fade" id="recycle" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title_1" id="confirm-label"></h4>
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				</div>
+				<div class="modal-body">
+					<div class="text-center wirningColor">
+						<i class="fas fa-exclamation-triangle fa-4x"></i>
+					</div>
+					<br />
+					<center>
+						<p class="message"></p>
+						<input type="hidden" name="StaID" class="modal__staff-id" value="" />
+					</center>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-danger dismiss" data-dismiss="modal"></button>
+					<button type="submit" class="btn btn-primary confirm"></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<!-- End Modal Recycle -->
 <script src="~/js/manage-staff.js"></script>
 @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -250,7 +279,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$('.Option__eye').on('click', function () {
+		$('.fa-eye').on('click', function () {
 			var id = $(this).data('id');
 			$.ajax({
 				type: 'GET',
@@ -271,7 +300,7 @@
 			});
 		});
 
-		$('.Option__pencil').on('click', function () {
+		$('.fa-pencil-alt').on('click', function () {
 			var id = $(this).data('id');						
 			$.ajax({
 				type: 'GET',
@@ -339,7 +368,7 @@
 			};
 		})(jQuery);
 	});
-	$(".Option__ban").click(function () {
+	$(".fa-ban").click(function () {
 		var id = $(this).data('id');
 		$.ajax({
 			type: 'GET',
@@ -355,8 +384,70 @@
 		$('#confirm').confirm({
 			title: 'Xác nhận xóa',
 			message: 'Bạn có muốn xóa nhân viên này không?',
-			confirm: 'Delete',
-			dismiss: 'Cancel'
+			confirm: 'Xác nhận',
+			dismiss: 'Hủy bỏ'
+		});
+	});
+</script>
+
+<script>
+	$(function () {
+		(function ($) {
+			$.fn.confirm = function (options) {
+				var settings = $.extend({}, $.fn.confirm.defaults, options);
+
+				return this.each(function () {
+					var element = this;
+					$('.modal-title', this).html(settings.title);
+					$('.message', this).html(settings.message);
+					$('.confirm', this).html(settings.confirm);
+					$('.dismiss', this).html(settings.dismiss);
+
+					$(this).on('click', '.confirm', function (event) {
+						$(element).data('confirm', true);
+					});
+
+					$(this).on('hide.bs.modal', function (event) {
+						if ($(this).data('confirm')) {
+							$(this).trigger('confirm', event);
+							$(this).removeData('confirm');
+						} else {
+							$(this).trigger('dismiss', event);
+						}
+
+						$(this).off('confirm dismiss');
+					});
+
+					$(this).modal('show');
+				});
+			};
+
+			$.fn.confirm.defaults = {
+				title: 'Modal title',
+				message: 'One fine body&hellip;',
+				confirm: 'OK',
+				dismiss: 'Cancel'
+			};
+		})(jQuery);
+	});
+	$(".fa-rotate").click(function () {
+		var id = $(this).data('id');
+		$.ajax({
+			type: 'GET',
+			data: { id: id },
+			url: '@Url.Page("ManageStaff", "Find")',
+			success: function (result) {
+				$('#recycle input[name="StaID"]').val(result.id); // Lưu trữ ID vào trường ẩn
+			},
+			error: function (xhr, textStatus, errorThrown) {
+				alert('Error loading ingredient: ' + errorThrown);
+			}
+		});
+		$('#recycle').confirm({
+			title: 'Xác nhận khôi phục',
+			message: 'Bạn có muốn khôi phục nhân viên này không?',
+			confirm: 'Xác nhận',
+			dismiss: 'Hủy bỏ'
 		});
 	});
 </script>

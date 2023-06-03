@@ -112,7 +112,8 @@ namespace CheeseBurger.Pages
 				SaleDate = DateTime.Now,
 				TempMoney = tempMoney,
 				ShippingMoney = shippingMoney,
-				StatusOdr = (int)OrderStatus.waiting
+                TotalMoney = totalMoney,
+                StatusOdr = (int)OrderStatus.waiting
 			};
 			orderService.CreateOrder(order);
 			// Tao chi tietdon hang
@@ -139,10 +140,10 @@ namespace CheeseBurger.Pages
 			{
 				wardName = temp.WardName;
 			}
-			string address = Request.Form["HouseNumber"] + "," + wardName + "," + Request.Form["combobox_Item_District"] + "," + "Đà Nẵng";
+			string address = Request.Form["HouseNumber"] + ", " + wardName + ", " + Request.Form["combobox_Item_District"] + ", " + "Đà Nẵng";
 			string dateTime = DateTime.Now.ToString("HH:mm dd/MM/yyyy");
 			string id = (orderService.NewestOrderID()).ToString();
-			var model = new EmailModel(); // Create a new instance of the EmailModel
+			var model = new EmailModel(orderFoodService); // Create a new instance of the EmailModel
 			model.TenNguoiNhan = name;
 			model.TongTien = total;
 			model.DiaChiGiaoHang = address;
@@ -217,7 +218,7 @@ namespace CheeseBurger.Pages
 			string address = Request.Form["HouseNumber"] + "," + wardName + "," + Request.Form["combobox_Item_District"] + "," + "Đà Nẵng";
 			string dateTime = DateTime.Now.ToString("HH:mm dd/MM/yyyy");
 			string id = (orderService.NewestOrderID()).ToString();
-			var model = new EmailModel(); // Create a new instance of the EmailModel
+			var model = new EmailModel(orderFoodService); // Create a new instance of the EmailModel
 			model.TenNguoiNhan = name;
 			model.TongTien = total;
 			model.DiaChiGiaoHang = address;

@@ -49,14 +49,22 @@ function validateFilledNewPass() {
 	return true;
 }
 
+function validateFilledConfirmPass() {
+	var name = document.querySelector("input[name='confirmpassRG']");
+	if ((name.value = name.value.trim()) === "") return false;
+	return true;
+}
+
 function checkValidate() {
 	var emailEle = document.getElementById('emaill');
 	var phoneEle = document.getElementById('phonee');
 	var passEle = document.getElementById('passs');
+	var confirmpassEle = document.getElementById('confirmpasssRG');
 
 	let emailValue = emailEle.value;
 	let phoneValue = phoneEle.value;
 	let passValue = passEle.value;
+	let confirmpassValue = confirmpassEle.value;
 	
 	let isCheck = true;
 
@@ -119,19 +127,30 @@ function checkValidate() {
 			document.querySelector('#error').textContent = '';
 		}
 	}
-
+	
 	if (!validateFilledNewPass()) {
-		document.querySelector('#error').textContent = '* Vui lòng nhập mật khẩu!';
-		isCheck = false;
-		return isCheck;
-	} else if (!isPass(passValue)) {
-		document.querySelector('#error').textContent = '* Mật khẩu phải từ 8 đến 15 ký tự với ít nhất 1 chữ cái thường, 1 chữ cái in hoa, 1 chữ số và 1 ký tự đặc biệt!';
+		document.querySelector('#error').textContent = '* Vui lòng nhập mật khẩu !';
 		isCheck = false;
 		return isCheck;
 	} else {
-		document.querySelector('#error').textContent = '';
+		if (!isPass(passValue)) {
+			document.querySelector('#error').textContent = '* Mật khẩu phải từ 8 đến 15 ký tự với ít nhất 1 chữ cái thường, 1 chữ cái in hoa, 1 chữ số và 1 ký tự đặc biệt !';
+			isCheck = false;
+			return isCheck;
+		} else {
+			document.querySelector('#error').textContent = '';
+			if (!validateFilledConfirmPass()) {
+				document.querySelector('#error').textContent = '* Vui lòng xác nhận lại mật khẩu !';
+				isCheck = false;
+				return isCheck;
+			} else if (passValue !== confirmpassValue) {
+				document.querySelector('#error').textContent = '* Không khớp với mật khẩu. Vui lòng nhập lại !';
+				isCheck = false;
+				return isCheck;
+			}
+		}
 	}
-
+	
 	return isCheck;
 }
 
