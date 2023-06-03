@@ -37,7 +37,7 @@ namespace CheeseBurger.Pages.Admin
 			var food = food_Service.GetFoodbyId(foodID);
 			if (food != null)
 			{
-				ingredients = ingredientService.GetListIngredients(null, true, null);
+				ingredients = ingredientService.GetListIngredients("name", false, null);
 				var foodIngre = food_IngredientsService.GetAllFoodRecipes(foodID);
 				ingreUsed = new List<IngredientDTO>();
 				qty = new List<float>();

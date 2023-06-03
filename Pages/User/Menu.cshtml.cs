@@ -32,7 +32,7 @@ namespace CheeseBurger.Pages
 		[BindProperty (SupportsGet = true)]
 		public bool successfulStatus { get; set; }
 
-		[BindProperty(SupportsGet = true)]
+		[TempData]
 		public string ProductInfo { get; set; }
 		public MenuModel (IFoodService foodService, ICategoryService categoryService, ICartService cartService)
         {
@@ -90,7 +90,7 @@ namespace CheeseBurger.Pages
 				{
 					ProductInfo = "Món ăn chỉ còn " + maxFoodQty + " sản phẩm";
 				}
-				return RedirectToPage("/User/Menu", new { ProductInfo });
+				return RedirectToPage("/User/Menu");
 			}
 			else
 			{

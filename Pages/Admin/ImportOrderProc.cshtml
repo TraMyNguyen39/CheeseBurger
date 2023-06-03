@@ -153,7 +153,7 @@
 			parentNode.querySelector('.qty').value = "";
 			if (thisNode.selectedIndex !== 0) {
 				parentNode.querySelector('.ingredient__money').innerHTML
-					= parseInt(thisNode.options[thisNode.selectedIndex].getAttribute('data-price')).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + 'đ';
+					= parseInt(thisNode.options[thisNode.selectedIndex].getAttribute('data-price')).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 				parentNode.querySelector('.unit').innerHTML
 					= thisNode.options[thisNode.selectedIndex].getAttribute('data-unit');
 			}
@@ -174,7 +174,7 @@
 					totalMoney += money * price;
 				}
 			}
-			document.getElementById('tempMoney').innerHTML = totalMoney.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + 'đ';
+			document.getElementById('tempMoney').innerHTML = totalMoney.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 		});
 	}
 

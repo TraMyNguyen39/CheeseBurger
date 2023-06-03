@@ -12,7 +12,7 @@ namespace CheeseBurger.Model.Entities
 		public int IngredientsID { get; set; }
 		public Ingredients Ingredients { get; set; }
 
-		public int QuantityIO { get; set; }
+		public float QuantityIO { get; set; }
 
 		public float PriceIO { get; set; }
 	}

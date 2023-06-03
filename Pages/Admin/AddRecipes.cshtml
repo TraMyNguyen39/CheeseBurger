@@ -45,10 +45,10 @@
 									<input type="hidden" asp-for="@Model.ingreUsed[j].IngredientID" />
 									<input type="hidden" asp-for="@Model.ingreUsed[j].IngredientName" />
 									<input type="hidden" asp-for="@Model.ingreUsed[j].MeasureName" />
-									<input type="hidden" asp-for="@Model.qty[j]" />
+									<input type="hidden" asp-for="@Model.qty[j]" class="remove-qty" />
 									}
 								<input type="hidden" asp-for="@Model.foodID" />
-								<button type="submit" class="icon-btn">
+								<button type="submit" class="icon-btn remove-btn">
 									<i class="fa-solid fa-trash-can"></i>
 								</button>
 
@@ -111,11 +111,11 @@
 										<input type="hidden" asp-for="@Model.ingreUsed[i].IngredientID" />
 										<input type="hidden" asp-for="@Model.ingreUsed[i].IngredientName" />
 										<input type="hidden" asp-for="@Model.ingreUsed[i].MeasureName" />
-										<input type="hidden" asp-for="@Model.qty[i]" />
+										<input type="hidden" asp-for="@Model.qty[i] class="add-qty" />
 									}
 								}
 								<input type="hidden" asp-for="@Model.foodID" />
-								<button type="submit" class="icon-btn">
+								<button type="submit" class="icon-btn add-btn">
 									<i class="fa-solid fa-square-plus"></i>
 								</button>
 							</form>
@@ -126,30 +126,4 @@
 		</table>
 	</div>
 </div>
-
-<script>
-	var submit = document.getElementById('submit-recipe');
-	var qty = document.querySelectorAll('input[name="quantity"]');
-	var mainQty = document.querySelectorAll('.mainQty');
-	submit.addEventListener('click', function(event){
-		var check = true;
-		for (var i = 0; i < qty.length; i++)
-		{
-			var floatNum = parseFloat(qty[i].value);
-			if (isNaN(floatNum)) {
-				qty[i].value = "Nhập số lượng!";
-				check = false;
-			}
-		}
-		if (!check || mainQty.length == 0)
-			event.preventDefault();
-		else {
-			for (var i = 0; i < mainQty.length; i++)
-			{
-				mainQty[i].value = qty[i].value;
-			}
-		}
-
-	})
-	
-</script>
+<script src="/js/add-recipe.js"></script>

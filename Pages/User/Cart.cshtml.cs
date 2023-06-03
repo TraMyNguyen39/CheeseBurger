@@ -23,18 +23,20 @@ namespace CheeseBurger.Pages
         public IActionResult OnGet()
         {
             var customerID = HttpContext.Session.GetInt32("customerID");
-			var accountID = HttpContext.Session.GetInt32("Id");
+            var accountID = HttpContext.Session.GetInt32("Id");
 			if (accountID == null)
                 return RedirectToPage("/Login/LoginRegister", new { Message = "* Bạn phải đăng nhập/ đăng ký trước khi tương tác với giỏ hàng" });
-            //DateTime now = DateTime.Now;
-            //DateTime fixedTimeStart = new DateTime(now.Year, now.Month, now.Day, 8, 0, 0);
-            //DateTime fixedTimeClosed = new DateTime(now.Year, now.Month, now.Day, 18, 0, 0);
-            //if (now < fixedTimeStart || now > fixedTimeClosed)
-            //{
-            //    return RedirectToPage("/Error", new { Message = "Cửa hàng chưa mở cửa, vui lòng quay lại sau!" });
-            //}
-            // Trường hợp có có tài khoản trong giờ hành chính
-            carts = cartService.GetAllCarts((int)customerID);
+            if (HttpContext.Session.GetString("isStaff") == "Staff")
+                return RedirectToPage("/Admin/ManageAccount");
+			//DateTime now = DateTime.Now;
+			//DateTime fixedTimeStart = new DateTime(now.Year, now.Month, now.Day, 8, 0, 0);
+			//DateTime fixedTimeClosed = new DateTime(now.Year, now.Month, now.Day, 18, 0, 0);
+			//if (now < fixedTimeStart || now > fixedTimeClosed)
+			//{
+			//    return RedirectToPage("/Error", new { Message = "Cửa hàng chưa mở cửa, vui lòng quay lại sau!" });
+			//}
+			// Trường hợp có có tài khoản trong giờ hành chính
+			carts = cartService.GetAllCarts((int)customerID);
             if (carts.Count == 0)
                 return RedirectToPage("/User/EmptyCart");
             else

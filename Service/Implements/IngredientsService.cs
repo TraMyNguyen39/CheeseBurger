@@ -76,5 +76,15 @@ namespace CheeseBurger.Service.ImplementsGetPrice
 		{
 			return ingredientsRespository.GetPrice(ingre);
 		}
-	}
+
+		public void UpdateQty(int ingredientID, float qty, bool isIncre)
+		{
+			ingredientsRespository.UpdateQty(ingredientID, qty, isIncre);
+		}
+
+		public int ConvertParnerNametoParnerId(string Name)
+		{
+			return ingredientsRespository.ConvertParnerNametoParnerId(Name);
+		}
+    }
 }
