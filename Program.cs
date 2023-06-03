@@ -213,8 +213,7 @@ app.UseEndpoints(endpoints =>
                     var sendMailService = context.RequestServices.GetService<ISendMailService>();
                     var viewRenderService = context.RequestServices.GetService<IViewRenderService>();
                     var name = context.Request.Query["name"].ToString(); // Retrieve the 'name' value from the route parameters
-                    var total = context.Request.Query["total"].ToString();
-                    total = total.Replace("&nbsp;", "");
+                    var total = context.Request.Query["total"].ToString();                    
                     var address = context.Request.Query["address"].ToString();
                     var dateTime = context.Request.Query["dateTime"].ToString();
                     var id = context.Request.Query["id"].ToString();
@@ -226,10 +225,10 @@ app.UseEndpoints(endpoints =>
                     // Set the 'TenNguoiNhan' property of the 'model' instance
                     model.TenNguoiNhan = name;
                     model.MaDH = id;
-                    model.TongTien = total;
-                    model.NgayDatHang = dateTime;
+                    model.TongTien = item_order_email.TotalMoney.ToString("N0") + "đ";
+					model.NgayDatHang = dateTime;
                     model.DiaChiGiaoHang = address;
-                    model.TienShip = item_order_email.ShippingMoney.ToString() + "đ";
+                    model.TienShip = item_order_email.ShippingMoney.ToString("N0") + "đ";
 
                     var List_LineItems_Email = li_item_email;
 

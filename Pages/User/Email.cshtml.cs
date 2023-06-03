@@ -12,10 +12,10 @@ namespace CheeseBurger.Pages.User
     public class EmailModel : PageModel
     {
         private readonly IOrder_FoodService order_FoodService;
-        public string MaDH { get; set; }
-        public string TenNguoiNhan { get; set; }
-        public string TienShip { get; set; } 
-        public string TongTien { get; set; }
+        public string MaDH { get; set; } 
+        public string TenNguoiNhan { get; set; } 
+        public string TienShip { get; set; }
+        public string TongTien { get; set; }  
         public string NgayDatHang { get; set; } 
         public string DiaChiGiaoHang { get; set; } 
 

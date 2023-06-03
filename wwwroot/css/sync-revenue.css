@@ -171,13 +171,13 @@ form {
 }
 
 .chart_best_seller {
-    margin: auto;
+    margin-left: 7%;
 /*    position: absolute;
     bottom: -230%;*/
 }
 
 .chart_cus_vip {
-    margin-top: 20%;
+    margin-top: 10%;
 }
 
 /* End Information */
@@ -192,7 +192,7 @@ form {
     border-radius: 6px;
     text-align: center;
     overflow: hidden;
-    margin-top: 64px;
+    margin-top: 121px;
     margin-bottom: 30px;
 }
 
@@ -255,7 +255,7 @@ button.button-box__toggle-btn-revenue {
     width: 90% !important;
     height: fit-content !important;
     transform: none !important;
-    margin-top: 15%;
+    margin-top: 4%;
 }
 /*.chart_best_seller {
     display: block;
