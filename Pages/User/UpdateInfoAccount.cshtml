@@ -40,7 +40,10 @@
         }
         @foreach (var i in Model.List_Staffs)
         {            
-             <small class="Ten_Email_All" style="display: none;">@i.StaEmail</small>           
+            if (i.StaIsStaff == true)
+            {
+                <small class="Ten_Email_All" style="display: none;">@i.StaEmail</small>
+            }        
         }
         @foreach (var i in Model.List_Customers)
         {
@@ -51,7 +54,10 @@
         }
         @foreach (var i in Model.List_Staffs)
         {           
-            <small class="Phone_All" style="display: none;">@i.StaPhone</small>        
+            if (i.StaIsStaff == true)
+            {
+                <small class="Phone_All" style="display: none;">@i.StaPhone</small>
+            }        
         }
 
         <form method="post" asp-page-handler="Update" class="UpdateAccount body__manage-account col-8 flex justify-content-center">
