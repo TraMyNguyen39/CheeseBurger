@@ -29,7 +29,10 @@
 		</div>
 		@foreach (var i in Model.List_Customers)
 		{
-			<small class="Ten_Email_All" style="display: none;">@i.CusEmail</small>
+			if (i.CusIsStaff == false)
+			{
+				<small class="Ten_Email_All" style="display: none;">@i.CusEmail</small>
+			}
 		}
 		@foreach (var i in Model.List_Staffs)
 		{
@@ -40,7 +43,10 @@
 		}
 		@foreach (var i in Model.List_Customers)
 		{
-			<small class="Phone_All" style="display: none;">@i.CusPhone</small>
+			if (i.CusIsStaff == false)
+			{
+				<small class="Phone_All" style="display: none;">@i.CusPhone</small>
+			}
 		}
 		@foreach (var i in Model.List_Staffs)
 		{
