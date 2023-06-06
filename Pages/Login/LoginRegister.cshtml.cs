@@ -36,8 +36,8 @@ namespace CheeseBurger.Pages
         public void OnGet()
         {
             List_Customers = customerService.GetAllCustomers();
-            List_Staffs = staffService.GetAllStaffs();           
-        }
+            List_Staffs = staffService.GetAllStaffs();            
+		}
         public IActionResult OnPost()
         {
             var user = accountService.GetAccount(Email, Password);
@@ -45,15 +45,15 @@ namespace CheeseBurger.Pages
             {
                 Message = "* Tài khoản/ Mật khẩu không đúng!";
                 List_Customers = customerService.GetAllCustomers();
-                List_Staffs = staffService.GetAllStaffs();                
-                return Page();
+                List_Staffs = staffService.GetAllStaffs();				
+				return Page();
             }
             else if (user.isDeleted == true)
             {
                 Message = "* Tài khoản đã bị chặn vì vi phạm tiêu chuẩn cộng đồng!";
                 List_Customers = customerService.GetAllCustomers();
-                List_Staffs = staffService.GetAllStaffs();                
-                return Page();
+                List_Staffs = staffService.GetAllStaffs();				
+				return Page();
 			}               
             else
             {
@@ -77,7 +77,7 @@ namespace CheeseBurger.Pages
                 {
                     var customerID = customerService.GetCustomerID(user.AccountID);
                     HttpContext.Session.SetInt32("customerID", customerID);
-                    return RedirectToPage("/User/Menu", new { Message = "Vui lòng đăng nhập lại tài khoản" });
+                    return RedirectToPage("/User/Menu");
                 }
             }
         }
@@ -85,7 +85,7 @@ namespace CheeseBurger.Pages
         {
             HttpContext.Session.Clear();
             List_Customers = customerService.GetAllCustomers();
-            List_Staffs = staffService.GetAllStaffs();
-        }        
+            List_Staffs = staffService.GetAllStaffs();			
+		}        
     }
 }

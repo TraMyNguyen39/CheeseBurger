@@ -49,6 +49,9 @@ namespace CheeseBurger.Pages
 		public float totalMoney { get; set; }
 		public int orderId { get; set; }
 		public string saleDate { get; set; }
+		public CustomerDTO curCusPayment { get; set; }
+		public int WId { get; set; }
+		public int DId { get; set; }
 		public PaymenteModel(IWardService wardService, IOrderService orderService, 
 			IDistrictService districtService, ICartService cartService, IOrder_FoodService orderFoodService, 
 			IFeeAPIService feeService, IConfiguration config, IAccountService accountService, IFood_IngredientsService foodIngreService, ICustomerService customerService,
@@ -172,6 +175,18 @@ namespace CheeseBurger.Pages
 				tempMoney = (float)cartService.GetCartTotal(Carts);
 				List_Districts = districtService.GetListDistricts();
 				List_Wards = wardService.GetListWards();
+				curCusPayment = customerService.GetCustomer((int)customerId);
+				Ward tempWard = wardService.GetWard(curCusPayment.WardID);
+				if (tempWard != null)
+				{
+					WId = tempWard.WardId;
+					DId = tempWard.DistrictID;
+				}
+				else
+				{
+					WId = 1;
+					DId = 1;
+				}
 				return Page();
 			}
 			List_Account = accountService.GetListAccount();
