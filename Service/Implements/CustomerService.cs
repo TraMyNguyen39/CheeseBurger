@@ -53,5 +53,13 @@ namespace CheeseBurger.Service.Implements
 		{
 			customerRespository.RecycleData(id);
 		}
+		public List<CustomerDTO> GetListCusNotSta()
+		{
+			return customerRespository.GetListCusNotSta();
+		}
+		public List<CustomerDTO> GetListCusNotId(int id)
+		{
+			return customerRespository.GetListCusNotId(id);
+		}
 	}
 }

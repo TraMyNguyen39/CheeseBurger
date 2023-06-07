@@ -15,5 +15,7 @@ namespace CheeseBurger.Service
 		void AddNewCus(string name, string phone);
 		int GetCusIDByPhone(string phone);
 		void RecycleData(int id);
+		List<CustomerDTO> GetListCusNotSta();
+		List<CustomerDTO> GetListCusNotId(int id);
 	}
 }

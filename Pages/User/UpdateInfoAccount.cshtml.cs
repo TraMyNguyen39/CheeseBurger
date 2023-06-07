@@ -49,11 +49,11 @@ namespace CheeseBurger.Pages
         public IActionResult OnGet()
         {
             List_Districts = districtService.GetListDistricts();
-            List_Wards = wardService.GetListWards();
-            List_Customers = customerService.GetAllCustomers();
-            List_Staffs = staffService.GetAllStaffs();
+            List_Wards = wardService.GetListWards();            
+            List_Staffs = staffService.GetListStaIsSta();
             var customerId = HttpContext.Session.GetInt32("customerID");
-            if (customerId != null)
+			List_Customers = customerService.GetListCusNotId((int)customerId);
+			if (customerId != null)
             {
                 customer = customerService.GetCustomer((int)customerId);
                 curWardID = 0; curDisID = 0; curGender = 1;

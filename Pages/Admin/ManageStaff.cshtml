@@ -70,8 +70,16 @@
 							<i class="fas fa-eye" data-id="@staff.StaID"></i>
 							@if (!staff.StaIsDeleted)
 							{
-								<i class="fas fa-pencil-alt" data-id="@staff.StaID"></i>
-								<i class="fas fa-ban" data-id="@staff.StaID"></i>
+								if (staff.StaID == Model.CurStaID)
+								{
+									<i class="fa-solid fa-pencil"></i>
+									<i class="fa-solid fa-ban" data-id="@staff.StaID"></i>
+									<input type="hidden" class="curStaId" value="@Model.CurStaID.ToString()">
+								} else
+								{
+									<i class="fas fa-pencil-alt" data-id="@staff.StaID"></i>
+									<i class="fas fa-ban" data-id="@staff.StaID"></i>
+								}
 							}
 							else
 							{
@@ -370,23 +378,26 @@
 	});
 	$(".fa-ban").click(function () {
 		var id = $(this).data('id');
-		$.ajax({
-			type: 'GET',
-			data: { id: id },
-			url: '@Url.Page("ManageStaff", "Find")',
-			success: function (result) {
-				$('#confirm input[name="StaID"]').val(result.id); // Lưu trữ ID vào trường ẩn
-			},
-			error: function (xhr, textStatus, errorThrown) {
-				alert('Error loading ingredient: ' + errorThrown);
-			}
-		});
-		$('#confirm').confirm({
-			title: 'Xác nhận xóa',
-			message: 'Bạn có muốn xóa nhân viên này không?',
-			confirm: 'Xác nhận',
-			dismiss: 'Hủy bỏ'
-		});
+		var curStaId = $('.curStaId').val();		
+		if (curStaId != id.toString()) {			
+			$.ajax({
+				type: 'GET',
+				data: { id: id },
+				url: '@Url.Page("ManageStaff", "Find")',
+				success: function (result) {
+					$('#confirm input[name="StaID"]').val(result.id); // Lưu trữ ID vào trường ẩn
+				},
+				error: function (xhr, textStatus, errorThrown) {
+					alert('Error loading ingredient: ' + errorThrown);
+				}
+			});
+			$('#confirm').confirm({
+				title: 'Xác nhận xóa',
+				message: 'Bạn có muốn xóa nhân viên này không?',
+				confirm: 'Xác nhận',
+				dismiss: 'Hủy bỏ'
+			});
+		}
 	});
 </script>
 
