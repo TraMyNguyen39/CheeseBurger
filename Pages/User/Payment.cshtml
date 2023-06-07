@@ -300,6 +300,16 @@
 		$('select[name="combobox_Item_District"] option').filter(function () {
 			return $(this).data('id_district') == disId;
 		}).prop('selected', true);
+		var wardSelect = document.getElementById("ward");
+
+		// Lặp qua các tùy chọn phường trong combobox phường và ẩn đi những tùy chọn không thuộc quận được chọn sẵn
+		for (var i = 0; i < wardSelect.options.length; i++) {
+			if (wardSelect.options[i].getAttribute("data-district") == disId) {
+				wardSelect.options[i].style.display = "block";
+			} else {
+				wardSelect.options[i].style.display = "none";
+			}
+		}
 		$('select[name="WardId"] option').filter(function () {
 			return $(this).data('ward') == warId;
 		}).prop('selected', true);
