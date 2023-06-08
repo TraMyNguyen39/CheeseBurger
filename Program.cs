@@ -27,6 +27,7 @@ using System.Dynamic;
 using System.Net.Http.Headers;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using System.Text;
+using CheeseBurger.Pages.User.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -194,7 +195,7 @@ app.UseEndpoints(endpoints =>
                 context.Response.Redirect(redirectUrl);
             });
 
-                endpoints.MapGet("/User/MyAlternateOrder", async context =>
+                endpoints.MapGet("/User/Email/MyAlternateOrder", async context =>
                 {
                     // Inside your method or class constructor
                     var serviceProvider = context.RequestServices;
@@ -228,7 +229,7 @@ app.UseEndpoints(endpoints =>
                     model.DiaChiGiaoHang = address;
 
                     // Retrieve the view content
-                    string viewFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Pages", "User", "Email.cshtml");
+                    string viewFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Pages", "User", "Email", "Email.cshtml");
                     string emailBody = await File.ReadAllTextAsync(viewFilePath);
 
                     // Replace the placeholders with actual values
@@ -252,7 +253,7 @@ app.UseEndpoints(endpoints =>
                     // Send the email
                     await sendMailService.SendMail(content);
 
-                    context.Response.Redirect("/User/MyOrder");
+                    context.Response.Redirect("/User/Order/MyOrder");
                 });
             });
 app.Run();

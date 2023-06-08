@@ -1,0 +1,182 @@
+﻿@page
+@model UpdateInfoAccountModel
+@{
+    ViewData["Title"] = "Update Info Account";   
+}
+
+<div class="breadcrumb-division">
+    <ol class="breadcrumb breadcrumb__edit">
+        <li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a asp-page="/User/Account/DetailAccount">Chi tiết tài khoản</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Cập nhật thông tin cá nhân</li>
+    </ol>
+</div>
+<div class="body container">
+    <div class="row justify-content-between">
+        <div class="body__side-bar col-3">
+            <div class="account">
+                <img class="account-avt" src="~/img/avt.png"/>
+                <div class="account-detail">                    
+                    <a class="body__side-bar-item active account-name" aria-current="page">@Model.customer.CusName</a>
+                </div>
+            </div>
+            <div class="side-bar-box">
+                <a class="body__side-bar-item active" style="color: #ff5028" asp-page="/User/Account/DetailAccount">Chi tiết tài khoản</a>
+                <div class="side-bar-filter"></div>
+                <a class="body__side-bar-item" asp-page="/User/Order/MyOrder">Đơn hàng của tôi</a>
+                <div class="side-bar-filter"></div>
+                <a class="body__side-bar-item" asp-page="/User/Account/ChangePassword">Đổi mật khẩu</a>
+                <div class="side-bar-filter"></div>                
+                <a class="body__side-bar-item" asp-page="/Login/LoginRegister" asp-page-handler="Logout">Đăng xuất</a>
+            </div>
+        </div>
+
+        @foreach (var i in Model.List_Customers)
+        {
+            if (i.CusID != Model.customer.CusID)
+            {
+                <small class="Ten_Email_All" style="display: none;">@i.CusEmail</small>
+            }
+        }
+        @foreach (var i in Model.List_Staffs)
+        {            
+             <small class="Ten_Email_All" style="display: none;">@i.StaEmail</small>           
+        }
+        @foreach (var i in Model.List_Customers)
+        {
+            if (i.CusID != Model.customer.CusID)
+            {
+                <small class="Phone_All" style="display: none;">@i.CusPhone</small>
+            }
+        }
+        @foreach (var i in Model.List_Staffs)
+        {           
+            <small class="Phone_All" style="display: none;">@i.StaPhone</small>        
+        }
+
+        <form method="post" asp-page-handler="Update" class="UpdateAccount body__manage-account col-8 flex justify-content-center">
+            <div class="body__update-account">            
+                <div class="row justify-content-between align-items-center">
+                    <label class="body-title ml-4" style="font-size: 2.2rem">Cập nhật tài khoản</label>
+                    <a asp-page="/User/Account/ChangePassword" class="manage-account__link mr-4">Bạn muốn đổi mật khẩu?</a>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label class="manage-account__title">Họ và tên <span style="color: red">&lowast;</span></label>
+                        <input type="text" class="manage-account__input col" name="Name" id="namecus" value="@Model.customer.CusName">
+                        <small id="name-error" style="color: red; font-size: 1.5rem"></small>
+                    </div>
+
+                    <div class="col">
+                        <label class="manage-account__title">Địa chỉ email <span style="color: red">&lowast;</span></label>
+                        <input type="text" class="manage-account__input col" name="Email" id="email" value="@Model.customer.CusEmail">
+                        <small id="email-error" style="color: red; font-size: 1.5rem"></small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="manage-account__title">Số điện thoại <span style="color: red">&lowast;</span></label>
+                        <input type="text" class="manage-account__input col" name="Phone" id="phone" value="@Model.customer.CusPhone">
+                        <small id="phone-error" style="color: red; font-size: 1.5rem"></small>
+                    </div>
+
+                    <div class="col">
+                        <label class="manage-account__title">Giới tính <span style="color: red">&lowast;</span></label>
+                        <form method="post">
+                            <select name="Gender" class="manage-account__input col">
+                                <option value="1">Nam</option>
+                                <option value="2">Nữ</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="manage-account__title">Tỉnh (thành phố)</label>
+                        <input type="text" class="manage-account__input col" readonly="readonly" value="Đà Nẵng">
+                    </div>
+
+                    <div class="col">
+                        <label class="manage-account__title">Quận (huyện)</label>
+                        <form method="post">
+                            <select name="DistrictID" required="required" id="district" class="manage-account__input col">
+                                <option value="0">Chọn Quận (Huyện)</option>
+                                @foreach (var i in Model.List_Districts)
+                                {
+                                    <option value="@i.DistrictID" data-id_district="@i.DistrictID">@i.DistrictName</option>
+                                }
+                            </select>
+                        </form>
+                        <small id="district-error" style="color: red; font-size: 1.5rem"></small>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label class="manage-account__title">Phường (xã)</label>
+                        <form method="post">
+                            <select name="WardID" required="required" id="ward" class="manage-account__input col">
+                                <option value="0">Chọn Phường (Xã)</option>
+                                @foreach (var i in Model.List_Wards)
+                                {
+                                    <option value="@i.WardId" data-district="@i.DistrictID">@i.WardName</option>
+                                }
+                            </select>
+                        </form>
+                        <small id="ward-error" style="color: red; font-size: 1.5rem"></small>
+                    </div>
+
+                    <div class="col">
+                        <label class="manage-account__title">Số nhà</label>
+                        <input type="text" class="manage-account__input col" name="HouseNum" id="housenumber" value="@Model.customer.HouseNumber">
+                        <small id="housenumber-error" style="color: red; font-size: 1.5rem"></small>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="manage-account__btn col ml-4 mr-4" type="submit">Cập nhật thông tin tài khoản</button>
+                </div>
+                <input type="hidden" name="CusID" class="modal__staff-id" value="" />
+                <input type="hidden" name="wardId" value="" />           
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/js/update-account.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {               
+        $('.body__update-account input[name="CusID"]').val(@Model.customer.CusID);
+        var nameInput = document.getElementById("namecus");
+        nameInput.value = nameInput.value.trim().replace(/\s+/g, ' ');
+        var selectedGender = @Model.curGender;
+        var selectedDistrictId = @Model.curDisID;
+        $('select[name="Gender"] option').filter(function () {
+            var gd = (selectedGender == 1 ? "Nam" : "Nữ");
+            return $(this).text().trim() === gd;
+        }).prop('selected', true);
+        $('select[name="DistrictID"] option').filter(function () {
+            return $(this).val() == selectedDistrictId;
+        }).prop('selected', true);
+        
+        var wardSelect = document.getElementById("ward");
+        
+        // Lặp qua các tùy chọn phường trong combobox phường và ẩn đi những tùy chọn không thuộc quận được chọn sẵn
+        for (var i = 0; i < wardSelect.options.length; i++) {
+            if (wardSelect.options[i].getAttribute("data-district") == selectedDistrictId) {
+                wardSelect.options[i].style.display = "block";
+            } else {
+                wardSelect.options[i].style.display = "none";
+            }
+        }
+        var selectedWardId = @Model.curWardID;
+        $('select[name="WardID"] option').filter(function () {
+            return $(this).val() == selectedWardId;
+        }).prop('selected', true);
+
+        var _wardSelect = document.getElementById("ward");
+        var wardIDHidden = document.querySelector('input[name="wardId"]');
+        var wardID = _wardSelect.value;
+        wardIDHidden.value = wardID;
+    });
+</script>

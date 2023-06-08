@@ -1,0 +1,247 @@
+﻿@page
+@model ImportOrderProcModel
+@{
+	ViewData["Title"] = "ImportOrderProc";
+}
+<link rel="stylesheet" href="~/css/import-order-procs.css" asp-append-version="true" />
+
+<div class="ingredient__for">
+	<form class="ingredient__form-details" method="post">
+		<p class="ingredient__label-specific">Đơn nhập nguyên liệu</p>
+		<div class="form-group pl-0">
+			<div class="form__comboBox mb-4 mt-5">
+				<div style="display: flex">
+					<p class="ingredient__label col-3 pl-0">Nhà cung cấp:</p>
+					<select name="partner" id="partner" required>
+						<option value="0">Chọn nhà cung cấp</option>
+						@foreach (var i in Model.partners)
+						{
+							<option value="@i.PartnerID" data-id_partner="@i.PartnerID">@i.PartnerName</option>
+						}
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="ingredient__label-wrapper d-flex">
+			<p class="ingredient__label col-4 pl-0">Nguyên liệu:</p>
+			<p class="ingredient__label-mass col-5">Khối lượng:</p>
+			<p class="ingredient__label-mass col-3 pr-0">Đơn giá/ Đơn vị:</p>
+		</div>
+		@for (int i = 0; i < 6; i++)
+		{
+			<div class="ingredient__label-list d-flex align-items-center mb-4" id="">
+				<div class="form-group col-4 pl-0">
+					<div class="form__comboBox">
+						<select name="ingredient_@i" class="ingredient-name">
+							<option value="0">Chọn nguyên liệu</option>
+						</select>
+					</div>
+				</div>
+				<div class="search__form col-5">
+					<div class="form-inline my-2 my-lg-0">
+						<div class="input-wrapper">
+							<input class="form-control mr-sm-2 qty" name="qty_@i" aria-label="Search" pattern="[+-]?([0-9]*[.])?[0-9]+">
+							<span class="unit">kilogam</span>
+						</div>
+						<span class="input-error" style="color: red"></span>
+					</div>
+				</div>
+				<p class="ingredient__money col-3 mb-0">0đ</p>
+			</div>
+		}
+		<div class="ingredient__total d-flex mt-5 justify-content-between">
+			<div class="blank__area col-md-6"></div>
+			<p class="ingredient__total-label col-md-3">Tạm tính:</p>
+			<p class="ingredient__total-label col-md-3" id="tempMoney">0đ</p>
+		</div>
+		<div class="ingredient__button d-flex align-items-center justify-content-between">
+			<div class="ingredient__button-cancel col-md-6">
+				<button onclick="window.location.href = 'https://localhost:44344/Admin/ManageImport/ManageImportOrder'">Hủy đặt</button>
+			</div>
+			<div class="ingredient__button-order col-md-6 pr-0">
+				<button type="submit">Đặt đơn</button>
+				<input type="submit" id="submit" style="display: none">
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="confirm-label"></h4>
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+			</div>
+			<div class="modal-body">
+				<div class="text-center wirningColor">
+					<i class="fas fa-exclamation-triangle fa-4x"></i>
+				</div>
+				<br />
+				<center>
+					<p class="message"></p>
+				</center>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-danger dismiss" data-dismiss="modal"></button>
+				<button type="submit" class="btn btn-primary confirm"></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="~/js/import__order-procs.js"></script>
+<script>
+	// Thay đổi nhà cung cấp
+	var partner = document.querySelector('select[name="partner"]');
+	var ingreItems = document.querySelectorAll('.ingredient-name');
+
+	partner.addEventListener("change", function () {
+		// Lấy ra ID của partner được chọn
+		var partnerID = partner.options[partner.selectedIndex].getAttribute("data-id_partner");
+		$.ajax({
+			type: 'GET',
+			data: { partnerID: partnerID },
+			url: '@Url.Page("ImportOrderProc", "Ingredient")',
+			success: function (result) {
+				if (result) {
+					var options = result.map(function (option) {
+						return '<option value="' + option.ingredientID + '" data-price="'
+							+ option.ingredientsPrice + '" data-unit="' + option.unitName
+							+ '">' + option.ingredientName + '</option>';
+					});
+
+					var ingredientOption = document.getElementsByClassName('ingredient-name');
+
+					for (var i = 0; i < ingredientOption.length; i++) {
+						ingredientOption[i].innerHTML = '<option value="0">Chọn nguyên liệu</option> ';
+						ingredientOption[i].innerHTML += options.join('');
+					}
+					for (var i = 0; i < ingreItems.length; i++) {
+
+						var parentNode = ingreItems[i].parentElement.parentElement.parentElement;
+						parentNode.querySelector('.qty').value = "";
+						parentNode.querySelector('.ingredient__money').innerHTML = '0đ';
+						parentNode.querySelector('.unit').innerHTML = 'kilogam';
+						document.getElementById('tempMoney').innerHTML = '0đ';
+					}
+				}
+			},
+			error: function (xhr, textStatus, errorThrown) {
+				alert('Error loading ingredient: ' + errorThrown);
+			}
+		});
+	});
+
+	for (var i = 0; i < ingreItems.length; i++) {
+		ingreItems[i].addEventListener('change', function (event) {
+			var thisNode = event.target;
+			var parentNode = thisNode.parentElement.parentElement.parentElement;
+			parentNode.querySelector('.qty').value = "";
+			if (thisNode.selectedIndex !== 0) {
+				parentNode.querySelector('.ingredient__money').innerHTML
+					= parseInt(thisNode.options[thisNode.selectedIndex].getAttribute('data-price')).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+				parentNode.querySelector('.unit').innerHTML
+					= thisNode.options[thisNode.selectedIndex].getAttribute('data-unit');
+			}
+			else {
+				parentNode.querySelector('.ingredient__money').innerHTML = '0đ';
+				parentNode.querySelector('.unit').innerHTML = 'kilogam'
+			}
+		});
+	}
+	var qtys = document.querySelectorAll('.input-wrapper .qty');
+	for (var i = 0; i < qtys.length; i++) {
+		qtys[i].addEventListener('change', function (event) {
+			var totalMoney = 0;
+			for (var i = 0; i < qtys.length; i++) {
+				var money = Number(qtys[i].value);
+				if (!isNaN(money)) {
+					var price = ingreItems[i].options[ingreItems[i].selectedIndex].getAttribute('data-price');
+					totalMoney += money * price;
+				}
+			}
+			document.getElementById('tempMoney').innerHTML = totalMoney.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+		});
+	}
+
+	var btnSubmit = document.querySelector('.ingredient__button-order button');
+	btnSubmit.addEventListener('click', function () {
+		if (partner.selectedIndex === 0) {
+			event.preventDefault();
+			return false;
+		}
+		var count = 0;
+		for (var i = 0; i < ingreItems.length; i++) {
+			var thisNode = ingreItems[i];
+			var thisQty = Number(qtys[i].value);
+			if (thisNode.selectedIndex > 0 && (thisQty == 0 || isNaN(thisQty))) {
+				qtys[i].value = 'Nhập số lượng!';
+				event.preventDefault();
+				return false;
+			}
+			if (thisNode.selectedIndex !== 0) count++;
+		}
+		if (count === 0) {
+			event.preventDefault();
+			return false;
+		}
+		$('#confirm').confirm({
+			title: 'confirmation',
+			message: 'Bạn có muốn đặt đơn hàng này không?',
+			confirm: 'Xác nhận',
+			dismiss: 'Huỷ'
+		});
+		event.preventDefault();
+	});
+
+	$(function () {
+		(function ($) {
+			$.fn.confirm = function (options) {
+				var settings = $.extend({}, $.fn.confirm.defaults, options);
+				return this.each(function () {
+					var element = this;
+					$('.modal-title', this).html(settings.title);
+					$('.message', this).html(settings.message);
+					$('.confirm', this).html(settings.confirm);
+					$('.dismiss', this).html(settings.dismiss);
+
+					$(this).on('click', '.confirm', function (event) {
+						$('#submit').click();
+					});
+
+					$(this).on('hide.bs.modal', function (event) {
+						if ($(this).data('confirm')) {
+							$(this).trigger('confirm', event);
+							$(this).removeData('confirm');
+						} else {
+							$(this).trigger('dismiss', event);
+						}
+						$(this).off('confirm dismiss');
+					});
+					$(this).modal('show');
+				});
+			};
+
+			$.fn.confirm.defaults = {
+				title: 'Modal title',
+				message: 'One fine body&hellip;',
+				confirm: 'OK',
+				dismiss: 'Cancel'
+			};
+		})(jQuery);
+	});
+</script>

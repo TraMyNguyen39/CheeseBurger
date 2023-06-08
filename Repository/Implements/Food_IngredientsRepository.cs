@@ -36,6 +36,16 @@ namespace CheeseBurger.Repository.Implements
 				context.SaveChanges();
 			}
 		}
+		public void IncreaseIngre(int foodID, int qty)
+		{
+			var recipes = GetAllFoodRecipes(foodID);
+			foreach (var item in recipes)
+			{
+				var ingre = context.Ingredients.Where(p => p.IngredientsId == item.IngredientsId).FirstOrDefault();
+				ingre.IngredientsQty += item.QuantityIG * qty;
+				context.SaveChanges();
+			}
+		}
 
 		public List<Food_Ingredients> GetAllFoodRecipes(int foodID)
 		{

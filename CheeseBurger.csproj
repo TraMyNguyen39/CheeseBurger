@@ -31,10 +31,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Pages\User\Email.cshtml">
+    <Content Update="Pages\User\Email\Email.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-	  <Content Update="Pages\User\Menu.cshtml">
+	  <Content Update="Pages\User\Food\Menu.cshtml">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
   </ItemGroup>

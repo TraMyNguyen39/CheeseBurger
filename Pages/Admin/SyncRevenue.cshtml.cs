@@ -53,7 +53,8 @@ namespace CheeseBurger.Pages.Admin
 			}
 			else if (DateTime.TryParse(tDate, out DateTime toDateResult))
 			{
-				toDate = toDateResult;
+				TimeSpan timeSpan = new TimeSpan(23, 59, 59);
+				toDate = toDateResult + timeSpan;
 			} 
 			
 		    NumberIOrder = revenueService.NumberIOrder(fromDate, toDate);

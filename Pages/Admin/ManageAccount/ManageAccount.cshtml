@@ -1,0 +1,251 @@
+﻿@page
+@model ManageAccountModel
+@{
+	ViewData["Title"] = "ManageAccount";
+}
+<link rel="stylesheet" href="~/css/manage-account.css" asp-append-version="true" />
+
+<div class="whole__information d-flex align-items-center">
+	<div class="main__information">
+		<p class="account__information-label">Chi tiết tài khoản</p>
+		<div class="account__information-details d-flex">
+			<div class="account__information-key col-3">
+				<p>Họ và tên:</p>
+				<p>Chức vụ:</p>		
+				<p>Giới tính:</p>
+				<p>Địa chỉ email:</p>
+				<p>Số điện thoại:</p>
+				<p>Địa chỉ:</p>
+			</div>
+			<div class="blank_area col-2"></div>
+			<div class="account__information-value col-7">
+				<p>@Model.staff.StaName</p>
+				<p>@Model.staff.StaRoleName</p>
+				<p>@(Model.staff.StaGender ? "Nam" : "Nữ")</p>
+				<p>@Model.staff.StaEmail</p>
+				<p>@Model.staff.StaPhone</p>
+				<p>@Model.address</p>
+			</div>
+		</div>
+		@foreach (var i in Model.List_Customers)
+		{
+			<small class="Ten_Email_All" style="display: none;">@i.CusEmail</small>
+		}
+		@foreach (var i in Model.List_Staffs)
+		{
+			if (i.StaID != Model.staff.StaID)
+			{
+				<small class="Ten_Email_All" style="display: none;">@i.StaEmail</small>
+			}
+		}
+		@foreach (var i in Model.List_Customers)
+		{
+			<small class="Phone_All" style="display: none;">@i.CusPhone</small>
+		}
+		@foreach (var i in Model.List_Staffs)
+		{
+			if (i.StaID != Model.staff.StaID)
+			{
+				<small class="Phone_All" style="display: none;">@i.StaPhone</small>
+			}
+		}
+		<div class="d-flex">
+			<button class="submit-btn btn-change-account" type="submit" data-id="@Model.staff.StaID">CẬP NHẬT THÔNG TIN TÀI KHOẢN</button>
+			<a asp-page="/Admin/ManageAccount/ChangePasswordAdmin" class="submit-btn">ĐỔI MẬT KHẨU</a>
+		</div>
+	</div>
+</div>
+
+<!-- Update Account -->
+<form method="post" asp-page-handler="Update" class="UpdateAccount">
+	<div class="modal__customer-update">
+		<div class="modal__customer-information">
+			<div class="button__exit">
+				<span class="exit__surround">
+					<i class="fas fa-times"></i>
+				</span>
+			</div>			
+			<div class="modal__customer-details">
+				<div class="modal__customer-label d-flex align-items-center">
+					<p class="modal__label-cate">Cập nhật tài khoản</p>
+					<p class="modal__label-main" id="name"></p>					
+				</div>
+				<div class="item-line">
+					<p class="label">Họ và tên <span style="color: red">&lowast;</span></p>
+					<input class="form-control mr-sm-2" type="text" name="Name" id="namesta" required>
+					<small id="name-error" style="color: red"></small>
+				</div>
+				<div class="item-line">
+					<p class="label">Chức vụ <span style="color: red">&lowast;</span></p>
+					<input class="form-control mr-sm-2" type="search" name="Role" readonly="readonly">					
+				</div>
+				<div class="item-line">
+					<p class="label">Địa chỉ Email <span style="color: red">&lowast;</span></p>
+					<input class="form-control mr-sm-2" type="email" name="Email" id="email" required>	
+					<small id="email-error" style="color: red"></small>
+				</div>
+				<div class="item-line d-flex justify-content-between">
+					<div class="item-col col-6">
+						<p class="label">Số điện thoại <span style="color: red">&lowast;</span></p>
+						<input class="form-control mr-sm-2" type="text" name="Phone" id="phone" required>	
+						<small id="phone-error" style="color: red"></small>
+					</div>
+					<div class="item-col col-6">
+						<p class="label">Giới tính <span style="color: red">&lowast;</span></p>
+						<div class="form-control">
+							<form method="post">
+								<select name="Gender">
+									<option value="1">Nam</option>
+									<option value="2">Nữ</option>
+								</select>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="item-line d-flex justify-content-between">
+					<div class="item-col col-6">
+						<label class="control-label">Tỉnh (Thành phố): </label>
+						<input class="form-control mr-sm-2" type="text" value="Đà Nẵng" readonly="readonly">
+					</div>
+					<div class="item-col col-6">
+						<label class="control-label">Quận (Huyện): </label>
+						<div class="form-control">							
+							<form method="post">
+								<select name="DistrictID" required="required" id="district">	
+									<option value="0">Chọn Quận (Huyện)</option>
+									@foreach (var i in Model.List_Districts)
+									{
+										<option value="@i.DistrictID" data-id_district="@i.DistrictID">@i.DistrictName</option>
+									}									
+								</select>									
+							</form>								
+						</div>		
+						<small id="district-error" style="color: red; margin-left: 2%"></small>
+					</div>
+				</div>
+				<div class="item-line d-flex justify-content-between">
+					<div class="item-col col-6">
+						<p class="label">Phường (Xã)</p>
+						<div class="form-control">							
+							<form method="post">
+								<select name="WardID" required="required" id="ward">
+									<option value="0">Chọn Phường (Xã)</option>
+									@foreach (var i in Model.List_Wards)
+									{
+										<option value="@i.WardId" data-district="@i.DistrictID">@i.WardName</option>
+									}									
+								</select>									
+							</form>									
+						</div>	
+						<small id="ward-error" style="color: red"></small>
+					</div>
+					<div class="item-col col-6">
+						<p class="label">Số nhà</p>
+						<input class="form-control mr-sm-2" type="text" name="HouseNum" id="housenumber">	
+						<small id="housenumber-error" style="color: red; margin-left: 2%"></small>
+					</div>
+				</div>
+				<button class="submit-btn button__save-change" type="submit">LƯU THÔNG TIN TÀI KHOẢN</button>
+			</div>
+			<input type="hidden" name="StaID" class="modal__staff-id" value="" />
+			<input type="hidden" name="wardId" value="" />
+		</div>
+	</div>
+</form>
+<!-- End Update Account -->
+<script src="~/js/manage-account.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('.btn-change-account').on('click', function () {
+			var id = $(this).data('id');
+			$.ajax({
+				type: 'GET',
+				data: { id: id },
+				url: '@Url.Page("ManageAccount", "Find")',
+				success: function (result) {
+					$('.modal__customer-update #name').text(result.name);					
+					$('.modal__customer-update input[name="StaID"]').val(result.id);
+					$('.modal__customer-update input[name="Name"]').val(result.name.replace(/\s+/g, ' ').trim());
+					$('.modal__customer-update input[name="Email"]').val(result.email);
+					$('.modal__customer-update input[name="Phone"]').val(result.phone);;
+					$('.modal__customer-update input[name="HouseNum"]').val(result.housenum);
+					$('.modal__customer-update input[name="Role"]').val(result.rolnamee);
+					$('.modal__customer-update input[name="wardId"]').val(result.wrdID);
+
+
+					$('select[name="Gender"] option').filter(function () {
+						var gd = (result.gender ? "Nam" : "Nữ");
+						return $(this).text().trim() === gd;
+					}).prop('selected', true);
+					$('select[name="DistrictID"] option').filter(function () {						
+						return $(this).val() == result.disID;
+					}).prop('selected', true);
+
+					var districtID = result.disID; // lấy ID của quận được chọn sẵn từ kết quả trả về của AJAX
+					var wardSelect = document.getElementById("ward");
+
+					// Lặp qua các tùy chọn phường trong combobox phường và ẩn đi những tùy chọn không thuộc quận được chọn sẵn
+					for (var i = 0; i < wardSelect.options.length; i++) {
+						if (wardSelect.options[i].getAttribute("data-district") == districtID) {
+							wardSelect.options[i].style.display = "block";
+						} else {
+							wardSelect.options[i].style.display = "none";
+						}
+					}
+
+					$('select[name="WardID"] option').filter(function () {
+						return $(this).val() == result.wrdID;
+					}).prop('selected', true);
+							
+				},
+				error: function (xhr, textStatus, errorThrown) {
+					alert('Error loading ingredient: ' + errorThrown);
+				}
+			});
+		});
+	});
+</script>
+
+<script>
+	// Lấy ra combobox quận và combobox phường
+	var districtSelect = document.getElementById("district");
+	var wardSelect = document.getElementById("ward");
+
+	// Lắng nghe sự kiện khi người dùng chọn một quận trong combobox quận
+	districtSelect.addEventListener("change", function () {
+		// Lấy ra ID của quận được chọn
+		var districtID = districtSelect.options[districtSelect.selectedIndex].getAttribute("data-id_district");
+
+		// Lặp qua các tùy chọn phường trong combobox phường và ẩn đi những tùy chọn không thuộc quận được chọn
+
+		for (var i = 0; i < wardSelect.options.length; i++) {
+			if (wardSelect.options[i].getAttribute("data-district") == districtID) {
+				wardSelect.options[i].style.display = "block";
+			} else {
+				wardSelect.options[i].style.display = "none";
+			}
+		}		
+		document.getElementById("housenumber").value = "";
+		
+		wardSelect.selectedIndex = 0;
+		var wardIDHidden = document.querySelector('input[name="wardId"]');
+		var wardID = wardSelect.value;
+		wardIDHidden.value = wardID;
+		
+		// Chọn sẵn phường đầu tiên trong combobox phường
+		//for (var i = 0; i < wardSelect.options.length; i++) {
+		//	if (wardSelect.options[i].getAttribute("data-district") == districtID) {
+		//		wardSelect.selectedIndex = i;
+		//		break;
+		//	}
+		//}
+	});
+		
+	wardSelect.addEventListener("change", function () {
+		var wardIDHidden = document.querySelector('input[name="wardId"]');
+		document.getElementById("housenumber").value = "";
+		var wardID = wardSelect.value;
+		wardIDHidden.value = wardID;
+	});
+</script>

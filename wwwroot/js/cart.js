@@ -45,7 +45,7 @@ function validateInput(event) {
     var input = event.target.value;
     var regex = /^\d+$/;
 
-    if (!regex.test(input)) {
+    if (!regex.test(input) || parseInt(input) === 0) {
         event.target.value = "1";
     }
     var maxQty = event.target.parentElement.children[4].value;
@@ -71,43 +71,6 @@ function ValidateForm(event) {
             return false;
         }
     }
-    return window.location.href = 'https://localhost:44344/User/Payment';
+    return window.location.href = 'https://localhost:44344/User/Order/Payment';
 }
-
-//function changeQuantity(productId, quantity) {
-//    var input = document.getElementById(productId);
-//    alert(input.value);
-//    var output = document.getElementById("total-" + productId).innerText;
-//    alert(output);
-//    $.ajax({
-//        type: "POST",
-//        url: "https://localhost:44344/User/Cart",
-//        data: { prodId: productId, qty: quantity },
-//        success: function (data) {
-//            $("#total-" + productId).html(data.totalPrice);
-//        },
-//        error: function (data) {
-//            console.log("NôtK: " + data.responseText);
-//        }
-//    });
-//}
-
-//$(document).ready(function () {
-//    $(".input-group .submit").click(function (event) {
-//        event.preventDefault();
-//        var productid = $(this).value;
-//        var quantity = $("#quantity-" + productid).val();
-//        $.ajax({
-//            type: "POST",
-//            url: "/user/cart",
-//            data: {
-//                productid: productid,
-//                quantity: quantity
-//            },
-//            success: function (result) {
-//                window.location.href = "@Url.RouteUrl(/" / user / cart/")";
-//            }
-//        });
-//    });
-//});
 
