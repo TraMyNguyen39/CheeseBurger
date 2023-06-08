@@ -7,8 +7,8 @@
 // validate thong tin
 
 function validateFilledOldPass() {
-	var name = document.querySelector("input[name='oldPassword']");	
-	if ((name.value = name.value.trim()) === "") return false;	
+	var name = document.querySelector("input[name='oldPassword']");
+	if ((name.value = name.value.trim()) === "") return false;
 	return true;
 }
 
@@ -24,45 +24,43 @@ function validateFilledConfirmPass() {
 	return true;
 }
 
-function checkValidate() {	
+function checkValidate() {
 	var oldPassEle = document.getElementById('old_password');
 	var newPassEle = document.getElementById('new_password');
-	var confirmPassEle = document.getElementById('confirm_password');	
+	var confirmPassEle = document.getElementById('confirm_password');
 
 	let oldPassValue = oldPassEle.value;
 	let newPassValue = newPassEle.value;
 	let confirmPassValue = confirmPassEle.value;
-	
+
 	let isCheck = true;
 
 	if (!validateFilledOldPass()) {
 		document.querySelector('#match_pass_error').textContent = '* Vui lòng nhập mật khẩu cũ !';
-		document.querySelector('#invalid_pass_error').textContent = ''; 
+		document.querySelector('#invalid_pass_error').textContent = '';
 		document.querySelector('#duplicate_pass_error').textContent = '';
 		isCheck = false;
-		return isCheck;
 	} else {
 		var curPass = oldPassValue.trim();
 		var smElements = document.querySelector('small.Current_Password');
 		var _Pass = smElements.textContent.trim();
-		if (curPass !== _Pass) {
+		var bcrypt = dcodeIO.bcrypt; console.log(curPass); console.log(_Pass);
+		var isPasswordCorrect = bcrypt.compareSync(curPass, _Pass);
+		if (!isPasswordCorrect) {
 			document.querySelector('#match_pass_error').textContent = '* Mật khẩu không khớp. Vui lòng nhập lại !';
 			document.querySelector('#invalid_pass_error').textContent = '';
 			document.querySelector('#duplicate_pass_error').textContent = '';
 			isCheck = false;
-			return isCheck;
 		} else {
 			document.querySelector('#match_pass_error').textContent = '';
 			document.querySelector('#duplicate_pass_error').textContent = '';
 			if (!validateFilledNewPass()) {
 				document.querySelector('#invalid_pass_error').textContent = '* Vui lòng nhập mật khẩu mới !';
 				isCheck = false;
-				return isCheck;
-			} else {				
+			} else {
 				if (!isPass(newPassValue)) {
 					document.querySelector('#invalid_pass_error').textContent = '* Mật khẩu phải từ 8 đến 15 ký tự với ít nhất 1 chữ cái thường, 1 chữ cái in hoa, 1 chữ số và 1 ký tự đặc biệt!';
 					isCheck = false;
-					return isCheck;
 				} else {
 					document.querySelector('#match_pass_error').textContent = '';
 					document.querySelector('#invalid_pass_error').textContent = '';
@@ -70,11 +68,9 @@ function checkValidate() {
 					if (!validateFilledConfirmPass()) {
 						document.querySelector('#duplicate_pass_error').textContent = '* Vui lòng nhập lại mật khẩu mới';
 						isCheck = false;
-						return isCheck;
 					} else if (newPassValue !== confirmPassValue) {
 						document.querySelector('#duplicate_pass_error').textContent = '* Không khớp với mật khẩu mới. Vui lòng nhập lại !';
 						isCheck = false;
-						return isCheck;
 					}
 				}
 			}
@@ -84,14 +80,14 @@ function checkValidate() {
 	return isCheck;
 }
 
-function validateForm(event) {	
+function validateForm(event) {
 	let isValid = checkValidate();
 	if (isValid) {
 		document.querySelector('.ChangePassword').submit();
 	}
 	else {
 		event.preventDefault();
-	}	
+	}
 }
 
 document.querySelector('.change-pass__btn').addEventListener('click', validateForm);
