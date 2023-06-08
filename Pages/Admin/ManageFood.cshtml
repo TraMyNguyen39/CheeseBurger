@@ -37,10 +37,10 @@
 					<div class="form__comboBox">
 						<form class="menu-sort-staff" method="get">
 							<select name="sortBy" class="menu-sort-staff-box" id="sort-select">
-								<option value="">Tất cả</option>
-								<option value="price-asc" selected>Giá tăng dần</option>
-								<option value="price-desc" selected>Giá giảm dần</option>
-								<option value="name-asc" selected>Tên từ A-Z</option>
+								<option value="" selected>Tất cả</option>
+								<option value="price-asc">Giá tăng dần</option>
+								<option value="price-desc">Giá giảm dần</option>
+								<option value="name-asc">Tên từ A-Z</option>
 								<option value="name-desc">Tên từ Z-A</option>
 							</select>
 							<input name="roleBy" value="@Model.roleBy" type="hidden" />
@@ -599,8 +599,6 @@
 		}
 		$('#price-error-update').text('');
 	}
-	
-
 	
 </script>
 

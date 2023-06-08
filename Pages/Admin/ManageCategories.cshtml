@@ -84,7 +84,7 @@
     </div>
 </div>
 <!-- Modal Modify -->
-<form method="post" asp-page="ManageCategories" asp-page-handler="Update">
+<form method="post" asp-page="ManageCategories" asp-page-handler="Update" onsubmit="return validateUpdateForm(event)">
     <div class="modal__food-modify">
         <div class="modal__food-information">
             <div class="button__exit d-flex justify-content-end">
@@ -98,6 +98,7 @@
                     <p class="categories__text">Nhập tên mới:</p>
                     <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Name" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
                     <button class="submit-btn update-cate-btn" type="submit">Cập nhật danh mục</button>
+                    <span id="category-update-error" style="color: red"></span>
                 </div>
                 <input type="hidden" name="CategoriesID" class="modal__categories-id" value="" />
             </div>
@@ -184,6 +185,7 @@
 
 <script type="text/javascript">
     $('.fa-pencil-alt').on('click', function () {
+        $('#category-update-error').text('');
         var id = $(this).data('id');
         $.ajax({
             type: 'GET',
@@ -193,6 +195,11 @@
                 $('.modal__food-modify input[name="CategoriesID"]').val(result.categoryID); // Save ID to hidden input
                 $('.modal__food-modify input[name="Name"]').val(result.categoryName); // Update category name
                 $('.modal__food-modify').show(); // Show the modal window
+
+                // Clear the corresponding CategoryName
+                $('.Ten_DM_All').filter(function () {
+                    return $(this).text() === result.categoryName;
+                }).text('');
             },
             error: function (xhr, textStatus, errorThrown) {
                 alert('Error loading categories: ' + errorThrown);
@@ -348,6 +355,29 @@ function populateFoods(CategoryID) {
         }
         // Nếu không có lỗi, ẩn thông báo lỗi
         $('#category-error').text('');
+    }
+</script>
+<script>
+    function validateUpdateForm(event) {
+        var newCategoryName = $('.categories__form-edit input[name="Name"]').val().trim().toUpperCase().replace(/\s+/g, ' ');
+        var categoryNames = []; // Khởi tạo một mảng rỗng để lưu các tên danh mục
+
+        $('td.Ten_DM_All').each(function () {
+            var categoryName = $(this).text().trim().toUpperCase().replace(/\s+/g, ' '); // Lấy nội dung của phần tử td hiện tại và loại bỏ khoảng trắng thừa
+            categoryNames.push(categoryName); // Thêm tên danh mục vào mảng
+        });
+
+        // Kiểm tra xem tên nguyên liệu mới có trong mảng tên danh mục hay không
+        if (categoryNames.some(function (name) { return name === newCategoryName })) {
+            // Hiển thị thông báo lỗi
+            $('#category-update-error').text('Đã tồn tại tên danh mục. Vui lòng nhập lại !!!');
+
+            // Ngăn chặn việc submit form khi có lỗi
+            event.preventDefault();
+            return false;
+        }
+        // Nếu không có lỗi, ẩn thông báo lỗi
+        $('#category-update-error').text('');
     }
 </script>
 

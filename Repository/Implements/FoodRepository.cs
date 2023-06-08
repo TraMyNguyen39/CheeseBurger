@@ -121,6 +121,9 @@ namespace CheeseBurger.Repository.Implements
 				case "name":
 					sta_data = isDescending ? sta_data.OrderByDescending(p => p.FoodName) : sta_data.OrderBy(p => p.FoodName);
 					break;
+				case "price":
+					sta_data = isDescending ? sta_data.OrderByDescending(p => p.FoodInputPrice) : sta_data.OrderBy(p => p.FoodInputPrice);
+					break;
 			}
 			if (!searchText.IsNullOrEmpty())
 				return sta_data.ToList();
