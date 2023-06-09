@@ -50,7 +50,7 @@ namespace CheeseBurger.Pages.Admin
         {
             
             categoryService.AddData(Name);
-            return RedirectToPage("ManageCategories");
+            return RedirectToPage("/Admin/ManageCategories");
         }
         public IActionResult OnGetFind(int id)
         {
@@ -60,12 +60,12 @@ namespace CheeseBurger.Pages.Admin
         public IActionResult OnPostUpdate(int CategoriesID, string Name)
         {
             categoryService.UpdateData(CategoriesID, Name);
-            return RedirectToPage("ManageCategories");
+            return RedirectToPage("/Admin/ManageCategories");
         }
         public IActionResult OnPostDelete(int CategoriesID)
         {
             categoryService.DeleteData(CategoriesID);
-            return RedirectToPage("ManageCategories");
+            return RedirectToPage("/Admin/ManageCategories");
         }
 
         public IActionResult OnGetCategories(int id)

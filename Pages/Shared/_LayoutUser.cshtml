@@ -33,11 +33,11 @@
 				<ul class="header__navbar-list">
 					<li class="header__navbar-item">
 						<a asp-page="/Index" class="header__navbar--item-link">Trang chủ</a>
-						<a asp-page="/User/Menu" class="header__navbar--item-link">Thực đơn</a>
+						<a asp-page="/User/Food/Menu" class="header__navbar--item-link">Thực đơn</a>
 					</li>
 				</ul>
 
-				<form class="header__navbar-searchbox header__navbar-item" asp-page="/User/Menu" method="get">
+				<form class="header__navbar-searchbox header__navbar-item" asp-page="/User/Food/Menu" method="get">
 					<input class="header__navbar--searchbox-input" type="text" placeholder="Nhập món ăn cần tìm" name="search">
 					<button type="submit" class="header__navbar--searchbox-btn" >
 						<i style="color: black;" class="header__navbar-icon fas fa-magnifying-glass"></i>
@@ -46,7 +46,7 @@
 
 				<ul class="header__navbar-list header__navbar-list--icon">
 					<li class="header__navbar-item">
-						<a asp-page="/User/Cart" class="header__navbar--item-link">
+						<a asp-page="/User/Cart/Cart" class="header__navbar--item-link">
 							<i class="header__navbar-icon fas fa-cart-shopping"></i>
 							Giỏ hàng
 						</a>
@@ -78,8 +78,8 @@
 									else
 									{
 										<div class="dropdown-menu">
-											<a class="dropdown-item" asp-page="/User/DetailAccount">Tài khoản</a>
-											<a class="dropdown-item" asp-page="/User/MyOrder">Đơn hàng của tôi</a>
+											<a class="dropdown-item" asp-page="/User/Account/DetailAccount">Tài khoản</a>
+											<a class="dropdown-item" asp-page="/User/Order/MyOrder">Đơn hàng của tôi</a>
 											<a class="dropdown-item" asp-page="/Login/LoginRegister" asp-page-handler="Logout">Đăng xuất</a>
 										</div>
 									}

@@ -125,6 +125,17 @@ for (var i = 0; i < buttonExit.length; i++) {
   buttonExit[i].addEventListener("click", handleCloseModal);
 }
 
+// OK
+var buttonOK = document.querySelectorAll("button.exit-btn");
+
+function handleOKModal() {
+    var modal = this.parentNode.parentNode.parentNode;
+    modal.classList.remove("open");
+}
+for (var i = 0; i < buttonOK.length; i++) {
+    buttonOK[i].addEventListener("click", handleOKModal);
+}
+
 // Xoa
 //var banButtons = document.querySelectorAll("td.Option__ban");
 

@@ -118,7 +118,7 @@
 .account__name input[type="search"], .account__telephone input[type="search"], .account__email input[type="search"], .account__adress input[type="search"],
 .account__city-details input[type="search"], .account__district-details input[type="search"], .account__ward input[type="search"] {
     height: 40px;
-    font-size: 20px;
+    font-size: 16px;
     border: 1px solid #495057;
 }
 
@@ -145,7 +145,9 @@
 .form__comboBoxList select[name="combobox_Item"], .account__date input[type="date"] {
     height: 40px;
     width: 100%;
+    padding: 6px;
 }
+
 
 /* .form__group-district {
     transform: translateX(-105px);
@@ -171,7 +173,7 @@
     }
 
 .button__account-save {
-    padding: 20px 0;
+    padding-top: 20px;
 }
 /* End Modal Add */
 
@@ -195,7 +197,7 @@
 }
 
 .staff__info-full p {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin-bottom: 10px;
 }
 
@@ -203,8 +205,8 @@
     background-color: var(--white-color);
     font-size: 16px;
     border-radius: 8px;
-    width: 50%;
-    padding: 40px;
+    width: 40%;
+    padding: 30px 40px;
     position: relative;
 }
 

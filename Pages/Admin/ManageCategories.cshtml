@@ -45,9 +45,9 @@
                             <td class="Ten_mon">@i.CategoryName</td>
                             <td class="Number_mon">@i.Quantity</td>
                             <td class="Option">
-                                <i class="fas fa-eye" data-id="@i.CategoryID" onclick="showCategoryDetails(@i.CategoryID)"></i>
-                                <i class="fas fa-pencil-alt" data-id="@i.CategoryID"></i>
-                                <i class="fas fa-ban" data-id="@i.CategoryID"></i>
+                                <i class="fas fa-eye" data-id="@i.CategoryID" onclick="showCategoryDetails(@i.CategoryID)" title="Xem"></i>
+                                <i class="fas fa-pencil-alt" data-id="@i.CategoryID" title="Cập nhật"></i>
+                                <i class="fas fa-ban" data-id="@i.CategoryID" title="Xóa"></i>
                             </td>
                         </tr>
                     }
@@ -278,10 +278,10 @@
         } else {
             $('#category-error-td').empty();
             $('#confirm').confirm({
-                title: 'confirmation',
-                message: 'Bạn có muốn xóa danh mục này không?',
-                confirm: 'Delete',
-                dismiss: 'Cancel'
+                title: 'Xác nhận',
+                message: 'Bạn có chắc chắn muốn xóa danh mục này không?',
+                confirm: 'Xác nhận',
+                dismiss: 'Hủy bỏ'
             });
         }
     }

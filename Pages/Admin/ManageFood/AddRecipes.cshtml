@@ -1,0 +1,134 @@
+﻿@page
+@model AddRecipesModel
+@{
+	ViewData["Title"] = "AddRecipes";
+	ViewBag.Name = HttpContext.Session.GetString("FoodName");
+}
+
+<link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/manage-food.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/add-recipes.css" asp-append-version="true" />
+
+<div class="add-recipes">
+	<div class="recipes">
+		<p class="modal__label-main">Công thức món ăn</p>
+		<div class="food-name">@(ViewBag.Name ?? "")</div>
+		@if (Model.ingreUsed != null)
+		{
+			<table class="table align-middle">
+				<thead>
+					<tr>
+						<th>Nguyên liệu</th>
+						<th>Số lượng</th>
+						<th>Xoá</th>
+					</tr>
+				</thead>
+				@for (var i = 0; i < Model.ingreUsed.Count; i++)
+				{
+					<tbody>
+						<tr>
+							<form method="post" asp-page-handler="Remove">
+							<td style="text-align: left;">@Model.ingreUsed[i].IngredientName</td>
+							<td class="indexInput"><input type="text" name="quantity" id="index" value="@Model.qty[i]"><span>@Model.ingreUsed[i].MeasureName</span></td>
+							<td>
+								<input type="hidden" name="ingreID" value="@Model.ingreUsed[i].IngredientID">
+									@for (var j = 0; j < Model.ingredients.Count; j++)
+									{
+									<input type="hidden" asp-for="@Model.ingredients[j].IngredientID" />
+									<input type="hidden" asp-for="@Model.ingredients[j].IngredientInputPrice" />
+									<input type="hidden" asp-for="@Model.ingredients[j].IngredientName" />
+									<input type="hidden" asp-for="@Model.ingredients[j].PartnerName" />
+									<input type="hidden" asp-for="@Model.ingredients[j].MeasureName" />
+									}
+									@for (var j = 0; j < Model.ingreUsed.Count; j++)
+									{
+									<input type="hidden" asp-for="@Model.ingreUsed[j].IngredientID" />
+									<input type="hidden" asp-for="@Model.ingreUsed[j].IngredientName" />
+									<input type="hidden" asp-for="@Model.ingreUsed[j].MeasureName" />
+									<input type="hidden" asp-for="@Model.qty[j]" class="remove-qty" />
+									}
+								<input type="hidden" asp-for="@Model.foodID" />
+								<button type="submit" class="icon-btn remove-btn">
+									<i class="fa-solid fa-trash-can"></i>
+								</button>
+
+							</td>
+							</form>
+						</tr>
+					</tbody>
+				}
+			</table>
+			<form method="post" asp-page-handler="SaveRecipe">
+				@for (var i = 0; i < Model.ingreUsed.Count; i++)
+				{
+					<input type="hidden" asp-for="@Model.ingreUsed[i].IngredientID" />
+					<input type="hidden" class="mainQty" asp-for="@Model.qty[i]" />
+				}
+				<input type="hidden" asp-for="@Model.foodID" />
+				<button id="submit-recipe" class="submit-btn exit-btn" type="submit" style="width: 60%">Lưu công thức</button>
+			</form>
+		}
+		else
+		{
+			<div class="text-danger alert-danger" style="width: 60%">(Món ăn chưa có công thức!)</div>
+		}
+		<button class="submit-btn exit-btn" style="width: 60%; background: white; color: black" 
+			onclick="window.location.href = 'https://localhost:44344/Admin/ManageFood/ManageFoodRecipe';">
+			<i class="fa-solid fa-chevron-left"></i>
+			Quay trở lại
+		</button>
+	</div>
+	<div class="ingre-recipes">
+		<p class="modal__label-main">Danh sách nguyên liệu</p>
+		<table id="data-table-fixed-columns" class="table table-bordered align-middle">
+			<thead>
+				<tr>
+					<th>Nguyên liệu</th>
+					<th>Nhà cung cấp</th>
+					<th>Đơn giá/Đơn vị</th>
+					<th>Thêm</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.ingredients)
+				{
+					<tr>
+						<td>@item.IngredientName</td>
+						<td>@item.PartnerName</td>
+						<td style="text-align: right;">
+							@(item.IngredientInputPrice.ToString("N0"))VNĐ
+						</td>
+						<td style="text-align: center">
+							<form method="post" asp-page-handler="Add">
+								<input type="hidden" name="ingreID" value="@item.IngredientID">
+								@for (var i = 0; i < Model.ingredients.Count; i++)
+								{
+									<input type="hidden" asp-for="@Model.ingredients[i].IngredientID" />
+									<input type="hidden" asp-for="@Model.ingredients[i].IngredientInputPrice" />
+									<input type="hidden" asp-for="@Model.ingredients[i].IngredientName" />
+									<input type="hidden" asp-for="@Model.ingredients[i].PartnerName" />
+									<input type="hidden" asp-for="@Model.ingredients[i].MeasureName" />
+								}
+								@if (Model.ingreUsed != null)
+								{
+									@for (var i = 0; i < Model.ingreUsed.Count; i++)
+									{
+										<input type="hidden" asp-for="@Model.ingreUsed[i].IngredientID" />
+										<input type="hidden" asp-for="@Model.ingreUsed[i].IngredientName" />
+										<input type="hidden" asp-for="@Model.ingreUsed[i].MeasureName" />
+										<input type="hidden" asp-for="@Model.qty[i] class="add-qty" />
+									}
+								}
+								<input type="hidden" asp-for="@Model.foodID" />
+								<button type="submit" class="icon-btn add-btn">
+									<i class="fa-solid fa-square-plus"></i>
+								</button>
+							</form>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
+<script src="/js/add-recipe.js"></script>

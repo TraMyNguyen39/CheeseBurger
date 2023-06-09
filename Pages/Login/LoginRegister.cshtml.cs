@@ -69,7 +69,7 @@ namespace CheeseBurger.Pages
                     HttpContext.Session.SetString("Role", staffRole);
                     if (staffRole != "Quản trị viên")
                     {
-                        return RedirectToPage("/Admin/ManageExportOrder");
+                        return RedirectToPage("/Admin/ManageExport/ManageExportOrder");
                     }
                     return RedirectToPage("/Admin/SyncRevenue");
                 }
@@ -77,7 +77,7 @@ namespace CheeseBurger.Pages
                 {
                     var customerID = customerService.GetCustomerID(user.AccountID);
                     HttpContext.Session.SetInt32("customerID", customerID);
-                    return RedirectToPage("/User/Menu");
+                    return RedirectToPage("/User/Food/Menu");
                 }
             }
         }

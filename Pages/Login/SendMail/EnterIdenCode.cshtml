@@ -1,0 +1,110 @@
+﻿@page
+@model EnterIdenCodeModel
+@{
+    ViewData["Title"] = "Enter Identification Code";
+}
+
+<div class="login-wrapper">
+    <div class="form-box success-form-forget">
+        <!-- Ke thua success page -->
+        <a asp-page="/Index" class="logo-link">
+            <img src="~/img/logo.png" alt="" class="logo-brand logo-brand-success">
+        </a>
+		<form method="post" asp-page-handler="Update" class="AddNewAccount">
+			<div class="login-form">
+				<h2 class="text success-text">Xác thực tài khoản</h2>
+				<p class="text">
+					Chúng tôi đã gửi mã xác thực đến email của bạn.
+					Vui lòng nhập mã xác thực để đăng ký tài khoản.
+				</p>                
+				<div class="unsuccessful-message" id="iden_code_error"></div>
+				<div class="input-item forget-password__input">
+                    <i class="fas fa-id-card"></i>
+					<input type="text" class="input-field" name="idcode" id="idcodee" placeholder="Nhập mã xác thực" required>
+				</div>
+				<button class="home-btn btn-confirm-idencode">Xác nhận</button>
+                <button class="home-btn btn-back-index" style="display: none">Về trang chủ</button>
+                <input type="hidden" name="typebtn" />
+				<input type="hidden" name="icname" value="@Model.ICodeName" />
+				<input type="hidden" name="newmail" value="@Model.NewAccMail" />
+				<input type="hidden" name="newname" value="@Model.NewCusName" />
+				<input type="hidden" name="newpassw" value="@Model.NewAccPassw" />
+				<input type="hidden" name="newphone" value="@Model.NewCusPhone" />
+			</div>
+		</form>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        document.querySelector('#iden_code_error').textContent = '';
+        document.querySelector('.btn-back-index').disabled = true;
+    }
+
+    function validateFilledIC() {
+        var idcode = document.querySelector("input[name='idcode']");
+        if ((idcode.value = idcode.value.trim()) === "") return false;
+        return true;
+    }
+
+    function checkValidate() {
+        var idcodeEle = document.getElementById('idcodee');
+        var idcodeValue = idcodeEle.value;
+        var isCheck = true;
+        var errorElement = document.querySelector('#iden_code_error');
+
+        if (!validateFilledIC()) {
+            errorElement.textContent = '* Vui lòng nhập mã xác thực!';
+            isCheck = false;
+            return isCheck;
+        }
+
+        if (!/^\d{6}$/.test(idcodeValue)) {
+            errorElement.textContent = '* Mã xác thực sai định dạng. Vui lòng nhập lại!';
+            isCheck = false;
+            return isCheck;
+        }
+
+        if (idcodeValue !== "@Model.ICodeName") {
+            errorElement.textContent = '* Mã xác thực không chính xác!';
+            isCheck = false;
+            return isCheck;
+        }
+
+        var sendTimeStr = '@HttpContext.Session.GetString("SendTimeCode")';
+        var sendTime = new Date(sendTimeStr);
+        var currentTime = new Date();
+        var timeDifference = currentTime - sendTime;
+        var timeDifferenceInMinutes = timeDifference / (1000 * 60); // Chuyển đổi thành phút
+
+        if (timeDifferenceInMinutes > 1) {
+            errorElement.textContent = '* Mã xác thực đã quá hạn!';
+            isCheck = false;
+            document.querySelector('.btn-back-index').disabled = false;
+            document.querySelector('.btn-confirm-idencode').disabled = true;
+            document.querySelector('.btn-back-index').style.display = 'block';
+            document.querySelector('.btn-confirm-idencode').style.display = 'none';
+            document.querySelector("input[name='typebtn']").value = '2';
+            return isCheck;
+        }
+
+        return isCheck;
+
+    }
+
+    function validateForm(event) {
+        var isValid = checkValidate();
+        if (isValid) {
+            document.querySelector("input[name='typebtn']").value = '1';
+            document.querySelector('.AddNewAccount').submit();
+        }
+        else {
+            event.preventDefault();
+        }
+    }
+
+    document.querySelector('.btn-confirm-idencode').addEventListener('click', validateForm);
+</script>
+
+
+

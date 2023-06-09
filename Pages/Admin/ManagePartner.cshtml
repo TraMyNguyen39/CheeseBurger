@@ -2,7 +2,6 @@
 @model ManagePartnerModel
 @{
 	ViewData["Title"] = "ManagePartner";
-	int stt = 0;
 }
 <link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
 
@@ -42,7 +41,6 @@
 		<table class="content-table">
 			<thead>
 				<tr>
-					<th class="STT">STT</th>
 					<th class="Ten_mon">Tên nhà cung cấp</th>
 					<th class="Email">Địa chỉ email</th>
 					<th class="Option">Tùy chọn</th>
@@ -52,13 +50,21 @@
 				@foreach (var i in partners)
 				{
 					<tr>
-						<td class="STT">@(++stt)</td>
-						<td class="ID_mon" name="@i.PartnerID" style="display: none;">@i.PartnerID</td>
+						<td class="ID_mon" style="display: none;">@i.PartnerID</td>
 						<td class="Ten_mon">@i.PartnerName</td>
 						<td class="Email">@i.Email</td>
 						<td class="Option">
-							<i class="fas fa-pencil-alt" data-id="@i.PartnerID" onclick="showCategoryDetails('@i.PartnerID')"></i>
-							<i class="fas fa-ban" data-id="@i.PartnerID"></i>
+							<i class="fas fa-eye" data-id="@i.PartnerID" onclick="showPartnerDetails(@i.PartnerID)" title="Xem"></i>
+							@if (!i.isDeleted)
+							{
+								<i class="fas fa-pencil-alt" data-id="@i.PartnerID" onclick="showCategoryDetails(@i.PartnerID)" title="Cập nhật"></i>
+								<i class="fas fa-ban" data-id="@i.PartnerID" title="Xoá"></i>
+							}
+							else
+							{
+								<i class="fa-solid fa-rotate" data-id="@i.PartnerID" title="Khôi phục"></i>
+								<i class="fa-regular fa-square-minus"></i>
+							}
 						</td>
 					</tr>
 				}
@@ -81,7 +87,7 @@
 			{
 				currentPage = Model.currentPage,
 				countPages = totalPages,
-				generateUrl = (int? p) => Url.Page("/Admin/ManagePartner", new { p , search = Model.searchText, Model.sortBy})
+				generateUrl = (int? p) => Url.Page("/Admin/ManagePartner", new { p, search = Model.searchText, Model.sortBy })
 			};
 		}
 		<partial name="_Paging" model="@pagingmodel" />
@@ -91,26 +97,26 @@
 
 <form method="post" asp-page="ManagePartner" asp-page-handler="Create" onsubmit="return validateForm(event)">
 	<div class="modal__ingredient-add" id="create-form">
-		<div class="modal__ingredient-information" style="width: 40%">
+		<div class="modal__ingredient-information" style="width: 35%">
 			<div class="button__exit d-flex justify-content-end">
 				<span class="exit__surround d-flex align-items-center justify-content-center">
 					<i class="fas fa-times"></i>
 				</span>
 			</div>
 			<div class="modal__ingredient-details">
-				<p class="modal__label-main">Thêm nhà cung cấp</p>
+				<p class="modal__label-main mb-5">Thêm nhà cung cấp</p>
 				<div class="ingredient__name">
 					<p class="label">Tên nhà cung cấp</p>
-					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="partnerName" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
+					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="partnerName" required="required" pattern="[\p{L}0-9&# ]+" title="Vui lòng nhập đúng tên công ty" />
 					<span id="partner-error" style="color: red"></span>
 				</div>
 				<div class="ingredient__name">
 					<p class="label">Địa chỉ email</p>
-					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="email" required="required" pattern="^[a-zA-Z0-9._+-]+&#64;[a-zA-Z0-9.-]+\.[a-zA-Z]{2,9}$" title="Vui lòng nhập email hợp lệ">
+					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="email" required="required" pattern="^[a-z0-9](\.?[a-z0-9]){4,}@@gmail\.com$" title="Vui lòng nhập email hợp lệ">
 					<span id="email-error" style="color: red"></span>
 				</div>
 				<div class="button__ingredient-add">
-					<button class="" type="submit" name="p">Thêm nhà cung cấp</button>
+					<button class="mt-3" type="submit" name="p">THÊM NHÀ CUNG CẤP</button>
 				</div>
 			</div>
 		</div>
@@ -121,26 +127,26 @@
 <!-- Modal Update -->
 <form method="post" asp-page="ManagePartner" asp-page-handler="Update" onsubmit="return validateUpdateForm(event)">
 	<div class="modal__ingredient-modify">
-		<div class="modal__ingredient-information" style="width: 40%">
+		<div class="modal__ingredient-information" style="width: 35%">
 			<div class="button__exit d-flex justify-content-end">
 				<span class="exit__surround d-flex align-items-center justify-content-center">
 					<i class="fas fa-times"></i>
 				</span>
 			</div>
 			<div class="modal__ingredient-details">
-				<p class="modal__label-main">Cập nhật nhà cung cấp</p>
+				<p class="modal__label-main mb-5">Cập nhật nhà cung cấp</p>
 				<div class="ingredient__name">
 					<p class="label">Tên nhà cung cấp</p>
-					<input class="form-control mr-sm-2" type="search" aria-label="Search" name="partnerName" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
+					<input class="form-control mr-sm-2" type="search" aria-label="Search" name="partnerName" required="required" pattern="[\p{L}0-9&# ]+" title="Vui lòng nhập đúng tên công ty">
 					<span id="partner-error-update" style="color: red"></span>
 				</div>
 				<div class="ingredient__name">
 					<p class="label">Địa chỉ email</p>
-					<input class="form-control mr-sm-2" type="search" id="partnerEmail" aria-label="Search" name="email" required="required" pattern="^[a-zA-Z0-9._+-]+&#64;[a-zA-Z0-9.-]+\.[a-zA-Z]{2,9}$" title="Vui lòng nhập email hợp lệ">
+					<input class="form-control mr-sm-2" type="search" id="partnerEmail" aria-label="Search" name="email" required="required" pattern="^[a-z0-9](\.?[a-z0-9]){4,}@@gmail\.com$" title="Vui lòng nhập email hợp lệ">
 					<span id="email-error-update" style="color: red"></span>
 				</div>
 				<div class="button__ingredient-modify">
-					<button class="" type="submit">Cập nhật nhà cung cấp</button>
+					<button class="mt-3" type="submit">CẬP NHẬT NHÀ CUNG CẤP</button>
 				</div>
 			</div>
 			<input type="hidden" name="partnerID" class="modal__ingredient-id" value="" />
@@ -150,6 +156,40 @@
 	</div>
 </form>
 <!-- End Modal Update-->
+<!-- Modal Read -->
+<div class="modal__food-read">
+	<div class="modal__read-information modal__read-category-edit">
+		<div class="button__exit d-flex justify-content-end">
+			<span class="exit__surround d-flex justify-content-center align-items-center">
+				<i class="fas fa-times"></i>
+			</span>
+		</div>
+		<div class="categories-read">
+			<div class="categories__form-edit">
+				<input name="CategoryID" type="hidden" />
+				<p class="categories__text-specific">Xem nhà cung cấp</p>
+				<div class="categories__information-label d-flex align-items-center">
+					<div class="categories__information-key col-md-4">
+						<label for="name" class="categories__text">Tên nhà cung cấp:</label>
+						<label for="id" class="categories__text">Email:</label>
+						<label for="amount" class="categories__text">Số lượng nguyên liệu:</label>
+					</div>
+					<div class="categories__information-element col-md-9">
+						<p class="categories__text" id="name"></p>
+						<p class="categories__text" id="id"></p>
+						<p class="categories__text" id="amount"></p>
+					</div>
+				</div>
+				<div class="list-foods">
+					<div class="categories__information-label">Danh sách nguyên liệu:</div>
+					<div class="list-ingre-item"></div>
+				</div>
+			</div>
+			<button class="submit-btn exit-btn">OK</button>
+		</div>
+	</div>
+</div>
+<!-- End Modal Read -->
 <!-- Modal Delete -->
 <!-- Modal -->
 <form method="post" asp-page="ManagePartner" asp-page-handler="Delete">
@@ -179,6 +219,34 @@
 	</div>
 </form>
 <!-- End Modal Delete -->
+<!-- Modal -->
+<form method="post" asp-page="ManagePartner" asp-page-handler="Recycle">
+	<div class="modal fade" id="recycle" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title_1" id="confirm-label"></h4>
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				</div>
+				<div class="modal-body">
+					<div class="text-center wirningColor">
+						<i class="fas fa-exclamation-triangle fa-4x"></i>
+					</div>
+					<br />
+					<center>
+						<p class="message"></p>
+						<input type="hidden" name="PartnerID" class="modal__partner-id" value="" />
+					</center>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-danger dismiss" data-dismiss="modal"></button>
+					<button type="submit" class="btn btn-primary confirm"></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<!-- End Modal Recycle -->
 <script src="~/js/manage-ingredient.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -245,10 +313,61 @@
 			}
 		});
 		$('#confirm').confirm({
-			title: 'confirmation',
-			message: 'Bạn có muốn xóa đối tác này không?',
-			confirm: 'Delete',
-			dismiss: 'Cancel'
+			title: 'Xác nhận xóa',
+			message: 'Bạn có chắc chắn muốn xóa nhà cung cấp này không?',
+			confirm: 'Xác nhận',
+			dismiss: 'Hủy bỏ'
+		});
+	}); 	
+</script>
+<script>
+	$(function () {
+		(function ($) {
+			$.fn.confirm = function (options) {
+				var settings = $.extend({}, $.fn.confirm.defaults, options);
+
+				return this.each(function () {
+					var element = this;
+					$('.modal-title', this).html(settings.title);
+					$('.message', this).html(settings.message);
+					$('.confirm', this).html(settings.confirm);
+					$('.dismiss', this).html(settings.dismiss);
+
+					$(this).on('click', '.confirm', function (event) {
+						$(element).data('confirm', true);
+					});
+
+					$(this).on('hide.bs.modal', function (event) {
+						if ($(this).data('confirm')) {
+							$(this).trigger('confirm', event);
+							$(this).removeData('confirm');
+						} else {
+							$(this).trigger('dismiss', event);
+						}
+
+						$(this).off('confirm dismiss');
+					});
+
+					$(this).modal('show');
+				});
+			};
+
+			$.fn.confirm.defaults = {
+				title: 'Modal title',
+				message: 'One fine body&hellip;',
+				confirm: 'OK',
+				dismiss: 'Cancel'
+			};
+		})(jQuery);
+	});
+	$(".fa-rotate").click(function () {
+		var id = $(this).data('id');
+		$('#recycle input[name="PartnerID"]').val(id); // Lưu trữ ID vào trường ẩn
+		$('#recycle').confirm({
+			title: 'Xác nhận khôi phục',
+			message: 'Bạn có chắc chắn muốn khôi phục nhà cung cấp này không?',
+			confirm: 'Xác nhận',
+			dismiss: 'Hủy bỏ'
 		});
 	});
 </script>
@@ -280,7 +399,7 @@
 		// Kiểm tra xem tên nguyên liệu mới có trong mảng tên nguyên liệu hay không
 		if (partnerNames.some(function (name) { return name === newPartnerName })) {
 			// Hiển thị thông báo lỗi
-			$('#partner-error').text('Đã tồn tại tên nhà cung cấp. Vui lòng nhập lại !!!');
+			$('#partner-error').text('Đã tồn tại tên nhà cung cấp. Vui lòng nhập lại!');
 			// Ngăn chặn việc submit form khi có lỗi
 			event.preventDefault();
 			return false;
@@ -299,7 +418,7 @@
 		// Kiểm tra xem tên nguyên liệu mới có trong mảng tên nguyên liệu hay không
 		if (emailNames.some(function (name) { return name === newEmailName })) {
 			// Hiển thị thông báo lỗi
-			$('#email-error').text('Đã tồn tại tên nguyên liệu. Vui lòng nhập lại !!!');
+			$('#email-error').text('Đã tồn tại tên email. Vui lòng nhập lại!');
 			// Ngăn chặn việc submit form khi có lỗi
 			event.preventDefault();
 			return false;
@@ -320,13 +439,13 @@
 		});
 		if (newPartnerName !== oldPartnerName && partnerNames.some(function (name) { return name === newPartnerName })) {
 			// Hiển thị thông báo lỗi
-			$('#partner-error-update').text('Đã tồn tại tên nhà cung cấp. Vui lòng nhập lại !!!');
+			$('#partner-error-update').text('Đã tồn tại tên nhà cung cấp. Vui lòng nhập lại!');
 			// Ngăn chặn việc submit form khi có lỗi
 			event.preventDefault();
 			return false;
 		}
 		// Nếu không có lỗi, ẩn thông báo lỗi
-		$('#partner-error').text('');
+		$('#partner-error-update').text('');
 
 		var newEmailName = $('.modal__ingredient-modify input[name="email"]').val().trim().toUpperCase().replace(/\s+/g, ' ');
 		var emailNames = []; // Khởi tạo một mảng rỗng để lưu các tên nguyên liệu
@@ -338,13 +457,55 @@
 		});
 		if (emailNames.some(function (name) { return name === newEmailName }) && newEmailName !== oldEmail) {
 			// Hiển thị thông báo lỗi
-			$('#email-error-update').text('Đã tồn tại email. Vui lòng nhập lại !!!');
+			$('#email-error-update').text('Đã tồn tại email. Vui lòng nhập lại!');
 
 			// Ngăn chặn việc submit form khi có lỗi
 			event.preventDefault();
 			return false;
 		}
 		// Nếu không có lỗi, ẩn thông báo lỗi
-		$('#email-error').text('');
+		$('#email-error-update').text('');
+	}
+</script>
+<script>
+	function showPartnerDetails(id) {
+		// Lấy thông tin hàng được chọn
+		var row = $('td.ID_mon').filter(function () {
+			return $(this).text() == id;
+		}).closest('tr');
+		
+		var partnerName = row.find('td.Ten_mon').text().trim();
+		var email = row.find('td.Email').text().trim();
+		
+		$('.modal__food-read #name').text(partnerName);
+		$('.modal__food-read #id').text(email);
+				
+		populatePartners(id);
+	}
+</script>
+<script>
+	function populatePartners(id) {
+		var number = 0;
+		$.ajax({
+			url: '@Url.Page("ManagePartner", "Partners")',
+			type: 'GET',
+			data: { id: id },
+			success: function (data) {
+				var listItems = '';
+
+				for (var i = 0; i < data.length; i++) {
+					listItems += '<div class="list-ingre-item">' + (++number) + '.' + ' ' + data[i].ingredientsName + '</div>';
+				}
+
+				$('.modal__food-read .list-ingre-item').empty().append(listItems);
+				$('.modal__food-read #amount').text(data.length);
+
+				// Assign the JSON response to "datashow" variable
+				var datashow = data;
+			},
+			error: function (xhr) {
+				console.log(xhr.responseText);
+			}
+		});
 	}
 </script>

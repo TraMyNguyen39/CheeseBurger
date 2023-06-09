@@ -27,6 +27,15 @@ div.body__payment {
 .list-receiver-item {
     justify-content: space-between;
     margin-bottom: 20px;
+    position: relative;
+}
+
+.list-receiver-item small {
+    color: #e74c3c;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    font-size: 16px;
 }
 
 .receiver-item-input {

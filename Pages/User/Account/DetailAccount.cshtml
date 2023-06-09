@@ -1,0 +1,78 @@
+﻿@page
+@model DetailAccountModel
+@{
+	ViewData["Title"] = "Detail Account";
+}
+
+<div class="breadcrumb-division">
+	<ol class="breadcrumb breadcrumb__edit">
+		<li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Chi tiết tài khoản</li>
+	</ol>
+</div>
+<div class="body container">
+	<div class="row justify-content-between">
+		<div class="body__side-bar col-3">
+			<div class="account">
+				<img class="account-avt" src="~/img/avt.png" />
+				<div class="account-detail">
+					<a class="body__side-bar-item active account-name" aria-current="page">@Model.customer.CusName</a>
+				</div>
+			</div>
+			<div class="side-bar-box">
+				<a class="body__side-bar-item active" style="color: #ff5028" aria-current="page">Chi tiết tài khoản</a>
+				<div class="side-bar-filter"></div>
+				<a class="body__side-bar-item" asp-page="/User/Order/MyOrder">Đơn hàng của tôi</a>
+				<div class="side-bar-filter"></div>
+				<a class="body__side-bar-item" asp-page="/User/Account/ChangePassword">Đổi mật khẩu</a>
+				<div class="side-bar-filter"></div>
+				<a class="body__side-bar-item" asp-page="/Login/LoginRegister" asp-page-handler="Logout">Đăng xuất</a>
+			</div>
+		</div>
+
+		<div class="body__manage-account col-8 flex justify-content-center">
+			<div class="row justify-content-between align-items-center">
+				<label class="body-title" style="font-size: 2.2rem">Chi tiết tài khoản</label>
+			</div>
+
+			<div class="row">
+				<div class="col pl-0 pr-0">
+					<label class="manage-account__title">Họ và tên</label>
+					<input type="text" class="manage-account__input col" readonly="readonly" value="@Model.customer.CusName">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col pl-0 pr-2">
+					<label class="manage-account__title">Giới tính</label>
+					<input type="text" class="manage-account__input col" readonly="readonly" value=@(Model.customer.CusGender ? " Nam" : "Nữ")>
+				</div>
+				<div class="col pl-2 pr-0">
+					<label class="manage-account__title">Số điện thoại</label>
+					<input type="text" class="manage-account__input col" readonly="readonly" value="@Model.customer.CusPhone">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col pl-0 pr-0">
+					<label class="manage-account__title">Địa chỉ email</label>
+					<input type="text" class="manage-account__input col" readonly="readonly" value="@Model.customer.CusEmail">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col pl-0 pr-0">
+					<label class="manage-account__title">Địa chỉ</label>
+					<input type="text" class="manage-account__input col" readonly="readonly" value="@(@Model.address)">
+				</div>
+			</div>
+			<div class="row">
+				<button class="manage-account__btn btn-change-pass pl-0 pr-0" style="background: var(--div-color)">
+					<a class="link-change-passw" asp-page="/User/Account/UpdateInfoAccount" style="color: #000">
+						Chỉnh sửa thông tin tài khoản
+						<i class="fa-solid fa-chevron-right"></i>
+					</a>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

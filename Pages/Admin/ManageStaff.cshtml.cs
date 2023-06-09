@@ -101,18 +101,18 @@ namespace CheeseBurger.Pages
 			{
 				staffService.AddCusData(StaID, FindIDRole);
 			}
-			return RedirectToPage("ManageStaff");
+			return RedirectToPage("/Admin/ManageStaff");
 		}
 
 		public IActionResult OnPostDelete(int StaID)
 		{
 			staffService.DeleteData(StaID);
-			return RedirectToPage("ManageStaff");
+			return RedirectToPage("/Admin/ManageStaff");
 		}
 		public IActionResult OnPostRecycle(int StaID)
 		{
 			staffService.RecycleData(StaID);
-			return RedirectToPage("ManageStaff");
+			return RedirectToPage("/Admin/ManageStaff");
 		}
 	}
 }

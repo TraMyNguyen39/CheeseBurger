@@ -9,5 +9,6 @@ namespace CheeseBurger.Repository
 		List<object[]> GetListIngresogFood (int foodID); 
         List<Food_Ingredients> GetAllFoodRecipes(int foodID);
 		void DecreaseIngre(int foodID, int qty);
+		void IncreaseIngre(int foodID, int qty);
 	}
 }

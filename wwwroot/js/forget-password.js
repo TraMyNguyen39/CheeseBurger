@@ -47,7 +47,7 @@ function validateForm(event) {
 	let isValid = checkValidate();
 	if (isValid) {
 		var email = document.getElementById("emaill").value;
-		var url = 'https://localhost:44344/Login/SuccessfulValidate1';
+		var url = 'https://localhost:44344/Login/Validate/SuccessfulValidateEmail';
 		var form = document.createElement("form");
 		form.action = url;
 		form.method = "POST";

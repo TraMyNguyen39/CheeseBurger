@@ -28,6 +28,7 @@ using System.Net.Http.Headers;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using System.Text;
 using CheeseBurger.Model.Entities;
+using CheeseBurger.Pages.User.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -118,7 +119,7 @@ app.MapRazorPages();
 app.UseSession();
 app.UseEndpoints(endpoints =>
             {
-                endpoints.MapPost("/Login/SuccessfulValidate1", async context => {
+                endpoints.MapPost("/Login/Validate/SuccessfulValidateEmail", async context => {
                     // Lấy dịch vụ sendmailservice
                     var sendmailservice = context.RequestServices.GetService<ISendMailService>();
 
@@ -146,14 +147,14 @@ app.UseEndpoints(endpoints =>
                     context.Session.SetString("NameICodeFP", ic_name);
                     //context.Session.SetInt32("IdNP", np_id);
                     //var redirectUrl = "/Login/SuccessfulValidate?id=" + id.ToString() + "&ps=" + np_id.ToString();
-                    var redirectUrl = "/Login/EnterIdenCodeFP";
+                    var redirectUrl = "/Login/Validate/EnterIdenCodeFP";
 
                     DateTime sendTime = DateTime.Now;
                     context.Session.SetString("SendTime", sendTime.ToString());
 
                     context.Response.Redirect(redirectUrl);
                 });
-            endpoints.MapPost("/Login/SendMailIden", async context => {
+            endpoints.MapPost("/Login/SendMail/SendMailIden", async context => {
                 // Lấy dịch vụ sendmailservice
                 var sendmailservice = context.RequestServices.GetService<ISendMailService>();
 
@@ -184,14 +185,14 @@ app.UseEndpoints(endpoints =>
                 context.Session.SetString("NewAccPhone", phone);
                 context.Session.SetString("NewAccPass", pass);
                 //var redirectUrl = "/Login/EnterIdenCode?t=" + ic_id.ToString() + "&d=" + idacc.ToString() + "&c=" + idcus.ToString();
-                var redirectUrl = "/Login/EnterIdenCode";
+                var redirectUrl = "/Login/SendMail/EnterIdenCode";
 
                 DateTime sendTime = DateTime.Now;
                 context.Session.SetString("SendTimeCode", sendTime.ToString());
                 context.Response.Redirect(redirectUrl);
             });
 
-                endpoints.MapGet("/User/MyAlternateOrder", async context =>
+                endpoints.MapGet("/User/Email/MyAlternateOrder", async context =>
                 {
                     // Inside your method or class constructor
                     var serviceProvider = context.RequestServices;
@@ -241,7 +242,7 @@ app.UseEndpoints(endpoints =>
                     model.LineItemsHtml = lineItemsHtml;
 
                     // Retrieve the view content
-                    string viewFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Pages", "User", "Email.cshtml");
+                    string viewFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Pages", "User", "Email", "Email.cshtml");
                     string emailBody = await File.ReadAllTextAsync(viewFilePath);
 
                     // Replace the placeholders with actual values
@@ -267,7 +268,7 @@ app.UseEndpoints(endpoints =>
                     // Send the email
                     await sendMailService.SendMail(content);
 
-                    context.Response.Redirect("/User/MyOrder");
+                    context.Response.Redirect("/User/Order/MyOrder");
                 });
             });
 app.Run();
