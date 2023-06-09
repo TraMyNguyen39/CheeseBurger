@@ -172,6 +172,7 @@ namespace CheeseBurger.Repository.Implements
 			{
 				ingredient.IsDeleted = true;
 				ingredient.IngredientsPrice = 0;
+				ingredient.IngredientsQty = 0;
 				context.SaveChanges();
 			}
 		}
@@ -241,6 +242,13 @@ namespace CheeseBurger.Repository.Implements
 					ingre.IngredientsQty -= qty;
 				context.SaveChanges();
 			}
+		}
+
+		public void RecycleData(int id)
+		{
+			var ingredient = context.Ingredients.Find(id);
+			ingredient.IsDeleted = false;
+			context.SaveChanges();
 		}
 	}
 }

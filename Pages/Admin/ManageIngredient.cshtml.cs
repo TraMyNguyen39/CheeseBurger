@@ -83,28 +83,32 @@ namespace CheeseBurger.Pages.Admin
 			return RedirectToPage("ManageIngredient");
 		}
 
-		public IActionResult OnPostDelete(int IngredientID)
-		{
-			ingredientService.DeleteData(IngredientID);
-			return RedirectToPage("ManageIngredient");
-		}
-
 		public IActionResult OnGetFind(int id)
 		{
 			var ingre = ingredientService.getEachIngredient(id);
 			return new JsonResult(ingre);
 		}
 
-		public IActionResult OnPostUpdate(int IngredientID, string Name, string combobox_Item, float Price, string ncc, float nlHong)
+		public IActionResult OnPostUpdate(int IngredientID, string Name, string combobox_Item, float Price, int ncc, float nlHong)
 		{
 			if (string.IsNullOrEmpty(combobox_Item))
 			{
 				ModelState.AddModelError("combobox_Item", "Please select a measure.");
 			}
 			if (nlHong != 0)
-				ingredientService.UpdateData(IngredientID, Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price, ingredientService.ConvertParnerNametoParnerId(ncc), nlHong);
+				ingredientService.UpdateData(IngredientID, Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price, ncc, nlHong);
 			else
-				ingredientService.UpdateData(IngredientID, Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price, ingredientService.ConvertParnerNametoParnerId(ncc));
+				ingredientService.UpdateData(IngredientID, Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price, ncc);
+			return RedirectToPage("ManageIngredient");
+		}
+		public IActionResult OnPostDelete(int IngredientID)
+		{
+			ingredientService.DeleteData(IngredientID);
+			return RedirectToPage("ManageIngredient");
+		}
+		public IActionResult OnPostRecycle(int IngreID)
+		{
+			ingredientService.RecycleData(IngreID);
 			return RedirectToPage("ManageIngredient");
 		}
 	}
