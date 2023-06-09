@@ -94,7 +94,7 @@ namespace CheeseBurger.Pages
 			}
 			else
 			{
-				return RedirectToPage("/Login/Loginregister", new { Message = "* Bạn phải đăng nhập/ đăng ký trước khi tương tác với giỏ hàng" });
+				return RedirectToPage("/Login/LoginRegister", new { Message = "* Bạn phải đăng nhập/ đăng ký trước khi tương tác với giỏ hàng" });
 			}
 		}
 	}

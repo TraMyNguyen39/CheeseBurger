@@ -81,7 +81,7 @@ namespace CheeseBurger.Pages.Admin
                 foodService.AddData(Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), 0, Describe, null);
             }
 
-            return RedirectToPage("ManageFood");
+            return RedirectToPage("/Admin/ManageFood/ManageFood");
         }
         public IActionResult OnGetFind(int id)
         {
@@ -91,12 +91,12 @@ namespace CheeseBurger.Pages.Admin
         public IActionResult OnPostDelete(int FoodId)
         {
             foodService.DeleteData(FoodId);
-            return RedirectToPage("ManageFood");
+            return RedirectToPage("/Admin/ManageFood/ManageFood");
         }
         public IActionResult OnPostRecycle(int FoodId)
         {
             foodService.RecycleData(FoodId);
-            return RedirectToPage("ManageFood");
+            return RedirectToPage("/Admin/ManageFood/ManageFood");
         }
 		public async Task<IActionResult> OnPostUpdateAsync(int FoodID, string Name, string combobox_Item, float Price, string Describe, IFormFile fileupload)
 		{
@@ -125,7 +125,7 @@ namespace CheeseBurger.Pages.Admin
 
 			foodService.UpdateData(FoodID, Name, foodService.ConvertCategoryNametoCategoryId(combobox_Item), Price, Describe, imagePath);
 
-			return RedirectToPage("ManageFood");
+			return RedirectToPage("/Admin/ManageFood/ManageFood");
 		}
 	}
 }

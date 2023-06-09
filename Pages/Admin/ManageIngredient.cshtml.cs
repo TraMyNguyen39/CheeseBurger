@@ -80,13 +80,13 @@ namespace CheeseBurger.Pages.Admin
 			//    ModelState.AddModelError("combobox_Item", "Please select a measure.");
 			//}
 			ingredientService.AddData(Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price, ncc);
-			return RedirectToPage("ManageIngredient");
+			return RedirectToPage("/Admin/ManageIngredient");
 		}
 
 		public IActionResult OnPostDelete(int IngredientID)
 		{
 			ingredientService.DeleteData(IngredientID);
-			return RedirectToPage("ManageIngredient");
+			return RedirectToPage("/Admin/ManageIngredient");
 		}
 
 		public IActionResult OnGetFind(int id)
@@ -105,7 +105,7 @@ namespace CheeseBurger.Pages.Admin
 				ingredientService.UpdateData(IngredientID, Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price, ingredientService.ConvertParnerNametoParnerId(ncc), nlHong);
 			else
 				ingredientService.UpdateData(IngredientID, Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price, ingredientService.ConvertParnerNametoParnerId(ncc));
-			return RedirectToPage("ManageIngredient");
+			return RedirectToPage("/Admin/ManageIngredient");
 		}
 	}
 }

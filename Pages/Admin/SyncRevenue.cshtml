@@ -61,22 +61,7 @@
 					<p class="total__money-revenue"> @Model.TotalIncome.ToString("N0")VNĐ</p>
 					<canvas id="myChart"> </canvas>
 				</div>
-			</div>			
-			@*<div class="col-4">
-				<div class="best__seller-info">
-					<p class="title"> Bán chạy nhất</p>
-					@foreach (var item in Model.List_Food)
-					{
-						cnt++;
-						if (cnt == 4) break;
-						<div class="d-flex align-items-center">
-							<img src="@item.ImageFood" class="image_food_best_seller">
-							<p class="foodname_best_seller">@item.FoodName</p>
-						</div>
-					}
-					<canvas id="donutChart" class="chart_best_seller"> </canvas>
-				</div>				
-			</div>*@
+			</div>						
 		</div>
 	</div> 
 	<div class="form-box-revenue col-4">
@@ -193,15 +178,60 @@
 	var Percent = [];
 	var Cusname = [];
 	var TMoney = [];
+	var cnt = 0;
 
-	@foreach (var item in Model.List_IO)
-	{		
-		@:Times.push('@item.DateIO.ToString("dd/MM/yyyy")');		
-		@:Funds.push(@item.TMoneyIO);
-	}
-	@foreach (var item in Model.List_Ord)
+	@if (Model.List_IO.Count == 1 && Model.List_Ord.Count == 0)
 	{
-		@:Profits.push(@item.TotalMoney);
+		@foreach (var item in Model.List_IO)
+		{
+			@:Funds.push(@item.TMoneyIO);
+			@:Times.push('@item.DateIO.ToString("dd/MM/yyyy")');
+			@:Profits.push(0);
+		}
+	} 
+	@if (Model.List_Ord.Count == 1 && Model.List_IO.Count == 0)
+	{
+		@foreach (var item in Model.List_Ord)
+		{
+			@:Funds.push(0);
+			@:Times.push('@item.SaleDate.ToString("dd/MM/yyyy")');
+			@:Profits.push(@item.TotalMoney);
+		}
+	}
+	@if (Model.List_IO.Count > 1 && Model.List_IO.Count > Model.List_Ord.Count)
+	{
+
+		@foreach (var item in Model.List_IO)
+		{
+			@:Funds.push(@item.TMoneyIO);
+			@:Times.push('@item.DateIO.ToString("dd/MM/yyyy")');			
+		}
+		@foreach (var item in Model.List_Ord)
+		{						
+			@:Profits.push(@item.TotalMoney);
+		}
+		cnt = Model.List_IO.Count - Model.List_Ord.Count;
+		for (var i = 0; i < cnt; i++)
+		{
+			@:Profits.push(0);
+		}
+	}
+	@if (Model.List_Ord.Count > 1 && Model.List_Ord.Count > Model.List_IO.Count)
+	{
+		@foreach (var item in Model.List_Ord)
+		{			
+			@:Times.push('@item.SaleDate.ToString("dd/MM/yyyy")');
+			@:Profits.push(@item.TotalMoney);
+		}
+		@foreach (var item in Model.List_IO)
+		{
+			@:Funds.push(@item.TMoneyIO);			
+		}
+		cnt = Model.List_Ord.Count - Model.List_IO.Count;
+		for (var i = 0; i < cnt; i++)
+		{
+			@:Funds.push(0);
+		}
 	}
 	@foreach (var item in Model.List_Food)
 	{
@@ -330,7 +360,9 @@
 	function submitForm() {
 		const fromDateInput = document.getElementsByName("fromDate")[0];
 		const toDateInput = document.getElementsByName("toDate")[0];
+		const selectElement = document.getElementById("date-select");
 
+		const selectOption = selectElement.value;
 		const fromDateValue = fromDateInput.value;
 		const toDateValue = toDateInput.value;
 				
@@ -339,86 +371,13 @@
 			const url = new URL(window.location.href);
 			url.searchParams.set("fromDate", fromDateValue);
 			url.searchParams.set("toDate", toDateValue);
+			url.searchParams.set("selectOption", selectOption);
 			
 			// Chuyển hướng trình duyệt đến URL mới
 			window.location.href = url.toString();
 		}		
 	}
 </script>
-@*<script>
-	// Lắng nghe sự kiện thay đổi ngày và gọi lại hàm vẽ biểu đồ
-	const fromDateInput = document.querySelector('input[name="fromDate"]');
-	const toDateInput = document.querySelector('input[name="toDate"]');
-	fromDateInput.addEventListener('input', drawChart);
-	toDateInput.addEventListener('input', drawChart);
-
-	// Hàm vẽ biểu đồ
-	function drawChart() {
-		// Lấy dữ liệu từ máy chủ
-		const fromDate = fromDateInput.value;
-		const toDate = toDateInput.value;
-		const url = `/api/data?fromDate=${fromDate}&toDate=${toDate}`;
-		fetch(url)
-			.then(response => response.json())
-			.then(data => {
-				// Tính toán các giá trị cho trục x và y của biểu đồ
-				const startDate = new Date(fromDate);
-				const endDate = new Date(toDate);
-				const labels = [];
-				const profitData = [];
-				const fundData = [];
-				let currentDate = startDate;
-				while (currentDate <= endDate) {
-					const dateString = currentDate.toISOString().substring(0, 10);
-					labels.push(dateString);
-					const dataInDateRange = data.filter(item => item.date === dateString);
-					if (dataInDateRange.length > 0) {
-						const profitTotal = dataInDateRange.reduce((acc, item) => acc + item.profit, 0);
-						const profitAvg = profitTotal / dataInDateRange.length;
-						profitData.push(profitAvg);
-						const fundTotal = dataInDateRange.reduce((acc, item) => acc + item.fund, 0);
-						const fundAvg = fundTotal / dataInDateRange.length;
-						fundData.push(fundAvg);
-					} else {
-						profitData.push(null);
-						fundData.push(null);
-					}
-					currentDate.setDate(currentDate.getDate() + 1);
-				}
-
-				// Cập nhật dữ liệu biểu đồ
-				const chartData = {
-					labels: labels,
-					datasets: [
-						{
-							label: 'Profit',
-							borderColor: 'rgba(255, 99, 132, 1)',
-							fill: false,
-							data: profitData,
-							tension: 0.1
-						},
-						{
-							label: 'Funds',
-							borderColor: 'rgba(75, 192, 192, 1)',
-							fill: false,
-							data: fundData,
-							tension: 0.1
-						}
-					]
-				};
-
-				// Cập nhật biểu đồ
-				const ctx = document.getElementById('myChart').getContext('2d');
-				const myChart = new Chart(ctx, {
-					type: 'line',
-					data: chartData,
-					options: options
-				});
-			})
-			.catch(error => console.error(error));
-</script>
-*@
-
 
 
 

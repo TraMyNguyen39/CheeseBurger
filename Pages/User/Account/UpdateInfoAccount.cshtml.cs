@@ -38,8 +38,8 @@ namespace CheeseBurger.Pages
         [BindProperty(SupportsGet = true)]
         public int wardId { get; set; }
         [BindProperty(SupportsGet = true)]
-        public string HouseNum { get; set; }
-        public UpdateInfoAccountModel(IStaffService staffService, IWardService wardService, IDistrictService districtService, ICustomerService customerService)
+        public string HouseNum { get; set; }       
+		public UpdateInfoAccountModel(IStaffService staffService, IWardService wardService, IDistrictService districtService, ICustomerService customerService)
         {
             this.staffService = staffService;
             this.wardService = wardService;
@@ -78,7 +78,7 @@ namespace CheeseBurger.Pages
         }
         public IActionResult OnPostUpdate()
         {
-            customerService.UpdateInfo(CusID, Name, Email, Phone, Gender, HouseNum, wardId);
+            customerService.UpdateInfo(CusID, Name, Email, Phone, Gender, HouseNum, wardId);         
             return RedirectToPage("/User/Account/DetailAccount");
         }
     }

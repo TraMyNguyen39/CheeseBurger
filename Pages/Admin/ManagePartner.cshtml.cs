@@ -84,7 +84,7 @@ namespace CheeseBurger.Pages.Admin
 			{
 				partnerService.AddPartner(new Partner { PartnerName = partnerName, Email = email, isDeleted = false });
 			}
-			return RedirectToPage("ManagePartner");
+			return RedirectToPage("/Admin/ManagePartner");
 		}
 
 		public IActionResult OnPostDelete(int partnerID)
@@ -92,7 +92,7 @@ namespace CheeseBurger.Pages.Admin
 			var partner = partnerService.GetPartner(partnerID);
 			partner.isDeleted = true;
 			partnerService.UpdatePartner(partner);
-			return RedirectToPage("ManagePartner");
+			return RedirectToPage("/Admin/ManagePartner");
 		}
 
 		public IActionResult OnGetFind(int partnerID)
@@ -108,7 +108,7 @@ namespace CheeseBurger.Pages.Admin
 			partnerUpdate.PartnerName = partnerName;
 			partnerUpdate.Email = email;
 			partnerService.UpdatePartner(partnerUpdate);
-			return RedirectToPage("ManagePartner");
+			return RedirectToPage("/Admin/ManagePartner");
 		}
 	}
 }

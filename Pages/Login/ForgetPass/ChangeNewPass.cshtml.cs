@@ -25,7 +25,7 @@ namespace CheeseBurger.Pages.Login.ForgetPass
         {
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newpass);
             accountService.ChangePassword(idAcc, hashedPassword);
-            return RedirectToPage("SuccessfulChangePass");
+            return RedirectToPage("Login/ForgetPass/SuccessfulChangePass");
         }
     }
 }

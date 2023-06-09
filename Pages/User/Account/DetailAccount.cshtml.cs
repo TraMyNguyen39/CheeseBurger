@@ -26,6 +26,11 @@ namespace CheeseBurger.Pages
             if (customerId != null)
             {
 				customer = customerService.GetCustomer((int)customerId);
+				var oldName = HttpContext.Session.GetString("Name");
+				if (oldName != customer.CusName)
+				{
+					HttpContext.Session.SetString("Name", customer.CusName);
+				}
 				if (customer.WardID != 0)
 				{
 					var wrd = wardService.GetWard((int)customer.WardID);
