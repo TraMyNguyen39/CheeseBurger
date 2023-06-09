@@ -79,7 +79,7 @@ namespace CheeseBurger.Pages
         public IActionResult OnPostUpdate()
         {
             customerService.UpdateInfo(CusID, Name, Email, Phone, Gender, HouseNum, wardId);
-            return RedirectToPage("UpdateInfoAccount");
+            return RedirectToPage("/User/Account/DetailAccount");
         }
     }
 }

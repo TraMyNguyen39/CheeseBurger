@@ -147,6 +147,7 @@ a.account-name {
 .btn-change-pass a:hover {
     text-decoration: none;
     color: var(--white-color);
+    opacity: 0.6;
 }
 
 .btn-change-pass a:active {

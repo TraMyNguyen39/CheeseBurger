@@ -21,7 +21,8 @@
         <form method="post" id="login" class="input-group" style="margin-top: 40px; left: 50px;">
             <div class="unsuccessful-message">@Model.Message</div>
             <div class="input-item">
-                <i class="fa-solid fa-user"></i><input asp-for="@Model.Email" type="text" class="input-field" placeholder="Email" required>
+				<i class="fa-solid fa-user"></i><input asp-for="@Model.Email" type="text" class="input-field" placeholder="Email" 
+				required pattern="^[a -z0-9](\.?[a-z0-9]){4,}@@gmail\.com$" title="Vui lòng nhập đúng email!">
             </div>
             <div class="input-item">
                 <i class="fa-solid fa-key"></i><input asp-for="@Model.Password" id="password" type="password" class="input-field" placeholder="Mật khẩu" required>
@@ -88,11 +89,13 @@
 	}
 
 	function checkValidate() {
+		var nameEle = $("#namee");
 		var emailEle = $('#emaill');
 		var phoneEle = $('#phonee');
 		var passEle = $('#passs');
 		var confirmpassEle = $('#confirmpasssRG');
 
+		let nameValue = nameEle.val();
 		let emailValue = emailEle.val();
 		let phoneValue = phoneEle.val();
 		let passValue = passEle.val();
@@ -101,10 +104,16 @@
 		let isCheck = true;
 
 		if (!validateFilledName()) {
-			$('#error').text('* Vui lòng nhập họ tên !');
+			$('#error').text('* Vui lòng nhập họ tên!');
 			isCheck = false;
 			return isCheck;
-		} else {
+		} 
+		else if (!isName(nameValue)) {
+			$('#error').text('* Họ tên bị sai định dạng!');
+			isCheck = false;
+			return isCheck;
+		}
+		else {
 			$('#error').text('');
 		}
 
@@ -114,7 +123,7 @@
 			return isCheck;
 		}
 		else if (!isEmail(emailValue)) {
-			$('#error').text('* Email bị sai định dạng !');
+			$('#error').text('* Email bị sai định dạng!');
 			isCheck = false;
 			return isCheck;
 		} else {
@@ -129,7 +138,7 @@
 					@:listEmails.push('@item.CusEmail')
 				}
 				if (listEmails.some(function (name) { return name === newEmail })) {
-				$('#error').text('* Email đã bị trùng !');
+				$('#error').text('* Email đã bị trùng!');
 				isCheck = false;
 				return isCheck;
 			} else {
@@ -138,12 +147,12 @@
 		}
 
 		if (!validateFilledPhone()) {
-			$('#error').text('* Vui lòng nhập số điện thoại !');
+			$('#error').text('* Vui lòng nhập số điện thoại!');
 			isCheck = false;
 			return isCheck;
 		}
 		else if (!isPhone(phoneValue)) {
-			$('#error').text('* Số điện thoại bị sai định dạng !');
+			$('#error').text('* Số điện thoại bị sai định dạng!');
 			isCheck = false;
 			return isCheck;
 		} else {
@@ -158,7 +167,7 @@
 					@:listPhones.push('@item.CusPhone')
 				}
 				if (listPhones.some(function (name) { return name === newPhone })) {
-				$('#error').text('* Số điện thoại đã bị trùng !');
+				$('#error').text('* Số điện thoại đã bị trùng!');
 				isCheck = false;
 				return isCheck;
 			} else {
@@ -167,22 +176,22 @@
 		}
 
 		if (!validateFilledNewPass()) {
-			$('#error').text('* Vui lòng nhập mật khẩu !');
+			$('#error').text('* Vui lòng nhập mật khẩu!');
 			isCheck = false;
 			return isCheck;
 		} else {
 			if (!isPass(passValue)) {
-				$('#error').text('* Mật khẩu phải từ 8 đến 15 ký tự với ít nhất 1 chữ cái thường, 1 chữ cái in hoa, 1 chữ số và 1 ký tự đặc biệt !');
+				$('#error').text('* Mật khẩu phải từ 8 đến 15 ký tự với ít nhất 1 chữ cái thường, 1 chữ cái in hoa, 1 chữ số và 1 ký tự đặc biệt!');
 				isCheck = false;
 				return isCheck;
 			} else {
 				$('#error').text('');
 				if (!validateFilledConfirmPass()) {
-					$('#error').text('* Vui lòng xác nhận lại mật khẩu !');
+					$('#error').text('* Vui lòng xác nhận lại mật khẩu!');
 					isCheck = false;
 					return isCheck;
 				} else if (passValue !== confirmpassValue) {
-					$('#error').text('* Không khớp với mật khẩu. Vui lòng nhập lại !');
+					$('#error').text('* Không khớp với mật khẩu. Vui lòng nhập lại!');
 					isCheck = false;
 					return isCheck;
 				}
@@ -231,6 +240,10 @@
 	}
 
 	$('.submit-btn-register').click(validateForm);
+
+	function isName(name) {
+		return /^([a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)((\s{1}[a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){1,})$/.test(name.toLowerCase());
+	}
 
 	function isEmail(email) {
 		return /^[a -z0-9](\.?[a-z0-9]){4,}@@gmail\.com$/.test(email);

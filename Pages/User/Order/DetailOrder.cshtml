@@ -77,7 +77,7 @@
 					<label class="body-title-detail">Thanh toán</label>
 					<hr>
 					<p class="body-detail-txt text-center">
-						Thanh toán <br> Bằng tiền mặt
+						Bằng tiền mặt
 					</p>
 				</div>
 				<div class="body_detail col-4 flex justify-content-center">
@@ -349,7 +349,7 @@
 			$.ajax({				
 				type: 'GET',
 				data: { id: id },
-				url: '@Url.Page("DetailOrderWait", "Find")',
+				url: '@Url.Page("DetailOrder", "Find")',
 				success: function (result) {
 					var imageSrc = result.imageFood;
 					if (!imageSrc.startsWith("http")) {
