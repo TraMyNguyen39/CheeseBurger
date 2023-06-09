@@ -40,7 +40,8 @@ namespace CheeseBurger.Pages
             if (customerId != null)
             {
                 customer = customerService.GetCustomer((int)customerId);
-                accountService.ChangePassword((int)customer.CusAccID, newPassword);
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                accountService.ChangePassword((int)customer.CusAccID, hashedPassword);
                 return RedirectToPage("DetailAccount");
             }
             else

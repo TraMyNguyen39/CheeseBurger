@@ -40,6 +40,7 @@ namespace CheeseBurger.Repository.Implements
         public string GetPasswordbyID(int idAccount)
         {
             return context.Accounts.Where(p => p.AccountID == idAccount).Select(p => p.Password).FirstOrDefault();
+            
         }
         public void ChangePassword(int idAccount, string newPassword)
 		{

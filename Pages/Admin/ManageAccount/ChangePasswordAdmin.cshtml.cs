@@ -43,7 +43,8 @@ namespace CheeseBurger.Pages.Admin
 			if (staffId != null)
 			{
 				staff = staffService.GetStaff((int)staffId);
-				accountService.ChangePassword((int)staff.StaAccID, newPassword);
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                accountService.ChangePassword((int)staff.StaAccID, hashedPassword);
 				return RedirectToPage("ManageAccount");
 			}
 			else
