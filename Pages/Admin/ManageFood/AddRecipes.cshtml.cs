@@ -9,7 +9,6 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CheeseBurger.Pages.Admin.ManageFood
 {
-    [Authorize("Nhân viên đầu bếp")]
     public class AddRecipesModel : PageModel
     {
         private readonly IIngredientsService ingredientService;
@@ -19,7 +18,7 @@ namespace CheeseBurger.Pages.Admin.ManageFood
         public List<IngredientDTO> ingredients { get; set; }
         [BindProperty]
         public List<IngredientDTO> ingreUsed { get; set; }
-        [BindProperty]
+		[BindProperty]
         public List<float> qty { get; set; }
         [BindProperty(SupportsGet = true)]
         public int foodID { get; set; }
@@ -82,7 +81,7 @@ namespace CheeseBurger.Pages.Admin.ManageFood
 
 
 
-        public IActionResult OnPostAdd(int ingreID)
+        public IActionResult OnPostAdd(int ingreID, List<float> qty)
         {
             var ingre = ingredientService.getEachIngredients(ingreID);
             bool check = false;
@@ -91,15 +90,21 @@ namespace CheeseBurger.Pages.Admin.ManageFood
                 if (i.IngredientID == ingreID)
                     check = true;
             }
-            if (!check)
+			for (var i = 0; i < ingreUsed.Count; i++)
+			{
+				// Update the Qty values
+				this.qty[i] = qty[i]; // Replace this with your own logic
+			}
+			if (!check)
             {
                 ingreUsed.Add(ingre);
-                qty.Add(1);
+                this.qty.Add(1);
             }
-            return Page();
-        }
+			
+			return Page();
+		}
 
-        public IActionResult OnPostRemove(int ingreID)
+		public IActionResult OnPostRemove(int ingreID)
         {
             int index = 0;
             int count = 0;
@@ -112,9 +117,9 @@ namespace CheeseBurger.Pages.Admin.ManageFood
                 }
                 count++;
             }
-            ingreUsed.RemoveAt(index);
+			ingreUsed.RemoveAt(index);
             qty.RemoveAt(index);
-            return Page();
-        }
-    }
+			return Page();
+		}
+	}
 }
