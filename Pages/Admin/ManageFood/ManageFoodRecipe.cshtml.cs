@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CheeseBurger.Pages.Admin
 {
-    [Authorize("Quản trị viên","Nhân viên đầu bếp")]
+    [Authorize("Nhân viên đầu bếp")]
 	public class ManageFoodRecipeModel : PageModel
     {
 		private readonly IFoodService foodService;
@@ -17,9 +17,6 @@ namespace CheeseBurger.Pages.Admin
 
         [BindProperty(SupportsGet = true)]
 		public List<AdminFoodDTO> foods { get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public List<AdminFoodDTO> foodinclude { get; set; }
 
         [BindProperty(SupportsGet = true, Name = "p")]
 		public int currentPage { get; set; }
@@ -37,7 +34,6 @@ namespace CheeseBurger.Pages.Admin
 		public void OnGet(int FoodID)
         {
 			foods = foodService.GetFoodAdmin();
-            foodinclude = foodService.GetAllFoodAdmin();
 
             int totalRow = foodService.getRowFood();
 			categoryNames = foodService.GetNameCategories();

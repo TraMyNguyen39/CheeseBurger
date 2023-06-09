@@ -37,8 +37,11 @@ namespace CheeseBurger.Pages.Admin.ManageFood
             var food = food_Service.GetFoodbyId(foodID);
             if (food != null)
             {
+                // Danh sach nguyen lieu
                 ingredients = ingredientService.GetListIngredients("name", false, null);
+                // Nguyen lieu ban dau cho mon an
                 var foodIngre = food_IngredientsService.GetAllFoodRecipes(foodID);
+                // Nguyen lieu tam thoi (chua luu)
                 ingreUsed = new List<IngredientDTO>();
                 qty = new List<float>();
                 foreach (var i in foodIngre)

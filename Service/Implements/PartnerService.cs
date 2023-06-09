@@ -22,9 +22,9 @@ namespace CheeseBurger.Service.Implements
 			partnerRespository.AddPartner(p);
 		}
 
-		public List<Partner> GetListPartner(string name, string sortBy, bool isDescending, bool isDeleted)
+		public List<Partner> GetListPartner(string name, string sortBy, bool isDescending)
 		{
-			return partnerRespository.GetListPartner(name, sortBy, isDescending, isDeleted);
+			return partnerRespository.GetListPartner(name, sortBy, isDescending);
 		}
 
 		public void UpdatePartner(Partner p)
@@ -46,6 +46,24 @@ namespace CheeseBurger.Service.Implements
 		public List<CBBPartnerDTO> GetPartnerNames()
 		{
 			return partnerRespository.GetPartnerNames();
+		}
+
+		public void RecyclePartner(int partnerID)
+		{
+			partnerRespository.RecyclePartner(partnerID);
+		}
+
+		public List<Ingredients> GetIngresbyPartner(int partnerID)
+		{
+			return partnerRespository.GetIngresbyPartner(partnerID);
+		}
+
+		public void DeletePartner(int partnerID)
+		{
+			// Xoa nha cung cap
+			var partner = partnerRespository.GetPartner(partnerID);
+			partner.isDeleted = true;
+			partnerRespository.UpdatePartner(partner);
 		}
 	}
 }
