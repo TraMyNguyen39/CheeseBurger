@@ -184,16 +184,21 @@
 			event.preventDefault();
 			return false;
 		}
-		var count = 0;
+		var count = 0; // Đếm xem mua bao nhiêu nguyên liệu
+		var check = true; // Kiem tra xem có input trống không
 		for (var i = 0; i < ingreItems.length; i++) {
 			var thisNode = ingreItems[i];
 			var thisQty = Number(qtys[i].value);
+
 			if (thisNode.selectedIndex > 0 && (thisQty == 0 || isNaN(thisQty))) {
 				qtys[i].value = 'Nhập số lượng!';
-				event.preventDefault();
-				return false;
+				check = false;
 			}
 			if (thisNode.selectedIndex !== 0) count++;
+		}
+		if (!check) {
+			event.preventDefault();
+			return false;
 		}
 		if (count === 0) {
 			event.preventDefault();
@@ -201,9 +206,9 @@
 		}
 		$('#confirm').confirm({
 			title: 'Xác nhận',
-			message: 'Bạn có muốn đặt đơn hàng này không?',
+			message: 'Bạn có chắc chắn muốn đặt đơn hàng này không?',
 			confirm: 'Xác nhận',
-			dismiss: 'Huỷ'
+			dismiss: 'Huỷ bỏ'
 		});
 		event.preventDefault();
 	});

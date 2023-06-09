@@ -36,25 +36,23 @@ namespace CheeseBurger.Pages.Admin
 
 		public void OnGet()
 		{
-			string fDate = Request.Query["fromDate"];			
-			if (Int32.TryParse(fDate, out int fromNumber))
-			{				
-				fromDate = new DateTime(fromNumber, 1, 1);
-			}
-			else if (DateTime.TryParse(fDate, out DateTime fromDateResult))
+			string seleOption = Request.Query["selectOption"];
+			string fDate = Request.Query["fromDate"];
+			string tDate = Request.Query["toDate"];
+			if (DateTime.TryParse(fDate, out DateTime fromDateResult))
 			{
 				fromDate = fromDateResult;
-			} 
-			
-			string tDate = Request.Query["toDate"];
-			if (Int32.TryParse(tDate, out int toNumber))
-			{
-				toDate = new DateTime(toNumber, 1, 1);
 			}
-			else if (DateTime.TryParse(tDate, out DateTime toDateResult))
+			if (DateTime.TryParse(tDate, out DateTime toDateResult))
 			{
-				TimeSpan timeSpan = new TimeSpan(23, 59, 59);
-				toDate = toDateResult + timeSpan;
+				if (seleOption == "day")
+				{
+					TimeSpan timeSpan = new TimeSpan(23, 59, 59);
+					toDate = toDateResult + timeSpan;
+				} else
+				{
+					toDate = toDateResult.AddMonths(1);
+				}
 			} 
 			
 		    NumberIOrder = revenueService.NumberIOrder(fromDate, toDate);

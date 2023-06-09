@@ -441,11 +441,11 @@
 			}
 		});
 		$('#confirm').confirm({
-			title: 'Xác nhận',
-			message: 'Bạn có muốn xóa nguyên liệu này không?',
-			confirm: 'Delete',
-			dismiss: 'Cancel'
-		});
+            title: 'Xác nhận xóa',
+            message: 'Bạn có chắc chắn muốn xóa nguyên liệu này không?',
+            confirm: 'Xác nhận',
+            dismiss: 'Hủy bỏ'
+        });
 	});
 </script>
 <script>
@@ -561,11 +561,11 @@
 	function showConfirmationModal() {
 		$('#confirmUpdate').modal('show');
 		$('#confirmUpdate').confirm({
-			title: 'Xác nhận',
-			message: 'Bạn có chắc chắn cập nhật nguyên liệu không?',
-			confirm: 'Update',
-			dismiss: 'Cancel'
-		});
+            title: 'Xác nhận cập nhật',
+            message: 'Bạn có chắc chắn muốn cập nhật nguyên liệu này không?',
+            confirm: 'Xác nhận',
+            dismiss: 'Hủy bỏ'
+        });
 	}
 
 	$('.confirm-button').on('click', function () {

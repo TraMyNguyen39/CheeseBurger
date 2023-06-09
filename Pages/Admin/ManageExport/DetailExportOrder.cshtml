@@ -156,30 +156,6 @@
 				<button class="submit-btn submit-btn-edit">CHUẨN BỊ XONG</button>
 			</form>
 		}
-		@if (Model.order.StatusOdr == (int)Enums.OrderStatus.prepareDone)
-		{
-			<button class="submit-btn submit-btn-edit" id="btn-cancel">HỦY ĐƠN HÀNG</button>
-			<form method="post" asp-page-handler="ConfirmShipping">
-				<input type="hidden" asp-for="orderId" value="@Model.orderId">
-				<button class="submit-btn submit-btn-edit">XÁC NHẬN GIAO</button>
-			</form>
-		}
-		@if (Model.order.StatusOdr == (int)Enums.OrderStatus.shipping)
-		{
-			<button class="submit-btn submit-btn-edit grey-btn">HỦY ĐƠN HÀNG</button>
-			<form method="post" asp-page-handler="Success">
-				<input type="hidden" asp-for="orderId" value="@Model.orderId">
-				<button class="submit-btn submit-btn-edit">GIAO THÀNH CÔNG</button>
-			</form>
-			<form method="post" asp-page-handler="Failed">
-				<input type="hidden" asp-for="orderId" value="@Model.orderId">
-				<button class="submit-btn submit-btn-edit">GIAO KHÔNG THÀNH CÔNG</button>
-			</form>
-		}
-		@if (Model.order.StatusOdr > (int)Enums.OrderStatus.shipping)
-		{
-			<button class="submit-btn submit-btn-edit grey-btn">HỦY ĐƠN HÀNG</button>
-		}
 	</div>
 </div>
 
@@ -270,8 +246,8 @@
 		$('#confirm').confirm({
 			title: 'Xác nhận',
 			message: 'Bạn có chắc chắn muốn huỷ đơn hàng này không?',
-			confirm: 'Có',
-			dismiss: 'Không'
+			confirm: 'Xác nhận',
+			dismiss: 'Hủy bỏ'
 		});
 	});
 </script>

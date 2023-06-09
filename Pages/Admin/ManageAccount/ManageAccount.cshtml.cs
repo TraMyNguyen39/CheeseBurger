@@ -104,7 +104,7 @@ namespace CheeseBurger.Pages
 		public IActionResult OnPostUpdate()
 		{					
 			staffService.UpdateInfo(StaID, Name, Email, Phone, Gender, HouseNum, wardId);
-			return RedirectToPage("ManageAccount");
+			return RedirectToPage("/Admin/ManageAccount/ManageAccount");
 		}
 	}
 }

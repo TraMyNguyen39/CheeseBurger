@@ -46,6 +46,7 @@ namespace CheeseBurger.Pages.Admin
 		public string partnerName { get; set; }
 
 		public string ExistError { get; set; }
+		public List<Ingredients> ingredients { get; set; }
 
 		public void OnGet()
 		{
@@ -83,7 +84,7 @@ namespace CheeseBurger.Pages.Admin
 			{
 				partnerService.AddPartner(new Partner { PartnerName = partnerName, Email = email, isDeleted = false });
 			}
-			return RedirectToPage("ManagePartner");
+			return RedirectToPage("/Admin/ManagePartner");
 		}
 
 		public IActionResult OnPostDelete(int partnerID)
@@ -105,12 +106,17 @@ namespace CheeseBurger.Pages.Admin
 			partnerUpdate.PartnerName = partnerName;
 			partnerUpdate.Email = email;
 			partnerService.UpdatePartner(partnerUpdate);
-			return RedirectToPage("ManagePartner");
+			return RedirectToPage("/Admin/ManagePartner");
 		}
 		public IActionResult OnPostRecycle(int PartnerID)
 		{
 			partnerService.RecyclePartner(PartnerID);
 			return RedirectToPage("ManagePartner");
+		}
+		public IActionResult OnGetPartners(int id)
+		{
+			ingredients = partnerService.GetIngresbyPartner(id);
+			return new JsonResult(ingredients);
 		}
 	}
 }

@@ -42,7 +42,7 @@ namespace CheeseBurger.Pages
                 customer = customerService.GetCustomer((int)customerId);
                 string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
                 accountService.ChangePassword((int)customer.CusAccID, hashedPassword);
-                return RedirectToPage("DetailAccount");
+                return RedirectToPage("/User/Account/DetailAccount");
             }
             else
             {

@@ -160,7 +160,9 @@
 							@i.content
 						</p>
 						<div class="list-reviewer-pics">
-							<img src="/img/@i.img" alt="Ảnh" class="reviewer-pic">
+							@if (@i.img != null) {
+								<img src="/img/@i.img" alt="Ảnh" class="reviewer-pic">
+							}
 						</div>
 					</div>
 				</div>

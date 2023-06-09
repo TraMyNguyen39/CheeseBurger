@@ -18,14 +18,15 @@
 			<div class="list-receiver-item">
 				<div class="receiver-item">
 					<label>Tên người nhận <span style="color: red">&lowast;</span></label><br>
-					<input class="receiver-item-input" type="text" name="Name" required id="receiverName">				
+					<input class="receiver-item-input" type="text" name="Name" required id="receiverName">
+					<small id="name-error" style="color: red"></small>
 				</div>
 			</div>
 			<div class="list-receiver-item justify-content-between">
 				<div class="receiver-item">
-					<label>Số điện thoại <span style="color: red">&lowast;</span></label>
-					<div id="phone_error" class="error hidden">* Vui lòng nhập đúng số điện thoại</div>
+					<label>Số điện thoại <span style="color: red">&lowast;</span></label>					
 					<input class="receiver-item-input" type="text" id="phone_number" required name="PhoneNumber">
+					<small id="phone-error" style="color: red"></small>
 				</div>
 			</div>
 			<div class="row list-receiver-item d-flex">
@@ -65,6 +66,7 @@
 				<div class="receiver-item col" style="padding-left: 5px">
 					<label>Số nhà <span style="color: red">&lowast;</span></label><br>
 					<input class="receiver-item-input" type="text" name="HouseNumber" required>
+					<small id="housenumber-error" style="color: red; margin-left: 2%"></small>
 				</div>
 			</div>
 			<div class="list-receiver-item">
@@ -315,4 +317,79 @@
 		}).prop('selected', true);
 		$('input[name="HouseNumber"]').val('@Html.Raw(Model.curCusPayment.HouseNumber)');		
 	});
+</script>
+<script>
+	function validateFilledName() {
+		var name = $("input[name='Name']").val();
+		if ($.trim(name) === "") return false;
+		return true;
+	}
+
+	function validateFilledPhone() {
+		var phone = $("input[name='PhoneNumber']").val();
+		if ($.trim(phone) === "") return false;
+		return true;
+	}
+
+	function checkValidate() {		
+		var nameEle = $("input[name='Name']");
+		var phoneEle = $("#phone_number");
+		var housenumEle = $("input[name='HouseNumber']");
+
+		var nameValue = nameEle.val();
+		var phoneValue = phoneEle.val();
+		var housenumValue = housenumEle.val();
+
+		var isCheck = true;
+
+		if (!validateFilledName()) {
+			$('#name-error').text('* Vui lòng nhập họ tên!');
+			isCheck = false;
+		}
+		else if (!isName(nameValue)) {
+			$('#name-error').text('* Họ tên không đúng!');
+			isCheck = false;
+		}
+		else {
+			$('#name-error').text('');
+		}
+
+		if (!validateFilledPhone()) {
+			$('#phone-error').text('* Vui lòng nhập số điện thoại!');
+			isCheck = false;
+		} else if (!isPhone(phoneValue)) {
+			$('#phone-error').text('* Số điện thoại bị sai định dạng!');
+			isCheck = false;
+		} else {
+			$('#phone-error').text('');
+		}
+		
+		if ($.trim(housenumValue) === "") {
+			$('#housenumber-error').text('* Vui lòng nhập số nhà!');
+			isCheck = false;
+		} else {
+			$('#housenumber-error').text('');
+		}
+
+		return isCheck;
+	}
+
+	function validateForm(event) {
+		var isValid = checkValidate();
+		if (isValid) {
+			$('.payment').submit();
+		} else {
+			event.preventDefault();
+		}
+	}
+
+	$('.submit-btn__payment').click(validateForm);
+
+	function isName(name) {
+		return /^([a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)((\s{1}[a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){1,})$/.test(name.toLowerCase());
+	}
+
+	function isPhone(number) {
+		return /^0[35789][0-9]{8}\b/.test(number);
+	}
 </script>

@@ -22,7 +22,7 @@ namespace CheeseBurger.Pages.Login.Validate
         {
             if (typebtn == "1")
             {
-                return RedirectToPage("/Login/ChangeNewPass");
+                return RedirectToPage("/Login/ForgetPass/ChangeNewPass");
             }
             return RedirectToPage("/Index");
         }

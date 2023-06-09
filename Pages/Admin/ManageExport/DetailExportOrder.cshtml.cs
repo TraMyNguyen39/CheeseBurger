@@ -9,7 +9,7 @@ using System.Net;
 
 namespace CheeseBurger.Pages.Admin
 {
-    [Authorize("Quản trị viên","Nhân viên đầu bếp", "Nhân viên giao hàng")]
+    [Authorize("Quản trị viên","Nhân viên đầu bếp")]
     public class DetailExportOrderModel : PageModel
     {
         private readonly IOrderService orderService;
@@ -73,24 +73,7 @@ namespace CheeseBurger.Pages.Admin
         public IActionResult OnPostPrepareDone()
         {
             orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.prepareDone);
-            return RedirectToPage("/Admin/ManageExport/DetailExportOrder", new { orderId });
-        }
-        public IActionResult OnPostConfirmShipping()
-        {
-            var staffID = HttpContext.Session.GetInt32("staffID");
-            orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.shipping);
-            orderService.UpdateShipper(orderId, (int)staffID);
-            return RedirectToPage("/Admin/ManageExport/DetailExportOrder", new { orderId });
-        }
-        public IActionResult OnPostSuccess()
-        {
-            orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.completed);
-            return RedirectToPage("/Admin/ManageExport/DetailExportOrder", new { orderId });
-        }
-        public IActionResult OnPostFailed()
-        {
-            orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.closed);
-            return RedirectToPage("/Admin/ManageExport/DetailExportOrder", new { orderId });
+            return RedirectToPage("/Admin/ManageExport/ManageExportOrder");
         }
     }
 }

@@ -80,7 +80,7 @@ namespace CheeseBurger.Pages.Admin
 			//    ModelState.AddModelError("combobox_Item", "Please select a measure.");
 			//}
 			ingredientService.AddData(Name, ingredientService.ConvertMeasureNametoMeasureId(combobox_Item), Price, ncc);
-			return RedirectToPage("ManageIngredient");
+			return RedirectToPage("/Admin/ManageIngredient");
 		}
 
 		public IActionResult OnGetFind(int id)

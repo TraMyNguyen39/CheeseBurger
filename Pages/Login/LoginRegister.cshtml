@@ -138,7 +138,7 @@
 					@:listEmails.push('@item.CusEmail')
 				}
 				if (listEmails.some(function (name) { return name === newEmail })) {
-				$('#error').text('* Email đã bị trùng!');
+				$('#error').text('* Email đã tồn tại!');
 				isCheck = false;
 				return isCheck;
 			} else {
@@ -167,7 +167,7 @@
 					@:listPhones.push('@item.CusPhone')
 				}
 				if (listPhones.some(function (name) { return name === newPhone })) {
-				$('#error').text('* Số điện thoại đã bị trùng!');
+				$('#error').text('* Số điện thoại đã tồn tại!');
 				isCheck = false;
 				return isCheck;
 			} else {
@@ -250,7 +250,7 @@
 	}
 
 	function isPhone(number) {
-		return /(0[3|5|7|8|9])+([0-9]{8})\b/.test(number);
+		return /^0[35789][0-9]{8}\b/.test(number);
 	}
 
 	function isPass(pass) {

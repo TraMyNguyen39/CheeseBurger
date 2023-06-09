@@ -40,7 +40,7 @@
 				<label class="control-label control-label-edit">Từ: </label>
 				<form action="action_page.php">
 					<input type="date" placeholder="dd-MM-yyyy" name="bday" onchange="submitForm()">
-					<input type="hidden" name="search" value="@Model.searchText"/>
+					<input type="hidden" name="search" value="@Model.searchText" />
 				</form>
 			</div>
 		</div>
@@ -99,9 +99,18 @@
 					</td>
 					<td>@((i.tempMoney * 103 / 100 + i.shippingMoney).ToString("N0"))đ</td>
 					<td>
-						<a class="cart__name-item" asp-page="/Admin/ManageExport/DetailExportOrder" asp-route-orderId="@i.orderId">
-							<i class="fas fa-eye"></i>
-						</a>
+						@if (i.statusOrder < (int)Enums.OrderStatus.prepareDone)
+						{
+							<a class="cart__name-item" asp-page="/Admin/ManageExport/DetailExportOrder" asp-route-orderId="@i.orderId">
+								<i class="fas fa-eye" title="Xem"></i>
+							</a>
+						}
+						else
+						{
+							<a class="cart__name-item" asp-page="/Admin/ManageExport/DetailExportOrder_Shipper" asp-route-orderId="@i.orderId">
+								<i class="fas fa-eye" title="Xem"></i>
+							</a>
+						}
 					</td>
 				</tr>
 			}
@@ -112,7 +121,7 @@
 			{
 				currentPage = Model.currentPage,
 				countPages = totalPages,
-				generateUrl = (int? p) => Url.Page("/Admin/ManageExport/ManageExportOrder", new { p, search = Model.searchText, Model.timeStart, Model.timeEnd})
+				generateUrl = (int? p) => Url.Page("/Admin/ManageExport/ManageExportOrder", new { p, search = Model.searchText, Model.timeStart, Model.timeEnd })
 			};
 	}
 	<partial name="_Paging" model="@pagingmodel" />

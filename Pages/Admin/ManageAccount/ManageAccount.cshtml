@@ -270,7 +270,6 @@
 		else if (!isName(nameValue)) {
 			$('#name-error').text('* Họ tên không đúng!');
 			isCheck = false;
-			return isCheck;
 		}
 		else {
 			$('#name-error').text('');
@@ -294,9 +293,8 @@
 					@:listEmails.push('@item.CusEmail')
 				}
 				if (listEmails.some(function (name) { return name === newEmail })) {
-					$('#email-error').text('* Email đã bị trùng!');
-					isCheck = false;
-					return isCheck;
+					$('#email-error').text('* Email đã tồn tại!');
+					isCheck = false;					
 				} else {
 					$('#email-error').text('');
 				}
@@ -320,9 +318,8 @@
 					@:listPhones.push('@item.CusPhone')
 				}
 				if (listPhones.some(function (name) { return name === newPhone })) {
-					$('#phone-error').text('* Số điện thoại đã bị trùng!');
-					isCheck = false;
-					return isCheck;
+					$('#phone-error').text('* Số điện thoại đã tồn tại!');
+					isCheck = false;					
 				} else {
 					$('#phone-error').text('');
 				}
@@ -387,6 +384,6 @@
 	}
 
 	function isPhone(number) {
-		return /(0[3|5|7|8|9])+([0-9]{8})\b/.test(number);
+		return /^0[35789][0-9]{8}\b/.test(number);
 	}
 </script>
