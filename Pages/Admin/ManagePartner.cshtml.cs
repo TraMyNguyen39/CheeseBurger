@@ -56,12 +56,11 @@ namespace CheeseBurger.Pages.Admin
 				string[] values = sortBy.Split('-');
 				string arrange = values[0];
 				bool isDescending = (values[1] == "desc");
-				partners = partnerService.GetListPartner(searchText, arrange, isDescending, isDelete);
-
+				partners = partnerService.GetListPartner(searchText, arrange, isDescending);
 			}
 			else
 			{
-				partners = partnerService.GetListPartner(searchText, null, true, isDelete);
+				partners = partnerService.GetListPartner(searchText, null, true);
 			}
 
 			// paging
@@ -89,10 +88,8 @@ namespace CheeseBurger.Pages.Admin
 
 		public IActionResult OnPostDelete(int partnerID)
 		{
-			var partner = partnerService.GetPartner(partnerID);
-			partner.isDeleted = true;
-			partnerService.UpdatePartner(partner);
-			return RedirectToPage("/Admin/ManagePartner");
+			partnerService.DeletePartner(partnerID);
+			return RedirectToPage("ManagePartner");
 		}
 
 		public IActionResult OnGetFind(int partnerID)
@@ -109,6 +106,11 @@ namespace CheeseBurger.Pages.Admin
 			partnerUpdate.Email = email;
 			partnerService.UpdatePartner(partnerUpdate);
 			return RedirectToPage("/Admin/ManagePartner");
+		}
+		public IActionResult OnPostRecycle(int PartnerID)
+		{
+			partnerService.RecyclePartner(PartnerID);
+			return RedirectToPage("ManagePartner");
 		}
 	}
 }

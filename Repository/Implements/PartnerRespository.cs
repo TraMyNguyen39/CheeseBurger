@@ -18,7 +18,13 @@ namespace CheeseBurger.Repository.Implements
 			context.SaveChanges();
 		}
 
-		public List<Partner> GetListPartner(string name, string sortBy, bool isDescending, bool isDeleted)
+		public List<Ingredients> GetIngresbyPartner(int partnerID)
+		{
+			return context.Ingredients.Where(p => p.PartnerID == partnerID && p.IsDeleted== false)
+									  .ToList();
+		}
+
+		public List<Partner> GetListPartner(string name, string sortBy, bool isDescending)
 		{
 			var partners = new List<Partner>();
 			if (name != null)
@@ -27,8 +33,9 @@ namespace CheeseBurger.Repository.Implements
 			}
 			else
 			{
-				partners = context.Partners.ToList();
+				partners = context.Partners.Where(p => p.isDeleted == false).ToList();
 			}
+
 			if (sortBy != null)
 			{
 				if (isDescending == true)
@@ -36,7 +43,7 @@ namespace CheeseBurger.Repository.Implements
 				else
 					partners = partners.OrderBy(p => p.PartnerName).ToList();
 			}
-			return partners.Where(p => p.isDeleted == isDeleted).ToList();
+			return partners.ToList();
 		}
 
 		public List<Partner> GetListPartner()
@@ -52,6 +59,13 @@ namespace CheeseBurger.Repository.Implements
 		public List<CBBPartnerDTO> GetPartnerNames()
 		{
 			return context.Partners.Select(p => new CBBPartnerDTO { PartnerID = p.PartnerID, PartnerName = p.PartnerName}).ToList();
+		}
+
+		public void RecyclePartner(int partnerID)
+		{
+			var partner = context.Partners.Find(partnerID);
+			partner.isDeleted = false;
+			context.SaveChanges();
 		}
 
 		public void UpdatePartner(Partner p)

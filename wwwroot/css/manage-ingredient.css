@@ -7,7 +7,7 @@
     border-radius: 5px;
     font-size: 16px;
     border: 0px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .categories__information-key {
     display: flex;
@@ -273,7 +273,7 @@ td.Ten_mon {
     height: 40px;
     background-color: var(--admin-color);
     color: var(--white-color);
-    margin-top: 20px;
+    margin-top: 10px;
     border-width: 0;
     padding: 0;
     border-radius: 6px;
@@ -285,12 +285,14 @@ td.Ten_mon {
 
 .categories__text {
     margin: 0 0 10px;
+    font-weight: 400;
 }
 
 p.label {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: var(--text-color);
     padding: 0;
+    font-weight: 500;
 }
 /* End Modal Update */
 
@@ -335,7 +337,7 @@ p.label {
 }
 
 .categories__information-label {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 }
 
 .categories__information-key {

@@ -247,7 +247,7 @@
 	}
 
 	function checkValidate() {
-		var nameEle = $("input[name='Name']");
+		var nameEle = $('.modal__customer-update input[name="Name"]');
 		var emailEle = $("#email");
 		var phoneEle = $("#phone");
 		var housenumEle = $("#housenumber");
@@ -326,7 +326,7 @@
 		}
 
 		if ($.trim(housenumValue) === "") {
-			if (districtValue != 0) {
+			if (districtValue!= 0) {
 				if (wardValue == 0) {
 					$('#district-error').text('');
 					$('#housenumber-error').text('* Vui lòng nhập số nhà!');

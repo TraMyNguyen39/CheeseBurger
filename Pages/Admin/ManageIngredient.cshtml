@@ -62,8 +62,8 @@
                             <i class="fas fa-eye" data-id="@i.IngredientID"></i>
                             @if (!i.isDeleted)
                             {
-                                <i class="fas fa-pencil-alt" data-id="@i.IngredientID" onclick="showCategoryDetails('@i.IngredientID')"></i>
-                                <i class="fas fa-ban" data-id="@i.IngredientID"></i>
+                                <i class="fas fa-pencil-alt" data-id="@i.IngredientID" onclick="showCategoryDetails('@i.IngredientID')" title="Cập nhật"></i>
+                                <i class="fas fa-ban" data-id="@i.IngredientID" title="Xoá"></i>
                             }
                             else
                             {
@@ -140,7 +140,7 @@
 					</div>
 				</div>
 				<div class="button__ingredient-add">
-					<button class="" type="submit" name="p">Thêm nguyên liệu</button>
+					<button class="" type="submit" name="p">THÊM NGUYÊN LIỆU</button>
 				</div>
 			</div>
 		</div>
@@ -203,7 +203,7 @@
                     </div>
                 </div>
                 <div class="button__ingredient-modify">
-                    <button class="" type="button" onclick="validateUpdateForm(event, showConfirmationModal)">Cập nhật nguyên liệu</button>
+                    <button class="" type="button" onclick="validateUpdateForm(event, showConfirmationModal)">CẬP NHẬT NGUYÊN LIỆU</button>
                 </div>
             </div>
             <input type="hidden" name="IngredientID" class="modal__ingredient-id" value="" />
@@ -222,10 +222,10 @@
             </span>
         </div>
         <div class="categories-read">
-            <div class="categories__form-edit">
+            <div class="categories__form-edit" style="width: 35%">
                 <p class="categories__text-specific">Thông tin nguyên liệu</p>
                 <div class="categories__information-label d-flex align-items-start">
-                    <div class="categories__information-key">
+                    <div class="categories__information-key col-3">
                         <label for="name" class="categories__text">Tên nguyên liệu:</label>
                         <label for="id" class="categories__text">Mã nguyên liệu:</label>
                         <label for="price" class="categories__text">Giá nhập:</label>
@@ -427,7 +427,7 @@
             }
         });
         $('#confirm').confirm({
-            title: 'confirmation',
+            title: 'Xác nhận',
             message: 'Bạn có muốn xóa nguyên liệu này không?',
             confirm: 'Delete',
             dismiss: 'Cancel'
@@ -467,7 +467,7 @@
         // Kiểm tra xem tên nguyên liệu mới có trong mảng tên nguyên liệu hay không
         if (ingredientNames.some(function (name) { return name === newIngredientName })) {
             // Hiển thị thông báo lỗi
-            $('#ingredient-error').text('Đã tồn tại tên nguyên liệu. Vui lòng nhập lại !!!');
+            $('#ingredient-error').text('Đã tồn tại tên nguyên liệu. Vui lòng nhập lại!');
 
             // Ngăn chặn việc submit form khi có lỗi
             event.preventDefault();
@@ -488,7 +488,7 @@
         });
 
         if (newIngredientName !== oldName && ingredientNames.includes(newIngredientName)) {
-            $('#ingredient-error-update').text('Đã tồn tại tên nguyên liệu. Vui lòng nhập lại !!!');
+            $('#ingredient-error-update').text('Đã tồn tại tên nguyên liệu. Vui lòng nhập lại!');
             event.preventDefault();
             return false;
         }
@@ -520,7 +520,7 @@
         $('#confirmUpdate input[name="nlHong"]').val(nlHongValue);
         $('#confirmUpdate').modal('show');
         $('#confirmUpdate').confirm({
-            title: 'Confirmation',
+            title: 'Xác nhận',
             message: 'Bạn có chắc chắn cập nhật nguyên liệu không?',
             confirm: 'Update',
             dismiss: 'Cancel'

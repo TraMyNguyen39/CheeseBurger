@@ -53,15 +53,15 @@
 						<td class="Email">@customer.CusEmail</td>
 						<td class="Phone">@customer.CusPhone</td>
 						<td class="Option">
-							<i class="fas fa-eye" data-id="@customer.CusID"></i>
+							<i class="fas fa-eye" data-id="@customer.CusID" title="Xem"></i>
 							@if (!customer.CusIsDeleted)
 							{
-								<i class="fas fa-pencil-alt" data-id="@customer.CusID"></i>
-								<i class="fas fa-ban" data-id="@customer.CusID"></i>
+								<i class="fas fa-pencil-alt" data-id="@customer.CusID" title="Cập nhật"></i>
+								<i class="fas fa-ban" data-id="@customer.CusID" title="Xoác"></i>
 							}
 							else
 							{
-								<i class="fa-solid fa-rotate" data-id="@customer.CusID"></i>
+								<i class="fa-solid fa-rotate" data-id="@customer.CusID" title="Khôi phục"></i>
 								<i class="fa-regular fa-square-minus"></i>
 							}
 						</td>																					
@@ -102,7 +102,7 @@
 				<div class="account__position-categories d-flex justify-content-between">
 					<div class="account__position col-12">
 						<p class="label_control">Chức vụ</p>
-						<div class="form__comboBoxList" style="font-size: 20px">
+						<div class="form__comboBoxList">
 							<form method="post">
 								<select name="combobox_Item" required="required" style="border-radius: 3px">
 									<option value="Khách hàng" selected>Khách hàng</option>
@@ -145,7 +145,7 @@
 					</div>
 				</div>
 				<div class="button__account-save">					
-					<button class="" type="submit">Cập nhật thông tin tài khoản</button>
+					<button class="" type="submit">CẬP NHẬT THÔNG TIN TÀI KHOẢN</button>
 				</div>				
 			</div>
 			<input type="hidden" name="CusID" class="modal__customer-id" value="" />
@@ -154,9 +154,9 @@
 </form>
 <!-- End Update staff -->
 <!-- Full Information -->
-<form method="post" asp-page="ManageUser">
+
 	<div class="modal__info-full">
-		<div class="modal__info-details">
+		<div class="modal__info-details" style="width: 40%">
 			<div class="button__exit d-flex justify-content-end">
 				<div class="exit__surround">
 					<i class="fas fa-times"></i>
@@ -171,7 +171,7 @@
 					</div>
 				</p>
 				<div class="staff__info-full d-flex">
-					<div class="staff__info-key col-3">
+					<div class="staff__info-key col-4">
 						<p class="categories__text" for="id">Mã người dùng:</p>
 						<p class="categories__text" for="name">Họ và tên:</p>
 						<p class="categories__text" for="gender">Giới tính:</p>
@@ -179,7 +179,7 @@
 						<p class="categories__text" for="email">Email:</p>
 						<p class="categories__text" for="address">Địa chỉ:</p>
 					</div>
-					<div class="staff__info-value col-9">
+					<div class="staff__info-value col-8">
 						<p class="categories__text" id="id"></p>
 						<p class="categories__text" id="name"></p>
 						<p class="categories__text" id="gender"></p>
@@ -187,11 +187,11 @@
 						<p class="categories__text" id="email"></p>
 						<p class="categories__text" id="address"></p>
 					</div>
-				</div>					
+				</div>	
+                <button class="submit-btn exit-btn" style="width: 100%">OK</button>
 			</div>			
 		</div>
 	</div>
-</form>
 <!-- End Full Information -->
 <!-- Modal Delete -->
 <form method="post" asp-page="ManageUser" asp-page-handler="Delete">
