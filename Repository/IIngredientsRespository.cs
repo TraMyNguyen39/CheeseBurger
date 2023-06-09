@@ -20,6 +20,7 @@ namespace CheeseBurger.Repository
 		List<CBBIngredientDTO> GetIngredientsByPartner(int partnerID);
 		float GetPrice(int ingre);
 		void UpdateQty(int ingredientID, float qty, bool isIncre);
+		int ConvertParnerNametoParnerId(string Name);
 
     }
 }

@@ -12,9 +12,7 @@ namespace CheeseBurger.Pages
     {
         private readonly IAccountService accountService;
         private readonly ICustomerService customerService;
-        private readonly IStaffService staffService;
-        private readonly INewPassService newPassService;
-        private readonly ITPassService tPassService;
+        private readonly IStaffService staffService;        
         public List<CustomerDTO> List_Customers { get; set; }
         public List<StaffDTO> List_Staffs { get; set; }
         
@@ -28,21 +26,18 @@ namespace CheeseBurger.Pages
         public int IdAcc { get; set; }
         [BindProperty(SupportsGet = true)]
 		public string Message { get; set; }        
-        public LoginRegisterModel(IAccountService accountService, ICustomerService customerService, IStaffService staffService,
-                                    INewPassService newPassService, ITPassService tPassService)
+        public LoginRegisterModel(IAccountService accountService, ICustomerService customerService, IStaffService staffService)
         {
             this.accountService = accountService;
             this.customerService = customerService;
-            this.staffService = staffService;
-            this.newPassService = newPassService;
-            this.tPassService = tPassService;
+            this.staffService = staffService;           
         }
 
         public void OnGet()
         {
             List_Customers = customerService.GetAllCustomers();
-            List_Staffs = staffService.GetAllStaffs();           
-        }
+            List_Staffs = staffService.GetAllStaffs();            
+		}
         public IActionResult OnPost()
         {
             var user = accountService.GetAccount(Email, Password);
@@ -50,15 +45,15 @@ namespace CheeseBurger.Pages
             {
                 Message = "* Tài khoản/ Mật khẩu không đúng!";
                 List_Customers = customerService.GetAllCustomers();
-                List_Staffs = staffService.GetAllStaffs();                
-                return Page();
+                List_Staffs = staffService.GetAllStaffs();				
+				return Page();
             }
             else if (user.isDeleted == true)
             {
                 Message = "* Tài khoản đã bị chặn vì vi phạm tiêu chuẩn cộng đồng!";
                 List_Customers = customerService.GetAllCustomers();
-                List_Staffs = staffService.GetAllStaffs();                
-                return Page();
+                List_Staffs = staffService.GetAllStaffs();				
+				return Page();
 			}               
             else
             {
@@ -90,7 +85,7 @@ namespace CheeseBurger.Pages
         {
             HttpContext.Session.Clear();
             List_Customers = customerService.GetAllCustomers();
-            List_Staffs = staffService.GetAllStaffs();
-        }        
+            List_Staffs = staffService.GetAllStaffs();			
+		}        
     }
 }

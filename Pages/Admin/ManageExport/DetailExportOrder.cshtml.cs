@@ -14,7 +14,8 @@ namespace CheeseBurger.Pages.Admin
     {
         private readonly IOrderService orderService;
         private readonly IOrder_FoodService order_FoodService;
-        private readonly IWardService wardService;
+		private readonly IFood_IngredientsService foodIngredientsService;
+		private readonly IWardService wardService;
         private readonly IDistrictService districtService;
         private readonly IStaffService staffService;
         private readonly ICartService cartService;
@@ -26,16 +27,17 @@ namespace CheeseBurger.Pages.Admin
         [BindProperty(SupportsGet = true)]
         public int orderId { get; set; }
         public DetailExportOrderModel(IOrderService orderService, IOrder_FoodService order_FoodService, ICartService cartService,
-            IWardService wardService, IDistrictService districtService, IStaffService staffService)
-        {
-            this.orderService = orderService;
-            this.order_FoodService = order_FoodService;
-            this.cartService = cartService;
-            this.wardService = wardService;
-            this.districtService = districtService;
-            this.staffService = staffService;
-        }
-        public IActionResult OnGet()
+			IWardService wardService, IDistrictService districtService, IStaffService staffService, IFood_IngredientsService foodIngredientsService)
+		{
+			this.orderService = orderService;
+			this.order_FoodService = order_FoodService;
+			this.cartService = cartService;
+			this.wardService = wardService;
+			this.districtService = districtService;
+			this.staffService = staffService;
+			this.foodIngredientsService = foodIngredientsService;
+		}
+		public IActionResult OnGet()
         {
             order = orderService.GetOrderDetail(0, orderId);
             if (order != null)
@@ -53,7 +55,12 @@ namespace CheeseBurger.Pages.Admin
         }
         public IActionResult OnPostCancel()
         {
-            orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.canceled);
+			lineItems = order_FoodService.GetAllLine(orderId);
+			foreach (var line in lineItems)
+			{
+				foodIngredientsService.IncreaseIngre(line.FoodId, line.Quantity);
+			}
+			orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.canceled);
             return RedirectToPage("/Admin/ManageExport/DetailExportOrder", new { orderId });
         }
         public IActionResult OnPostConfirm()

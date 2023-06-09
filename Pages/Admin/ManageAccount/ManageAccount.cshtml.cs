@@ -50,10 +50,10 @@ namespace CheeseBurger.Pages
         public IActionResult OnGet()
         {
 			List_Districts = districtService.GetListDistricts();
-			List_Wards = wardService.GetListWards();			
-			List_Customers = customerService.GetAllCustomers();
-			List_Staffs = staffService.GetAllStaffs();
-			var staffId = HttpContext.Session.GetInt32("staffID");			
+			List_Wards = wardService.GetListWards();
+			List_Customers = customerService.GetListCusNotSta();
+			var staffId = HttpContext.Session.GetInt32("staffID");
+			List_Staffs = staffService.GetListStaNotID((int)staffId);
 			if (staffId != null)
 			{				
 				staff = staffService.GetStaff((int)staffId);

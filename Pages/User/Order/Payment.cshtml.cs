@@ -50,6 +50,9 @@ namespace CheeseBurger.Pages
 		public float totalMoney { get; set; }
 		public int orderId { get; set; }
 		public string saleDate { get; set; }
+		public CustomerDTO curCusPayment { get; set; }
+		public int WId { get; set; }
+		public int DId { get; set; }
 		public PaymenteModel(IWardService wardService, IOrderService orderService, 
 			IDistrictService districtService, ICartService cartService, IOrder_FoodService orderFoodService, 
 			IFeeAPIService feeService, IConfiguration config, IAccountService accountService, IFood_IngredientsService foodIngreService, ICustomerService customerService,
@@ -98,6 +101,14 @@ namespace CheeseBurger.Pages
 				List_Account = accountService.GetListAccount();
 			}
 
+			string total = Request.Form["totalhidden"];
+			total = total.Replace("₫", "");
+			total = total.Replace(".", "");
+			total = total.Trim();
+
+
+			totalMoney = float.Parse(total);
+
 			var customerID = (int)HttpContext.Session.GetInt32("customerID");
 			// Lay danh sach san pham trong gio hang
 			Carts = cartService.GetAllCarts(customerID);
@@ -113,7 +124,8 @@ namespace CheeseBurger.Pages
 				SaleDate = DateTime.Now,
 				TempMoney = tempMoney,
 				ShippingMoney = shippingMoney,
-				StatusOdr = (int)OrderStatus.waiting
+                TotalMoney = totalMoney,
+                StatusOdr = (int)OrderStatus.waiting
 			};
 			orderService.CreateOrder(order);
 			// Tao chi tietdon hang
@@ -130,9 +142,9 @@ namespace CheeseBurger.Pages
 				foodIngreService.DecreaseIngre(cart.FoodId, cart.Quantity);
 				cartService.DeleteCart(customerID, cart.FoodId); // Tao don hon chi tiet, dong thoi xoa gio hang
 			}
-			string name = Request.Form["Name"]; // Retrieve the value of the 'Name' input
-			string total = Request.Form["totalhidden"];
+			string name = Request.Form["Name"]; // Retrieve the value of the 'Name' input			
 			string wardId = Request.Form["WardId"];
+			
 			int wardIdInt = Convert.ToInt32(wardId);
 			Ward temp = wardService.GetWard(wardIdInt);
 			string wardName = null;
@@ -140,10 +152,10 @@ namespace CheeseBurger.Pages
 			{
 				wardName = temp.WardName;
 			}
-			string address = Request.Form["HouseNumber"] + "," + wardName + "," + Request.Form["combobox_Item_District"] + "," + "Đà Nẵng";
+			string address = Request.Form["HouseNumber"] + ", " + wardName + ", " + Request.Form["combobox_Item_District"] + ", " + "Đà Nẵng";
 			string dateTime = DateTime.Now.ToString("HH:mm dd/MM/yyyy");
 			string id = (orderService.NewestOrderID()).ToString();
-			var model = new EmailModel(); // Create a new instance of the EmailModel
+			var model = new EmailModel(orderFoodService); // Create a new instance of the EmailModel
 			model.TenNguoiNhan = name;
 			model.TongTien = total;
 			model.DiaChiGiaoHang = address;
@@ -164,6 +176,18 @@ namespace CheeseBurger.Pages
 				tempMoney = (float)cartService.GetCartTotal(Carts);
 				List_Districts = districtService.GetListDistricts();
 				List_Wards = wardService.GetListWards();
+				curCusPayment = customerService.GetCustomer((int)customerId);
+				Ward tempWard = wardService.GetWard(curCusPayment.WardID);
+				if (tempWard != null)
+				{
+					WId = tempWard.WardId;
+					DId = tempWard.DistrictID;
+				}
+				else
+				{
+					WId = 1;
+					DId = 1;
+				}
 				return Page();
 			}
 			List_Account = accountService.GetListAccount();
@@ -218,7 +242,7 @@ namespace CheeseBurger.Pages
 			string address = Request.Form["HouseNumber"] + "," + wardName + "," + Request.Form["combobox_Item_District"] + "," + "Đà Nẵng";
 			string dateTime = DateTime.Now.ToString("HH:mm dd/MM/yyyy");
 			string id = (orderService.NewestOrderID()).ToString();
-			var model = new EmailModel(); // Create a new instance of the EmailModel
+			var model = new EmailModel(orderFoodService); // Create a new instance of the EmailModel
 			model.TenNguoiNhan = name;
 			model.TongTien = total;
 			model.DiaChiGiaoHang = address;

@@ -23,7 +23,8 @@ namespace CheeseBurger.Pages
 		public string searchText { get; set; }
 		[BindProperty(SupportsGet = true, Name = "p")]
 		public int currentPage { get; set; }
-		public string MessageStaff { get; set; }
+		public string MessageStaff { get; set; }	
+		public int CurStaID { get; set; }
 		public ManageStaffModel(IStaffService staffService, IRoleService roleService, IWardService wardService,
 								IDistrictService districtService)
         {
@@ -37,7 +38,8 @@ namespace CheeseBurger.Pages
 			this.roleBy = Request.Query["roleBy"];
 			this.sortBy = Request.Query["sortBy"];
 			this.searchText = Request.Query["search"];
-			if (this.searchText != null) this.searchText = this.searchText.Trim();	
+			if (this.searchText != null) this.searchText = this.searchText.Trim();
+			CurStaID = HttpContext.Session.GetInt32("staffID") ?? -1;
 			if (sortBy == "all")
 			{
 				staffs = staffService.GetListStaffs(roleBy, null, true, searchText);
@@ -105,6 +107,11 @@ namespace CheeseBurger.Pages
 		public IActionResult OnPostDelete(int StaID)
 		{
 			staffService.DeleteData(StaID);
+			return RedirectToPage("ManageStaff");
+		}
+		public IActionResult OnPostRecycle(int StaID)
+		{
+			staffService.RecycleData(StaID);
 			return RedirectToPage("ManageStaff");
 		}
 	}

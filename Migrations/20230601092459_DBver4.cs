@@ -80,19 +80,6 @@ namespace CheeseBurger.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "NewPasses",
-                columns: table => new
-                {
-                    NewPassID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NewPassName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NewPasses", x => x.NewPassID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Partners",
                 columns: table => new
                 {
@@ -108,20 +95,6 @@ namespace CheeseBurger.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Revenues",
-                columns: table => new
-                {
-                    DateReve = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    NumberOrder = table.Column<int>(type: "int", nullable: false),
-                    NumberIOrder = table.Column<int>(type: "int", nullable: false),
-                    Fund = table.Column<float>(type: "real", nullable: false),
-                    Income = table.Column<float>(type: "real", nullable: false)
-                },
-                constraints: table =>
-                {
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -132,19 +105,6 @@ namespace CheeseBurger.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.RoleID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TPasses",
-                columns: table => new
-                {
-                    TPassID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TPassName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TPasses", x => x.TPassID);
                 });
 
             migrationBuilder.CreateTable(
@@ -634,19 +594,10 @@ namespace CheeseBurger.Migrations
                 name: "ImportOrders_Ingredients");
 
             migrationBuilder.DropTable(
-                name: "NewPasses");
-
-            migrationBuilder.DropTable(
                 name: "Order_Foods");
 
             migrationBuilder.DropTable(
-                name: "Revenues");
-
-            migrationBuilder.DropTable(
                 name: "Reviews");
-
-            migrationBuilder.DropTable(
-                name: "TPasses");
 
             migrationBuilder.DropTable(
                 name: "ImportOrders");

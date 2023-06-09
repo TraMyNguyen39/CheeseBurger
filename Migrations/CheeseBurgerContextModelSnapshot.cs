@@ -328,23 +328,6 @@ namespace CheeseBurger.Migrations
                     b.ToTable("Measures");
                 });
 
-            modelBuilder.Entity("CheeseBurger.Model.Entities.NewPass", b =>
-                {
-                    b.Property<int>("NewPassID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NewPassID"));
-
-                    b.Property<string>("NewPassName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("NewPassID");
-
-                    b.ToTable("NewPasses");
-                });
-
             modelBuilder.Entity("CheeseBurger.Model.Entities.Order_Food", b =>
                 {
                     b.Property<int>("OrderID")
@@ -460,26 +443,6 @@ namespace CheeseBurger.Migrations
                     b.ToTable("Partners");
                 });
 
-            modelBuilder.Entity("CheeseBurger.Model.Entities.Revenues", b =>
-                {
-                    b.Property<DateTime>("DateReve")
-                        .HasColumnType("datetime2");
-
-                    b.Property<float>("Fund")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Income")
-                        .HasColumnType("real");
-
-                    b.Property<int>("NumberIOrder")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOrder")
-                        .HasColumnType("int");
-
-                    b.ToTable("Revenues");
-                });
-
             modelBuilder.Entity("CheeseBurger.Model.Entities.Review", b =>
                 {
                     b.Property<int>("ReviewID")
@@ -580,23 +543,6 @@ namespace CheeseBurger.Migrations
                     b.HasIndex("WardID");
 
                     b.ToTable("Staffs");
-                });
-
-            modelBuilder.Entity("CheeseBurger.Model.Entities.TPass", b =>
-                {
-                    b.Property<int>("TPassID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TPassID"));
-
-                    b.Property<string>("TPassName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TPassID");
-
-                    b.ToTable("TPasses");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Ward", b =>

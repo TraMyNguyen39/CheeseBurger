@@ -31,9 +31,7 @@
 			<div class="row list-receiver-item d-flex">
 				<div class="receiver-item col" style="padding-right: 5px">
 					<label>Tỉnh (Thành phố) <span style="color: red">&lowast;</span></label><br>
-					<select class="receiver-item-input">
-						<option value="Đà Nẵng" selected>Đà Nẵng</option>
-					</select>
+					<input class="receiver-item-input" value="Đà Nẵng" readonly>
 				</div>
 				<div class="receiver-item col" style="padding-left: 5px">
 					<label>Quận (Huyện) <span style="color: red">&lowast;</span></label><br>
@@ -60,7 +58,7 @@
 					<select class="receiver-item-input" name="WardId" required="required" id="ward" onchange="calculateShippingFee(event)">
 						@foreach (var i in Model.List_Wards)
 						{
-							<option value="@i.WardId" data-district="@i.DistrictID" >@i.WardName</option>
+							<option value="@i.WardId" data-district="@i.DistrictID" data-ward="@i.WardId">@i.WardName</option>
 						}
 					</select>
 				</div>
@@ -129,6 +127,7 @@
 	</div>
 </form>
 <script src="~/js/payment.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 @section Scripts {
 	<script>
 		let timeoutId;
@@ -137,7 +136,7 @@
 			timeoutId = setTimeout(func, delay);
 		}
 		async function calculateShippingFee(event) {
-			debounce(() => calculateShippingFee(event), 500);
+			debounce(() => calculateShippingFee(event), 500);			
 			const response = await fetch(`https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee?from_district_id=${document.getElementsByName("fromDistrictId")[0].value}&service_id=${document.getElementsByName("serviceId")[0].value}&to_district_id=${document.getElementsByName("toDistrictId")[0].value}&to_ward_code=${document.getElementsByName("toWardCode")[0].value}&height=${document.getElementsByName("height")[0].value}&length=${document.getElementsByName("length")[0].value}&weight=${document.getElementsByName("weight")[0].value}&width=${document.getElementsByName("width")[0].value}&insurance_value=${document.getElementsByName("insuranceValue")[0].value}`, {
 				method: "GET",
 				headers: {
@@ -291,4 +290,29 @@
 		return receiverName;
 	}
 </script>
+<script>
+	$(document).ready(function () {
+		// Điền thông tin vào các thẻ input
+		$('#receiverName').val('@Html.Raw(Model.curCusPayment.CusName)');
+		$('#phone_number').val('@Model.curCusPayment.CusPhone');
+		var disId = @Model.DId;
+		var warId = @Model.WId;
+		$('select[name="combobox_Item_District"] option').filter(function () {
+			return $(this).data('id_district') == disId;
+		}).prop('selected', true);
+		var wardSelect = document.getElementById("ward");
 
+		// Lặp qua các tùy chọn phường trong combobox phường và ẩn đi những tùy chọn không thuộc quận được chọn sẵn
+		for (var i = 0; i < wardSelect.options.length; i++) {
+			if (wardSelect.options[i].getAttribute("data-district") == disId) {
+				wardSelect.options[i].style.display = "block";
+			} else {
+				wardSelect.options[i].style.display = "none";
+			}
+		}
+		$('select[name="WardId"] option').filter(function () {
+			return $(this).data('ward') == warId;
+		}).prop('selected', true);
+		$('input[name="HouseNumber"]').val('@Html.Raw(Model.curCusPayment.HouseNumber)');		
+	});
+</script>

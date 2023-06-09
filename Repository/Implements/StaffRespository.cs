@@ -47,7 +47,7 @@ namespace CheeseBurger.Repository.Implements
 			var staff_data = from c in context.Staffs
 							 join a in context.Accounts on c.AccountID equals a.AccountID
 							 join rol in context.Roles on c.RoleID equals rol.RoleID
-							 where a.isStaff == true && a.isDeleted == false
+							 where a.isStaff == true
 							 select new { c, a, rol };
 			var sta_data = from p in staff_data
 						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()
@@ -87,7 +87,9 @@ namespace CheeseBurger.Repository.Implements
 					sta_data = isDescending ? sta_data.OrderByDescending(p => p.StaName) : sta_data.OrderBy(p => p.StaName);
 					break;
 			}
-			return sta_data.ToList();
+			if (!searchText.IsNullOrEmpty())
+				return sta_data.ToList();
+			else return sta_data.Where(p => p.StaIsDeleted == false).ToList();
 		}
 		public void UpdateData(int id, int RoleID)
 		{
@@ -184,6 +186,63 @@ namespace CheeseBurger.Repository.Implements
 					join r in context.Roles on s.RoleID equals r.RoleID
 					select r.RoleName;
 			return staff.FirstOrDefault();
+		}
+		public void RecycleData(int id)
+		{
+			var sta_data = context.Staffs.Where(p => p.StaffID == id).Select(p => p).FirstOrDefault();
+			var cus_acc = context.Accounts.Where(p => p.AccountID == sta_data.AccountID).Select(p => p).FirstOrDefault();
+			cus_acc.isDeleted = false;
+			context.SaveChanges();
+		}
+		public List<StaffDTO> GetListStaIsSta()
+		{
+			var staff_data = from c in context.Staffs
+							 join a in context.Accounts on c.AccountID equals a.AccountID
+							 join rol in context.Roles on c.RoleID equals rol.RoleID
+							 where a.isStaff == true
+							 select new { c, a, rol };
+			var sta_data = from p in staff_data
+						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()
+						   select new StaffDTO
+						   {
+							   StaID = p.c.StaffID,
+							   StaName = p.c.StaffName,
+							   StaGender = p.c.Gender ?? true,
+							   StaPhone = p.c.Phone,
+							   StaEmail = p.a.Email,
+							   StaIsStaff = p.a.isStaff,
+							   StaIsDeleted = p.a.isDeleted,
+							   StaAccID = p.a.AccountID,
+							   WardID = (adr == null) ? 0 : adr.WardId,
+							   StaRoleName = p.rol.RoleName,
+							   HouseNumber = p.c.HouseNumber
+						   };
+			return sta_data.ToList();
+		}
+		public List<StaffDTO> GetListStaNotID(int id)
+		{
+			var staff_data = from c in context.Staffs
+							 join a in context.Accounts on c.AccountID equals a.AccountID
+							 join rol in context.Roles on c.RoleID equals rol.RoleID
+							 where c.StaffID != id
+							 select new { c, a, rol };
+			var sta_data = from p in staff_data
+						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()
+						   select new StaffDTO
+						   {
+							   StaID = p.c.StaffID,
+							   StaName = p.c.StaffName,
+							   StaGender = p.c.Gender ?? true,
+							   StaPhone = p.c.Phone,
+							   StaEmail = p.a.Email,
+							   StaIsStaff = p.a.isStaff,
+							   StaIsDeleted = p.a.isDeleted,
+							   StaAccID = p.a.AccountID,
+							   WardID = (adr == null) ? 0 : adr.WardId,
+							   StaRoleName = p.rol.RoleName,
+							   HouseNumber = p.c.HouseNumber
+						   };
+			return sta_data.ToList();
 		}
 	}
 }

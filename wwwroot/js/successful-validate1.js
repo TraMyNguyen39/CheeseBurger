@@ -1,6 +1,6 @@
 ﻿window.onload = function () {
 	var email = document.getElementById("emaill").value;
-	var url = 'https://localhost:44344/Login/SuccessfulValidate';
+	var url = 'https://localhost:44344/Login/Validate/SuccessfulValidate';
 	var form = document.createElement("form");
 	form.action = url;
 	form.method = "POST";

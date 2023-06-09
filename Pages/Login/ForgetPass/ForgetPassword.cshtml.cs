@@ -5,7 +5,7 @@ using System.Net;
 using CheeseBurger.Service;
 using CheeseBurger.Model.Entities;
 
-namespace CheeseBurger.Pages
+namespace CheeseBurger.Pages.Login.ForgetPass
 {
     public class ForgetPasswordModel : PageModel
     {
@@ -15,7 +15,8 @@ namespace CheeseBurger.Pages
         {
             this.accountService = accountService;
         }
-        public void OnGet() {
+        public void OnGet()
+        {
             List_Account = accountService.GetListAccount();
         }
     }

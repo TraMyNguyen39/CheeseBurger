@@ -3,10 +3,6 @@ if (!document.querySelector('.categories__item.active')) {
     document.querySelector('.categories__item:first-child').classList.add('active');
 }
 
-if (currentPage === "ChangePasswordAdmin") {
-    setActiveMenuElement(manageFunction[1].parentElement);
-}
-
 var path = window.location.pathname;
 var currentPage = path.split('/').pop(); // Lấy phần tử cuối cùng trong mảng
 
@@ -27,6 +23,11 @@ for (var i = 0; i < manageFunction.length; i++) {
             break;
         }
     }
+}
+
+if (currentPage === 'ChangePasswordAdmin') {
+    var acc = document.getElementById('own-account');
+    setActiveMenuElement(acc);
 }
 if (currentPage === 'ManageFood' || currentPage === 'ManageFoodRecipe' || currentPage === 'AddRecipes') {
     var food = document.getElementById('food');

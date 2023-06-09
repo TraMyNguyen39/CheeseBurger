@@ -54,5 +54,17 @@ namespace CheeseBurger.Service.Implements
 		{
 			return staffRespository.GetStaffRole(staffID);
 		}
+		public void RecycleData(int id)
+		{
+			staffRespository.RecycleData(id);
+		}
+		public List<StaffDTO> GetListStaIsSta()
+		{
+			return staffRespository.GetListStaIsSta();
+		}
+		public List<StaffDTO> GetListStaNotID(int id)
+		{
+			return staffRespository.GetListStaNotID(id);
+		}
 	}
 }

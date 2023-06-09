@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CheeseBurger.Pages
+namespace CheeseBurger.Pages.Login.Validate
 {
     public class SuccesfulValidate1Model : PageModel
-    {        
+    {
         public string EmailValidate;
         public void OnGet()
         {

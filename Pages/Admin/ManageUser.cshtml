@@ -5,10 +5,6 @@
 }
 <link rel="stylesheet" href="~/css/manage-user.css" asp-append-version="true" />
 
-@{
-	int CntCus = 0;
-}
-
 <div class="main__information">
 	<div class="main__information-detail">
 		<div class="d-flex justify-content-between align-items-center mb-5">
@@ -44,25 +40,32 @@
 					<th class="ID col-2">Mã KH</th>
 					<th class="Name col-3">Họ và tên</th>
 					<th class="Email col-3">Email</th>
-					<th class="Option__eye col-1">Xem</th>
-					<th class="Option__pencil col-1">Sửa</th>
-					<th class="Option__ban col-1">Xoá</th>
+					<th class="Phone col-2">Số điện thoại</th>
+					<th class="Option col-2">Tùy chọn</th>					
 				</tr>
 			</thead>
 			<tbody>			
 				@foreach (var customer in customers)
-				{					
-					@if (customer.CusIsStaff == false && customer.CusIsDeleted == false)
-					{
-						<tr class="tr">							
-							<td class="ID">@(100 + @customer.CusID)</td>
-							<td class="Name">@customer.CusName</td>
-							<td class="Email">@customer.CusEmail</td>
-							<td class="Option__eye" data-id="@customer.CusID"> <i class="fas fa-eye"></i></td>
-							<td class="Option__pencil" data-id="@customer.CusID"> <i class="fas fa-pencil-alt"></i></td>
-							<td class="Option__ban" data-id="@customer.CusID">  <i class="fas fa-ban"></i></td>
-						</tr>
-					}
+				{										
+					<tr class="tr">							
+						<td class="ID">@customer.CusID</td>
+						<td class="Name">@customer.CusName</td>
+						<td class="Email">@customer.CusEmail</td>
+						<td class="Phone">@customer.CusPhone</td>
+						<td class="Option">
+							<i class="fas fa-eye" data-id="@customer.CusID"></i>
+							@if (!customer.CusIsDeleted)
+							{
+								<i class="fas fa-pencil-alt" data-id="@customer.CusID"></i>
+								<i class="fas fa-ban" data-id="@customer.CusID"></i>
+							}
+							else
+							{
+								<i class="fa-solid fa-rotate" data-id="@customer.CusID"></i>
+								<i class="fa-regular fa-square-minus"></i>
+							}
+						</td>																					
+					</tr>					
 				}	
 				
 			</tbody>
@@ -219,6 +222,34 @@
 	</div>
 </form>
 <!-- End Modal Delete -->
+<!-- Modal -->
+<form method="post" asp-page="ManageUser" asp-page-handler="Recycle">
+	<div class="modal fade" id="recycle" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title_1" id="confirm-label"></h4>
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				</div>
+				<div class="modal-body">
+					<div class="text-center wirningColor">
+						<i class="fas fa-exclamation-triangle fa-4x"></i>
+					</div>
+					<br />
+					<center>
+						<p class="message"></p>
+						<input type="hidden" name="CusID" class="modal__customer-id" value="" />
+					</center>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-danger dismiss" data-dismiss="modal"></button>
+					<button type="submit" class="btn btn-primary confirm"></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<!-- End Modal Recycle -->
 <script src="~/js/manage-user.js"></script>
 @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -234,19 +265,19 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('.Option__eye').on('click', function() {
+		$('.fa-eye').on('click', function() {			
 			var id = $(this).data('id');
 			$.ajax({
 				type: 'GET',
 				data: {id: id},
 				url: '@Url.Page("ManageUser", "Find")',
-				success: function (result) {					
-					$('.modal__info-full #id').text(result.id + 100);
+				success: function (result) {						
+					$('.modal__info-full #id').text(result.id);
 					$('.modal__info-full #name').text(result.name);
 					$('.modal__info-full #gender').text(result.gender ? "Nam" : "Nữ");					
 					$('.modal__info-full #phone').text(result.phone);			
 					$('.modal__info-full #email').text(result.email);
-					$('.modal__info-full #address').text(result.address);
+					$('.modal__info-full #address').text(result.address);					
 				},
 				error: function (xhr, textStatus, errorThrown) {
 					alert('Error loading ingredient: ' + errorThrown);
@@ -254,7 +285,7 @@
 			});
 		});
 
-		$('.Option__pencil').on('click', function () {
+		$('.fa-pencil-alt').on('click', function () {		
 			var id = $(this).data('id');
 			$.ajax({
 				type: 'GET',
@@ -274,6 +305,68 @@
 					alert('Error loading ingredient: ' + errorThrown);
 				}
 			});
+		});
+	});		
+</script>
+
+<script>
+	$(function () {
+		(function ($) {
+			$.fn.confirm = function (options) {
+				var settings = $.extend({}, $.fn.confirm.defaults, options);
+
+				return this.each(function () {
+					var element = this;
+					$('.modal-title', this).html(settings.title);
+					$('.message', this).html(settings.message);
+					$('.confirm', this).html(settings.confirm);
+					$('.dismiss', this).html(settings.dismiss);
+
+					$(this).on('click', '.confirm', function (event) {
+						$(element).data('confirm', true);
+					});
+
+					$(this).on('hide.bs.modal', function (event) {
+						if ($(this).data('confirm')) {
+							$(this).trigger('confirm', event);
+							$(this).removeData('confirm');
+						} else {
+							$(this).trigger('dismiss', event);
+						}
+
+						$(this).off('confirm dismiss');
+					});
+
+					$(this).modal('show');
+				});
+			};
+
+			$.fn.confirm.defaults = {
+				title: 'Modal title',
+				message: 'One fine body&hellip;',
+				confirm: 'OK',
+				dismiss: 'Cancel'
+			};
+		})(jQuery);
+	});
+	$(".fa-ban").click(function () {
+		var id = $(this).data('id');
+		$.ajax({
+			type: 'GET',
+			data: { id: id },
+			url: '@Url.Page("ManageUser", "Find")',
+			success: function (result) {
+				$('#confirm input[name="CusID"]').val(result.id); // Lưu trữ ID vào trường ẩn
+			},
+			error: function (xhr, textStatus, errorThrown) {
+				alert('Error loading ingredient: ' + errorThrown);
+			}
+		});
+		$('#confirm').confirm({
+			title: 'Xác nhận xóa',
+			message: 'Bạn có muốn xóa khách hàng này không?',
+			confirm: 'Xác nhận',
+			dismiss: 'Hủy bỏ'
 		});
 	});
 </script>
@@ -318,24 +411,24 @@
 			};
 		})(jQuery);
 	});
-	$(".Option__ban").click(function () {
+	$(".fa-rotate").click(function () {
 		var id = $(this).data('id');
 		$.ajax({
 			type: 'GET',
 			data: { id: id },
 			url: '@Url.Page("ManageUser", "Find")',
 			success: function (result) {
-				$('#confirm input[name="CusID"]').val(result.id); // Lưu trữ ID vào trường ẩn
+				$('#recycle input[name="CusID"]').val(result.id); // Lưu trữ ID vào trường ẩn
 			},
 			error: function (xhr, textStatus, errorThrown) {
 				alert('Error loading ingredient: ' + errorThrown);
 			}
 		});
-		$('#confirm').confirm({
-			title: 'Xác nhận xóa',
-			message: 'Bạn có muốn xóa khách hàng này không?',
-			confirm: 'Delete',
-			dismiss: 'Cancel'
+		$('#recycle').confirm({
+			title: 'Xác nhận khôi phục',
+			message: 'Bạn có muốn khôi phục khách hàng này không?',
+			confirm: 'Xác nhận',
+			dismiss: 'Hủy bỏ'
 		});
 	});
 </script>

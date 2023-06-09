@@ -27,6 +27,7 @@ using System.Dynamic;
 using System.Net.Http.Headers;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using System.Text;
+using CheeseBurger.Model.Entities;
 using CheeseBurger.Pages.User.Email;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -75,10 +76,6 @@ service.AddScoped<IFood_IngredientsRepository, Food_IngredientsRepository>();
 service.AddScoped<IFood_IngredientsService, Food_IngredientsService>();
 service.AddScoped<IRevenueRepository, RevenueRepository>();
 service.AddScoped<IRevenueService, RevenueService>();
-service.AddScoped<INewPassRespository, NewPassRespository>();
-service.AddScoped<INewPassService, NewPassService>();
-service.AddScoped<ITPassRespository, TPassRespository>();
-service.AddScoped<ITPassService, TPassService>();
 service.AddScoped<IIdenCodeRespository, IdenCodeRespository>();
 service.AddScoped<IIdenCodeService, IdenCodeService>();
 
@@ -122,7 +119,7 @@ app.MapRazorPages();
 app.UseSession();
 app.UseEndpoints(endpoints =>
             {
-                endpoints.MapPost("/Login/SuccessfulValidate1", async context => {
+                endpoints.MapPost("/Login/Validate/SuccessfulValidateEmail", async context => {
                     // Lấy dịch vụ sendmailservice
                     var sendmailservice = context.RequestServices.GetService<ISendMailService>();
 
@@ -150,14 +147,14 @@ app.UseEndpoints(endpoints =>
                     context.Session.SetString("NameICodeFP", ic_name);
                     //context.Session.SetInt32("IdNP", np_id);
                     //var redirectUrl = "/Login/SuccessfulValidate?id=" + id.ToString() + "&ps=" + np_id.ToString();
-                    var redirectUrl = "/Login/EnterIdenCodeFP";
+                    var redirectUrl = "/Login/Validate/EnterIdenCodeFP";
 
                     DateTime sendTime = DateTime.Now;
                     context.Session.SetString("SendTime", sendTime.ToString());
 
                     context.Response.Redirect(redirectUrl);
                 });
-            endpoints.MapPost("/Login/SendMailIden", async context => {
+            endpoints.MapPost("/Login/SendMail/SendMailIden", async context => {
                 // Lấy dịch vụ sendmailservice
                 var sendmailservice = context.RequestServices.GetService<ISendMailService>();
 
@@ -188,7 +185,7 @@ app.UseEndpoints(endpoints =>
                 context.Session.SetString("NewAccPhone", phone);
                 context.Session.SetString("NewAccPass", pass);
                 //var redirectUrl = "/Login/EnterIdenCode?t=" + ic_id.ToString() + "&d=" + idacc.ToString() + "&c=" + idcus.ToString();
-                var redirectUrl = "/Login/EnterIdenCode";
+                var redirectUrl = "/Login/SendMail/EnterIdenCode";
 
                 DateTime sendTime = DateTime.Now;
                 context.Session.SetString("SendTimeCode", sendTime.ToString());
@@ -212,21 +209,37 @@ app.UseEndpoints(endpoints =>
                     var customerService = serviceProvider.GetService<ICustomerService>();
                     var categoryService = serviceProvider.GetService<ICategoryService>();
 
-                    var model = new EmailModel();
+                    var model = new EmailModel(order_FoodService);
                     // Retrieve the required services
                     var sendMailService = context.RequestServices.GetService<ISendMailService>();
                     var viewRenderService = context.RequestServices.GetService<IViewRenderService>();
                     var name = context.Request.Query["name"].ToString(); // Retrieve the 'name' value from the route parameters
-                    var total = context.Request.Query["total"].ToString();
+                    var total = context.Request.Query["total"].ToString();                    
                     var address = context.Request.Query["address"].ToString();
                     var dateTime = context.Request.Query["dateTime"].ToString();
                     var id = context.Request.Query["id"].ToString();
+                    
+                    int _idord = Convert.ToInt32(id);
+                    int _idcusord = context.Session.GetInt32("customerID") ?? -1;
+                    var li_item_email = order_FoodService.GetAllLine(_idord);
+                    var item_order_email = orderService.GetOrderDetail(_idcusord, _idord);
                     // Set the 'TenNguoiNhan' property of the 'model' instance
                     model.TenNguoiNhan = name;
                     model.MaDH = id;
-                    model.TongTien = total;
-                    model.NgayDatHang = dateTime;
+                    model.TongTien = item_order_email.TotalMoney.ToString("N0") + "đ";
+					model.NgayDatHang = dateTime;
                     model.DiaChiGiaoHang = address;
+                    model.TienShip = item_order_email.ShippingMoney.ToString("N0") + "đ";
+
+                    var List_LineItems_Email = li_item_email;
+
+                    string lineItemsHtml = "";
+                    foreach (var item in List_LineItems_Email)
+                    {					
+                        lineItemsHtml += $"<li><div style='display: flex'><p style='text-transform: capitalize; margin-right: 3%'>{item.Name}</p><p> {item.Price:N0}đ x {item.Quantity}</p></div></li>";
+                    }
+
+                    model.LineItemsHtml = lineItemsHtml;
 
                     // Retrieve the view content
                     string viewFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Pages", "User", "Email", "Email.cshtml");
@@ -238,6 +251,8 @@ app.UseEndpoints(endpoints =>
                                          .Replace("@Model.TongTien", model.TongTien)
                                          .Replace("@Model.NgayDatHang", model.NgayDatHang)
                                          .Replace("@Model.DiaChiGiaoHang", model.DiaChiGiaoHang)
+                                         .Replace("@Model.LineItemsHtml", model.LineItemsHtml)
+                                         .Replace("@Model.TienShip", model.TienShip)
                                          .Replace("@page", "")
                                          .Replace("@model EmailModel", "")
                                          .Replace("@{\r\n    ViewData[\"Title\"] = \"Email\";\r\n}", "");
