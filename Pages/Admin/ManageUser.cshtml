@@ -57,7 +57,7 @@
 							@if (!customer.CusIsDeleted)
 							{
 								<i class="fas fa-pencil-alt" data-id="@customer.CusID" title="Cập nhật"></i>
-								<i class="fas fa-ban" data-id="@customer.CusID" title="Xoác"></i>
+								<i class="fas fa-ban" data-id="@customer.CusID" title="Xoá"></i>
 							}
 							else
 							{
@@ -364,7 +364,7 @@
 		});
 		$('#confirm').confirm({
 			title: 'Xác nhận xóa',
-			message: 'Bạn có muốn xóa khách hàng này không?',
+			message: 'Bạn có chắc chắn muốn xóa khách hàng này không?',
 			confirm: 'Xác nhận',
 			dismiss: 'Hủy bỏ'
 		});
@@ -426,7 +426,7 @@
 		});
 		$('#recycle').confirm({
 			title: 'Xác nhận khôi phục',
-			message: 'Bạn có muốn khôi phục khách hàng này không?',
+			message: 'Bạn có chắc chắn muốn khôi phục khách hàng này không?',
 			confirm: 'Xác nhận',
 			dismiss: 'Hủy bỏ'
 		});

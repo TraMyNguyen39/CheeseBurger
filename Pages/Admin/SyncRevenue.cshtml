@@ -233,6 +233,18 @@
 			@:Funds.push(0);
 		}
 	}
+	@if (Model.List_Ord.Count == Model.List_IO.Count)
+	{
+		@foreach (var item in Model.List_Ord)
+		{
+			@:Times.push('@item.SaleDate.ToString("dd/MM/yyyy")');
+			@:Profits.push(@item.TotalMoney);
+		}
+		@foreach (var item in Model.List_IO)
+		{
+			@:Funds.push(@item.TMoneyIO);
+		}
+	}
 	@foreach (var item in Model.List_Food)
 	{
 		@:Foodname.push(capitalizeFirstLetterOfEachWord('@Html.Raw(item.NameFoodRevenue)'));

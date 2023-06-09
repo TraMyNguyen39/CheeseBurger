@@ -50,13 +50,14 @@
 				@foreach (var i in partners)
 				{
 					<tr>
-						<td class="ID_mon" name="@i.PartnerID" style="display: none;">@i.PartnerID</td>
+						<td class="ID_mon" style="display: none;">@i.PartnerID</td>
 						<td class="Ten_mon">@i.PartnerName</td>
 						<td class="Email">@i.Email</td>
 						<td class="Option">
+							<i class="fas fa-eye" data-id="@i.PartnerID" onclick="showPartnerDetails(@i.PartnerID)" title="Xem"></i>
 							@if (!i.isDeleted)
 							{
-								<i class="fas fa-pencil-alt" data-id="@i.PartnerID" onclick="showCategoryDetails('@i.PartnerID')" title="Cập nhật"></i>
+								<i class="fas fa-pencil-alt" data-id="@i.PartnerID" onclick="showCategoryDetails(@i.PartnerID)" title="Cập nhật"></i>
 								<i class="fas fa-ban" data-id="@i.PartnerID" title="Xoá"></i>
 							}
 							else
@@ -155,6 +156,40 @@
 	</div>
 </form>
 <!-- End Modal Update-->
+<!-- Modal Read -->
+<div class="modal__food-read">
+	<div class="modal__read-information modal__read-category-edit">
+		<div class="button__exit d-flex justify-content-end">
+			<span class="exit__surround d-flex justify-content-center align-items-center">
+				<i class="fas fa-times"></i>
+			</span>
+		</div>
+		<div class="categories-read">
+			<div class="categories__form-edit">
+				<input name="CategoryID" type="hidden" />
+				<p class="categories__text-specific">Xem nhà cung cấp</p>
+				<div class="categories__information-label d-flex align-items-center">
+					<div class="categories__information-key col-md-4">
+						<label for="name" class="categories__text">Tên nhà cung cấp:</label>
+						<label for="id" class="categories__text">Email:</label>
+						<label for="amount" class="categories__text">Số lượng nguyên liệu:</label>
+					</div>
+					<div class="categories__information-element col-md-9">
+						<p class="categories__text" id="name"></p>
+						<p class="categories__text" id="id"></p>
+						<p class="categories__text" id="amount"></p>
+					</div>
+				</div>
+				<div class="list-foods">
+					<div class="categories__information-label">Danh sách nguyên liệu:</div>
+					<div class="list-ingre-item"></div>
+				</div>
+			</div>
+			<button class="submit-btn exit-btn">OK</button>
+		</div>
+	</div>
+</div>
+<!-- End Modal Read -->
 <!-- Modal Delete -->
 <!-- Modal -->
 <form method="post" asp-page="ManagePartner" asp-page-handler="Delete">
@@ -278,12 +313,12 @@
 			}
 		});
 		$('#confirm').confirm({
-			title: 'Xác nhận',
-			message: 'Bạn có muốn xóa đối tác này không?',
-			confirm: 'Delete',
-			dismiss: 'Cancel'
+			title: 'Xác nhận xóa',
+			message: 'Bạn có chắc chắn muốn xóa nhà cung cấp này không?',
+			confirm: 'Xác nhận',
+			dismiss: 'Hủy bỏ'
 		});
-	});
+	}); 	
 </script>
 <script>
 	$(function () {
@@ -330,7 +365,7 @@
 		$('#recycle input[name="PartnerID"]').val(id); // Lưu trữ ID vào trường ẩn
 		$('#recycle').confirm({
 			title: 'Xác nhận khôi phục',
-			message: 'Bạn có muốn khôi phục nhà cung cấp này không?',
+			message: 'Bạn có chắc chắn muốn khôi phục nhà cung cấp này không?',
 			confirm: 'Xác nhận',
 			dismiss: 'Hủy bỏ'
 		});
@@ -429,6 +464,48 @@
 			return false;
 		}
 		// Nếu không có lỗi, ẩn thông báo lỗi
-		$('##email-error-update').text('');
+		$('#email-error-update').text('');
+	}
+</script>
+<script>
+	function showPartnerDetails(id) {
+		// Lấy thông tin hàng được chọn
+		var row = $('td.ID_mon').filter(function () {
+			return $(this).text() == id;
+		}).closest('tr');
+		
+		var partnerName = row.find('td.Ten_mon').text().trim();
+		var email = row.find('td.Email').text().trim();
+		
+		$('.modal__food-read #name').text(partnerName);
+		$('.modal__food-read #id').text(email);
+				
+		populatePartners(id);
+	}
+</script>
+<script>
+	function populatePartners(id) {
+		var number = 0;
+		$.ajax({
+			url: '@Url.Page("ManagePartner", "Partners")',
+			type: 'GET',
+			data: { id: id },
+			success: function (data) {
+				var listItems = '';
+
+				for (var i = 0; i < data.length; i++) {
+					listItems += '<div class="list-ingre-item">' + (++number) + '.' + ' ' + data[i].ingredientsName + '</div>';
+				}
+
+				$('.modal__food-read .list-ingre-item').empty().append(listItems);
+				$('.modal__food-read #amount').text(data.length);
+
+				// Assign the JSON response to "datashow" variable
+				var datashow = data;
+			},
+			error: function (xhr) {
+				console.log(xhr.responseText);
+			}
+		});
 	}
 </script>

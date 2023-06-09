@@ -46,6 +46,7 @@ namespace CheeseBurger.Pages.Admin
 		public string partnerName { get; set; }
 
 		public string ExistError { get; set; }
+		public List<Ingredients> ingredients { get; set; }
 
 		public void OnGet()
 		{
@@ -111,6 +112,11 @@ namespace CheeseBurger.Pages.Admin
 		{
 			partnerService.RecyclePartner(PartnerID);
 			return RedirectToPage("ManagePartner");
+		}
+		public IActionResult OnGetPartners(int id)
+		{
+			ingredients = partnerService.GetIngresbyPartner(id);
+			return new JsonResult(ingredients);
 		}
 	}
 }

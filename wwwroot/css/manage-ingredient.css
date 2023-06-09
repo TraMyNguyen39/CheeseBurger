@@ -362,3 +362,9 @@ p.label {
     outline: none;
 }
 /* End Modal Delete */
+.list-ingre-item {
+    font-size: 1.6rem;
+    margin-left: 20%;
+    margin-top: 5px;
+    text-transform: capitalize;
+}

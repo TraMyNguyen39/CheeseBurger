@@ -59,7 +59,7 @@
                         <td style="text-align: left">@i.PartnerName</td>
                         <td style="text-align: right; padding-right: 3%;">@i.IngreQty @i.MeasureName</td>
                         <td class="Option">
-                            <i class="fas fa-eye" data-id="@i.IngredientID"></i>
+                            <i class="fas fa-eye" data-id="@i.IngredientID" title="Xem"></i>
                             @if (!i.isDeleted)
                             {
                                 <i class="fas fa-pencil-alt" data-id="@i.IngredientID" onclick="showCategoryDetails('@i.IngredientID')" title="Cập nhật"></i>
@@ -427,10 +427,10 @@
             }
         });
         $('#confirm').confirm({
-            title: 'Xác nhận',
-            message: 'Bạn có muốn xóa nguyên liệu này không?',
-            confirm: 'Delete',
-            dismiss: 'Cancel'
+            title: 'Xác nhận xóa',
+            message: 'Bạn có chắc chắn muốn xóa nguyên liệu này không?',
+            confirm: 'Xác nhận',
+            dismiss: 'Hủy bỏ'
         });
     });
 </script>
@@ -520,10 +520,10 @@
         $('#confirmUpdate input[name="nlHong"]').val(nlHongValue);
         $('#confirmUpdate').modal('show');
         $('#confirmUpdate').confirm({
-            title: 'Xác nhận',
-            message: 'Bạn có chắc chắn cập nhật nguyên liệu không?',
-            confirm: 'Update',
-            dismiss: 'Cancel'
+            title: 'Xác nhận cập nhật',
+            message: 'Bạn có chắc chắn muốn cập nhật nguyên liệu này không?',
+            confirm: 'Xác nhận',
+            dismiss: 'Hủy bỏ'
         });
     }
 
