@@ -145,7 +145,7 @@
 				<p class="modal__label-main">THÊM MÓN ĂN</p>
 				<div class="food__name">
 					<p class="label">Tên món ăn</p>
-					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Name" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
+					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Name" required="required" pattern="^(?!\s*$)[\p{L} ]+$" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
 					<span id="food-error" style="color: red"></span>
 				</div>
 				<div class="food__price-categories d-flex justify-content-between">
@@ -164,7 +164,7 @@
 				</div>
 				<div class="food__description">
 					<p class="label">Mô tả</p>
-					<input class="form-control mr-sm-2" placeholder="" name="Describe" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
+					<input class="form-control mr-sm-2" placeholder="" name="Describe" required="required" pattern="^(?!\s*$)[\p{L} ]+$" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
 				</div>
 				<div class="file__image d-flex align-items-center">
 					<p class="image__text">Hình ảnh</p>
@@ -190,7 +190,7 @@
 				<p class="modal__label-main">Cập nhật món ăn</p>
 				<div class="ingredient__name">
 					<p class="label">Tên món ăn</p>
-					<input class="form-control" type="search" placeholder="" aria-label="Search" name="Name" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
+					<input class="form-control" type="search" placeholder="" aria-label="Search" name="Name" required="required" pattern="^(?!\s*$)[\p{L} ]+$" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
 					<span id="food-error-update" style="color: red"></span>
 					<input type="hidden" name="oldName" required="required">
 				</div>

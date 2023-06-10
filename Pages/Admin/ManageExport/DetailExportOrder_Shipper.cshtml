@@ -1,5 +1,5 @@
 ﻿@page
-@model DetailExportOrderModel
+@model DetailExportOrder_ShipperModel
 @{
 	ViewData["Title"] = "Detail Order";
 }
@@ -140,21 +140,29 @@
 		</table>
 	</div>
 	<div class="list-item list-item-edit mt-4">
-		@if (Model.order.StatusOdr == (int)Enums.OrderStatus.waiting)
+		@if (Model.order.StatusOdr == (int)Enums.OrderStatus.prepareDone)
 		{
 			<button class="submit-btn submit-btn-edit" id="btn-cancel">HỦY ĐƠN HÀNG</button>
-			<form method="post" asp-page-handler="Confirm">
+			<form method="post" asp-page-handler="ConfirmShipping">
 				<input type="hidden" asp-for="orderId" value="@Model.orderId">
-				<button class="submit-btn submit-btn-edit">XÁC NHẬN</button>
+				<button class="submit-btn submit-btn-edit">XÁC NHẬN GIAO</button>
 			</form>
 		}
-		@if (Model.order.StatusOdr == (int)Enums.OrderStatus.preparing)
+		@if (Model.order.StatusOdr == (int)Enums.OrderStatus.shipping)
 		{
-			<button class="submit-btn submit-btn-edit" id="btn-cancel">HỦY ĐƠN HÀNG</button>
-			<form method="post" asp-page-handler="PrepareDone">
+			<button class="submit-btn submit-btn-edit grey-btn">HỦY ĐƠN HÀNG</button>
+			<form method="post" asp-page-handler="Success">
 				<input type="hidden" asp-for="orderId" value="@Model.orderId">
-				<button class="submit-btn submit-btn-edit">CHUẨN BỊ XONG</button>
+				<button class="submit-btn submit-btn-edit">GIAO THÀNH CÔNG</button>
 			</form>
+			<form method="post" asp-page-handler="Failed">
+				<input type="hidden" asp-for="orderId" value="@Model.orderId">
+				<button class="submit-btn submit-btn-edit">GIAO KHÔNG THÀNH CÔNG</button>
+			</form>
+		}
+		@if (Model.order.StatusOdr > (int)Enums.OrderStatus.shipping)
+		{
+			<button class="submit-btn submit-btn-edit grey-btn">HỦY ĐƠN HÀNG</button>
 		}
 	</div>
 </div>
