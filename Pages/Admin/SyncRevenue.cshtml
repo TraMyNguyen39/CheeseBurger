@@ -409,6 +409,17 @@
 			window.location.href = url.toString();
 		}		
 	}
+    fromDate.addEventListener('keyup', function (event) {
+        if (event.keyCode === 13) { // Check if Enter key is pressed
+            toDate.focus(); // Move focus to toDate field
+        }
+    });
+
+    toDate.addEventListener('keyup', function (event) {
+        if (event.keyCode === 13) { // Check if Enter key is pressed
+            submitForm(event); // Call submitForm function
+        }
+    });
 </script>
 
 
