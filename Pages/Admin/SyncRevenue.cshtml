@@ -19,7 +19,6 @@
                             <select name="combobox_Item" id="date-select">
                                 <option value="day" selected> Theo ngày</option>
                                 <option value="month"> Theo tháng</option>
-                                <option value="year"> Theo năm</option>
                             </select>
                         </form>
                     </div>
@@ -158,12 +157,6 @@
             toDate.type = 'month';
             fromDate.value = submittedFromDateValue;
             toDate.value = submittedToDateValue;
-        } else {
-            selectBox.value = 'year';
-            fromDate.type = 'number';
-            toDate.type = 'number';
-            fromDate.value = submittedFromDateValue;
-            toDate.value = submittedToDateValue;
         } 
     }
 
@@ -174,10 +167,7 @@
         } else if (selectBox.value === 'month') {
             fromDate.type = 'month';
             toDate.type = 'month';
-        } else if (selectBox.value === 'year') {
-            fromDate.type = 'number';
-            toDate.type = 'number';
-        }
+        } 
     }
 
     updateFormFields();

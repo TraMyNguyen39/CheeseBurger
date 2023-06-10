@@ -11,6 +11,7 @@
         <form class="menu-sort-user" method="get">
             <label style="margin-left: 2%">Sắp xếp theo: </label>
             <select name="sortBy" class="menu-sort-user-box" id="sort-select">
+                <option value="all">Tất cả</option>
                 <option value="name-asc">Tăng theo tên</option>
                 <option value="name-desc">Giảm theo tên</option>
             </select>
@@ -59,7 +60,7 @@
                     }
                 </tbody>
             </table>
-            <p id="category-error-td" class="alert-danger text-danger text-center p-2" style="width=100%"></p>
+            <p id="category-error-td" class="alert-danger text-danger text-center p-2" style="width:100%"></p>
             @{
             var pagingmodel = new CheeseBurger.Helpers.PagingModel()
             {
@@ -76,7 +77,7 @@
                 <p class="categories__text">Tạo danh mục mới:</p>
                 <div class="info__form">
                      <input class="form-control mr-sm-2" type="search" placeholder="" name="Name" required="required" pattern="^(?!\s*$)[\p{L} ]+$" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
-                     <span id="category-error" style="color: red"></span>
+                     <span id="category-error" style="color: red; display:none"></span>
                 </div>
                 <button class="submit-btn add-category-btn" type="submit" name="p">Thêm danh mục +</button>
             </form>

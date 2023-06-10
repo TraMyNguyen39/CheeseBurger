@@ -3,6 +3,7 @@ using CheeseBurger.Middleware;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
+using CheeseBurger.Service.ImplementsGetPrice;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -44,6 +45,7 @@ namespace CheeseBurger.Pages.Admin
 		public string email { get; set; }
 		[BindProperty]
 		public string partnerName { get; set; }
+		public string MessageParner { get; set; }
 
 		public string ExistError { get; set; }
 		public List<Ingredients> ingredients { get; set; }
@@ -52,17 +54,27 @@ namespace CheeseBurger.Pages.Admin
 		{
 			this.searchText = Request.Query["search"];
 			this.sortBy = Request.Query["sortBy"];
-			if (!(sortBy.IsNullOrEmpty()) || sortBy == "all")
+			if (this.searchText != null) this.searchText = this.searchText.Trim();
+			if (sortBy == "all")
+			{
+				partners = partnerService.GetListPartner(searchText, null, true);
+			}
+			else if (!(sortBy.IsNullOrEmpty()))
 			{
 				string[] values = sortBy.Split('-');
 				string arrange = values[0];
 				bool isDescending = (values[1] == "desc");
-				partners = partnerService.GetListPartner(searchText, arrange, isDescending);
+			    partners = partnerService.GetListPartner(searchText, arrange, isDescending);
 			}
 			else
 			{
 				partners = partnerService.GetListPartner(searchText, null, true);
 			}
+			if (partners.Count == 0)
+			{
+				MessageParner = "Không có đối tác nào đáp ứng điều kiện!";
+			}
+			else { MessageParner = null; }
 
 			// paging
 			int totalRow = partners.Count;
