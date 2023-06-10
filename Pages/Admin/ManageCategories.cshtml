@@ -59,7 +59,7 @@
                     }
                 </tbody>
             </table>
-            <p id="category-error-td" style="color: red" width="100%"></p>
+            <p id="category-error-td" class="alert-danger text-danger text-center p-2" style="width=100%"></p>
             @{
             var pagingmodel = new CheeseBurger.Helpers.PagingModel()
             {
@@ -75,7 +75,7 @@
                 <p class="categories__text-specific">Thêm danh mục</p>
                 <p class="categories__text">Tạo danh mục mới:</p>
                 <div class="info__form">
-                     <input class="form-control mr-sm-2" type="search" placeholder="" name="Name" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
+                     <input class="form-control mr-sm-2" type="search" placeholder="" name="Name" required="required" pattern="^(?!\s*$)[\p{L} ]+$" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
                      <span id="category-error" style="color: red"></span>
                 </div>
                 <button class="submit-btn add-category-btn" type="submit" name="p">Thêm danh mục +</button>
@@ -86,7 +86,7 @@
 <!-- Modal Modify -->
 <form method="post" asp-page="ManageCategories" asp-page-handler="Update" onsubmit="return validateUpdateForm(event)">
     <div class="modal__food-modify">
-        <div class="modal__food-information">
+        <div class="modal__food-information" style="width: 35%">;
             <div class="button__exit d-flex justify-content-end">
                 <span class="exit__surround d-flex justify-content-center align-items-center">
                     <i class="fas fa-times"></i>
@@ -96,11 +96,11 @@
                 <div class="categories__form-edit">
                     <p class="categories__text-specific">Cập nhật danh mục</p>
                     <p class="categories__text">Nhập tên mới:</p>
-                    <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Name" required="required" pattern="[\p{L} ]+" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
-                    <button class="submit-btn update-cate-btn" type="submit">Cập nhật danh mục</button>
+                    <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="Name" required="required" pattern="[^(?!\s*$)[\p{L} ]+$" title="Vui lòng chỉ nhập chữ cái có dấu hoặc không dấu và khoảng trắng">
+                    <input type="hidden" name="CategoriesID" class="modal__categories-id" value="" />
+                    <button class="submit-btn update-cate-btn" type="submit">CẬP NHẬT DOANH MỤC</button>
                     <span id="category-update-error" style="color: red"></span>
                 </div>
-                <input type="hidden" name="CategoriesID" class="modal__categories-id" value="" />
             </div>
         </div>
     </div>
@@ -273,7 +273,7 @@
         }).closest('tr');
         var quantity = row.find('td.Number_mon').text();
         if (quantity > 0) {
-            var message = 'Bạn không thể xóa khi còn món trong danh mục này.';
+            var message = 'Bạn không thể xóa khi còn món trong danh mục này!';
             $('#category-error-td').text(message);
         } else {
             $('#category-error-td').empty();
@@ -347,7 +347,7 @@ function populateFoods(CategoryID) {
         // Kiểm tra xem tên nguyên liệu mới có trong mảng tên danh mục hay không
         if (categoryNames.some(function (name) { return name === newCategoryName })) {
             // Hiển thị thông báo lỗi
-            $('#category-error').text('Đã tồn tại tên danh mục. Vui lòng nhập lại !!!');
+            $('#category-error').text('Đã tồn tại tên danh mục. Vui lòng nhập lại!');
 
             // Ngăn chặn việc submit form khi có lỗi
             event.preventDefault();
@@ -370,7 +370,7 @@ function populateFoods(CategoryID) {
         // Kiểm tra xem tên nguyên liệu mới có trong mảng tên danh mục hay không
         if (categoryNames.some(function (name) { return name === newCategoryName })) {
             // Hiển thị thông báo lỗi
-            $('#category-update-error').text('Đã tồn tại tên danh mục. Vui lòng nhập lại !!!');
+            $('#category-update-error').text('Đã tồn tại tên danh mục. Vui lòng nhập lại!');
 
             // Ngăn chặn việc submit form khi có lỗi
             event.preventDefault();

@@ -86,5 +86,10 @@ namespace CheeseBurger.Service.ImplementsGetPrice
 		{
 			return ingredientsRespository.ConvertParnerNametoParnerId(Name);
 		}
-    }
+
+		public void RecycleData(int id)
+		{
+			ingredientsRespository.RecycleData(id);
+		}
+	}
 }

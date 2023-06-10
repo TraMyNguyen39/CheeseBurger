@@ -107,7 +107,7 @@
 				<p class="modal__label-main mb-5">Thêm nhà cung cấp</p>
 				<div class="ingredient__name">
 					<p class="label">Tên nhà cung cấp</p>
-					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="partnerName" required="required" pattern="[\p{L}0-9&# ]+" title="Vui lòng nhập đúng tên công ty" />
+					<input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" name="partnerName" required="required" pattern="^(?!\s*$)[\p{L}0-9&# ]+" title="Vui lòng nhập đúng tên công ty" />
 					<span id="partner-error" style="color: red"></span>
 				</div>
 				<div class="ingredient__name">
@@ -137,7 +137,7 @@
 				<p class="modal__label-main mb-5">Cập nhật nhà cung cấp</p>
 				<div class="ingredient__name">
 					<p class="label">Tên nhà cung cấp</p>
-					<input class="form-control mr-sm-2" type="search" aria-label="Search" name="partnerName" required="required" pattern="[\p{L}0-9&# ]+" title="Vui lòng nhập đúng tên công ty">
+					<input class="form-control mr-sm-2" type="search" aria-label="Search" name="partnerName" required="required" pattern="^(?!\s*$)[\p{L}0-9&# ]+" title="Vui lòng nhập đúng tên công ty">
 					<span id="partner-error-update" style="color: red"></span>
 				</div>
 				<div class="ingredient__name">
