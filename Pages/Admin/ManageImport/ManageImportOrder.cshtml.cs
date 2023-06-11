@@ -15,7 +15,7 @@ namespace CheeseBurger.Pages.Admin.ManageImport
         public int currentPage { get; set; }
         public string searchText { get; set; }
         public DateTime timeStart { get; set; } = default;
-        public DateTime timeEnd { get; set; } = default;
+        public DateTime timeEnd { get; set; } = default;      
         public List<ImportOrderDTO> imports { get; set; }
         public ManageImportOrderModel(IImportOrderService importOrderService)
         {
@@ -26,18 +26,41 @@ namespace CheeseBurger.Pages.Admin.ManageImport
         {
             searchText = Request.Query["search"];
             string fDate = Request.Query["fromDate"];
+            if (searchText != null) searchText = searchText.Trim();
 
             if (DateTime.TryParse(fDate, out DateTime fromDateResult))
             {
                 timeStart = fromDateResult;
-            }
+            } else 
+            {
+				timeStart = default(DateTime);
+			}
 
             string tDate = Request.Query["toDate"];
-            if (DateTime.TryParse(tDate, out DateTime toDateResult))
+            string type = Request.Query["t"];
+            if (type != "1")
             {
-                TimeSpan timeSpan = new TimeSpan(23, 59, 59);
-                timeEnd = toDateResult + timeSpan;
-            }
+				if (DateTime.TryParse(tDate, out DateTime toDateResult))
+				{
+					TimeSpan timeSpan = new TimeSpan(23, 59, 59);
+					timeEnd = toDateResult + timeSpan;
+				}
+				else
+				{
+					timeEnd = default(DateTime);
+				}
+			}
+            else
+            {
+				if (DateTime.TryParse(tDate, out DateTime toDateResult))
+				{
+                    timeEnd = toDateResult;
+				}
+				else
+				{
+					timeEnd = default(DateTime);
+				}
+			}
             imports = importOrderService.GetAllImport(timeStart, timeEnd, searchText);
             return Page();
         }

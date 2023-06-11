@@ -61,24 +61,41 @@ namespace CheeseBurger.Pages.Admin
 				foodIngredientsService.IncreaseIngre(line.FoodId, line.Quantity);
 			}
 			orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.canceled);
-            return RedirectToPage("/Admin/ManageExport/DetailExportOrder", new { orderId });
+            return RedirectToPage("/Admin/ManageExport/DetailExportOrder_Shipper", new { orderId });
         }
         public IActionResult OnPostConfirmShipping()
         {
             var staffID = HttpContext.Session.GetInt32("staffID");
             orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.shipping);
-            orderService.UpdateShipper(orderId, (int)staffID);
-            return RedirectToPage("/Admin/ManageExport/DetailExportOrder", new { orderId });
+			var role = staffService.GetStaffRole((int)staffID);
+			if (role != "Quản trị viên")
+			{
+				orderService.UpdateShipper(orderId, (int)staffID);
+			}
+			else
+			{
+				var listShip = staffService.GetStaffShip();
+				if (listShip != null)
+				{
+					orderService.UpdateShipper(orderId, (int)listShip[0].StaID);
+				}
+				else
+				{
+					orderService.UpdateShipper(orderId, (int)staffID);
+				}
+			}		
+            return RedirectToPage("/Admin/ManageExport/DetailExportOrder_Shipper", new { orderId });
         }
         public IActionResult OnPostSuccess()
         {
             orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.completed);
-            return RedirectToPage("/Admin/ManageExport/DetailExportOrder", new { orderId });
+            orderService.ChangeArriveTime(orderId, DateTime.Now);
+            return RedirectToPage("/Admin/ManageExport/DetailExportOrder_Shipper", new { orderId });
         }
         public IActionResult OnPostFailed()
         {
             orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.closed);
-            return RedirectToPage("/Admin/ManageExport/DetailExportOrder", new { orderId });
+            return RedirectToPage("/Admin/ManageExport/DetailExportOrder_Shipper", new { orderId });
         }
     }
 }

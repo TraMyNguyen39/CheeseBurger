@@ -18,7 +18,7 @@ namespace CheeseBurger.Pages.Admin
 		private readonly IWardService wardService;
         private readonly IDistrictService districtService;
         private readonly IStaffService staffService;
-        private readonly ICartService cartService;
+        private readonly ICartService cartService;       
         public Orders order { get; set; }
         public string address { get; set; }
         public StaffOrderDTO chef { get; set; }
@@ -67,7 +67,22 @@ namespace CheeseBurger.Pages.Admin
         {
             var staffID = HttpContext.Session.GetInt32("staffID");
             orderService.ChangeStatus(orderId, (int)Enums.OrderStatus.preparing);
-            orderService.UpdateChef(orderId, (int)staffID);
+            var role = staffService.GetStaffRole((int)staffID);
+            if (role != "Quản trị viên")
+            {
+				orderService.UpdateChef(orderId, (int)staffID);
+			} 
+            else
+            {
+                var listChef = staffService.GetStaffChef();
+                if (listChef != null)
+                {
+					orderService.UpdateChef(orderId, (int)listChef[0].StaID);
+				} else
+                {
+					orderService.UpdateChef(orderId, (int)staffID);
+				}
+            }            
             return RedirectToPage("/Admin/ManageExport/DetailExportOrder", new { orderId });
         }
         public IActionResult OnPostPrepareDone()

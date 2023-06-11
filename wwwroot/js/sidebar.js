@@ -35,7 +35,7 @@ if (currentPage === 'ManageFood' || currentPage === 'ManageFoodRecipe' || curren
 }
 
 if (currentPage === 'ManageImportOrder' || currentPage === 'ManageExportOrder' || currentPage === 'DetailExportOrder'
-    || currentPage === 'ImportOrderDetail' || currentPage === 'ImportOrderProc') {
+    || currentPage === 'ImportOrderDetail' || currentPage === 'ImportOrderProc' || currentPage === 'DetailExportOrder_Shipper') {
     var order = document.getElementById('order');
     setActiveMenuElement(order);
 }

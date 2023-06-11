@@ -42,6 +42,9 @@ namespace CheeseBurger.Pages.Admin
 			if (DateTime.TryParse(fDate, out DateTime fromDateResult))
 			{
 				fromDate = fromDateResult;
+			} else
+			{
+				fromDate = default(DateTime);
 			}
 			if (DateTime.TryParse(tDate, out DateTime toDateResult))
 			{
@@ -53,7 +56,10 @@ namespace CheeseBurger.Pages.Admin
 				{
 					toDate = toDateResult.AddMonths(1);
 				}
-			} 
+			} else
+			{
+				toDate = default(DateTime);
+			}
 			
 		    NumberIOrder = revenueService.NumberIOrder(fromDate, toDate);
 			NumberOrder = revenueService.NumberOrder(fromDate, toDate);

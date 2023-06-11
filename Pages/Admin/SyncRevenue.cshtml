@@ -18,8 +18,7 @@
 						<form method="post">
 							<select name="combobox_Item" id="date-select">
 								<option value="day" selected> Theo ngày</option>
-								<option value="month"> Theo tháng</option>
-								@*<option value="year"> Theo năm</option>*@
+								<option value="month"> Theo tháng</option>								
 							</select>
 						</form>
 					</div>
@@ -125,26 +124,41 @@
 	var urlParams = new URLSearchParams(window.location.search);
 	var submittedFromDateValue = urlParams.get("fromDate");
 	var submittedToDateValue = urlParams.get("toDate");
+	var submittedSelectOptionValue = urlParams.get("selectOption");
 
-	// Kiểm tra submittedFromDateValue có định dạng ngày hay tháng
-	var submittedFromDateIsDate = /^\d{4}-\d{2}-\d{2}$/.test(submittedFromDateValue);	
-	if (submittedFromDateIsDate) {
+	if (submittedSelectOptionValue === 'day') {
 		selectBox.value = 'day';
 		fromDate.type = 'date';
 		toDate.type = 'date';
 		fromDate.value = submittedFromDateValue;
 		toDate.value = submittedToDateValue;
+	} else if (submittedSelectOptionValue === 'month') {
+		selectBox.value = 'month';
+		fromDate.type = 'month';
+		toDate.type = 'month';
+		fromDate.value = submittedFromDateValue;
+		toDate.value = submittedToDateValue;
 	} else {
-		// Kiểm tra submittedFromDateValue có định dạng tháng hay không
-		var submittedFromDateIsMonth = /^\d{4}-\d{2}$/.test(submittedFromDateValue);
-		if (submittedFromDateIsMonth) {
-			selectBox.value = 'month';
-			fromDate.type = 'month';
-			toDate.type = 'month';
+		// Kiểm tra submittedFromDateValue có định dạng ngày hay tháng
+		var submittedFromDateIsDate = /^\d{4}-\d{2}-\d{2}$/.test(submittedFromDateValue);
+		if (submittedFromDateIsDate) {
+			selectBox.value = 'day';
+			fromDate.type = 'date';
+			toDate.type = 'date';
 			fromDate.value = submittedFromDateValue;
 			toDate.value = submittedToDateValue;
+		} else {
+			// Kiểm tra submittedFromDateValue có định dạng tháng hay không
+			var submittedFromDateIsMonth = /^\d{4}-\d{2}$/.test(submittedFromDateValue);
+			if (submittedFromDateIsMonth) {
+				selectBox.value = 'month';
+				fromDate.type = 'month';
+				toDate.type = 'month';
+				fromDate.value = submittedFromDateValue;
+				toDate.value = submittedToDateValue;
+			} 
 		}
-	}		
+	} 
 
 	function updateFormFields() {
 		if (selectBox.value === 'day') {
@@ -153,11 +167,7 @@
 		} else if (selectBox.value === 'month') {
 			fromDate.type = 'month';
 			toDate.type = 'month';
-		} 
-		//else if (selectBox.value === 'year') {
-		//	fromDate.type = 'number'; 
-		//	toDate.type = 'number'; 	
-		//}		
+		} 		
 	}
 	
 	updateFormFields();
@@ -232,18 +242,18 @@
 		{
 			@:Funds.push(0);
 		}
-	}
+	}	
 	@if (Model.List_Ord.Count == Model.List_IO.Count)
-	{
+	{		
 		@foreach (var item in Model.List_Ord)
 		{
 			@:Times.push('@item.SaleDate.ToString("dd/MM/yyyy")');
 			@:Profits.push(@item.TotalMoney);
 		}
 		@foreach (var item in Model.List_IO)
-		{
+		{			
 			@:Funds.push(@item.TMoneyIO);
-		}
+		}		
 	}
 	@foreach (var item in Model.List_Food)
 	{
@@ -377,8 +387,18 @@
 		const selectOption = selectElement.value;
 		const fromDateValue = fromDateInput.value;
 		const toDateValue = toDateInput.value;
-				
-		if (fromDateValue && toDateValue) {
+		
+		if (fromDateValue && toDateValue) {			
+			// Tạo URL mới với các tham số fromDate và toDate
+			const url = new URL(window.location.href);
+			url.searchParams.set("fromDate", fromDateValue);
+			url.searchParams.set("toDate", toDateValue);
+			url.searchParams.set("selectOption", selectOption);
+			
+			// Chuyển hướng trình duyệt đến URL mới
+			window.location.href = url.toString();
+		}		
+		if (fromDateValue === "" && toDateValue === "") {
 			// Tạo URL mới với các tham số fromDate và toDate
 			const url = new URL(window.location.href);
 			url.searchParams.set("fromDate", fromDateValue);
@@ -390,8 +410,3 @@
 		}		
 	}
 </script>
-
-
-
-
-

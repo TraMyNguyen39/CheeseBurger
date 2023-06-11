@@ -244,5 +244,55 @@ namespace CheeseBurger.Repository.Implements
 						   };
 			return sta_data.ToList();
 		}
+		public List<StaffDTO> GetStaffChef()
+		{
+			var staff_data = from c in context.Staffs
+							 join a in context.Accounts on c.AccountID equals a.AccountID
+							 join rol in context.Roles on c.RoleID equals rol.RoleID
+							 where a.isStaff == true && a.isDeleted == false && c.RoleID == 2
+							 select new { c, a, rol };
+			var sta_data = from p in staff_data
+						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()
+						   select new StaffDTO
+						   {
+							   StaID = p.c.StaffID,
+							   StaName = p.c.StaffName,
+							   StaGender = p.c.Gender ?? true,
+							   StaPhone = p.c.Phone,
+							   StaEmail = p.a.Email,
+							   StaIsStaff = p.a.isStaff,
+							   StaIsDeleted = p.a.isDeleted,
+							   StaAccID = p.a.AccountID,
+							   WardID = (adr == null) ? 0 : adr.WardId,
+							   StaRoleName = p.rol.RoleName,
+							   HouseNumber = p.c.HouseNumber
+						   };
+			return sta_data.ToList();
+		}
+		public List<StaffDTO> GetStaffShip()
+		{
+			var staff_data = from c in context.Staffs
+							 join a in context.Accounts on c.AccountID equals a.AccountID
+							 join rol in context.Roles on c.RoleID equals rol.RoleID
+							 where a.isStaff == true && a.isDeleted == false && c.RoleID == 3
+							 select new { c, a, rol };
+			var sta_data = from p in staff_data
+						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()
+						   select new StaffDTO
+						   {
+							   StaID = p.c.StaffID,
+							   StaName = p.c.StaffName,
+							   StaGender = p.c.Gender ?? true,
+							   StaPhone = p.c.Phone,
+							   StaEmail = p.a.Email,
+							   StaIsStaff = p.a.isStaff,
+							   StaIsDeleted = p.a.isDeleted,
+							   StaAccID = p.a.AccountID,
+							   WardID = (adr == null) ? 0 : adr.WardId,
+							   StaRoleName = p.rol.RoleName,
+							   HouseNumber = p.c.HouseNumber
+						   };
+			return sta_data.ToList();
+		}
 	}
 }

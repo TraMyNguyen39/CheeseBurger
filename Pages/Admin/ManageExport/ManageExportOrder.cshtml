@@ -9,27 +9,27 @@
 	<div class="main__table-status">
 		<ul class="main__status">
 			<li class="main__status-details">
-				<a asp-page="/Admin/ManageExport/ManageExportOrder" class="btn__status" id="status-all">Tất cả (@Model.orderCount[0])</a>
+				<a asp-route-search=@Model.searchText asp-route-fromDate=@Model.timeStart asp-route-toDate=@Model.timeEnd asp-route-t="2" class="btn__status" id="status-all">Tất cả (@Model.orderCount[0])</a>
 			</li>
 			<li class="main__status-details">
-				<a class="btn__status" asp-route-status="@((int)Enums.OrderStatus.waiting)" id="status-1">Chờ xác nhận (@Model.orderCount[1])</a>
+				<a class="btn__status" asp-route-search=@Model.searchText asp-route-fromDate=@Model.timeStart asp-route-toDate=@Model.timeEnd asp-route-t="2" asp-route-status="@((int)Enums.OrderStatus.waiting)" id="status-1">Chờ xác nhận (@Model.orderCount[1])</a>
 			</li>
 			<li class="main__status-details">
-				<a class="btn__status" asp-route-status="@((int)Enums.OrderStatus.preparing)" id="status-2">Chuẩn bị hàng (@Model.orderCount[2])</a>
+				<a class="btn__status" asp-route-search=@Model.searchText asp-route-fromDate=@Model.timeStart asp-route-toDate=@Model.timeEnd asp-route-t="2" asp-route-status="@((int)Enums.OrderStatus.preparing)" id="status-2">Chuẩn bị hàng (@Model.orderCount[2])</a>
 			</li>
 			<li class="main__status-details">
-				<a class="btn__status" asp-route-status="@((int)Enums.OrderStatus.prepareDone)" id="status-3">Chờ giao (@Model.orderCount[3])</a>
+				<a class="btn__status" asp-route-search=@Model.searchText asp-route-fromDate=@Model.timeStart asp-route-toDate=@Model.timeEnd asp-route-t="2" asp-route-status="@((int)Enums.OrderStatus.prepareDone)" id="status-3">Chờ giao (@Model.orderCount[3])</a>
 			</li>
 			<li class="main__status-details">
-				<a class="btn__status" asp-route-status="@((int)Enums.OrderStatus.shipping)" id="status-4">Đang giao (@Model.orderCount[4])</a>
+				<a class="btn__status" asp-route-search=@Model.searchText asp-route-fromDate=@Model.timeStart asp-route-toDate=@Model.timeEnd asp-route-t="2" asp-route-status="@((int)Enums.OrderStatus.shipping)" id="status-4">Đang giao (@Model.orderCount[4])</a>
 			</li>
 			<li class="main__status-details">
-				<a class="btn__status" asp-route-status="@((int)Enums.OrderStatus.completed)" id="status-5">Đã giao (@Model.orderCount[5])</a>
+				<a class="btn__status" asp-route-search=@Model.searchText asp-route-fromDate=@Model.timeStart asp-route-toDate=@Model.timeEnd asp-route-t="2" asp-route-status="@((int)Enums.OrderStatus.completed)" id="status-5">Đã giao (@Model.orderCount[5])</a>
 			</li>
 			<li class="main__status-details">
-				<a class="btn__status" asp-route-status="@((int)Enums.OrderStatus.canceled)" id="status-7">Đã hủy (@Model.orderCount[7])</a>
+				<a class="btn__status" asp-route-search=@Model.searchText asp-route-fromDate=@Model.timeStart asp-route-toDate=@Model.timeEnd asp-route-t="2" asp-route-status="@((int)Enums.OrderStatus.canceled)" id="status-7">Đã hủy (@Model.orderCount[7])</a>
 			<li class="main__status-details btn-not-success">
-				<a class="btn__status" asp-route-status="@((int)Enums.OrderStatus.closed)" id="status-6">Không thành công (@Model.orderCount[6])</a>
+				<a class="btn__status" asp-route-search=@Model.searchText asp-route-fromDate=@Model.timeStart asp-route-toDate=@Model.timeEnd asp-route-t="2" asp-route-status="@((int)Enums.OrderStatus.closed)" id="status-6">Không thành công (@Model.orderCount[6])</a>
 			</li>
 		</ul>
 	</div>
@@ -41,6 +41,8 @@
 				<form action="action_page.php">
 					<input type="date" placeholder="dd-MM-yyyy" name="bday" onchange="submitForm()">
 					<input type="hidden" name="search" value="@Model.searchText" />
+					<input type="hidden" name="status" value="@Model.status" />
+					<input type="hidden" name="t" value="@Model.type" />
 				</form>
 			</div>
 		</div>
@@ -51,6 +53,7 @@
 				<form action="action_page.php">
 					<input type="date" placeholder="dd-MM-yyyy" name="eday" onchange="submitForm()">
 					<input type="hidden" name="search" value="@Model.searchText" />
+					<input type="hidden" name="status" value="@Model.status" />					
 				</form>
 			</div>
 		</div>
@@ -59,6 +62,7 @@
 				<input class="search-staff-box-input" type="text" name="search" placeholder="Nhập tên khách hàng">
 				<input class="search-staff-box-hidden" name="fromDate" value="@Model.timeStart.ToString("yyyy-MM-dd")" type="hidden" />
 				<input class="search-staff-box-hidden" name="toDate" value="@Model.timeEnd.ToString("yyyy-MM-dd")" type="hidden" />
+				<input class="search-staff-box-hidden" name="status" value="@Model.status" type="hidden" />				
 				<button type="submit" class="search-staff-box-btn">
 					<i class="fas fa-magnifying-glass"></i>
 				</button>
@@ -121,7 +125,7 @@
 			{
 				currentPage = Model.currentPage,
 				countPages = totalPages,
-				generateUrl = (int? p) => Url.Page("/Admin/ManageExport/ManageExportOrder", new { p, search = Model.searchText, Model.timeStart, Model.timeEnd })
+				generateUrl = (int? p) => Url.Page("/Admin/ManageExport/ManageExportOrder", new { p, search = Model.searchText, fromDate = Model.timeStart, toDate = Model.timeEnd, status = Model.status, t = 1 })
 			};
 	}
 	<partial name="_Paging" model="@pagingmodel" />
@@ -137,26 +141,71 @@
 	var urlParams = new URLSearchParams(window.location.search);
 	var submittedFromDateValue = urlParams.get("fromDate");
 	var submittedToDateValue = urlParams.get("toDate");
+	var submittedSearchValue = urlParams.get("search");
 
-	fromDate.value = submittedFromDateValue;
-	toDate.value = submittedToDateValue;
-	searchInput.value = urlParams.get("search");
+	if (submittedSearchValue === "") {
+		fromDate.value = submittedFromDateValue;
+		toDate.value = submittedToDateValue;
+		searchInput.value = submittedSearchValue;
+	} else {
+		fromDate.value = submittedFromDateValue;
+		toDate.value = submittedToDateValue;
+		searchInput.value = submittedSearchValue;
+	}
+
+	function convertToFormattedDate(dateString) {
+		if (dateString == null || dateString === '') return '';
+		const dateObj = new Date(dateString);
+		const year = dateObj.getFullYear();
+		const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+		const day = String(dateObj.getDate()).padStart(2, '0');
+		return `${year}-${month}-${day}`;
+	}
+
+	var convertfromDate = convertToFormattedDate(submittedFromDateValue);
+	var converttoDate = convertToFormattedDate(submittedToDateValue);
+
+	if (submittedFromDateValue === '0001-01-01' && submittedToDateValue === '0001-01-01') {
+		fromDate.value = null;
+		toDate.value = null;
+	} else if (convertfromDate === '2001-01-01' && converttoDate === '2001-01-01') {
+		fromDate.value = null;
+		toDate.value = null;
+	}
+	else {
+		fromDate.value = convertfromDate;
+		toDate.value = converttoDate;
+	}
 
 	function submitForm() {
 		const fromDateInput = document.querySelector('input[name="bday"]');
 		const toDateInput = document.querySelector('input[name="eday"]');
+		const searchInput = document.querySelector('.search-staff-box-input');
 
 		const fromDateValue = fromDateInput.value;
 		const toDateValue = toDateInput.value;
-
-		alert(fromDateValue);
-		alert(toDateValue);
+		const searchValue = searchInput.value;
 
 		if (fromDateValue && toDateValue) {
 			// Tạo URL mới với các tham số fromDate và toDate
 			const url = new URL(window.location.href);
 			url.searchParams.set("fromDate", fromDateValue);
 			url.searchParams.set("toDate", toDateValue);
+			url.searchParams.set("search", searchValue);
+			url.searchParams.set("t", '');
+			url.searchParams.set("p", 1);
+
+			// Chuyển hướng trình duyệt đến URL mới
+			window.location.href = url.toString();
+		}
+		if (fromDateValue === "" && toDateValue === "") {
+			// Tạo URL mới với các tham số fromDate và toDate
+			const url = new URL(window.location.href);
+			url.searchParams.set("fromDate", fromDateValue);
+			url.searchParams.set("toDate", toDateValue);
+			url.searchParams.set("search", searchValue);
+			url.searchParams.set("t", '');
+			url.searchParams.set("p", 1);
 
 			// Chuyển hướng trình duyệt đến URL mới
 			window.location.href = url.toString();
