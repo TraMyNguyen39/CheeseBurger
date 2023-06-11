@@ -88,11 +88,6 @@ form.addEventListener("submit", function (event) {
 	form.submit();
 });
 
-var alert = document.querySelector(".alert-dismissible");
-var hideTimeout = setTimeout(function () {
-	alert.classList.remove('show');
-}, 2000);
-
 // Ngoi sao
 var list = document.querySelectorAll('.stars-outer input');
 for (var i = 0; i < list.length; i++) {

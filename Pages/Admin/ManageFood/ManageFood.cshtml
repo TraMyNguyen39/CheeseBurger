@@ -354,7 +354,6 @@
 			data: { id: id },
 			url: '@Url.Page("ManageFood", "Find")',
 			success: function (result) {
-				console.log(result);
 				var imageSrc = result.imageFood;
 				$('.modal__food-read #image').attr('src', imageSrc);
 				$('.modal__food-read #name').text(result.foodName); // Cập nhật tên nguyên liệu

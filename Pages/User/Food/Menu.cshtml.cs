@@ -32,8 +32,8 @@ namespace CheeseBurger.Pages
 		[BindProperty (SupportsGet = true)]
 		public bool successfulStatus { get; set; }
 
-		[TempData]
-		public string ProductInfo { get; set; }
+		//[TempData]
+		//public string ProductInfo { get; set; }
 		public MenuModel (IFoodService foodService, ICategoryService categoryService, ICartService cartService)
         {
             this.foodService = foodService;
@@ -73,28 +73,29 @@ namespace CheeseBurger.Pages
             }
             else { Message = null; }
         }
-		public IActionResult OnPost()
+		public IActionResult OnGetAdd(int id)
 		{
 			var customerID = HttpContext.Session.GetInt32("customerID");
+			bool redictToPage = true;
 			if (customerID != null)
 			{
-				var cartQty = cartService.GetQuantityofFood((int)customerID, cartProductID);
-				var maxFoodQty = foodService.GetMaxQuantityofFood(cartProductID);
+				redictToPage = false;
+				var cartQty = cartService.GetQuantityofFood((int)customerID, id);
+				var maxFoodQty = foodService.GetMaxQuantityofFood(id);
+
+				bool success = false;
 				if (cartQty < maxFoodQty)
 				{
 					//Add sản phẩm vào cart
-					cartService.AddCart((int)customerID, cartProductID, 1);
-					ProductInfo = "Thanhcong";
+					cartService.AddCart((int)customerID, id, 1);
+					success = true;
 				}
-				else
-				{
-					ProductInfo = "Món ăn chỉ còn " + maxFoodQty + " sản phẩm";
-				}
-				return RedirectToPage("/User/Food/Menu");
+				return new JsonResult(new { success, maxFoodQty, redictToPage });
 			}
 			else
 			{
-				return RedirectToPage("/Login/LoginRegister", new { Message = "* Bạn phải đăng nhập/ đăng ký trước khi tương tác với giỏ hàng" });
+				redictToPage = true;
+				return new JsonResult(new { redictToPage });
 			}
 		}
 	}

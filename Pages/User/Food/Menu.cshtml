@@ -72,30 +72,29 @@
 				<strong>@Model.Message</strong>
 			</div>
 		}
-		@if (Model.ProductInfo == "Thanhcong")
-		{
-			<!-- Success Alert -->
-			<div class="alert alert-success alert-menu-edit alert-dismissible d-flex align-items-center fade show">
-				<i class="bi-check-circle-fill"></i>
-				<strong class="mx-1 mr-4">Thành công!</strong> Đã thêm sản phẩm vào giỏ hàng!
-				<button type="button" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
-			</div>
-		}
-		else if (Model.ProductInfo != null)
-		{
-			<!-- Failed Alert -->
-			<div class="alert alert-danger alert-menu-edit alert-dismissible d-flex align-items-center fade show">
-				<i class="fa-solid fa-circle-xmark" style="color: red"></i>
-				<strong class="mx-1 mr-4">Thất bại!</strong> @Model.ProductInfo
-				<button type="button" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
-			</div>
-		}
+
+		<!-- Success Alert -->
+		<div class="alert alert-success alert-menu-edit alert-dismissible d-flex align-items-center fade">
+			<i class="bi-check-circle-fill"></i>
+			<strong class="mx-1 mr-4">Thành công!</strong> Đã thêm sản phẩm vào giỏ hàng!
+			<button type="button" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+		</div>
+
+
+		<!-- Failed Alert -->
+		<div class="alert alert-danger alert-menu-edit alert-dismissible d-flex align-items-center fade">
+			<i class="fa-solid fa-circle-xmark" style="color: red"></i>
+			<strong class="mx-1 mr-4">Thất bại!</strong>
+			<span></span>
+			<button type="button" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+		</div>
+
 		<div class=" card-deck list-card-item d-flex flex-wrap">
 			@foreach (var i in foods)
 			{
 				<div class="card-edit">
 					<a asp-page="/User/Food/DetailFood" asp-route-id="@i.IDFood"><img class="card-img-top card-img-edit" src=@i.ImgFood alt="ảnh" /></a>
-					<form class="card-body" method="post">
+					<div class="card-body" method="post">
 						<div class="card-detail">
 							<a asp-page="/User/Food/DetailFood" asp-route-id="@i.IDFood" class="card-tittle">@i.NameFood</a>
 							<p class="card-sub">@i.PriceFood.ToString("N0")đ</p>
@@ -114,15 +113,17 @@
 							</div>
 						}
 						<input type="hidden" name="cartProductID" value="@i.IDFood" />
-						@if(i.isStocking)
+						@if (i.isStocking)
 						{
-							<button type="submit" class="submit-btn card-btn"><i class="fas fa-cart-shopping"></i>Thêm vào giỏ hàng</button>
+							<button class="submit-btn card-btn add-btn" data-id="@i.IDFood">
+								<i class="fas fa-cart-shopping"></i>Thêm vào giỏ hàng
+							</button>
 						}
 						else
 						{
 							<button class="submit-btn card-btn grey-btn"><i class="fas fa-cart-shopping"></i>Hết hàng</button>
 						}
-					</form>
+					</div>
 				</div>
 			}
 		</div>
@@ -141,4 +142,56 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="~/js/menu.js"></script>
+<script>
+	var alertElement = document.querySelectorAll(".alert-dismissible");
+	var hideTimeout = null;
+
+	function hideAlert() {
+		alertElement[0].classList.remove('show');
+		alertElement[1].classList.remove('show');
+	}
+
+	function showAlert() {
+		if (hideTimeout) {
+			clearTimeout(hideTimeout);
+		}
+		hideTimeout = setTimeout(hideAlert, 2000);
+	}
+
+	$('.add-btn').on('click', function () {
+		var id = $(this).data('id');
+		$.ajax({
+			type: 'GET',
+			data: { id: id },
+			url: '@Url.Page("Menu", "Add")',
+			success: function (result) {
+				console.log(result);
+				// Neu nhu da dang nhap tai khoan
+				if (result.redictToPage == false) {
+					if (result.success == true) {
+						var alertSuccess = document.querySelector('.alert-success');
+						alertSuccess.classList.add('show');
+						showAlert();
+					}
+					else {
+						var alertDanger = document.querySelector('.alert-danger.alert-dismissible');
+						alertDanger.querySelector('span').innerText = 'Món ăn chỉ còn ' + result.maxFoodQty + ' sản phẩm';
+						alertDanger.classList.add('show');
+						showAlert();
+					}
+				}
+				else {
+					var url = "/Login/LoginRegister" + "?";
+					url += 'Message=* Bạn phải đăng nhập/ đăng ký trước khi tương tác với giỏ hàng';
+					window.location.href = url;
+				}
+			},
+			error: function (xhr, textStatus, errorThrown) {
+				console.log('Error loading ingredient: ' + errorThrown);
+			}
+		});
+	});
+</script>
