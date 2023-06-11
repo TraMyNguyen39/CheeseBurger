@@ -40,6 +40,7 @@ namespace CheeseBurger.Pages.Admin
 		public int currentPage { get; set; }
 		public string sortBy { get; set; }
 		public string searchText { get; set; }
+		public string MessageIngre { get; set; }
 		public List<Ingredients> ingredientes { get; set; }
 		public string ExistError { get; set; }
 
@@ -57,21 +58,27 @@ namespace CheeseBurger.Pages.Admin
 
 			this.sortBy = Request.Query["sortBy"];
 			this.searchText = Request.Query["search"];
-			if (this.searchText != null)
+			if (this.searchText != null) this.searchText = this.searchText.Trim();
+			if (sortBy == "all")
 			{
-				this.searchText = this.searchText.Trim();
+				ingredients = ingredientService.GetListIngredients(null, true, searchText);
 			}
-			if (!(sortBy.IsNullOrEmpty()) || sortBy == "all")
+			else if (!(sortBy.IsNullOrEmpty()))
 			{
 				string[] values = sortBy.Split('-');
 				string arrange = values[0];
 				bool isDescending = (values[1] == "desc");
-				ingredients = ingredientService.GetListIngredients(arrange, isDescending, searchText);
+			    ingredients = ingredientService.GetListIngredients(arrange, isDescending, searchText);
 			}
 			else
 			{
 				ingredients = ingredientService.GetListIngredients(null, true, searchText);
 			}
+			if (ingredients.Count == 0)
+			{
+				MessageIngre = "Không có nguyên liệu nào đáp ứng điều kiện!";
+			}
+			else { MessageIngre = null; }
 		}
 		public IActionResult OnPostCreate(string Name, string combobox_Item, float Price, int ncc)
 		{

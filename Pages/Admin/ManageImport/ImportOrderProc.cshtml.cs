@@ -20,8 +20,8 @@ namespace CheeseBurger.Pages.Admin.ManageImport
         private readonly IImportOrders_IngredientsService importOrders_IngredientsService;
         [BindProperty(SupportsGet = true)]
         public List<CBBPartnerDTO> partners { get; set; }
-        public List<CBBIngredientDTO> ingres { get; set; }
-        [BindProperty(SupportsGet = true)]
+        public List<CBBIngredientDTO> ingres { get; set; }		
+		[BindProperty(SupportsGet = true)]
         public int partner { get; set; }
         [BindProperty(SupportsGet = true)]
         public int ingredient_0 { get; set; }
@@ -74,7 +74,7 @@ namespace CheeseBurger.Pages.Admin.ManageImport
                 PartnerID = partner,
                 StaffID = staffID,
                 TMoneyIO = 0,
-            };
+            };           
             importOrderService.CreateOrder(order);
             if (ingredient_0 != 0 && qty_0 != null)
             {

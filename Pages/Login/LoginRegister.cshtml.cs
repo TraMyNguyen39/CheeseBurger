@@ -63,7 +63,7 @@ namespace CheeseBurger.Pages
                 HttpContext.Session.SetString("Name", accountService.GetNamebyID(user.AccountID, user.isStaff));
                 if (user.isStaff)
                 {
-                    var staffID = staffService.GetStaffID(staffService.GetStaffID(user.AccountID));
+                    var staffID = staffService.GetStaffID(user.AccountID);
                     HttpContext.Session.SetInt32("staffID", staffID);
                     var staffRole = staffService.GetStaffRole(staffID);
                     HttpContext.Session.SetString("Role", staffRole);

@@ -66,5 +66,13 @@ namespace CheeseBurger.Service.Implements
 		{
 			return staffRespository.GetListStaNotID(id);
 		}
+		public List<StaffDTO> GetStaffChef()
+		{
+			return staffRespository.GetStaffChef();
+		}
+		public List<StaffDTO> GetStaffShip()
+		{
+			return staffRespository.GetStaffShip();
+		}
 	}
 }

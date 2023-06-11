@@ -15,14 +15,12 @@
 			<div class="lb-title col-3 d-flex flex-column">
 				<label class="lb-title">Mã đơn hàng</label>
 				<label class="lb-title">Ngày đặt hàng</label>
-				<label class="lb-title">Ngày nhận</label>
-				<br />
+				<label class="lb-title">Ngày nhận</label>				
 				<label class="lb-title">Ghi chú</label>
 			</div>
 			<div class="lb-title col d-flex flex-column">
 				<label class="lb-title">#@Model.order.OrderID</label>
-				<label class="lb-title"> @Model.order.SaleDate.ToString("HH:mm dd/MM/yyyy")</label>
-				<br />
+				<label class="lb-title"> @Model.order.SaleDate.ToString("HH:mm dd/MM/yyyy")</label>			
 				@if (Model.order.ArriveTime != null)
 				{
 					DateTime time = (DateTime)@Model.order.ArriveTime;
@@ -57,6 +55,8 @@
 					@Model.chef.Name
 					<br>
 					@:# @Model.order.ChefID
+					<br>
+					@:Tel: @Model.chef.PhoneNumber
 				}
 			</p>
 		</div>

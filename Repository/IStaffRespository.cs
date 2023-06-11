@@ -16,6 +16,8 @@ namespace CheeseBurger.Repository
         List<StaffDTO> GetAllStaffs();
         string GetStaffRole(int staffID);
 		void RecycleData(int id);
+        List<StaffDTO> GetStaffChef();
+        List<StaffDTO> GetStaffShip();
         List<StaffDTO> GetListStaIsSta();
         List<StaffDTO> GetListStaNotID(int id);
 	}
