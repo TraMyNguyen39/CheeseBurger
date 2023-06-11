@@ -14,6 +14,7 @@
 			<form class="menu-sort-user" method="get">
 				<label style="margin-left: 2%">Sắp xếp theo: </label>
 				<select name="sortBy" class="menu-sort-user-box" id="sort-select">
+					<option value="all">Tất cả</option>
 					<option value="price-asc">Tăng theo giá</option>
 					<option value="price-desc">Giảm theo giá</option>
 					<option value="name-asc">Tăng theo tên</option>
@@ -56,7 +57,7 @@
 						<td class="ID_mon" style="display: none;">@i.IngredientID</td>
 						<td class="Ten_mon" style="padding-left: 5%;">@i.IngredientName</td>
 						<td class="Gia" style="text-align: right">@i.IngredientInputPrice.ToString("N0")VNĐ</td>
-						<td style="text-align: left">@i.PartnerName</td>
+						<td class="Parner" style="text-align: left">@i.PartnerName</td>
 						<td style="text-align: right; padding-right: 3%;">@i.IngreQty @i.MeasureName</td>
 						<td class="Option">
 							<i class="fas fa-eye" data-id="@i.IngredientID"></i>
@@ -457,6 +458,8 @@
 		var wholeName = row.find('td.Number_mon').text().trim();
 		var subString = wholeName.split(" ");
 		var measureName = subString[1];
+
+		var ncc = row.find('td.Parner').text().trim();
 		// Đổ thông tin vào form
 		var select = $('.modal__ingredient-modify select[name="combobox_Item"]');
 		select.find('option').each(function () {
@@ -464,7 +467,7 @@
 		});
 		var select = $('.modal__ingredient-modify select[name="ncc"]');
 		select.find('option').each(function () {
-			$(this).prop('selected', $(this).text().indexOf(measureName) > -1);
+			$(this).prop('selected', $(this).text().indexOf(ncc) > -1);
 		});
 	}
 </script>

@@ -2,8 +2,8 @@
 @model SyncRevenueModel
 @using System.Web
 @{
-	ViewData["Title"] = "SyncRevenue";
-	int cnt = 0;
+    ViewData["Title"] = "SyncRevenue";
+    int cnt = 0;
 }
 <link rel="stylesheet" href="~/css/sync-revenue.css" asp-append-version="true" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
@@ -86,40 +86,40 @@
 			</div>
 		</div>
 
-		<div id="cus_vip" class="input-group-revenue">
-			<div class="best__seller-info">
-				@foreach (var item in Model.List_CusRevenue)
-				{
-					<div class="d-flex align-items-center" style="margin-top: 1%">
-						<img src="~/img/user.png" class="image_cus_vip">
-						<p class="foodname_best_seller">#@item.CusRevenueID @item.CusRevenueName</p>
-					</div>
-				}
-				<canvas id="barChart" class="chart_cus_vip"> </canvas>
-			</div>
-		</div>
-	</div>
+        <div id="cus_vip" class="input-group-revenue">
+            <div class="best__seller-info">
+                @foreach (var item in Model.List_CusRevenue)
+                {
+                    <div class="d-flex align-items-center" style="margin-top: 1%">
+                        <img src="~/img/user.png" class="image_cus_vip">
+                        <p class="foodname_best_seller">#@item.CusRevenueID @item.CusRevenueName</p>
+                    </div>
+                }
+                <canvas id="barChart" class="chart_cus_vip"> </canvas>
+            </div>
+        </div>
+    </div>
 </div>
 @*<script src="~/js/sync-revenue.js"></script>*@
 <script>
-	var x = document.getElementById("best_seller");
-	var y = document.getElementById("cus_vip");
-	var z = document.getElementById("switch-btn-revenue");
+    var x = document.getElementById("best_seller");
+    var y = document.getElementById("cus_vip");
+    var z = document.getElementById("switch-btn-revenue");
 
-	function vip() {		
-		x.style.left = "-450px";
-		y.style.left = "0px";
-		z.style.left = "50%"
-	}
-	function best() {
-		x.style.left = "0px"
-		y.style.left = "450px";
-		z.style.left = "0"
-	}
+    function vip() {
+        x.style.left = "-450px";
+        y.style.left = "0px";
+        z.style.left = "50%"
+    }
+    function best() {
+        x.style.left = "0px"
+        y.style.left = "450px";
+        z.style.left = "0"
+    }
 
-	const selectBox = document.querySelector('select[name="combobox_Item"]');
-	const fromDate = document.querySelector('input[name="fromDate"]');
-	const toDate = document.querySelector('input[name="toDate"]');
+    const selectBox = document.querySelector('select[name="combobox_Item"]');
+    const fromDate = document.querySelector('input[name="fromDate"]');
+    const toDate = document.querySelector('input[name="toDate"]');
 
 	var urlParams = new URLSearchParams(window.location.search);
 	var submittedFromDateValue = urlParams.get("fromDate");
@@ -172,13 +172,13 @@
 	
 	updateFormFields();
 
-	selectBox.addEventListener('change', updateFormFields);
+    selectBox.addEventListener('change', updateFormFields);
 
-	function capitalizeFirstLetterOfEachWord(str) {
-		return str.replace(/(^|\s)\S/g, function (char) {
-			return char.toUpperCase();
-		});
-	}
+    function capitalizeFirstLetterOfEachWord(str) {
+        return str.replace(/(^|\s)\S/g, function (char) {
+            return char.toUpperCase();
+        });
+    }
 
 
 	var Funds = [];
@@ -269,114 +269,114 @@
 	/* Get the canvas element and context */
 	var ctx = document.getElementById('myChart').getContext('2d');
 
-	/* Define the data for the chart */
-	var data = {
-		labels: Times,
-		datasets: [
-			{
-				label: 'Doanh thu',
-				//backgroundColor: '#FA5230',
-				borderColor: 'rgba(255, 99, 132, 1)',
-				fill: false,
-				//borderWidth: 1,
-				data: Profits,
-				tension: 0.4
+    /* Define the data for the chart */
+    var data = {
+        labels: Times,
+        datasets: [
+            {
+                label: 'Doanh thu',
+                //backgroundColor: '#FA5230',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                fill: false,
+                //borderWidth: 1,
+                data: Profits,
+                tension: 0.4
 
-			},
-			{
-				label: 'Vốn',
-				//backgroundColor: '#E3E7FC',
-				//borderWidth: 1,
-				data: Funds,
-				fill: false,
-				tension: 0.4,
-				borderColor: 'rgba(75, 192, 192, 1)'
-				//borderRadius: [0, 10, 10, 0],
-			}
-		]
-	};
+            },
+            {
+                label: 'Vốn',
+                //backgroundColor: '#E3E7FC',
+                //borderWidth: 1,
+                data: Funds,
+                fill: false,
+                tension: 0.4,
+                borderColor: 'rgba(75, 192, 192, 1)'
+                //borderRadius: [0, 10, 10, 0],
+            }
+        ]
+    };
 
-	/* Define the options for the chart */
-	var options = {
-		scales: {
-			yAxes: [{
-				ticks: {
-					beginAtZero: true
-				}
-			}]
-		},
-	};
+    /* Define the options for the chart */
+    var options = {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        },
+    };
 
-	/* Create the chart */
-	var myChart = new Chart(ctx, {
-		type: 'line',
-		data: data,
-		options: options
-	});
+    /* Create the chart */
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: options
+    });
 
-	var _ctx = document.getElementById('donutChart').getContext('2d');
+    var _ctx = document.getElementById('donutChart').getContext('2d');
 
-	/* Define the data for the chart */
-	var _data = {
-		labels: Foodname,
-		datasets: [{
-			label: 'My First Dataset',
-			data: Percent,
-			backgroundColor: [
-				'rgb(255, 99, 132)',
-				'rgb(255, 159, 64)',
-				'rgb(255, 205, 86)',
-				'rgb(75, 192, 192)',
-				'rgb(54, 162, 235)'				
-			],
-			hoverOffset: 4
-		}]
-	};
+    /* Define the data for the chart */
+    var _data = {
+        labels: Foodname,
+        datasets: [{
+            label: 'My First Dataset',
+            data: Percent,
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)'
+            ],
+            hoverOffset: 4
+        }]
+    };
 
-	/* Create the chart */
-	var myChart = new Chart(_ctx, {
-		type: 'pie',
-		data: _data,		
-	});
+    /* Create the chart */
+    var myChart = new Chart(_ctx, {
+        type: 'pie',
+        data: _data,
+    });
 
-	var __ctx = document.getElementById('barChart').getContext('2d');
+    var __ctx = document.getElementById('barChart').getContext('2d');
 
-	/* Define the data for the chart */
-	var __data = {
-		labels: Cusname,
-		datasets: [{
-			label: 'Tổng tiền',
-			data: TMoney,
-			backgroundColor: [
-				'rgba(255, 99, 132)',
-				'rgba(255, 159, 64)',
-				'rgba(255, 205, 86)',
-				'rgba(75, 192, 192)',
-				'rgba(54, 162, 235)'
-			],
-			borderColor: [
-				'rgb(255, 99, 132)',
-				'rgb(255, 159, 64)',
-				'rgb(255, 205, 86)',
-				'rgb(75, 192, 192)',
-				'rgb(54, 162, 235)'
-			],
-			borderWidth: 1
-		}]
-	};
+    /* Define the data for the chart */
+    var __data = {
+        labels: Cusname,
+        datasets: [{
+            label: 'Tổng tiền',
+            data: TMoney,
+            backgroundColor: [
+                'rgba(255, 99, 132)',
+                'rgba(255, 159, 64)',
+                'rgba(255, 205, 86)',
+                'rgba(75, 192, 192)',
+                'rgba(54, 162, 235)'
+            ],
+            borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)'
+            ],
+            borderWidth: 1
+        }]
+    };
 
-	/* Create the chart */
-	var myChart = new Chart(__ctx, {
-		type: 'bar',
-		data: __data,
-		options: {
-			scales: {
-				y: {
-					beginAtZero: true
-				}
-			}
-		},
-	});
+    /* Create the chart */
+    var myChart = new Chart(__ctx, {
+        type: 'bar',
+        data: __data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        },
+    });
 </script>
 <script>
 	function submitForm() {
