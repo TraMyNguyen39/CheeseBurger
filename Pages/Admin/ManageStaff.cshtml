@@ -293,7 +293,7 @@
 				data: { id: id },
 				url: '@Url.Page("ManageStaff", "Find")',
 				success: function (result) {
-					$('.modal__info-full #id').text(result.id + 100);
+					$('.modal__info-full #id').text(result.id);
 					$('.modal__info-full #name').text(result.name);
 					$('.modal__info-full #gender').text(result.gender ? "Nam" : "Nữ");
 					$('.modal__info-full #phone').text(result.phone);

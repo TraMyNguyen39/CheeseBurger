@@ -248,7 +248,7 @@
 				@:listPhones.push('@item.CusPhone')
 			}
 			if (listPhones.some(function (name) { return name === newPhone })) {
-				$('#phone-error').text('* Số điện thoại đã bị trùng!');
+				$('#phone-error').text('* Số điện thoại đã tồn tại!');
 				isCheck = false;
 				return isCheck;
 			} else {
