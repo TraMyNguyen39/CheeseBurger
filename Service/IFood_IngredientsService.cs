@@ -8,5 +8,6 @@ namespace CheeseBurger.Service
 		public void DeleteFoodRecipe(int foodID);
         public List<Food_Ingredients> GetAllFoodRecipes(int foodID);
 		void DecreaseIngre(int foodID, int qty);
+		void IncreaseIngre(int foodID, int qty);
 	}
 }

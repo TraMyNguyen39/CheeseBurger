@@ -1,0 +1,24 @@
+﻿@page
+@model SuccesfulValidateModel
+@{
+    ViewData["Title"] = "Successful Validate";
+}
+
+<div class="login-wrapper">
+    <div class="form-box success-form">
+        <a asp-page="/Index" class="logo-link">
+            <img src="~/img/logo.png" alt="" class="logo-brand logo-brand-success">
+        </a>
+        <div class="login-form">
+            <img src="~/img/success4.svg" alt="" class="succes-icon">
+            <h2 class="text succes-text">Thành công</h2>
+            <p class="text">
+                Thư đã được gửi đến email của bạn.
+                <br>Vui lòng kiểm tra hộp thư và làm theo hướng dẫn để lấy lại mật khẩu.
+            </p>
+            <form method="post">
+                <button class="home-btn btn-back-login">Về trang đăng nhập</button>
+            </form>
+        </div>
+    </div>
+</div>

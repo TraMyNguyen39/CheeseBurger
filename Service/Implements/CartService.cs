@@ -25,9 +25,28 @@ namespace CheeseBurger.Service.Implements
 		public List<CartDTO> GetAllCarts(int customerID)
 		{
 			var carts = cartRepository.GetAllCarts(customerID);
+			// Kiem tra so luong hang trong gio hang du khong
+			int changeCount = 0;
 			foreach (var cart in carts)
 			{
 				cart.MaxQty = foodService.GetMaxQuantityofFood(cart.FoodId);
+				// neu nhu sp trong gio hang nhieu hon so luong san co, dieu chinh thanh soluong toi da co the
+				if (cart.Quantity > cart.MaxQty)
+				{
+					UpdateCart(customerID, cart.FoodId, cart.MaxQty);
+					changeCount++;
+				}
+				// neu so luong san pham bang 0, xoa khoi gio hang
+				if (cart.MaxQty == 0)
+				{
+					DeleteCart(customerID, cart.FoodId);
+					changeCount++;
+				}
+			}
+			// neu co thay doi, reset lai
+			if (changeCount > 0)
+			{
+				carts = cartRepository.GetAllCarts(customerID);
 			}
 			return carts;
 		}

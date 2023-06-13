@@ -1,6 +1,8 @@
 ﻿using CheeseBurger.Helpers;
+using MailKit;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using Newtonsoft.Json;

@@ -12,24 +12,7 @@
                 <button type="button" class="button-box__toggle-btn" id="login-state" onclick="login()">Đăng nhập</button>
                 <button type="button" class="button-box__toggle-btn" id="register-state" onclick="register()">Đăng ký</button>
             </div>
-        </div>
-        @foreach (var i in Model.List_Customers)
-        {
-            <small class="Ten_Email_All" style="display: none;">@i.CusEmail</small>
-        }
-        @foreach (var i in Model.List_Staffs)
-        {            
-            <small class="Ten_Email_All" style="display: none;">@i.StaEmail</small>
-            
-        }
-        @foreach (var i in Model.List_Customers)
-        {
-            <small class="Phone_All" style="display: none;">@i.CusPhone</small>
-        }
-        @foreach (var i in Model.List_Staffs)
-        {            
-            <small class="Phone_All" style="display: none;">@i.StaPhone</small>            
-        }
+        </div>        
         <!-- Đăng nhập -->
         <a asp-area="" asp-page="/Index" class="logo-link">
             <img src="~/img/logo.png" alt="" class="logo-brand">
@@ -38,16 +21,19 @@
         <form method="post" id="login" class="input-group" style="margin-top: 40px; left: 50px;">
             <div class="unsuccessful-message">@Model.Message</div>
             <div class="input-item">
-                <i class="fa-solid fa-user"></i><input asp-for="@Model.Email" type="text" class="input-field" placeholder="Email" required>
+				<i class="fa-solid fa-user"></i><input asp-for="@Model.Email" type="text" class="input-field" placeholder="Email" 
+				required pattern="^[a -z0-9](\.?[a-z0-9]){4,}@@gmail\.com$" title="Vui lòng nhập đúng email!">
             </div>
             <div class="input-item">
-                <i class="fa-solid fa-key"></i><input asp-for="@Model.Password" type="password" class="input-field" placeholder="Mật khẩu" required>
+                <i class="fa-solid fa-key"></i><input asp-for="@Model.Password" id="password" type="password" class="input-field" placeholder="Mật khẩu" required>
             </div>
-            <button type="submit" class="submit-btn">Đăng nhập</button>
-            <a asp-page="/Login/ForgetPassword" class="input-group__forget">Quên mật khẩu</a>
+           @* <input asp-for="@Model.IdNewPass" type="hidden" value="@Model._IdNewPass"/>
+            <input asp-for="@Model.IdAcc" type="hidden" value="@Model._IdAcc" />*@
+            <button type="submit" class="submit-btn-log">Đăng nhập</button>
+            <a asp-page="/Login/ForgetPass/ForgetPassword" class="input-group__forget">Quên mật khẩu</a>
         </form>
 
-        <form method="post" asp-page-handler="Register" id="register" class="input-group RegisterAcc">
+        <div id="register" class="input-group RegisterAcc">
             <div class="unsuccessful-message" id="error"></div>         
             <div class="input-item">
                 <i class="fa-solid fa-user"></i><input type="text" name="name" id="namee" class="input-field" placeholder="Nhập Họ và tên" required>                
@@ -60,10 +46,214 @@
             </div>
             <div class="input-item">
                 <i class="fa-solid fa-key"></i><input type="password" name="pass" id="passs" class="input-field" placeholder="Nhập mật khẩu" required>               
-            </div>            
+            </div>  
+            <div class="input-item">
+                <i class="fa-solid fa-square-check"></i><input type="password" name="confirmpassRG" id="confirmpasssRG" class="input-field" placeholder="Nhập lại mật khẩu" required>
+            </div>
             <button type="submit" class="submit-btn submit-btn-register">Đăng ký</button>
-        </form>
+        </div>
         <a asp-area="" asp-page="/Index" class="home-link"><i class="fa-solid fa-chevron-left"></i>Về trang chủ</a>
     </div>
 </div>
 <script src="~/js/login-register.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>	
+	function validateFilledName() {
+		var name = $("input[name='name']");
+		if ((name.val().trim()) === "") return false;
+		return true;
+	}
+
+	function validateFilledEmail() {
+		var name = $("input[name='email']");
+		if ((name.val().trim()) === "") return false;
+		return true;
+	}
+
+	function validateFilledPhone() {
+		var name = $("input[name='phone']");
+		if ((name.val().trim()) === "") return false;
+		return true;
+	}
+
+	function validateFilledNewPass() {
+		var name = $("input[name='pass']");
+		if ((name.val().trim()) === "") return false;
+		return true;
+	}
+
+	function validateFilledConfirmPass() {
+		var name = $("input[name='confirmpassRG']");
+		if ((name.val().trim()) === "") return false;
+		return true;
+	}
+
+	function checkValidate() {
+		var nameEle = $("#namee");
+		var emailEle = $('#emaill');
+		var phoneEle = $('#phonee');
+		var passEle = $('#passs');
+		var confirmpassEle = $('#confirmpasssRG');
+
+		let nameValue = nameEle.val();
+		let emailValue = emailEle.val();
+		let phoneValue = phoneEle.val();
+		let passValue = passEle.val();
+		let confirmpassValue = confirmpassEle.val();
+
+		let isCheck = true;
+
+		if (!validateFilledName()) {
+			$('#error').text('* Vui lòng nhập họ tên!');
+			isCheck = false;
+			return isCheck;
+		} 
+		else if (!isName(nameValue)) {
+			$('#error').text('* Họ tên không đúng!');
+			isCheck = false;
+			return isCheck;
+		}
+		else {
+			$('#error').text('');
+		}
+
+		if (!validateFilledEmail()) {
+			$('#error').text('* Vui lòng nhập email!');
+			isCheck = false;
+			return isCheck;
+		}
+		else if (!isEmail(emailValue)) {
+			$('#error').text('* Email bị sai định dạng!');
+			isCheck = false;
+			return isCheck;
+		} else {
+				var newEmail = emailValue.trim();
+				var listEmails = [];						
+				@foreach (var item in Model.List_Staffs)
+				{
+					@:listEmails.push('@item.StaEmail')
+				}
+				@foreach (var item in Model.List_Customers)
+				{
+					@:listEmails.push('@item.CusEmail')
+				}
+				if (listEmails.some(function (name) { return name === newEmail })) {
+				$('#error').text('* Email đã tồn tại!');
+				isCheck = false;
+				return isCheck;
+			} else {
+				$('#error').text('');
+			}
+		}
+
+		if (!validateFilledPhone()) {
+			$('#error').text('* Vui lòng nhập số điện thoại!');
+			isCheck = false;
+			return isCheck;
+		}
+		else if (!isPhone(phoneValue)) {
+			$('#error').text('* Số điện thoại bị sai định dạng!');
+			isCheck = false;
+			return isCheck;
+		} else {
+				var newPhone = phoneValue.trim();
+				var listPhones = [];
+				@foreach (var item in Model.List_Staffs)
+				{
+					@:listPhones.push('@item.StaPhone')
+				}
+				@foreach (var item in Model.List_Customers)
+				{
+					@:listPhones.push('@item.CusPhone')
+				}
+				if (listPhones.some(function (name) { return name === newPhone })) {
+				$('#error').text('* Số điện thoại đã tồn tại!');
+				isCheck = false;
+				return isCheck;
+			} else {
+				$('#error').text('');
+			}
+		}
+
+		if (!validateFilledNewPass()) {
+			$('#error').text('* Vui lòng nhập mật khẩu!');
+			isCheck = false;
+			return isCheck;
+		} else {
+			if (!isPass(passValue)) {
+				$('#error').text('* Mật khẩu phải từ 8 đến 15 ký tự với ít nhất 1 chữ cái thường, 1 chữ cái in hoa, 1 chữ số và 1 ký tự đặc biệt!');
+				isCheck = false;
+				return isCheck;
+			} else {
+				$('#error').text('');
+				if (!validateFilledConfirmPass()) {
+					$('#error').text('* Vui lòng xác nhận lại mật khẩu!');
+					isCheck = false;
+					return isCheck;
+				} else if (passValue !== confirmpassValue) {
+					$('#error').text('* Không khớp với mật khẩu. Vui lòng nhập lại!');
+					isCheck = false;
+					return isCheck;
+				}
+			}
+		}
+
+		return isCheck;
+	}
+
+	function validateForm(event) {
+		let isValid = checkValidate();
+		if (isValid) {
+
+			event.preventDefault();
+			// Lấy các giá trị từ input fields
+			var email = $("#emaill").val();
+			var name = $("#namee").val();
+			var phone = $("#phonee").val();
+			var pass = $("#passs").val();
+
+			// Tạo form ẩn
+			var hiddenForm = $("<form></form>").attr("method", "post").attr("action", "https://localhost:44344/Login/SendMail/SendMailIden");
+
+			// Tạo input fields ẩn và gắn các giá trị
+			var emailInput = $("<input>").attr("type", "hidden").attr("name", "email").val(email);
+			hiddenForm.append(emailInput);
+
+			var nameInput = $("<input>").attr("type", "hidden").attr("name", "name").val(name);
+			hiddenForm.append(nameInput);
+
+			var phoneInput = $("<input>").attr("type", "hidden").attr("name", "phone").val(phone);
+			hiddenForm.append(phoneInput);
+
+			var passInput = $("<input>").attr("type", "hidden").attr("name", "pass").val(pass);
+			hiddenForm.append(passInput);
+
+			// Thêm form ẩn vào body của document
+			$("body").append(hiddenForm);
+
+			// Submit form ẩn
+			hiddenForm.submit();
+		}
+		else {
+			event.preventDefault();
+		}
+	}
+
+	$('.submit-btn-register').click(validateForm);
+
+	function isName(name) {
+		return /^([a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)((\s{1}[a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){1,})$/.test(name.toLowerCase());
+	}
+
+	function isEmail(email) {
+		return /^[a -z0-9](\.?[a-z0-9]){4,}@@gmail\.com$/.test(email);
+	}
+
+	function isPhone(number) {
+		return /^0[35789][0-9]{8}\b/.test(number);
+	}
+
+	function isPass(pass) {
+		return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/.test(pass);
+	}
+</script>

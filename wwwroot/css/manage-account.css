@@ -75,7 +75,7 @@ a.manage-account__link:hover {
     background-color: var(--white-color);
     padding: 20px 30px;
     margin: 0 auto;
-    width: 50%;
+    width: 40%;
     border-radius: 8px;
     position: relative;
 }
@@ -156,6 +156,7 @@ input.form-control:focus {
 
 .button__save-change {
     width: 100%;
+    margin-top: 10px;
 }
 /* End Update Account */
 

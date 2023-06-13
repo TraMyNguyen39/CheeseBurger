@@ -37,8 +37,8 @@ namespace CheeseBurger.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("isDeleted")
                         .HasColumnType("bit");
@@ -204,6 +204,23 @@ namespace CheeseBurger.Migrations
                     b.HasIndex("IngredientsId");
 
                     b.ToTable("Food_Ingredients");
+                });
+
+            modelBuilder.Entity("CheeseBurger.Model.Entities.IdenCode", b =>
+                {
+                    b.Property<int>("IcodeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IcodeId"));
+
+                    b.Property<string>("ICodeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IcodeId");
+
+                    b.ToTable("IdenCodes");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.ImportOrder", b =>
@@ -424,26 +441,6 @@ namespace CheeseBurger.Migrations
                     b.HasKey("PartnerID");
 
                     b.ToTable("Partners");
-                });
-
-            modelBuilder.Entity("CheeseBurger.Model.Entities.Revenues", b =>
-                {
-                    b.Property<DateTime>("DateReve")
-                        .HasColumnType("datetime2");
-
-                    b.Property<float>("Fund")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Income")
-                        .HasColumnType("real");
-
-                    b.Property<int>("NumberIOrder")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOrder")
-                        .HasColumnType("int");
-
-                    b.ToTable("Revenues");
                 });
 
             modelBuilder.Entity("CheeseBurger.Model.Entities.Review", b =>

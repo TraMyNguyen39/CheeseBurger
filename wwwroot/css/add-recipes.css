@@ -28,6 +28,7 @@
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 20px;
+    text-transform: capitalize;
 }
 .recipes .text-danger {
     margin: 0 auto;

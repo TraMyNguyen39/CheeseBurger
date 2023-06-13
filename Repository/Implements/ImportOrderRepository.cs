@@ -48,7 +48,7 @@ namespace CheeseBurger.Repository.Implements
 							 PartnerName = a.PartnerName,
 							 StaffID= c.StaffID,
 						 };
-			if (timeStart != default(DateTime) || timeEnd != default(DateTime))
+			if (timeStart != default(DateTime) && timeEnd != default(DateTime))
 			{
 				import = import.Where(p => p.DateIO >= timeStart && p.DateIO <= timeEnd);
 			}

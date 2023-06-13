@@ -94,12 +94,17 @@ namespace CheeseBurger.Pages
             {
                 customerService.UpdateData(CusID, FindIDRole);
             } 
-            return RedirectToPage("ManageUser");
+            return RedirectToPage("/Admin/ManageUser");
         }
         public IActionResult OnPostDelete(int CusID)
         {
             customerService.DeleteData(CusID);
-            return RedirectToPage("ManageUser");
+            return RedirectToPage("/Admin/ManageUser");
         }
-    }
+		public IActionResult OnPostRecycle(int CusID)
+		{
+			customerService.RecycleData(CusID);
+			return RedirectToPage("/Admin/ManageUser");
+		}
+	}
 }

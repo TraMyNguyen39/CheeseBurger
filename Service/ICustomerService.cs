@@ -13,6 +13,9 @@ namespace CheeseBurger.Service
 		List<CustomerDTO> GetAllCustomers();
 		void UpdateInfo(int id, string name, string email, string phone, int gender, string house, int WardID);
 		void AddNewCus(string name, string phone);
-
-    }
+		int GetCusIDByPhone(string phone);
+		void RecycleData(int id);
+		List<CustomerDTO> GetListCusNotSta();
+		List<CustomerDTO> GetListCusNotId(int id);
+	}
 }

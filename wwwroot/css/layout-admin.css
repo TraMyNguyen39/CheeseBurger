@@ -167,6 +167,7 @@ ul.categories__list {
 
 a.nav-link {
     border-bottom: 1px solid var(--border-color);
+    user-select: none;
 }
 a.nav-link i {
     margin-right: 10px;
@@ -311,8 +312,8 @@ i.fas.fa-right-from-bracket {
     .button__exit .exit__surround {
         text-align: center;
         line-height: 40px;
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
         background-color: #D43352;
         border: 0;
         border-bottom-left-radius: 8px;
@@ -345,7 +346,7 @@ i.fas.fa-right-from-bracket {
 }
 
 .modal__label-main {
-    font-size: 2rem;
+    font-size: 1.8rem;
     padding-left: 10px;
 }
 
@@ -368,7 +369,7 @@ i.fas.fa-right-from-bracket {
     height: 40px;
     color: var(--white-color);
     background: linear-gradient(to right, #ee4d2d,#ff7337);
-    margin-top: 20px;
+    margin-top: 10px;
     border-radius: 5px;
     font-weight: 500;
     border: none;
@@ -380,7 +381,7 @@ a.submit-btn {
     line-height: 40px;
     text-decoration: none;
     margin-right: 15px;
-    margin-left: 10%;
+    margin-left: 30px;
 }
 
     a.submit-btn:hover {
@@ -453,4 +454,20 @@ i.fas.fa-ban {
 }
 i.fas.fa-pencil-alt {
     color: dodgerblue;
+}
+i.fa-solid.fa-rotate {
+    color: dodgerblue;
+} 
+
+i.fa-regular.fa-square-minus:hover {
+    opacity: unset !important;
+    cursor: default !important;
+} 
+
+select:focus-visible {
+    outline: none !important;
+}
+
+input:focus {
+    box-shadow: none !important;
 }

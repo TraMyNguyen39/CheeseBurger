@@ -14,7 +14,7 @@
 }*/
 
 form {
-    margin: 0;
+    margin-left: 10px;
 }
 
 .datetime {
@@ -35,7 +35,7 @@ form {
 .form__comboBox select[name="combobox_Item"] {
     color: var(--text-color);
     border: 1px solid var(--text-color);
-    border-radius: 8px;
+    border-radius: 4px;
     width: 120px;
     height: 30px;
     font-size: 1.6rem;
@@ -44,7 +44,7 @@ form {
 .form-group input[type="date"], .form-group2 input[type="date"] {
     border-radius: 4px;
     border: 1px solid var(--text-color);
-    width: 90%;
+    width: 100%;
     font-size: 1.6rem;
     height: 30px;
     padding-left: 5px;
@@ -80,6 +80,10 @@ form {
     height: auto;
     padding-right: 10px !important;
 }
+.best__seller-info {
+    margin-top: 20px;
+/*    margin-left: 20px;*/
+}
 .column__info-total .column__total-offer {
     width: 100%;
     height: 120px;
@@ -101,17 +105,17 @@ form {
 
 .infor__details {
     font-size: 1.8rem;
+    display: flex;
+    justify-content: space-between;
 }
 
     .infor__details .best__seller-info {
         width: 100%;
         height: 560px;
-        background-color: var(--white-color);
-        margin-top: 20px;
-        padding-top: 12px;
+        background-color: var(--white-color);    
+        padding-top: 2px;
         padding-left: 1px;
-        border-radius: 6px;
-        box-shadow: 1px 0px 9px 0px rgba(0,0,0,.4);
+        border-radius: 6px;        
     }
 
         .infor__details .best__seller-info .title {
@@ -153,6 +157,12 @@ form {
     padding-left: 22px;
 }
 
+.image_cus_vip {
+    width: 60px;
+    height: fit-content;
+    padding-left: 20px;
+}
+
 .foodname_best_seller {
     margin-left: 3%;
     text-transform: capitalize;
@@ -161,7 +171,96 @@ form {
 }
 
 .chart_best_seller {
-    margin-top: 30px;
+    margin-left: 7%;
+/*    position: absolute;
+    bottom: -230%;*/
+}
+
+.chart_cus_vip {
+    margin-top: 10%;
 }
 
 /* End Information */
+/* box detail */
+.form-box-revenue {
+    font-size: 1.6rem;
+    width: 400px;
+    padding: 5px;
+    position: relative;
+    background: var(--white-color);
+    box-shadow: 1px 0px 9px 1px var(--admin-color);
+    border-radius: 6px;
+    text-align: center;
+    overflow: hidden;
+    margin-top: 121px;
+    margin-bottom: 30px;
+}
+
+.form-box-revenue .button-box-revenue {
+    width: 80%;
+    margin: 10px auto;
+    position: relative;
+    box-shadow: 0 0 20px 20px var(--div-color);
+    border-radius: 20px;
+}
+
+#switch-btn-revenue {
+    top: 0;
+    left: 0;
+    position: absolute;
+    /* width:  110px; */
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, #ee4d2d,#ff7337);
+    border-radius: 20px;
+    transition: .5s;
+    border: none;
+    outline: none;
+}
+
+.toggle-btn-revenue {
+    display: flex;
+}
+
+button.button-box__toggle-btn-revenue {
+    outline: none;
+    border: none;
+    font-weight: 400;
+    padding: 10px;
+    cursor: pointer;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+    font-size: 1.6rem;
+    width: 50%;
+    border: none;
+    border-radius: 20px;
+}
+
+.input-group-revenue {
+    position: absolute; 
+    width: 96%;
+    transition: .5s;
+}
+/*
+#best_seller {
+    left: 0px;
+}*/
+
+#cus_vip {
+    left: 450px;
+    margin-left: 10px;
+}
+#donutChart {
+    width: 90% !important;
+    height: fit-content !important;
+    transform: none !important;
+    margin-top: 2%;
+}
+/*.chart_best_seller {
+    display: block;
+    width: 90%;
+    position: absolute;
+    bottom: -190%;
+    left: 5%;
+}*/

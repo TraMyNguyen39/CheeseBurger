@@ -14,8 +14,8 @@
 .form-box {
     font-size: 1.6rem;
     width: 400px;
-    height: 600px;
-    max-height: 85vh;
+    height: 800px;
+    max-height: 87vh;
     padding: 5px;
     position: relative;
     background: var(--white-color);
@@ -126,9 +126,30 @@ button.button-box__toggle-btn {
     margin-top: 20px;
 }
 
-    .input-group .submit-btn:hover {
-        opacity: 0.8;
-    }
+.input-group .submit-btn:hover {
+    opacity: 0.8;
+}
+
+.input-group .submit-btn-log {
+    width: 100%;
+    font-weight: 400;
+    color: var(--white-color);
+    padding: 10px 0;
+    background: linear-gradient(to right, #ff105f, #ffad06);
+    border: 0;
+    font-size: 1.6rem;
+    outline: none;
+    border-radius: 20px;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+    display: block;
+    margin-top: 20%;
+}
+
+.input-group .submit-btn-log:hover {
+    opacity: 0.8;
+}
 
 .checkbox-field {
     display: flex;
@@ -197,6 +218,10 @@ button.button-box__toggle-btn {
 .success-form-forget {
     height: 60vh;
     max-height: 450px;
+}
+
+.success-form-change-new-pass {
+    height: 66vh;    
 }
 
 .logo-link .logo-brand-success {

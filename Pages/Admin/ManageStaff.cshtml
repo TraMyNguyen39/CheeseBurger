@@ -5,10 +5,6 @@
 }
 <link rel="stylesheet" href="~/css/manage-user.css" asp-append-version="true" />
 
-@{
-	int CntStaff = 0;
-}
-
 <div class="main__information">
 	<div class="main__information-detail">
 		<div class="d-flex justify-content-between align-items-center mb-5">
@@ -18,7 +14,7 @@
 					<option value="all">Tất cả</option>
 					<option value="admin">Quản trị viên</option>
 					<option value="chef">Nhân viên đầu bếp</option>
-					<option value="shipper">Nhân viên giao hàng</option>					
+					<option value="shipper">Nhân viên giao hàng</option>
 				</select>
 				<input name="sortBy" value="@Model.sortBy" type="hidden" />
 				<input name="search" value="@Model.searchText" type="hidden" />
@@ -54,40 +50,54 @@
 		}
 		<table class="content-table">
 			<thead>
-				<tr class="tr">					
-					<th class="ID col-1">Mã NV</th>
+				<tr class="tr">
+					<th class="ID col-2">Mã NV</th>
 					<th class="Name col-3">Họ và tên</th>
-					<th class="Role col-2">Chức vụ</th>
+					<th class="Role col-3">Chức vụ</th>
 					<th class="SDT col-2">Số điện thoại</th>
-					<th class="Option__eye col-1">Xem</th>
-					<th class="Option__pencil col-1">Sửa</th>
-					<th class="Option__ban col-1">Xoá</th>
+					<th class="Option col-2">Tùy chọn</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach (var staff in staffs)
 				{
-					@if (staff.StaIsStaff == true && staff.StaIsDeleted == false)
-					{
-						<tr class="tr">							
-							<td class="ID">@(100 + (@staff.StaID))</td>
-							<td class="Name">@staff.StaName</td>
-							<td class="Role">@staff.StaRoleName</td>
-							<td class="SDT">@staff.StaPhone</td>
-							<td class="Option__eye" data-id="@staff.StaID"> <i class="fas fa-eye"></i></td>
-							<td class="Option__pencil" data-id="@staff.StaID"> <i class="fas fa-pencil-alt"></i></td>
-							<td class="Option__ban" data-id="@staff.StaID">  <i class="fas fa-ban"></i></td>
-						</tr>
-					}
-				}			
+					<tr class="tr">
+						<td class="ID">@staff.StaID</td>
+						<td class="Name">@staff.StaName</td>
+						<td class="Role">@staff.StaRoleName</td>
+						<td class="SDT">@staff.StaPhone</td>
+						<td class="Option">
+							<i class="fas fa-eye" data-id="@staff.StaID" title="Xem"></i>
+							@if (!staff.StaIsDeleted)
+							{
+								if (staff.StaID == Model.CurStaID)
+								{
+									<i class="fa-regular fa-square-minus" data-id="@staff.StaID"></i>
+									<i class="fa-regular fa-square-minus" data-id="@staff.StaID"></i>
+									<input type="hidden" class="curStaId" value="@Model.CurStaID.ToString()">
+								}
+								else
+								{
+									<i class="fas fa-pencil-alt" data-id="@staff.StaID" title="Cập nhật"></i>
+									<i class="fas fa-ban" data-id="@staff.StaID" title="Xoá"></i>
+								}
+							}
+							else
+							{
+								<i class="fa-solid fa-rotate" data-id="@staff.StaID" title="Khôi phục"></i>
+								<i class="fa-regular fa-square-minus"></i>
+							}
+						</td>
+					</tr>
+				}
 			</tbody>
-		</table>		
+		</table>
 		@{
 			var pagingmodel = new CheeseBurger.Helpers.PagingModel()
 			{
 				currentPage = Model.currentPage,
 				countPages = totalPages,
-				generateUrl = (int? p) => Url.Page("/Admin/ManageStaff", new { p, Model.searchText, Model.roleBy, Model.sortBy })
+				generateUrl = (int? p) => Url.Page("/Admin/ManageStaff", new { p, search = Model.searchText, Model.roleBy, Model.sortBy })
 			};
 		}
 		<partial name="_Paging" model="@pagingmodel" />
@@ -102,7 +112,7 @@
 					<i class="fas fa-times"></i>
 				</div>
 			</div>
-			<div class="modal__account-details">			
+			<div class="modal__account-details">
 				<div class="modal__account-label d-flex align-items-center">
 					<p class="modal__label-cate">Cập nhật tài khoản</p>
 					<p class="modal__label-main" id="name"></p>
@@ -157,7 +167,7 @@
 					</div>
 				</div>
 				<div class="button__account-save">
-					<button class="" type="submit">Cập nhật thông tin tài khoản</button>
+					<button class="" type="submit">CẬP NHẬT THÔNG TIN TÀI KHOẢN</button>
 				</div>
 			</div>
 			<input type="hidden" name="StaID" class="modal__staff-id" value="" />
@@ -166,47 +176,45 @@
 </form>
 <!-- End Update staff -->
 <!-- Full Information -->
-<form method="post" asp-page="ManageStaff">
-	<div class="modal__info-full">
-		<div class="modal__info-details">
-			<div class="button__exit d-flex justify-content-end">
-				<div class="exit__surround">
-					<i class="fas fa-times"></i>
-				</div>
-			</div>
-			<div class="modal__staff-details">
-				<p class="modal__label-main">
-					<input name="StaID" type="hidden" />
-					<div class="modal__staff-label d-flex align-items-center">
-						<p class="modal__label-cate">Chi tiết tài khoản</p>
-						<p class="modal__label-main" id="name"></p>
-					</div>
-				</p>
-				<div class="staff__info-full d-flex">
-					<div class="staff__info-key col-3">
-						<p class="categories__text" for="id">Mã người dùng:</p>
-						<p class="categories__text" for="name">Họ và tên:</p>
-						<p class="categories__text" for="gender">Giới tính:</p>
-						<p class="categories__text" for="role">Chức vụ</p>
-						<p class="categories__text" for="phone">Số điện thoại:</p>
-						<p class="categories__text" for="email">Email:</p>
-						<p class="categories__text" for="address">Địa chỉ:</p>						
-					</div>
-					<div class="staff__info-value col-9">
-						<p class="categories__text" id="id"></p>
-						<p class="categories__text" id="name"></p>
-						<p class="categories__text" id="gender"></p>
-						<p class="categories__text" id="role"></p>
-						<p class="categories__text" id="phone"></p>
-						<p class="categories__text" id="email"></p>
-						<p class="categories__text" id="address"></p>
-					</div>
-				</div>
-				@*<button class="submit-btn btn-save" type="submit">Thay đổi thông tin tài khoản</button>*@
+<div class="modal__info-full">
+	<div class="modal__info-details">
+		<div class="button__exit d-flex justify-content-end">
+			<div class="exit__surround">
+				<i class="fas fa-times"></i>
 			</div>
 		</div>
+		<div class="modal__staff-details">
+			<p class="modal__label-main">
+				<input name="StaID" type="hidden" />
+				<div class="modal__staff-label d-flex align-items-center">
+					<p class="modal__label-cate">Chi tiết tài khoản</p>
+					<p class="modal__label-main" id="name"></p>
+				</div>
+			</p>
+			<div class="staff__info-full d-flex">
+				<div class="staff__info-key col-4">
+					<p class="categories__text" for="id">Mã người dùng:</p>
+					<p class="categories__text" for="name">Họ và tên:</p>
+					<p class="categories__text" for="gender">Giới tính:</p>
+					<p class="categories__text" for="role">Chức vụ</p>
+					<p class="categories__text" for="phone">Số điện thoại:</p>
+					<p class="categories__text" for="email">Email:</p>
+					<p class="categories__text" for="address">Địa chỉ:</p>
+				</div>
+				<div class="staff__info-value col-8">
+					<p class="categories__text" id="id"></p>
+					<p class="categories__text" id="name"></p>
+					<p class="categories__text" id="gender"></p>
+					<p class="categories__text" id="role"></p>
+					<p class="categories__text" id="phone"></p>
+					<p class="categories__text" id="email"></p>
+					<p class="categories__text" id="address"></p>
+				</div>
+			</div>
+			<button class="submit-btn exit-btn" style="width: 100%">OK</button>
+		</div>
 	</div>
-</form>
+</div>
 <!-- End Full Information -->
 <form method="post" asp-page="ManageStaff" asp-page-handler="Delete">
 	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
@@ -235,6 +243,34 @@
 		</div>
 	</div>
 </form>
+<!-- Modal -->
+<form method="post" asp-page="ManageStaff" asp-page-handler="Recycle">
+	<div class="modal fade" id="recycle" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title_1" id="confirm-label"></h4>
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				</div>
+				<div class="modal-body">
+					<div class="text-center wirningColor">
+						<i class="fas fa-exclamation-triangle fa-4x"></i>
+					</div>
+					<br />
+					<center>
+						<p class="message"></p>
+						<input type="hidden" name="StaID" class="modal__staff-id" value="" />
+					</center>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-danger dismiss" data-dismiss="modal"></button>
+					<button type="submit" class="btn btn-primary confirm"></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<!-- End Modal Recycle -->
 <script src="~/js/manage-staff.js"></script>
 @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -250,14 +286,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$('.Option__eye').on('click', function () {
+		$('.fa-eye').on('click', function () {
 			var id = $(this).data('id');
 			$.ajax({
 				type: 'GET',
 				data: { id: id },
 				url: '@Url.Page("ManageStaff", "Find")',
 				success: function (result) {
-					$('.modal__info-full #id').text(result.id + 100);
+					$('.modal__info-full #id').text(result.id);
 					$('.modal__info-full #name').text(result.name);
 					$('.modal__info-full #gender').text(result.gender ? "Nam" : "Nữ");
 					$('.modal__info-full #phone').text(result.phone);
@@ -271,8 +307,8 @@
 			});
 		});
 
-		$('.Option__pencil').on('click', function () {
-			var id = $(this).data('id');						
+		$('.fa-pencil-alt').on('click', function () {
+			var id = $(this).data('id');
 			$.ajax({
 				type: 'GET',
 				data: { id: id },
@@ -286,8 +322,8 @@
 					$('.modal__account-update input[name="District"]').val(result.diss);
 					$('.modal__account-update input[name="Ward"]').val(result.wrdd);
 					$('.modal__account-update input[name="HouseNum"]').val(result.housenum);
-					
-					$('select[name="combobox_Item"] option').filter(function() {
+
+					$('select[name="combobox_Item"] option').filter(function () {
 						return $(this).text().trim() === result.rolnamee;
 					}).prop('selected', true);
 				},
@@ -339,24 +375,89 @@
 			};
 		})(jQuery);
 	});
-	$(".Option__ban").click(function () {
+	$(".fa-ban").click(function () {
+		var id = $(this).data('id');
+		var curStaId = $('.curStaId').val();
+		if (curStaId != id.toString()) {
+			$.ajax({
+				type: 'GET',
+				data: { id: id },
+				url: '@Url.Page("ManageStaff", "Find")',
+				success: function (result) {
+					$('#confirm input[name="StaID"]').val(result.id); // Lưu trữ ID vào trường ẩn
+				},
+				error: function (xhr, textStatus, errorThrown) {
+					alert('Error loading ingredient: ' + errorThrown);
+				}
+			});
+			$('#confirm').confirm({
+				title: 'Xác nhận xóa',
+				message: 'Bạn có chắc chắn muốn xóa nhân viên này không?',
+				confirm: 'Xác nhận',
+				dismiss: 'Hủy bỏ'
+			});
+		}
+	});
+</script>
+
+<script>
+	$(function () {
+		(function ($) {
+			$.fn.confirm = function (options) {
+				var settings = $.extend({}, $.fn.confirm.defaults, options);
+
+				return this.each(function () {
+					var element = this;
+					$('.modal-title', this).html(settings.title);
+					$('.message', this).html(settings.message);
+					$('.confirm', this).html(settings.confirm);
+					$('.dismiss', this).html(settings.dismiss);
+
+					$(this).on('click', '.confirm', function (event) {
+						$(element).data('confirm', true);
+					});
+
+					$(this).on('hide.bs.modal', function (event) {
+						if ($(this).data('confirm')) {
+							$(this).trigger('confirm', event);
+							$(this).removeData('confirm');
+						} else {
+							$(this).trigger('dismiss', event);
+						}
+
+						$(this).off('confirm dismiss');
+					});
+
+					$(this).modal('show');
+				});
+			};
+
+			$.fn.confirm.defaults = {
+				title: 'Modal title',
+				message: 'One fine body&hellip;',
+				confirm: 'OK',
+				dismiss: 'Cancel'
+			};
+		})(jQuery);
+	});
+	$(".fa-rotate").click(function () {
 		var id = $(this).data('id');
 		$.ajax({
 			type: 'GET',
 			data: { id: id },
 			url: '@Url.Page("ManageStaff", "Find")',
 			success: function (result) {
-				$('#confirm input[name="StaID"]').val(result.id); // Lưu trữ ID vào trường ẩn
+				$('#recycle input[name="StaID"]').val(result.id); // Lưu trữ ID vào trường ẩn
 			},
 			error: function (xhr, textStatus, errorThrown) {
 				alert('Error loading ingredient: ' + errorThrown);
 			}
 		});
-		$('#confirm').confirm({
-			title: 'Xác nhận xóa',
-			message: 'Bạn có muốn xóa nhân viên này không?',
-			confirm: 'Delete',
-			dismiss: 'Cancel'
+		$('#recycle').confirm({
+			title: 'Xác nhận khôi phục',
+			message: 'Bạn có muốn chắc chắn khôi phục nhân viên này không?',
+			confirm: 'Xác nhận',
+			dismiss: 'Hủy bỏ'
 		});
 	});
 </script>

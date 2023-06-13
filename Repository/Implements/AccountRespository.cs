@@ -12,7 +12,16 @@ namespace CheeseBurger.Repository.Implements
         }
         public Account GetAccount(string email, string password)
         {
-            return context.Accounts.Where(p => p.Email == email && p.Password == password).FirstOrDefault();
+            var user = context.Accounts.FirstOrDefault(p => p.Email == email);
+            if (user != null)
+            {
+                bool isPasswordCorrect = BCrypt.Net.BCrypt.Verify(password, user.Password);
+                if (isPasswordCorrect)
+                {
+                    return user;
+                }
+            }
+            return null;
         }
 
         public string GetNamebyID(int idAccount, bool isStaff)
@@ -31,6 +40,7 @@ namespace CheeseBurger.Repository.Implements
         public string GetPasswordbyID(int idAccount)
         {
             return context.Accounts.Where(p => p.AccountID == idAccount).Select(p => p.Password).FirstOrDefault();
+            
         }
         public void ChangePassword(int idAccount, string newPassword)
 		{
@@ -57,6 +67,11 @@ namespace CheeseBurger.Repository.Implements
         {
             return context.Accounts.Where(p => p.isDeleted == false).Select(p => p).ToList();
         }
+        public int GetIDAccountByMail(string email)
+        {
+            var acc = context.Accounts.Where(p => p.Email.Equals(email)).FirstOrDefault();
+            return acc.AccountID;
+        }
 
-	}
+    }
 }

@@ -64,7 +64,7 @@
 
 .categories-edit {
     background-color: var(--white-color);
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 }
 
 .info__form input[type="search"] {
@@ -93,9 +93,10 @@
 }
 
 .list-food-item {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin-left: 10%;
     margin-top: 5px;
+    text-transform:capitalize;
 }
 
 .categories__information-key {

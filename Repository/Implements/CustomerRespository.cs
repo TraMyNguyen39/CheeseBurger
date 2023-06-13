@@ -46,12 +46,11 @@ namespace CheeseBurger.Repository.Implements
 		{
 			var cus_data = from c in context.Customers
 						   join a in context.Accounts on c.AccountID equals a.AccountID
-						   where a.isStaff == false
+						   where a.isStaff == false 
 						   select new { c, a };
 
 			var customer = from p in cus_data
-						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()
-						   where p.a.isDeleted == false
+						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()						   
 						   select new CustomerDTO
 						   {
 							   CusID = p.c.CustomerID,
@@ -74,8 +73,11 @@ namespace CheeseBurger.Repository.Implements
 				case "name":
 					customer = isDescending ? customer.OrderByDescending(p => p.CusName) : customer.OrderBy(p => p.CusName);
 					break;
-			}		
-			return customer.ToList();
+			}
+			if (!searchText.IsNullOrEmpty())
+				return customer.ToList();
+			else
+				return customer.Where(p => p.CusIsDeleted == false).ToList();
 		}
 		public void UpdateData(int id, int roleID)
 		{			
@@ -165,5 +167,69 @@ namespace CheeseBurger.Repository.Implements
 				context.SaveChanges();
 			}
         }
-    }
+		public int GetCusIDByPhone(string phone)
+		{
+			var cus_data = context.Customers.Where(p => p.Phone == phone).FirstOrDefault();
+			if (cus_data != null)
+			{
+				return cus_data.CustomerID;
+			}
+			return -1;
+		}
+		public void RecycleData(int id)
+		{
+			var cus_data = context.Customers.Where(p => p.CustomerID == id).Select(p => p).FirstOrDefault();
+			var cus_acc = context.Accounts.Where(p => p.AccountID == cus_data.AccountID).Select(p => p).FirstOrDefault();
+			cus_acc.isDeleted = false;
+			context.SaveChanges();
+		}
+		public List<CustomerDTO> GetListCusNotSta()
+		{
+			var cus_data = from c in context.Customers
+						   join a in context.Accounts on c.AccountID equals a.AccountID
+						   where a.isStaff == false
+						   select new { c, a };
+
+			var customer = from p in cus_data
+						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()
+						   select new CustomerDTO
+						   {
+							   CusID = p.c.CustomerID,
+							   CusName = p.c.CustomerName,
+							   CusGender = p.c.Gender ?? true,
+							   CusPhone = p.c.Phone,
+							   CusEmail = p.a.Email,
+							   CusIsStaff = p.a.isStaff,
+							   CusIsDeleted = p.a.isDeleted,
+							   CusAccID = p.a.AccountID,
+							   WardID = (adr == null) ? 0 : adr.WardId,
+							   HouseNumber = p.c.HouseNumber
+						   };
+			return customer.ToList();
+		}
+		public List<CustomerDTO> GetListCusNotId(int id)
+		{
+			var cus_data = from c in context.Customers
+						   join a in context.Accounts on c.AccountID equals a.AccountID
+						   where c.CustomerID != id
+						   select new { c, a };
+
+			var customer = from p in cus_data
+						   from adr in context.Wards.Where(adr => adr.WardId == p.c.WardID).DefaultIfEmpty()
+						   select new CustomerDTO
+						   {
+							   CusID = p.c.CustomerID,
+							   CusName = p.c.CustomerName,
+							   CusGender = p.c.Gender ?? true,
+							   CusPhone = p.c.Phone,
+							   CusEmail = p.a.Email,
+							   CusIsStaff = p.a.isStaff,
+							   CusIsDeleted = p.a.isDeleted,
+							   CusAccID = p.a.AccountID,
+							   WardID = (adr == null) ? 0 : adr.WardId,
+							   HouseNumber = p.c.HouseNumber
+						   };
+			return customer.ToList();
+		}
+	}
 }

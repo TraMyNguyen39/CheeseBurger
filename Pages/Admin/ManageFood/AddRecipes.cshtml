@@ -1,0 +1,206 @@
+﻿@page
+@model AddRecipesModel
+@{
+	ViewData["Title"] = "AddRecipes";
+	ViewBag.Name = HttpContext.Session.GetString("FoodName");
+}
+
+<link rel="stylesheet" href="~/css/manage-ingredient.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/manage-food.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/add-recipes.css" asp-append-version="true" />
+
+<div class="add-recipes">
+	<div class="recipes">
+		<p class="modal__label-main">Công thức món ăn</p>
+		<div class="food-name">@(ViewBag.Name ?? "")</div>
+		@if (Model.ingreUsed != null)
+		{
+			<table class="table align-middle" id="addTable">
+				<thead>
+					<tr>
+						<th>Nguyên liệu</th>
+						<th>Số lượng</th>
+						<th>Xoá</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@for (var i = 0; i < Model.ingreUsed.Count; i++)
+					{
+						<tr class="recipe-item">
+							<td style="text-align: left;">@Model.ingreUsed[i].IngredientName</td>
+							<td class="indexInput">
+								<input type="text" name="quantity" value="@Model.qty[i]" />
+								<span>@Model.ingreUsed[i].MeasureName</span>
+							</td>
+							<td>
+								<input type="hidden" name="ingreID" value="@Model.ingreUsed[i].IngredientID" />
+								<button class="icon-btn remove-btn" onclick="removeItem(event)">
+									<i class="fa-solid fa-trash-can"></i>
+								</button>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+			<form method="post" asp-page-handler="SaveRecipe" id="UpdateForm">
+				<input type="hidden" asp-for="@Model.foodID" />
+				<input type="hidden" name="countItem" />
+				<button id="submit-recipe" class="submit-btn exit-btn" type="submit" style="width: 60%">Lưu công thức</button>
+			</form>
+		}
+		else
+		{
+			<div class="text-danger alert-danger" style="width: 60%">(Món ăn chưa có công thức!)</div>
+		}
+		<button class="submit-btn exit-btn" style="width: 60%; background: white; color: black"
+				onclick="window.location.href = 'https://localhost:44344/Admin/ManageFood/ManageFoodRecipe';">
+			<i class="fa-solid fa-chevron-left"></i>
+			Quay trở lại
+		</button>
+	</div>
+	<div class="ingre-recipes">
+		<p class="modal__label-main">Danh sách nguyên liệu</p>
+		<table id="data-table-fixed-columns" class="table table-bordered align-middle">
+			<thead>
+				<tr>
+					<th>Nguyên liệu</th>
+					<th>Nhà cung cấp</th>
+					<th>Đơn giá/Đơn vị</th>
+					<th>Thêm</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.ingredients)
+				{
+					<tr>
+						<td>@item.IngredientName</td>
+						<td>@item.PartnerName</td>
+						<td style="text-align: right;">
+							@(item.IngredientInputPrice.ToString("N0"))VNĐ
+						</td>
+						<td style="text-align: center">
+							@*<input type="hidden" name="ingreID" value="@item.IngredientID">*@
+							@*@for (var j = 0; j < Model.ingredients.Count; j++)
+						{
+						<input type="hidden" asp-for="@Model.ingredients[j].IngredientID" value="@Model.ingredients[j].IngredientID" />
+						<input type="hidden" asp-for="@Model.ingredients[j].IngredientInputPrice" value="@Model.ingredients[j].IngredientInputPrice" />
+						<input type="hidden" asp-for="@Model.ingredients[j].IngredientName" value="@Model.ingredients[j].IngredientName" />
+						<input type="hidden" asp-for="@Model.ingredients[j].PartnerName" value="@Model.ingredients[j].PartnerName" />
+						<input type="hidden" asp-for="@Model.ingredients[j].MeasureName" value="@Model.ingredients[j].MeasureName" />
+						}
+						@if (Model.ingreUsed != null)
+						{
+						@for (var j = 0; j < Model.ingreUsed.Count; j++)
+						{
+						<input type="hidden" asp-for="@Model.ingreUsed[j].IngredientID" value="@Model.ingreUsed[j].IngredientID" />
+						<input type="hidden" asp-for="@Model.ingreUsed[j].IngredientName" value="@Model.ingreUsed[j].IngredientName" />
+						<input type="hidden" asp-for="@Model.ingreUsed[j].MeasureName" value="@Model.ingreUsed[j].MeasureName" />
+						<input type="hidden" asp-for="@Model.qty[j]" class="add-qty" />
+						}
+						}
+						<input type="hidden" asp-for="@Model.foodID" value="@Model.foodID" />*@
+							<button class="icon-btn add-btn" data-id="@item.IngredientID">
+								<i class="fa-solid fa-square-plus"></i>
+							</button>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- Link JS -->
+<script src="/js/add-recipe.js"></script>
+
+<script>
+	$('.add-btn').on('click', function () {
+		var id = $(this).data('id');
+		$.ajax({
+			type: 'GET',
+			data: { id: id },
+			url: '@Url.Page("AddRecipes", "Find")',
+			success: function (result) {
+				console.log(result);
+				var ingreID = result.ingredientID;
+				var ingreUsed = document.querySelectorAll('.recipe-item input[name="ingreID"]');
+				var exist = false;
+				for (var i = 0; i < ingreUsed.length; i++) {
+					if (ingreUsed[i].value == ingreID) {
+						exist = true;
+						break;
+					}
+				}
+				if (!exist) {
+					addNewRow(result);
+				}
+			},
+			error: function (xhr, textStatus, errorThrown) {
+				alert('Error loading ingredient: ' + errorThrown);
+			}
+		});
+	});
+
+	function addNewRow(result) {
+		// Lấy đối tượng bảng theo id
+		var table = document.getElementById("addTable");
+
+		// Tạo một dòng mới
+		var newRow = document.createElement("tr");
+		newRow.className = "recipe-item";
+
+		// Tạo các ô và thêm vào dòng mới
+		var cell1 = document.createElement("td");
+		cell1.style.textAlign = "left";
+		cell1.innerHTML = result.ingredientName;
+		newRow.appendChild(cell1);
+
+		var cell2 = document.createElement("td");
+		cell2.className = "indexInput";
+		cell2.innerHTML = '<input type="text" name="quantity" value="1" />' +
+			'<span>' + result.measureName + '</span>';
+		newRow.appendChild(cell2);
+
+		var cell3 = document.createElement("td");
+		var hiddenInput = document.createElement("input");
+		hiddenInput.type = "hidden";
+		hiddenInput.name = "ingreID";
+		hiddenInput.value = result.ingredientID;
+		cell3.appendChild(hiddenInput);
+
+		var removeButton = document.createElement("button");
+		removeButton.type = "submit";
+		removeButton.className = "icon-btn remove-btn";
+		removeButton.onclick = function () {
+			removeItem(event);
+		};
+		var trashIcon = document.createElement("i");
+		trashIcon.className = "fa-solid fa-trash-can";
+		removeButton.appendChild(trashIcon);
+		cell3.appendChild(removeButton);
+		newRow.appendChild(cell3);
+
+		// Thêm dòng mới vào bảng
+		table.appendChild(newRow);
+
+	}
+
+	function removeItem(event) {
+		var row = event.target.closest("tr");
+		if (row) {
+			row.remove();
+		}
+	}
+</script>

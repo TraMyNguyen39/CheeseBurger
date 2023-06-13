@@ -3,6 +3,7 @@ using CheeseBurger.Middleware;
 using CheeseBurger.Model.Entities;
 using CheeseBurger.Service;
 using CheeseBurger.Service.Implements;
+using CheeseBurger.Service.ImplementsGetPrice;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.IdentityModel.Tokens;
@@ -24,7 +25,8 @@ namespace CheeseBurger.Pages.Admin
 		public string sortBy { get; set; }
 		public string searchText { get; set; }
         public string ModalAddName { get; set; }
-        public ManageCategoriesModel(ICategoryService categoryService)
+		public string MessageCate { get; set; }
+		public ManageCategoriesModel(ICategoryService categoryService)
 		{
 			this.categoryService = categoryService;
 		}
@@ -34,7 +36,11 @@ namespace CheeseBurger.Pages.Admin
 			int totalRow = categoryService.getRowCategory();
 
 			this.sortBy = Request.Query["sortBy"];
-			if (!(sortBy.IsNullOrEmpty()) || sortBy == "all")
+			if (sortBy == "all")
+			{
+				categories = categoryService.GetListCategories(null, true);
+			}
+			else if (!(sortBy.IsNullOrEmpty()))
 			{
 				string[] values = sortBy.Split('-');
 				string arrange = values[0];
@@ -45,12 +51,17 @@ namespace CheeseBurger.Pages.Admin
 			{
 				categories = categoryService.GetListCategories(null, true);
 			}
-        }
+			if (categories.Count == 0)
+			{
+				MessageCate = "Không có nguyên liệu nào đáp ứng điều kiện!";
+			}
+			else { MessageCate = null; }
+		}
         public IActionResult OnPostCreate(string Name)
         {
             
             categoryService.AddData(Name);
-            return RedirectToPage("ManageCategories");
+            return RedirectToPage("/Admin/ManageCategories");
         }
         public IActionResult OnGetFind(int id)
         {
@@ -60,12 +71,12 @@ namespace CheeseBurger.Pages.Admin
         public IActionResult OnPostUpdate(int CategoriesID, string Name)
         {
             categoryService.UpdateData(CategoriesID, Name);
-            return RedirectToPage("ManageCategories");
+            return RedirectToPage("/Admin/ManageCategories");
         }
         public IActionResult OnPostDelete(int CategoriesID)
         {
             categoryService.DeleteData(CategoriesID);
-            return RedirectToPage("ManageCategories");
+            return RedirectToPage("/Admin/ManageCategories");
         }
 
         public IActionResult OnGetCategories(int id)

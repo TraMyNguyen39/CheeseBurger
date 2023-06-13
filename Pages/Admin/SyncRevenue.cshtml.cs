@@ -31,29 +31,38 @@ namespace CheeseBurger.Pages.Admin
 		public DateTime toDate { get; set; }
 		public List<Orders> List_Ord { get; set; }
 		public List<ImportOrder> List_IO { get; set; }
-		public List<Food> List_Food { get; set; }
+		public List<FoodRevenueDTO> List_Food { get; set; }
+		public List<CustomerRevenueDTO> List_CusRevenue { get; set; }
 
 		public void OnGet()
 		{
-			string fDate = Request.Query["fromDate"];			
-			if (Int32.TryParse(fDate, out int fromNumber))
-			{				
-				fromDate = new DateTime(fromNumber, 1, 1);
-			}
-			else if (DateTime.TryParse(fDate, out DateTime fromDateResult))
+			string seleOption = Request.Query["selectOption"];
+			string fDate = Request.Query["fromDate"];
+			string tDate = Request.Query["toDate"];
+			if (DateTime.TryParse(fDate, out DateTime fromDateResult))
 			{
 				fromDate = fromDateResult;
-			} 
-			
-			string tDate = Request.Query["toDate"];
-			if (Int32.TryParse(tDate, out int toNumber))
+			} else
 			{
-				toDate = new DateTime(toNumber, 1, 1);
+				fromDate = default(DateTime);
 			}
-			else if (DateTime.TryParse(tDate, out DateTime toDateResult))
+			if (DateTime.TryParse(tDate, out DateTime toDateResult))
 			{
-				toDate = toDateResult;
-			} 
+				if (seleOption == "day")
+				{
+					TimeSpan timeSpan = new TimeSpan(23, 59, 59);
+					toDate = toDateResult + timeSpan;
+				} else if(seleOption == "month")
+				{
+					toDate = toDateResult.AddMonths(1);
+				} else
+				{
+					toDate = toDateResult.AddYears(1);
+				}
+			} else
+			{
+				toDate = default(DateTime);
+			}
 			
 		    NumberIOrder = revenueService.NumberIOrder(fromDate, toDate);
 			NumberOrder = revenueService.NumberOrder(fromDate, toDate);
@@ -63,6 +72,7 @@ namespace CheeseBurger.Pages.Admin
 			List_Ord = revenueService.GetOrdersRangeTime(fromDate, toDate);
 			List_IO = revenueService.GetIOrdersRangeTime(fromDate, toDate);
 			List_Food = revenueService.GetFoodRangeTime(fromDate, toDate);
+			List_CusRevenue = revenueService.GetCustomerRangeTime(fromDate, toDate);
 		}
 	}
 }
